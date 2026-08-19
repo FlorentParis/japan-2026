@@ -1,0 +1,309 @@
+/*
+ * Structure générale : en-tête collant, navigation, vue courante, pied de page.
+ *
+ * Conçu mobile d'abord. La vue « Carte » est le seul écran qui prend toute la
+ * hauteur sans défilement de page : la carte y garde une taille fixe et la
+ * frise possède sa propre zone de défilement, ce qui évite le classique
+ * « piège au doigt » d'une carte plein écran au milieu d'une page qui défile.
+ */
+
+.app {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* ── En-tête ─────────────────────────────────────────────────────────── */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'brand currency'
+    'nav nav';
+  gap: var(--gap-2) var(--gap-4);
+  padding: var(--gap-3) var(--gap-4) 0;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.app-header__brand {
+  grid-area: brand;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-3);
+  min-width: 0;
+}
+
+.app-header__mark {
+  font-size: 1.35rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.app-header__title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.app-header__subtitle {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-header__currency {
+  grid-area: currency;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  color: var(--ink-soft);
+}
+
+.app-header__currency:hover {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* ── Navigation ──────────────────────────────────────────────────────── */
+
+.app-nav {
+  grid-area: nav;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(-1 * var(--gap-4));
+  padding-inline: var(--gap-4);
+}
+
+.app-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.app-nav ul {
+  display: flex;
+  gap: var(--gap-1);
+  width: max-content;
+}
+
+.app-nav__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  min-height: 2.75rem;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0.6rem 0.7rem;
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.app-nav__item:hover {
+  color: var(--ink);
+}
+
+.app-nav__item.is-current {
+  color: var(--accent-ink);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Contenu ─────────────────────────────────────────────────────────── */
+
+.app-main {
+  min-width: 0;
+  min-height: 0;
+}
+
+.app-main__keepalive {
+  height: 100%;
+}
+
+.app-main__keepalive[hidden] {
+  display: none;
+}
+
+.app-main__loading {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  min-height: 50dvh;
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.view {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--gap-5) var(--gap-4) var(--gap-7);
+  display: grid;
+  gap: var(--gap-6);
+}
+
+.view__foot {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  border-top: 1px solid var(--line);
+  padding-top: var(--gap-4);
+}
+
+.two-columns {
+  display: grid;
+  gap: var(--gap-4);
+}
+
+.app-footer {
+  border-top: 1px solid var(--line);
+  padding: var(--gap-5) var(--gap-4);
+  display: grid;
+  gap: var(--gap-2);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+/* ── Vue Carte : plein écran, sans défilement de page ────────────────── */
+
+.app--carte {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.app--carte .app-main {
+  overflow: hidden;
+}
+
+.app--carte .app-footer {
+  display: none;
+}
+
+.view--carte {
+  max-width: none;
+  height: 100%;
+  padding: 0;
+  gap: 0;
+  grid-template-rows: minmax(0, 55dvh) minmax(0, 1fr);
+}
+
+.map-column {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.map-column__map {
+  position: relative;
+  min-height: 0;
+}
+
+.timeline-column {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  background: var(--paper);
+}
+
+.timeline-column__head {
+  padding: var(--gap-3) var(--gap-4) var(--gap-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.timeline-column__head h2 {
+  font-size: var(--text-lg);
+}
+
+.timeline-column__head p {
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.timeline-column__scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--gap-3) var(--gap-4) var(--gap-6);
+}
+
+/* ── Tablette ────────────────────────────────────────────────────────── */
+
+@media (min-width: 700px) {
+  .app-header {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'brand nav currency';
+    align-items: center;
+    padding: var(--gap-3) var(--gap-5);
+    gap: var(--gap-5);
+  }
+
+  .app-nav {
+    margin: 0;
+    padding: 0;
+  }
+
+  .app-nav ul {
+    justify-content: flex-end;
+    width: auto;
+  }
+
+  .app-header__subtitle {
+    max-width: 22ch;
+  }
+
+  .view {
+    padding: var(--gap-6) var(--gap-5) var(--gap-7);
+  }
+
+  .two-columns {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+/*
+ * Téléphone en paysage : empiler carte et frise ne laisse rien de lisible ni à
+ * l'une ni à l'autre. On passe donc côte à côte dès que l'écran est bas, même
+ * s'il est étroit.
+ */
+@media (max-height: 560px) and (min-width: 620px) {
+  .view--carte {
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.4fr) minmax(240px, 1fr);
+  }
+
+  .map-column {
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+}
+
+/* ── Grand écran : carte et frise côte à côte ────────────────────────── */
+
+@media (min-width: 1024px) {
+  .view--carte {
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.6fr) minmax(360px, 0.9fr);
+  }
+
+  .map-column {
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+}

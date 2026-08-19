@@ -1,0 +1,417 @@
+/*
+ * Carte : conteneur, marqueurs d'étape, infobulles, légende.
+ *
+ * Les marqueurs sont de vrais <button> : ils sont donc atteignables au clavier
+ * (Tab puis Entrée) et lisibles par un lecteur d'écran, ce qu'un marqueur
+ * dessiné dans le canevas WebGL ne permet pas.
+ */
+
+.map-shell {
+  position: relative;
+  height: 100%;
+  background: var(--paper-sunken);
+}
+
+/*
+ * Deux classes, et ce n'est pas un caprice.
+ *
+ * MapLibre ajoute la classe `maplibregl-map` sur ce conteneur, et sa propre
+ * feuille de style déclare `.maplibregl-map { position: relative; overflow:
+ * hidden }`. Cette feuille est chargée *après* la nôtre — elle voyage avec le
+ * module de la carte, chargé à la demande. À spécificité égale, c'est donc elle
+ * qui gagnait : le conteneur repassait en `relative`, `inset` n'avait plus
+ * d'effet, sa hauteur tombait à 0, et `overflow: hidden` rognait absolument
+ * tout — le canevas, les repères d'étape et les contrôles de zoom. La carte
+ * était bien créée et le style bien chargé : il n'y avait plus qu'un cadre vide.
+ */
+.map-shell > .map-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.map-canvas canvas:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.map-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  pointer-events: none;
+}
+
+.map-reset {
+  position: absolute;
+  top: var(--gap-3);
+  left: var(--gap-3);
+  z-index: 5;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--paper-raised) 92%, transparent);
+  backdrop-filter: blur(6px);
+  color: var(--ink-soft);
+  font-size: var(--text-xs);
+  padding: 0.4rem 0.7rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.map-reset:hover {
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+/* ── Fond de carte absent, ou carte impossible ───────────────────────── */
+
+/*
+ * Deux situations différentes, deux traitements :
+ * ▸ le fond distant ne répond pas → bandeau, le tracé reste visible ;
+ * ▸ pas de WebGL du tout → panneau plein cadre, et renvoi vers la liste.
+ */
+.map-shell--panne {
+  display: grid;
+  place-items: center;
+  padding: var(--gap-5);
+}
+
+.map-panne {
+  display: grid;
+  justify-items: start;
+  gap: var(--gap-3);
+  max-width: 34rem;
+  padding: var(--gap-4);
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-sm);
+}
+
+.map-panne h3 {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+}
+
+.map-panne__detail {
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.map-avertissement {
+  position: absolute;
+  top: 3.4rem;
+  left: var(--gap-3);
+  z-index: 6;
+  display: grid;
+  gap: var(--gap-2);
+  justify-items: start;
+  max-width: min(26rem, calc(100% - 2 * var(--gap-3)));
+  padding: var(--gap-3);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+  border: 1px solid var(--estimate);
+  box-shadow: var(--shadow);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+.map-avertissement__detail {
+  color: var(--ink-muted);
+  overflow-wrap: anywhere;
+}
+
+.map-avertissement button {
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--ink-soft);
+  border-radius: var(--radius-xs);
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+  font-size: var(--text-xs);
+}
+
+.map-avertissement button:hover {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.map-selection {
+  position: absolute;
+  left: var(--gap-3);
+  bottom: var(--gap-3);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  max-width: calc(100% - 2 * var(--gap-3));
+  padding: 0.4rem 0.4rem 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow);
+  font-size: var(--text-sm);
+  backdrop-filter: blur(6px);
+}
+
+.map-selection span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.map-selection button {
+  border: 0;
+  background: var(--paper-sunken);
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  color: var(--ink-muted);
+  flex: none;
+}
+
+.map-selection button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── Marqueurs d'étape ───────────────────────────────────────────────── */
+
+.step-marker {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+/*
+ * La pastille mesure 26 px. Au doigt, on élargit la cible à 40 px avec une
+ * zone invisible ; à la souris on ne l'élargit pas, car deux étapes voisines
+ * (Toyama et la route alpine, par exemple) sont très proches à faible zoom et
+ * des cibles trop larges se recouvriraient.
+ */
+@media (pointer: coarse) {
+  .step-marker::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+  }
+}
+
+.step-marker__dot {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.6rem;
+  text-align: center;
+  box-shadow: 0 0 0 2.5px #fff, 0 1px 5px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Cercle creux : étape traversée dans la journée, sans nuit. */
+.step-marker--day .step-marker__dot {
+  background: #fff;
+  color: var(--accent-ink);
+  box-shadow: 0 0 0 2.5px var(--accent), 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.step-marker__label {
+  position: absolute;
+  left: 1.9rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-xs);
+  background: rgba(255, 255, 255, 0.92);
+  color: #26231f;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.16s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+.map-shell--labels .step-marker__label,
+.step-marker:hover .step-marker__label,
+.step-marker:focus-visible .step-marker__label,
+.step-marker.is-selected .step-marker__label,
+.step-marker.is-related .step-marker__label {
+  opacity: 1;
+}
+
+.step-marker:hover .step-marker__dot,
+.step-marker.is-related .step-marker__dot {
+  transform: scale(1.15);
+}
+
+.step-marker.is-selected .step-marker__dot {
+  transform: scale(1.35);
+  box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--accent-wash), 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Infobulles MapLibre ─────────────────────────────────────────────── */
+
+.map-popup .maplibregl-popup-content {
+  background: var(--paper-raised);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0.5rem 0.7rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  display: grid;
+  gap: 0.1rem;
+}
+
+.map-popup .maplibregl-popup-content strong {
+  font-size: var(--text-sm);
+}
+
+.map-popup .maplibregl-popup-content em {
+  color: var(--ink-muted);
+  font-style: normal;
+}
+
+.map-popup .maplibregl-popup-tip {
+  border-top-color: var(--paper-raised);
+  border-bottom-color: var(--paper-raised);
+}
+
+.maplibregl-ctrl-group {
+  border-radius: var(--radius) !important;
+}
+
+.maplibregl-ctrl-attrib {
+  font-size: 10px;
+}
+
+/* ── Légende et filtres ──────────────────────────────────────────────── */
+
+/* Compacte sur mobile : chaque pixel pris ici est un pixel de carte en moins. */
+.legend {
+  padding: var(--gap-2) var(--gap-3);
+  background: var(--paper-raised);
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.legend__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-3);
+}
+
+.legend__title {
+  font-size: var(--text-xs);
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-muted);
+  font-weight: 700;
+}
+
+.legend__list {
+  display: flex;
+  gap: var(--gap-2);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-bottom: 0.2rem;
+}
+
+.legend__item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem 0.28rem 0.45rem;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: var(--text-xs);
+  transition: opacity 0.16s ease, border-color 0.16s ease;
+}
+
+.legend__item:hover {
+  border-color: var(--line-strong);
+}
+
+.legend__item.is-off {
+  opacity: 0.42;
+  text-decoration: line-through;
+}
+
+.legend__preview {
+  width: 2.6rem;
+  height: 0.75rem;
+  flex: none;
+}
+
+.legend__count {
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.legend__note {
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.legend__markers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-3);
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+  align-items: center;
+}
+
+.legend__marker-sample {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: -0.05em;
+  margin-right: 0.35em;
+}
+
+.legend__marker-sample--day {
+  background: var(--paper-raised);
+  box-shadow: 0 0 0 2px var(--accent) inset;
+}
+
+@media (min-width: 700px) {
+  .legend {
+    padding: var(--gap-3) var(--gap-4);
+    gap: var(--gap-2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .legend__list {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+}
