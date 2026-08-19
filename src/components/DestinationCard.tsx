@@ -12,7 +12,8 @@ import { journeysAround } from '../lib/derive'
 import { STAY_LABEL, formatDateRange, formatMoney } from '../lib/format'
 import { useTrip } from '../state/trip-state'
 import type { Certainty, Destination } from '../types'
-import { CertaintyBadge, PhotoFigure, ToFill, Warnings } from './ui'
+import { PhotoCarrousel } from './PhotoCarrousel'
+import { CertaintyBadge, ToFill, Warnings } from './ui'
 
 function Field({
   label,
@@ -42,7 +43,16 @@ export function DestinationCard({ dest }: { dest: Destination }) {
 
   return (
     <article className="dest-card">
-      <PhotoFigure photoId={dest.photoId} alt={dest.name} ratio="16 / 9" className="dest-card__photo" />
+      {/* Toute la galerie de l'étape, et non plus une seule vue : une ville se
+          laisse mal résumer par une photo. Un clic ouvre l'image en grand. */}
+      <PhotoCarrousel
+        destId={dest.id}
+        name={dest.name}
+        photoId={dest.photoId}
+        ratio="16 / 9"
+        className="dest-card__photo"
+        sizes="(max-width: 700px) 92vw, 640px"
+      />
 
       <p className="dest-card__blurb">{dest.blurb}</p>
 

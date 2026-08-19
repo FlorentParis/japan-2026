@@ -22,6 +22,14 @@ const CarteView = lazy(() =>
   import('./views/CarteView').then((module) => ({ default: module.CarteView })),
 )
 
+/**
+ * La vue Photos embarque quelques centaines d'entrées de galerie : même
+ * découpage que la carte, on ne la charge qu'à l'ouverture.
+ */
+const PhotosView = lazy(() =>
+  import('./views/PhotosView').then((module) => ({ default: module.PhotosView })),
+)
+
 function Header() {
   const { view, setView, currency, setCurrency } = useTrip()
 
@@ -101,6 +109,11 @@ export default function App() {
         {view === 'itineraire' && <ItineraireView />}
         {view === 'hotels' && <HotelsView />}
         {view === 'activites' && <ActivitesView />}
+        {view === 'photos' && (
+          <Suspense fallback={<p className="app-main__loading">Chargement des galeries…</p>}>
+            <PhotosView />
+          </Suspense>
+        )}
         {view === 'budget' && <BudgetView />}
         {view === 'transports' && <TransportsView />}
       </main>

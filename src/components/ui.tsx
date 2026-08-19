@@ -8,7 +8,9 @@
 import type { ReactNode } from 'react'
 import { PHOTOS } from '../data/photos.generated'
 import { CERTAINTY_HINT, CERTAINTY_LABEL } from '../lib/format'
-import type { Certainty } from '../types'
+import { jeuDeSources } from '../lib/vignettes'
+import { useVisionneuse, type ImageZoomable } from '../state/visionneuse-state'
+import type { Certainty, Photo } from '../types'
 
 export function CertaintyBadge({ certainty, label }: { certainty: Certainty; label?: string }) {
   return (
@@ -78,7 +80,80 @@ export function Warnings({ items, title }: { items: string[]; title?: string }) 
 /**
  * Photo avec son crédit obligatoire.
  * Toutes les images viennent de Wikimedia Commons sous licence libre ; l'auteur,
- * la licence et le lien vers la page source sont affichés avec chaque image.
+ * la licence et le lien vers la page source sont affichés avec chaque image —
+ * c'est ce que ces licences exigent, et ce n'est donc pas décoratif.
+ *
+ * Cliquer dessus l'ouvre en grand. `groupe` dit alors quelles autres photos la
+ * visionneuse peut parcourir : la galerie de l'étape, les vignettes d'une fiche…
+ * Faute de groupe, c'est la photo seule — agrandie, sans flèches.
+ */
+export function Figure({
+  photo,
+  alt,
+  ratio,
+  className,
+  eager,
+  sizes,
+  groupe,
+}: {
+  photo: Photo
+  alt: string
+  ratio?: string
+  className?: string
+  eager?: boolean
+  sizes?: string
+  groupe?: ImageZoomable[]
+}) {
+  const ouvrir = useVisionneuse()
+
+  const image = (
+    <img
+      src={photo.url}
+      srcSet={jeuDeSources(photo)}
+      sizes={sizes}
+      alt={alt}
+      width={photo.width}
+      height={photo.height}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+    />
+  )
+
+  return (
+    <figure className={`photo${className ? ` ${className}` : ''}`} style={{ aspectRatio: ratio }}>
+      {ouvrir ? (
+        <button
+          type="button"
+          className="photo__agrandir"
+          // Un fichier ne figure qu'une fois dans tout le site (voir `dejaPris`
+          // dans le générateur) : son nom suffit donc à retrouver son rang dans
+          // le groupe, sans avoir à propager un index de plus.
+          onClick={() => {
+            const lot = groupe ?? [{ photo, legende: alt }]
+            const rang = lot.findIndex((item) => item.photo.file === photo.file)
+            ouvrir(lot, Math.max(rang, 0))
+          }}
+          aria-label={`Agrandir la photo : ${alt}`}
+        >
+          {image}
+        </button>
+      ) : (
+        image
+      )}
+      <figcaption className="photo__credit">
+        <a href={photo.sourcePage} target="_blank" rel="noreferrer noopener">
+          {photo.author} · {photo.license}
+        </a>
+      </figcaption>
+    </figure>
+  )
+}
+
+/**
+ * Photo désignée par son identifiant dans `PHOTOS`.
+ *
+ * Rend `null` quand l'identifiant n'a pas de photo : une activité sans image
+ * s'affiche sans image, jamais avec celle d'un autre lieu.
  */
 export function PhotoFigure({
   photoId,
@@ -86,30 +161,28 @@ export function PhotoFigure({
   ratio,
   className,
   eager,
+  sizes,
+  groupe,
 }: {
   photoId?: string
   alt: string
   ratio?: string
   className?: string
   eager?: boolean
+  sizes?: string
+  groupe?: ImageZoomable[]
 }) {
   const photo = photoId ? PHOTOS[photoId] : undefined
   if (!photo) return null
   return (
-    <figure className={`photo${className ? ` ${className}` : ''}`} style={{ aspectRatio: ratio }}>
-      <img
-        src={photo.url}
-        alt={alt}
-        width={photo.width}
-        height={photo.height}
-        loading={eager ? 'eager' : 'lazy'}
-        decoding="async"
-      />
-      <figcaption className="photo__credit">
-        <a href={photo.sourcePage} target="_blank" rel="noreferrer noopener">
-          {photo.author} · {photo.license}
-        </a>
-      </figcaption>
-    </figure>
+    <Figure
+      photo={photo}
+      alt={alt}
+      ratio={ratio}
+      className={className}
+      eager={eager}
+      sizes={sizes}
+      groupe={groupe}
+    />
   )
 }

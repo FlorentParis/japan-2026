@@ -180,7 +180,9 @@
   box-shadow: var(--shadow-sm);
 }
 
-.dest-card__photo {
+/* La fiche montre tout un carrousel : la hauteur se borne sur les photos, le
+   conteneur du carrousel n'ayant pas de rapport d'aspect à lui. */
+.dest-card__photo .photo--carrousel {
   max-height: 12rem;
 }
 

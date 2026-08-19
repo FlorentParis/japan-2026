@@ -26,10 +26,30 @@ export function formatAmount(jpy: number, currency: Currency): string {
   return currency === 'jpy' ? jpyFmt.format(jpy) : eurFmt.format(jpy / JPY_PER_EUR)
 }
 
-/** `undefined` et les montants `todo` renvoient un tiret : jamais de zéro trompeur. */
+/**
+ * Montant en yens d'une somme, quelle que soit sa devise d'origine.
+ *
+ * Les totaux du site s'additionnent en yens. Une dépense payée en euros doit
+ * donc être convertie pour entrer dans une somme — mais la donnée exacte reste
+ * l'euro : voir `formatMoney`, qui la réaffiche telle quelle.
+ */
+export function moneyJpy(money: Money | undefined): number | undefined {
+  if (money?.jpy !== undefined) return money.jpy
+  if (money?.eur !== undefined) return Math.round(money.eur * JPY_PER_EUR)
+  return undefined
+}
+
+/**
+ * `undefined` et les montants `todo` renvoient un tiret : jamais de zéro trompeur.
+ *
+ * Un montant payé en euros est affiché en euros à l'identique — c'est le chiffre
+ * réel — et converti seulement si l'on demande des yens.
+ */
 export function formatMoney(money: Money | undefined, currency: Currency): string {
-  if (money?.jpy === undefined) return '—'
-  return formatAmount(money.jpy, currency)
+  if (money?.eur !== undefined && currency === 'eur') return eurFmt.format(money.eur)
+  const jpy = moneyJpy(money)
+  if (jpy === undefined) return '—'
+  return formatAmount(jpy, currency)
 }
 
 /**
@@ -51,6 +71,18 @@ export function formatMinutes(minutes: number): string {
   if (h === 0) return `${m} min`
   if (m === 0) return `${h} h`
   return `${h} h ${String(m).padStart(2, '0')}`
+}
+
+/**
+ * Une heure d'horloge « HH:MM » à la française : « 8 h 40 », « 12 h ».
+ *
+ * Même rendu que `formatMinutes` — un décollage à 8 h 40 et un trajet de 8 h 40
+ * s'écrivent pareil en français, autant n'avoir qu'une seule mise en forme.
+ */
+export function formatTime(hhmm: string | undefined): string | undefined {
+  const match = /^(\d{1,2}):(\d{2})$/.exec(hhmm ?? '')
+  if (!match) return undefined
+  return formatMinutes(Number(match[1]) * 60 + Number(match[2]))
 }
 
 export function formatDuration(duration: Duration | undefined): string {

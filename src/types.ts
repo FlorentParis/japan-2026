@@ -21,6 +21,15 @@ export type Coord = [number, number]
 export type Money = {
   /** Montant en yens. Absent si la donnée est `todo`. */
   jpy?: number
+  /**
+   * Montant en euros, quand c'est la devise dans laquelle la dépense a
+   * réellement été payée — un billet d'avion acheté en Europe, par exemple.
+   *
+   * C'est alors la donnée d'origine, et la seule exacte : le montant en yens en
+   * est une conversion au taux indicatif de `JPY_PER_EUR`, jamais l'inverse.
+   * L'affichage en euros montre donc le chiffre payé, au centime près.
+   */
+  eur?: number
   certainty: Certainty
   /** Contexte : « siège non réservé », « varie selon la compagnie »… */
   note?: string
@@ -103,16 +112,61 @@ export type ActivityCategory =
   | 'autre'
 
 export type Activity = {
+  /**
+   * Identifiant unique dans tout le site, préfixé par l'étape
+   * (`takayama-sanmachi`). C'est **aussi** la clé de sa photo dans `PHOTOS` :
+   * pas de second identifiant à maintenir en parallèle.
+   */
   id: string
   name: string
   category: ActivityCategory
   description?: string
-  /** Clé dans PHOTOS. */
-  photoId?: string
+  /**
+   * Termes de recherche Wikimedia Commons. `scripts/fetch-photos.ts` les
+   * interroge et enregistre la photo retenue sous l'`id` ci-dessus.
+   *
+   * Absent = pas de photo cherchée. Présent mais sans résultat exploitable =
+   * l'activité s'affiche sans image, jamais avec celle d'un autre lieu.
+   */
+  photoQuery?: string
   coord?: Coord
   price?: Money
   duration?: Duration
   url?: string
+  note?: string
+}
+
+/** Ce qu'on a dans l'assiette, dans le verre, ou qu'on rapporte. */
+export type SpecialityKind =
+  /** Plat salé. */
+  | 'plat'
+  /** Sucrerie, pâtisserie, wagashi. */
+  | 'douceur'
+  /** Saké, thé, bière, eau-de-vie. */
+  | 'boisson'
+  /** Produit brut ou à emporter : fruit, poisson, conserve. */
+  | 'produit'
+  /** Objet artisanal, pas comestible. */
+  | 'artisanat'
+
+/**
+ * Une spécialité locale rattachée à une étape.
+ *
+ * Comme les activités, ces entrées sont des **suggestions** : elles ne viennent
+ * pas du voyageur. D'où `Destination.specialitiesStatus`, qui le dit à l'UI.
+ */
+export type Speciality = {
+  /** Unique dans tout le site, et clé de sa photo dans `PHOTOS`. Voir `Activity.id`. */
+  id: string
+  name: string
+  nameJa?: string
+  kind: SpecialityKind
+  description: string
+  /** Voir `Activity.photoQuery`. */
+  photoQuery?: string
+  /** Où en trouver, quand un lieu précis et vérifiable est connu. */
+  where?: string
+  price?: Money
   note?: string
 }
 
@@ -139,13 +193,26 @@ export type Destination = {
   stay: StayKind
   /** Description factuelle courte, affichée sous le titre. */
   blurb: string
+  /** Photo de tête. Clé dans `PHOTOS`, alimentée par `scripts/fetch-photos.ts`. */
   photoId?: string
+  /**
+   * Recherches Wikimedia Commons qui complètent la galerie de l'étape, en plus
+   * de la photo de tête et de celles des activités. Objectif : au moins neuf
+   * images par lieu — le script prévient quand une galerie reste en dessous.
+   */
+  galleryQueries?: string[]
   dates: DateInfo
   nights?: { count: number; certainty: Certainty }
   accommodation: Accommodation
   activities: Activity[]
-  /** `todo` = aucune activité renseignée pour l'instant. */
+  /**
+   * `todo` = aucune activité renseignée. `estimate` = ce sont des propositions
+   * documentées, pas des choix du voyageur ni des réservations.
+   */
   activitiesStatus: Certainty
+  specialities?: Speciality[]
+  /** Même sens que `activitiesStatus`, pour les spécialités locales. */
+  specialitiesStatus?: Certainty
   /** Avertissements factuels : fermeture saisonnière, réservation obligatoire… */
   warnings?: string[]
   /** Points d'intérêt géolocalisés affichés sur la carte de détail. */
@@ -225,10 +292,38 @@ export type Flight = {
   from: string
   to: string
   date?: string
+  /** Heure locale de décollage, « HH:MM ». */
+  departureTime?: string
+  /** Heure locale d'atterrissage, « HH:MM ». */
+  arrivalTime?: string
   airline?: string
   number?: string
+  /**
+   * Prix du billet. Quand un aller-retour est acheté d'un bloc, le prix est
+   * porté par le vol aller et le retour n'en porte aucun : même convention que
+   * les `Leg` couverts par un billet groupé, pour ne rien compter deux fois.
+   */
+  price?: Money
   certainty: Certainty
   note?: string
+}
+
+/**
+ * Un transfert d'aéroport : il encadre le voyage sans faire partie de la chaîne
+ * des étapes.
+ *
+ * Ces trajets ne sont pas des `Journey` parce qu'ils ne relient pas deux étapes
+ * — ils relient un aéroport à la ville où l'on dort déjà. Les compter comme des
+ * déplacements d'étape à étape faussait les totaux et le tracé de la carte ;
+ * les passer sous silence laissait au contraire un mouvement inexpliqué au début
+ * et à la fin du voyage. D'où ce type à part.
+ */
+export type Transfer = {
+  id: string
+  label: string
+  date?: string
+  legs: Leg[]
+  warnings?: string[]
 }
 
 export type Trip = {
@@ -240,6 +335,8 @@ export type Trip = {
   heroPhotoId: string
   /** Vols internationaux, hors trajets intérieurs. */
   flights: Flight[]
+  /** Trajets aéroport ⇄ ville, à l'arrivée et au départ. */
+  transfers?: Transfer[]
   passes: RailPass[]
   /** Valeurs par défaut du calculateur de budget (ajustables dans l'UI). */
   budgetDefaults: {

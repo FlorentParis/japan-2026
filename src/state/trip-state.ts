@@ -21,6 +21,7 @@ export const VIEWS = [
   { id: 'itineraire', label: 'Itinéraire', icon: '📅' },
   { id: 'hotels', label: 'Hôtels', icon: '🏨' },
   { id: 'activites', label: 'Activités', icon: '🎌' },
+  { id: 'photos', label: 'Photos', icon: '📷' },
   { id: 'budget', label: 'Budget', icon: '💴' },
   { id: 'transports', label: 'Transports', icon: '🚆' },
 ] as const

@@ -24,9 +24,29 @@ import {
   formatMinutes,
   formatMoney,
   formatPartialAmount,
+  formatTime,
 } from '../lib/format'
 import { MODE_STYLES } from '../lib/modes'
 import { useTrip } from '../state/trip-state'
+import type { Flight } from '../types'
+
+/**
+ * Date et horaire d'un vol, réduits à ce qui est connu.
+ *
+ * Nos vols n'ont qu'un seul de leurs deux horaires : l'aller son atterrissage,
+ * le retour son décollage. On dit donc lequel c'est, plutôt que d'afficher une
+ * heure nue qu'on prendrait pour l'autre.
+ */
+function quand(flight: Flight): string | undefined {
+  const depart = formatTime(flight.departureTime)
+  const arrivee = formatTime(flight.arrivalTime)
+  const morceaux = [
+    formatDateRange(flight.date),
+    depart && `décollage ${depart}`,
+    arrivee && `atterrissage ${arrivee}`,
+  ].filter(Boolean)
+  return morceaux.length > 0 ? morceaux.join(' · ') : undefined
+}
 
 export function TransportsView() {
   const { currency, goTo, selection, selectJourney } = useTrip()
@@ -257,8 +277,55 @@ export function TransportsView() {
               <span className="flights__route">
                 {flight.from} → {flight.to}
               </span>
+              <span className="flights__when">{quand(flight) ?? '—'}</span>
+              <span className="flights__price">
+                {flight.price ? (
+                  <>
+                    {formatMoney(flight.price, currency)}{' '}
+                    <CertaintyBadge certainty={flight.price.certainty} label="prix" />
+                  </>
+                ) : (
+                  <span className="flights__note">
+                    Aucun prix porté par ce vol — voir la note.
+                  </span>
+                )}
+              </span>
               <CertaintyBadge certainty={flight.certainty} />
               {flight.note && <span className="flights__note">{flight.note}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/*
+        Les transferts d'aéroport ne sont pas des déplacements d'étape à étape :
+        ils ont donc leur propre bloc, et ne figurent ni sur la carte ni dans le
+        bilan par mode ci-dessus. Les afficher reste indispensable — sinon deux
+        mouvements réels du voyage resteraient inexpliqués.
+      */}
+      <section className="flights transfers">
+        <h3>Transferts d’aéroport</h3>
+        <p className="pass-analysis__intro">
+          Ces trajets relient un aéroport à Tokyo, pas deux étapes entre elles : ils sont comptés à
+          part dans le budget et ne sont pas tracés sur la carte des déplacements.
+        </p>
+        <ul>
+          {(TRIP.transfers ?? []).map((transfer) => (
+            <li key={transfer.id}>
+              <span className="flights__label">🚉 {transfer.label}</span>
+              <span className="flights__when">{formatDateRange(transfer.date) ?? '—'}</span>
+              {transfer.legs.map((leg) => (
+                <span key={leg.id} className="flights__route">
+                  {MODE_STYLES[leg.mode].icon} {leg.service ?? MODE_STYLES[leg.mode].label} ·{' '}
+                  {formatMinutes(leg.duration?.minutes ?? 0)} ·{' '}
+                  {formatMoney(leg.cost, currency)}{' '}
+                  <CertaintyBadge certainty={leg.cost?.certainty ?? 'todo'} label="tarif" />
+                  {leg.note && <span className="flights__note"> {leg.note}</span>}
+                </span>
+              ))}
+              {transfer.warnings && (
+                <Warnings title="À vérifier" items={transfer.warnings} />
+              )}
             </li>
           ))}
         </ul>

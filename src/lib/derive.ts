@@ -8,9 +8,10 @@
  */
 import { DESTINATIONS } from '../data/destinations'
 import { ALL_LEGS, JOURNEYS } from '../data/journeys'
+import { GALLERY_COUNTS, PHOTOS } from '../data/photos.generated'
 import { PASSES, TRIP } from '../data/trip'
 import type { Certainty, Destination, Journey, Leg, RailPass, TransportMode } from '../types'
-import { addDays, daysInclusive } from './format'
+import { addDays, daysInclusive, moneyJpy } from './format'
 import { journeyDistanceKm, legDistanceKm } from './geo'
 import { MODE_ORDER } from './modes'
 
@@ -182,6 +183,76 @@ export function activityTotals() {
     count: all.length,
     jpy: all.reduce((s, a) => s + (a.price?.jpy ?? 0), 0),
     withoutPrice: all.filter((a) => a.price?.jpy === undefined).length,
+    /** Étapes qui n'ont encore aucune proposition. */
+    destinationsSansActivite: DESTINATIONS.filter((d) => d.activities.length === 0).length,
+    /** Combien de ces propositions sont des suggestions et non des choix du voyageur. */
+    proposees: DESTINATIONS.filter((d) => d.activitiesStatus === 'estimate').reduce(
+      (s, d) => s + d.activities.length,
+      0,
+    ),
+    /** Activités affichées sans image : la recherche Commons n'a rien donné d'exploitable. */
+    sansPhoto: all.filter((a) => !PHOTOS[a.id]).length,
+  }
+}
+
+export function specialityTotals() {
+  const all = DESTINATIONS.flatMap((d) => d.specialities ?? [])
+  return {
+    count: all.length,
+    destinations: DESTINATIONS.filter((d) => (d.specialities?.length ?? 0) > 0).length,
+    /** Spécialités sans photo trouvée : l'entrée existe, l'image manque. */
+    sansPhoto: all.filter((s) => !PHOTOS[s.id]).length,
+  }
+}
+
+/**
+ * Nombre de photos disponibles pour une étape, pour afficher un compteur honnête.
+ *
+ * Lit `GALLERY_COUNTS` et non `GALLERIES` : dix-huit nombres suffisent, et cela
+ * évite d'entraîner les 160 ko de galeries dans le lot chargé au démarrage. Le
+ * détail des galeries vit dans `lib/galleries.ts`, réservé à la vue Photos.
+ */
+export function galleryCount(destId: string): number {
+  return GALLERY_COUNTS[destId] ?? 0
+}
+
+// ─── Vols et transferts d'aéroport ───────────────────────────────────────────
+
+/**
+ * Ce que coûtent les billets d'avion.
+ *
+ * Seuls les vols qui portent un `price` sont comptés, et un aller-retour acheté
+ * d'un bloc ne le porte qu'une fois. Le vol intérieur Nagasaki → Tokyo n'en
+ * porte pas : c'est un tronçon de l'itinéraire (`j16`), déjà compté dans la
+ * ligne « transports ». Le compter ici aussi le facturerait deux fois.
+ *
+ * La donnée d'origine est en euros, devise d'achat. La conversion en yens n'existe
+ * que parce que les totaux du site s'additionnent en yens.
+ */
+export function flightTotals() {
+  const priced = TRIP.flights.filter((f) => f.price !== undefined)
+  return {
+    count: TRIP.flights.length,
+    priced: priced.length,
+    jpy: priced.reduce((s, f) => s + (moneyJpy(f.price) ?? 0), 0),
+    eur: priced.reduce((s, f) => s + (f.price?.eur ?? 0), 0),
+    /** Vrai si chaque prix déclaré est un montant confirmé, pas une estimation. */
+    allConfirmed:
+      priced.length > 0 && priced.every((f) => f.price?.certainty === 'confirmed'),
+    /** Prix déclarés mais sans montant : le total serait alors un minorant. */
+    unpriced: priced.filter((f) => moneyJpy(f.price) === undefined).length,
+  }
+}
+
+/** Coût des transferts aéroport ⇄ ville, hors trajets d'étape à étape. */
+export function transferTotals() {
+  const transfers = TRIP.transfers ?? []
+  const legs = transfers.flatMap((t) => t.legs)
+  return {
+    count: transfers.length,
+    legs: legs.length,
+    jpy: legs.reduce((s, l) => s + (l.cost?.jpy ?? 0), 0),
+    unpriced: legs.filter(sansTarif).length,
   }
 }
 
@@ -228,25 +299,63 @@ export type PassVerdict = {
   conclusive: boolean
 }
 
-/** Les déplacements datés qu'un pass donné couvrirait, dans l'ordre du voyage. */
+/**
+ * Tout ce qui se déplace à une date connue : les déplacements d'étape à étape
+ * *et* les transferts d'aéroport.
+ *
+ * Un pass ne fait pas la différence entre un Narita Express et un Shinkansen :
+ * il couvre, ou il ne couvre pas. Laisser le transfert d'arrivée hors de
+ * l'analyse aurait sous-estimé chaque pass du tarif entier du N'EX — exactement
+ * le genre de minoration silencieuse que le reste du site s'interdit.
+ *
+ * C'est le seul calcul où les transferts entrent : ils restent hors de la carte,
+ * des totaux par mode et de la ligne « transports » du budget, où ils ne sont pas
+ * des déplacements d'étape à étape.
+ */
+function datedMovements(): Array<{ id: string; label: string; date?: string; legs: Leg[] }> {
+  return [
+    ...JOURNEYS.map((j) => ({
+      id: j.id,
+      label: journeyLabel(j),
+      date: journeyDate(j),
+      legs: j.legs,
+    })),
+    ...(TRIP.transfers ?? []).map((t) => ({
+      id: t.id,
+      label: t.label,
+      date: t.date,
+      legs: t.legs,
+    })),
+  ]
+}
+
+/** Les mêmes, aplatis : la base de comparaison de `passAnalysis`. */
+function datedLegs(): Leg[] {
+  return datedMovements().flatMap((m) => m.legs)
+}
+
+/** Les déplacements datés qu'un pass donné couvrirait, dans l'ordre chronologique. */
 function passJourneys(pass: RailPass): PassJourney[] {
   const out: PassJourney[] = []
-  for (const journey of JOURNEYS) {
-    const date = journeyDate(journey)
-    const legs = journey.legs.filter(
+  for (const movement of datedMovements()) {
+    const { date } = movement
+    const legs = movement.legs.filter(
       (leg) => leg.passCoverage === 'covered' && pass.coveredLegs.includes(leg.id),
     )
     if (!date || legs.length === 0) continue
     out.push({
-      journeyId: journey.id,
-      label: journeyLabel(journey),
+      journeyId: movement.id,
+      label: movement.label,
       date,
       jpy: legs.reduce((s, leg) => s + (leg.cost?.jpy ?? 0), 0),
       legs: legs.length,
       unpriced: legs.filter(sansTarif).length,
     })
   }
-  return out
+  // Les transferts sont ajoutés après les trajets : on remet dans l'ordre du
+  // calendrier, seul ordre qui ait un sens face à une validité en jours
+  // consécutifs. Format AAAA-MM-JJ : comparer les chaînes suffit.
+  return out.sort((a, b) => a.date.localeCompare(b.date))
 }
 
 /**
@@ -281,14 +390,18 @@ function bestWindow(pass: RailPass): PassWindow | undefined {
 }
 
 export function passAnalysis() {
-  const covered = ALL_LEGS.filter(({ leg }) => leg.passCoverage === 'covered')
-  const notCovered = ALL_LEGS.filter(({ leg }) => leg.passCoverage === 'not-covered')
-  const coveredJpy = covered.reduce((s, { leg }) => s + (leg.cost?.jpy ?? 0), 0)
-  const notCoveredJpy = notCovered.reduce((s, { leg }) => s + (leg.cost?.jpy ?? 0), 0)
+  // Sur la même base que `passJourneys` : trajets d'étape à étape et transferts
+  // d'aéroport. Sur deux bases différentes, `windowJpy` pourrait dépasser
+  // `coveredJpy` et rendre `outsideJpy` négatif.
+  const all = datedLegs()
+  const covered = all.filter((leg) => leg.passCoverage === 'covered')
+  const notCovered = all.filter((leg) => leg.passCoverage === 'not-covered')
+  const coveredJpy = covered.reduce((s, leg) => s + (leg.cost?.jpy ?? 0), 0)
+  const notCoveredJpy = notCovered.reduce((s, leg) => s + (leg.cost?.jpy ?? 0), 0)
 
   const verdicts: PassVerdict[] = PASSES.map((pass) => {
-    const passCovered = covered.filter(({ leg }) => pass.coveredLegs.includes(leg.id))
-    const passCoveredJpy = passCovered.reduce((s, { leg }) => s + (leg.cost?.jpy ?? 0), 0)
+    const passCovered = covered.filter((leg) => pass.coveredLegs.includes(leg.id))
+    const passCoveredJpy = passCovered.reduce((s, leg) => s + (leg.cost?.jpy ?? 0), 0)
     const window = bestWindow(pass)
     // Sans dates il n'y a pas de fenêtre : on retombe sur la comparaison brute,
     // et `conclusive: false` interdit à l'UI de la présenter comme un verdict.
@@ -316,12 +429,12 @@ export function passAnalysis() {
     jrDates.length > 0 ? daysInclusive(jrDates[0], jrDates.at(-1) as string) : undefined
 
   return {
-    coveredLegs: covered.map(({ leg }) => leg),
-    notCoveredLegs: notCovered.map(({ leg }) => leg),
+    coveredLegs: covered,
+    notCoveredLegs: notCovered,
     coveredJpy,
     notCoveredJpy,
     /** Tronçons couverts dont le tarif manque : l'analyse les compte pour zéro. */
-    unpricedCovered: covered.filter(({ leg }) => sansTarif(leg)).length,
+    unpricedCovered: covered.filter(sansTarif).length,
     /** Étalement des trajets JR, en jours : à comparer aux 7 / 14 / 21 jours des pass. */
     jrSpanDays,
     /** Nombre de déplacements datés qui empruntent le réseau JR national. */
@@ -329,6 +442,36 @@ export function passAnalysis() {
     verdicts,
     conclusive: verdicts.every((v) => v.conclusive),
     best: verdicts.reduce((a, b) => (b.savingJpy > a.savingJpy ? b : a), verdicts[0]),
+  }
+}
+
+/**
+ * Ce qu'un pass rend inutile de payer au billet, ventilé par ligne de budget.
+ *
+ * Sans cette déduction, choisir un pass dans le budget ferait payer deux fois les
+ * mêmes trajets : une fois au tarif du billet dans la ligne « transports », une
+ * fois dans le prix du pass. C'est une surestimation, symétrique des
+ * sous-estimations que le reste du site s'attache à signaler, et pas plus juste.
+ *
+ * La déduction est prudente : les tronçons couverts sans tarif relevé comptent
+ * pour zéro, donc on déduit moins que la réalité — jamais plus.
+ */
+export function passSavings(passId: string | undefined) {
+  const vide = { journeysJpy: 0, transfersJpy: 0, legs: 0, unpriced: 0 }
+  const pass = PASSES.find((p) => p.id === passId)
+  if (!pass) return vide
+  const window = bestWindow(pass)
+  if (!window) return vide
+
+  const transferIds = new Set((TRIP.transfers ?? []).map((t) => t.id))
+  const somme = (garder: (id: string) => boolean) =>
+    window.journeys.filter((j) => garder(j.journeyId)).reduce((s, j) => s + j.jpy, 0)
+
+  return {
+    journeysJpy: somme((id) => !transferIds.has(id)),
+    transfersJpy: somme((id) => transferIds.has(id)),
+    legs: window.journeys.reduce((s, j) => s + j.legs, 0),
+    unpriced: window.unpriced,
   }
 }
 
@@ -343,6 +486,12 @@ export type BudgetInputs = {
   localTransportPerDayPerPerson: number
   /** Prix du pass retenu, 0 si aucun. */
   passJpy: number
+  /**
+   * Identifiant du pass retenu, s'il y en a un. Sert à retirer des lignes
+   * « transports » et « transferts » les trajets que ce pass couvre déjà :
+   * sans cela, ils seraient payés deux fois.
+   */
+  passId?: string
 }
 
 export type BudgetLine = {
@@ -366,19 +515,54 @@ export function budget(inputs: BudgetInputs) {
   const { travellers, days } = inputs
   const acc = accommodationTotals()
   const act = activityTotals()
-  const transport = totalTransportJpy()
+  const flights = flightTotals()
+  const transfers = transferTotals()
+  const couvertParLePass = passSavings(inputs.passId)
+  const transport = totalTransportJpy() - couvertParLePass.journeysJpy
   const perDay = (amount: number) => amount * Math.max(days, 0) * travellers
 
   const lines: BudgetLine[] = [
+    {
+      // La seule ligne du budget qui repose sur un chiffre payé. Elle est en
+      // tête parce que c'est aussi la plus grosse, et de loin.
+      id: 'flights',
+      label: 'Vols internationaux',
+      detail: flights.allConfirmed
+        ? 'Billet aller-retour acheté — le seul montant ferme du budget. Le vol intérieur Nagasaki → Tokyo est compté dans la ligne des transports.'
+        : 'Prix des vols internationaux à renseigner',
+      icon: '✈️',
+      jpy: flights.jpy * travellers,
+      certainty: flights.allConfirmed ? 'confirmed' : 'todo',
+      incomplete: flights.priced === 0,
+      partial: flights.unpriced,
+    },
+    {
+      id: 'transfers',
+      label: 'Transferts d’aéroport',
+      detail:
+        couvertParLePass.transfersJpy > 0
+          ? `${transfers.legs} tronçon(s) : Narita → Tokyo à l’arrivée, Tokyo → Haneda au départ. Le Narita Express est déduit, le pass retenu le couvre.`
+          : `${transfers.legs} tronçon(s) : Narita → Tokyo à l’arrivée, Tokyo → Haneda au départ. Ils ne relient pas deux étapes, d’où cette ligne à part.`,
+      icon: '🚉',
+      jpy: (transfers.jpy - couvertParLePass.transfersJpy) * travellers,
+      certainty: 'estimate',
+      incomplete: false,
+      partial: transfers.unpriced,
+    },
     {
       id: 'transport',
       label: 'Transports entre les étapes',
       // Le montant reste affiché même s'il est incomplet : le masquer priverait
       // d'un ordre de grandeur utile. Ce qui manque est dit dans le détail.
-      detail:
+      detail: [
         unpricedLegs().length > 0
           ? `${ALL_LEGS.length} tronçons, dont ${unpricedLegs().length} sans tarif relevé et donc non comptés`
           : `${ALL_LEGS.length} tronçons — Shinkansen, trains, bus, ferries, vol, câbles`,
+        couvertParLePass.journeysJpy > 0 &&
+          'Les trajets que le pass retenu couvre sur sa meilleure fenêtre d’activation sont déduits : ils sont déjà payés par le pass',
+      ]
+        .filter(Boolean)
+        .join('. '),
       icon: '🚄',
       jpy: transport * travellers,
       certainty: 'estimate',
@@ -542,10 +726,28 @@ export function gaps(): Gap[] {
     })
   }
 
-  if (TRIP.flights.some((f) => f.certainty === 'todo')) {
+  // Les activités et les spécialités sont des propositions, pas des choix du
+  // voyageur : ce qui manque ici, c'est son arbitrage — et les tarifs réels, qui
+  // ne seront relevés que pour les lieux retenus.
+  const propositions = activityTotals()
+  const gourmandises = specialityTotals()
+  if (propositions.proposees > 0) {
+    out.push({
+      id: 'activities-choice',
+      label: `${propositions.proposees} activités et ${gourmandises.count} spécialités proposées, aucune encore retenue ni chiffrée : les tarifs seront relevés pour les lieux choisis.`,
+      file: 'src/data/destinations.ts',
+      scope: 'Activités',
+      severity: 'nice-to-have',
+    })
+  }
+
+  // Les horaires et le prix des vols internationaux sont fournis, mais pas la
+  // compagnie ni les numéros de vol : sans eux, aucun horaire n'est vérifiable.
+  const volsSansReference = TRIP.flights.filter((f) => !f.airline || !f.number)
+  if (volsSansReference.length > 0) {
     out.push({
       id: 'flights',
-      label: 'Vols internationaux non renseignés',
+      label: `${volsSansReference.length} vol(s) sans compagnie ni numéro : les horaires sont pris tels qu’ils ont été donnés, sans moyen de les recouper.`,
       file: 'src/data/trip.ts',
       scope: 'Arrivée & départ',
       severity: 'nice-to-have',
@@ -567,7 +769,10 @@ export function allWarnings() {
       kind: 'journey' as const,
     })),
   )
-  return [...fromDestinations, ...fromJourneys]
+  const fromTransfers = (TRIP.transfers ?? []).flatMap((t) =>
+    (t.warnings ?? []).map((text) => ({ scope: t.label, text, kind: 'transfer' as const })),
+  )
+  return [...fromDestinations, ...fromJourneys, ...fromTransfers]
 }
 
 // ─── Petits utilitaires partagés ─────────────────────────────────────────────

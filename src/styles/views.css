@@ -231,6 +231,12 @@
   }
 }
 
+/* Dans l'itinéraire, la fiche occupe toute la largeur de lecture : le carrousel
+   peut y respirer beaucoup plus que dans la colonne étroite de la carte. */
+.view--itineraire .dest-card__photo .photo--carrousel {
+  max-height: 20rem;
+}
+
 .itinerary__journey {
   margin-top: var(--gap-4);
   padding-left: var(--gap-4);
@@ -389,9 +395,11 @@
 
 /* ── Activités ───────────────────────────────────────────────────────── */
 
+/* Chaque fiche porte désormais des activités illustrées et les spécialités
+   locales : les colonnes sont plus larges qu'à l'époque des simples repères. */
 .activity-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(23rem, 1fr));
   gap: var(--gap-4);
 }
 
@@ -404,7 +412,9 @@
   overflow: hidden;
 }
 
-.activity-card .photo {
+/* La photo de tête épouse les bords de la fiche. `>` et non un descendant
+   quelconque : les vignettes d'activités, elles, gardent leurs coins arrondis. */
+.activity-card > .photo {
   border-radius: 0;
 }
 
@@ -442,10 +452,39 @@
   font-size: var(--text-sm);
 }
 
+/* Vignette puis texte. En flex et non en grille : la photo peut manquer (aucun
+   résultat exploitable sur Commons), et le texte doit alors occuper toute la
+   ligne au lieu de laisser un trou de 3,5 rem. */
 .activity-card__list li {
-  display: grid;
-  grid-template-columns: 1.2rem 1fr;
-  gap: var(--gap-2);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-3);
+  padding-bottom: var(--gap-2);
+  border-bottom: 1px dotted var(--line);
+}
+
+.activity-card__list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.activity-card__text {
+  min-width: 0;
+  line-height: 1.5;
+}
+
+.activity-card__text strong {
+  font-weight: 600;
+}
+
+/* Une précision pratique (horaire, saison, réservation) : sur sa propre ligne,
+   en retrait de ton, pour ne pas se confondre avec la description du lieu. */
+.activity-card__note {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  font-style: italic;
 }
 
 .activity-card__price {
@@ -457,7 +496,89 @@
   font-size: var(--text-sm);
 }
 
+/* ── Activités : spécialités locales ─────────────────────────────────── */
+
+.specialities {
+  padding-top: var(--gap-3);
+  border-top: 1px solid var(--line);
+}
+
+.specialities__title {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+  margin-bottom: var(--gap-2);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.specialities__list {
+  display: grid;
+  gap: var(--gap-2);
+  font-size: var(--text-sm);
+}
+
+/* Même gabarit que les activités : une vignette facultative devant le texte. */
+.specialities__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-3);
+}
+
+.specialities__ja {
+  color: var(--ink-muted);
+  font-size: 0.9em;
+}
+
+.activity-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-2) var(--gap-4);
+}
+
 .activity-card__body .link-button {
+  justify-self: start;
+}
+
+/* ── Photos ──────────────────────────────────────────────────────────── */
+
+.photo-section {
+  display: grid;
+  gap: var(--gap-3);
+  padding: var(--gap-5) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.photo-section:last-child {
+  border-bottom: 0;
+}
+
+.photo-section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-2) var(--gap-4);
+}
+
+.photo-section__head h3 {
+  font-size: var(--text-lg);
+}
+
+.photo-section__ja {
+  color: var(--ink-muted);
+  font-size: 0.75em;
+}
+
+.photo-section__meta {
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.photo-section .link-button {
   justify-self: start;
 }
 
@@ -847,10 +968,25 @@
   color: var(--ink-soft);
 }
 
+.flights__when {
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.flights__price {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
 .flights__note {
   font-size: var(--text-xs);
   color: var(--ink-muted);
   font-style: italic;
+}
+
+/* Les avertissements d'un transfert restent dans son propre bloc. */
+.transfers .warnings {
+  margin-top: var(--gap-2);
 }
 
 .journey-list ol {

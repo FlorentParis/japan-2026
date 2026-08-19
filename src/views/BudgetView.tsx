@@ -14,11 +14,21 @@
  */
 import { SectionTitle, CertaintyBadge, ToFill } from '../components/ui'
 import { TRIP } from '../data/trip'
-import { budget, passAnalysis, tripDays, unpricedLegs } from '../lib/derive'
+import {
+  budget,
+  flightTotals,
+  passAnalysis,
+  transferTotals,
+  tripDays,
+  unpricedLegs,
+} from '../lib/derive'
 import {
   CERTAINTY_LABEL,
   formatAmount,
+  formatDateRange,
+  formatMoney,
   formatPartialAmount,
+  formatTime,
 } from '../lib/format'
 import { usePersistentState } from '../lib/usePersistentState'
 import { useTrip } from '../state/trip-state'
@@ -92,6 +102,13 @@ export function BudgetView() {
   /** Services de transport dont le tarif n'a pas été relevé : le total est un minorant. */
   const sansTarif = unpricedLegs().map((leg) => leg.service ?? leg.id)
 
+  const vols = flightTotals()
+  /** Le vol qui porte le prix : par convention, l'aller d'un aller-retour acheté d'un bloc. */
+  const volAller = TRIP.flights.find((f) => f.price !== undefined)
+  /** Le retour international : le dernier vol dont l'heure de décollage est connue. */
+  const volRetour = [...TRIP.flights].reverse().find((f) => f.departureTime !== undefined)
+  const transferts = transferTotals()
+
   const result = budget({
     travellers: settings.travellers,
     days: settings.days,
@@ -99,16 +116,17 @@ export function BudgetView() {
     activitiesPerDayPerPerson: settings.activities,
     localTransportPerDayPerPerson: settings.local,
     passJpy: selectedPass?.price.jpy ?? 0,
+    passId: selectedPass?.id,
   })
 
   return (
     <div className="view view--budget">
       <SectionTitle eyebrow="Argent" title="Budget">
         <p>
-          Aucun prix n’a été fourni : <strong>tout ce tableau est une estimation</strong>, sauf les
-          lignes marquées « confirmé » — il n’y en a aucune pour l’instant. Les tarifs de transport
+          Un seul prix a été fourni : le billet d’avion. Il porte la mention « confirmé ».{' '}
+          <strong>Tout le reste de ce tableau est une estimation</strong> : les tarifs de transport
           sont relevés sur les grilles publiques, les dépenses quotidiennes sont des hypothèses que
-          tu règles ci-dessous.
+          tu règles ci-dessous. Les deux ne sont jamais additionnés sans le dire.
         </p>
       </SectionTitle>
 
@@ -285,9 +303,31 @@ export function BudgetView() {
         <div className="panel">
           <h3 className="panel__title">Ce qui est certain</h3>
           <p className="panel__intro">Données fournies, réservées ou payées.</p>
-          <p className="panel__empty">
-            <ToFill>rien pour l’instant</ToFill> — aucun prix, aucune réservation n’a été fourni.
-          </p>
+          {vols.priced > 0 ? (
+            <ul className="plain-list">
+              <li>
+                <strong>Billets d’avion internationaux : {formatMoney(volAller?.price, 'eur')}</strong>{' '}
+                par personne, aller-retour Europe ⇄ Tokyo, déjà payés. C’est le montant réel en
+                euros — l’affichage en yens ci-dessus en est une conversion au taux indicatif, pas
+                l’inverse.
+              </li>
+              <li>
+                Arrivée à {volAller?.to} le {formatDateRange(volAller?.date)} à{' '}
+                {formatTime(volAller?.arrivalTime)}, décollage de {volRetour?.from} le{' '}
+                {formatDateRange(volRetour?.date)} à {formatTime(volRetour?.departureTime)}. Ce sont
+                les seules heures fermes du voyage, et elles contraignent le premier et le dernier
+                jour : voir les points de vigilance.
+              </li>
+              <li>
+                Les dates et le nombre de nuits de chaque étape. Aucun prix d’hébergement, en
+                revanche : rien n’est réservé.
+              </li>
+            </ul>
+          ) : (
+            <p className="panel__empty">
+              <ToFill>rien pour l’instant</ToFill> — aucun prix, aucune réservation n’a été fourni.
+            </p>
+          )}
         </div>
         <div className="panel">
           <h3 className="panel__title">Ce qui est estimé</h3>
@@ -307,6 +347,13 @@ export function BudgetView() {
                   Manquent {sansTarif.length} tarif(s) : {sansTarif.join(', ')}.
                 </>
               )}
+            </li>
+            <li>
+              Transferts d’aéroport :{' '}
+              {formatPartialAmount(transferts.jpy, transferts.unpriced, currency)} par personne
+              (Narita Express à l’arrivée, monorail de Haneda au départ), tarifs publics relevés
+              chez les opérateurs. Le trajet jusqu’au monorail dépend de l’hôtel et n’est pas
+              compté.
             </li>
             <li>Prix des pass : tarifs publics, à revérifier avant achat.</li>
             <li>

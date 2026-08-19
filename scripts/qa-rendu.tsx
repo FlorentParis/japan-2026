@@ -13,12 +13,14 @@ import { createElement, type ReactElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { ModeLegend } from '../src/components/ModeLegend'
 import { Timeline } from '../src/components/Timeline'
+import { Visionneuse } from '../src/components/Visionneuse'
 import { TripProvider } from '../src/state/TripProvider'
 import { ActivitesView } from '../src/views/ActivitesView'
 import { ApercuView } from '../src/views/ApercuView'
 import { BudgetView } from '../src/views/BudgetView'
 import { HotelsView } from '../src/views/HotelsView'
 import { ItineraireView } from '../src/views/ItineraireView'
+import { PhotosView } from '../src/views/PhotosView'
 import { TransportsView } from '../src/views/TransportsView'
 
 const cases: Array<[string, () => ReactElement]> = [
@@ -26,6 +28,7 @@ const cases: Array<[string, () => ReactElement]> = [
   ['Itinéraire', () => createElement(ItineraireView)],
   ['Hôtels', () => createElement(HotelsView)],
   ['Activités', () => createElement(ActivitesView)],
+  ['Photos', () => createElement(PhotosView)],
   ['Budget', () => createElement(BudgetView)],
   ['Transports', () => createElement(TransportsView)],
   ['Frise (composant)', () => createElement(Timeline, { compact: true })],
@@ -47,7 +50,13 @@ let failures = 0
 
 for (const [name, factory] of cases) {
   try {
-    const html = renderToStaticMarkup(createElement(TripProvider, null, factory()))
+    // Les deux mêmes fournisseurs que `main.tsx`, et dans le même ordre : sans
+    // la visionneuse, les photos se rendraient ici sans leur bouton
+    // d'agrandissement, et le contrôle porterait sur un autre HTML que celui du
+    // navigateur.
+    const html = renderToStaticMarkup(
+      createElement(TripProvider, null, createElement(Visionneuse, null, factory())),
+    )
     if (dump) {
       // NFD puis suppression des diacritiques : « Aperçu » → « apercu ».
       const slug = name

@@ -11,7 +11,8 @@ import { DESTINATIONS } from '../data/destinations'
 import { JOURNEYS } from '../data/journeys'
 import { PLACES } from '../data/places'
 import { PHOTOS } from '../data/photos.generated'
-import { NUITS_ANNONCEES, PASSES } from '../data/trip'
+import { NUITS_ANNONCEES, PASSES, TRANSFERS } from '../data/trip'
+import type { Leg } from '../types'
 import { daysInclusive } from './format'
 
 export type IntegrityIssue = {
@@ -29,14 +30,64 @@ export function checkIntegrity(): IntegrityIssue[] {
 
   // ── Étapes ──────────────────────────────────────────────────────────────
   const destIds = new Set<string>()
-  DESTINATIONS.forEach((d, i) => {
+  // Le numéro d'ordre n'est plus vérifié : il est déduit de la position dans
+  // `ETAPES`, il ne peut donc plus se désaccorder.
+  DESTINATIONS.forEach((d) => {
     if (destIds.has(d.id)) error(d.id, 'Identifiant d’étape en double.')
     destIds.add(d.id)
-    if (d.order !== i + 1) {
-      error(d.id, `Numéro d’ordre ${d.order} alors que l’étape est en position ${i + 1}.`)
-    }
     if (d.photoId && !PHOTOS[d.photoId]) {
       warn(d.id, `Photo « ${d.photoId} » absente de photos.generated.ts.`)
+    }
+  })
+
+  // ── Activités et spécialités ────────────────────────────────────────────
+  // L'identifiant d'une activité est aussi la clé de sa photo dans `PHOTOS` : un
+  // doublon ferait afficher l'image d'un lieu sous le nom d'un autre. C'est
+  // précisément la confusion que l'on refuse, d'où une erreur et non un
+  // avertissement.
+  const sujetIds = new Map<string, string>()
+  DESTINATIONS.forEach((d) => {
+    const sujets = [
+      ...d.activities.map((a) => ({
+        id: a.id,
+        name: a.name,
+        quoi: 'activité',
+        cherchee: a.photoQuery !== undefined,
+      })),
+      ...(d.specialities ?? []).map((s) => ({
+        id: s.id,
+        name: s.name,
+        quoi: 'spécialité',
+        cherchee: s.photoQuery !== undefined,
+      })),
+    ]
+
+    for (const sujet of sujets) {
+      const ailleurs = sujetIds.get(sujet.id)
+      if (ailleurs) {
+        error(
+          d.id,
+          `Identifiant « ${sujet.id} » déjà utilisé par ${ailleurs} : les deux partageraient la même photo.`,
+        )
+      }
+      sujetIds.set(sujet.id, `${d.id} (${sujet.quoi} « ${sujet.name} »)`)
+    }
+
+    // Une recherche déclarée mais sans photo enregistrée : l'entrée s'affiche
+    // sans image — jamais avec celle d'un autre lieu. C'est un manque, pas une
+    // faute : on le signale sans bloquer.
+    //
+    // Une entrée sans `photoQuery` du tout n'est pas signalée : c'est une
+    // décision, pas un oubli (une œuvre sous droits, par exemple, pour laquelle
+    // aucune image libre n'existe).
+    const sansPhoto = sujets.filter((s) => s.cherchee && !PHOTOS[s.id])
+    if (sansPhoto.length > 0) {
+      warn(
+        d.id,
+        `${sansPhoto.length} entrée(s) sans photo trouvée : ${sansPhoto
+          .map((s) => s.name)
+          .join(', ')}. Affiner le \`photoQuery\` puis relancer \`npm run photos\`.`,
+      )
     }
   })
 
@@ -97,6 +148,33 @@ export function checkIntegrity(): IntegrityIssue[] {
   }
 
   const legIds = new Set<string>()
+
+  /**
+   * Les contrôles qui valent pour tout tronçon, qu'il appartienne à un trajet
+   * d'étape à étape ou à un transfert d'aéroport : identifiant unique, lieux
+   * connus, et continuité de la chaîne. Les transferts sont soumis aux mêmes
+   * règles — c'est aussi ce qui fait exister leurs identifiants pour le contrôle
+   * des pass, plus bas.
+   */
+  const verifierTroncons = (where: string, legs: Leg[]) => {
+    legs.forEach((leg, k) => {
+      if (legIds.has(leg.id)) error(leg.id, 'Identifiant de tronçon en double.')
+      legIds.add(leg.id)
+      if (!PLACES[leg.fromPlace]) error(leg.id, `Lieu de départ inconnu : « ${leg.fromPlace} ».`)
+      if (!PLACES[leg.toPlace]) error(leg.id, `Lieu d’arrivée inconnu : « ${leg.toPlace} ».`)
+
+      // Continuité : on ne doit jamais « téléporter » entre deux tronçons.
+      const previous = legs[k - 1]
+      if (previous && previous.toPlace !== leg.fromPlace) {
+        error(
+          leg.id,
+          `Discontinuité : le tronçon précédent arrive à « ${previous.toPlace} » et celui-ci part de « ${leg.fromPlace} ».`,
+        )
+      }
+    })
+    if (legs.length === 0) error(where, 'Aucun tronçon : rien à tracer ni à chiffrer.')
+  }
+
   JOURNEYS.forEach((j, i) => {
     const expectedFrom = DESTINATIONS[i]?.id
     const expectedTo = DESTINATIONS[i + 1]?.id
@@ -106,28 +184,22 @@ export function checkIntegrity(): IntegrityIssue[] {
         `Le trajet relie ${j.fromDestination} → ${j.toDestination}, or à cette position on attend ${expectedFrom} → ${expectedTo}.`,
       )
     }
-    if (j.legs.length === 0) error(j.id, 'Trajet sans aucun tronçon : rien à tracer sur la carte.')
-
-    j.legs.forEach((leg, k) => {
-      if (legIds.has(leg.id)) error(leg.id, 'Identifiant de tronçon en double.')
-      legIds.add(leg.id)
-      if (!PLACES[leg.fromPlace]) error(leg.id, `Lieu de départ inconnu : « ${leg.fromPlace} ».`)
-      if (!PLACES[leg.toPlace]) error(leg.id, `Lieu d’arrivée inconnu : « ${leg.toPlace} ».`)
-
-      // Continuité : on ne doit jamais « téléporter » entre deux tronçons.
-      const previous = j.legs[k - 1]
-      if (previous && previous.toPlace !== leg.fromPlace) {
-        error(
-          leg.id,
-          `Discontinuité : le tronçon précédent arrive à « ${previous.toPlace} » et celui-ci part de « ${leg.fromPlace} ».`,
-        )
-      }
-    })
+    verifierTroncons(j.id, j.legs)
 
     for (const c of j.connections ?? []) {
       if (!PLACES[c.place]) warn(j.id, `Correspondance sur un lieu inconnu : « ${c.place} ».`)
     }
   })
+
+  // ── Transferts d'aéroport ───────────────────────────────────────────────
+  // Ils ne font pas partie de la chaîne des étapes : rien à vérifier côté
+  // enchaînement, seulement leurs tronçons.
+  const transferIds = new Set<string>()
+  for (const t of TRANSFERS) {
+    if (transferIds.has(t.id)) error(t.id, 'Identifiant de transfert en double.')
+    transferIds.add(t.id)
+    verifierTroncons(t.id, t.legs)
+  }
 
   // ── Pass ────────────────────────────────────────────────────────────────
   for (const pass of PASSES) {

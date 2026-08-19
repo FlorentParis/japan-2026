@@ -8,14 +8,16 @@
  * validité en jours consécutifs (voir `passAnalysis` dans `lib/derive.ts`) :
  * elle ne suppose plus que tous les trajets JR tiennent dans le pass.
  */
-import type { RailPass, Trip } from '../types'
+import type { RailPass, Transfer, Trip } from '../types'
+import { mins, yen } from './unites'
 
 /** Legs couverts par un pass JR national : tout ce qui roule sur le réseau JR. */
 const JR_NATIONAL_LEGS = [
+  't-arrivee.1', // Narita Express, le 6 novembre
   'j01.1', // Azusa
   'j06.1', // Hokuriku Shinkansen
-  'j08.9', // ligne Ōito
-  'j08.10', // Ltd. Exp. Shinano
+  'j08b.1', // ligne Ōito
+  'j08b.2', // Ltd. Exp. Shinano
   'j09.1', // Shinano
   'j09.2', // Tōkaidō/San'yō Shinkansen
   'j09.3', // ligne San'yō
@@ -113,6 +115,74 @@ export const REGIONAL_PASS_CANDIDATES = [
 ]
 
 /**
+ * TRANSFERTS D'AÉROPORT.
+ *
+ * Ils encadrent le voyage sans en faire partie : ils ne relient pas deux étapes,
+ * mais un aéroport à Tokyo. Ils ne sont donc pas dessinés sur la carte des
+ * déplacements et ne comptent pas dans les totaux par mode — ils ont leur propre
+ * ligne de budget et leur propre bloc dans la vue Transports.
+ *
+ * Ils entrent en revanche dans l'analyse des pass : le Narita Express est couvert
+ * par le JR Pass national, et l'oublier sous-estimerait l'intérêt du pass.
+ *
+ * ⚠️ Les tarifs sont des tarifs publics relevés en ligne, pas des billets achetés.
+ */
+export const TRANSFERS: Transfer[] = [
+  {
+    id: 't-arrivee',
+    label: 'Aéroport de Narita → Tokyo',
+    date: '2026-11-06',
+    legs: [
+      {
+        id: 't-arrivee.1',
+        mode: 'train',
+        fromPlace: 'narita',
+        toPlace: 'tokyo',
+        service: 'JR Narita Express (N’EX)',
+        line: 'Ligne Narita',
+        duration: mins(60, 'hors formalités d’entrée et récupération des bagages'),
+        cost: yen(3140, 'tarif adulte aller simple vers Tokyo Station, relevé sur japan-guide.com'),
+        passCoverage: 'covered',
+        via: [
+          [140.1900, 35.7000], // Chiba
+          [139.9000, 35.6800], // Funabashi
+        ],
+        note: 'Le N’EX est intégralement couvert par le JR Pass national. Il dessert aussi Shinagawa et Shinjuku, d’où part le train du 8 pour Matsumoto : le tarif vers Shinjuku est légèrement supérieur et n’a pas été relevé.',
+      },
+    ],
+    warnings: [
+      'Atterrissage à 12 h 00. Compter 45 à 60 min de formalités d’entrée et de bagages, puis 1 h de N’EX : arrivée dans Tokyo vers 14 h 30 au plus tôt.',
+      'Alternatives non retenues, relevées sur japan-guide.com : Keisei Skyliner vers Ueno (40 min, 2 580 ¥, hors pass JR), Access Express (75–90 min, 1 060 ¥), bus TYO-NRT (65 min, 1 500 ¥). Le N’EX est retenu parce qu’il est le seul couvert par un pass JR.',
+      'Le N’EX est à sièges réservés : réservation gratuite mais obligatoire, à faire au comptoir JR de l’aéroport en arrivant.',
+    ],
+  },
+  {
+    id: 't-depart',
+    label: 'Tokyo → Aéroport de Haneda',
+    date: '2026-12-05',
+    legs: [
+      {
+        id: 't-depart.1',
+        mode: 'train',
+        fromPlace: 'hamamatsucho',
+        toPlace: 'haneda',
+        service: 'Tokyo Monorail, Haneda Express',
+        duration: mins(13, 'Haneda Express, service le plus rapide'),
+        cost: yen(520, 'tarif adulte aller simple vers les terminaux 1, 2 et 3, relevé sur tokyo-monorail.co.jp'),
+        passCoverage: 'unknown',
+        via: [[139.7660, 35.5900]], // baie de Tokyo
+        note: 'Le trajet jusqu’à Hamamatsuchō dépend de l’hôtel, encore à renseigner : il n’est donc pas compté. La couverture du Tokyo Monorail par le JR Pass est à vérifier — elle est sans effet ici, aucun pass n’étant retenu à cette date.',
+      },
+    ],
+    warnings: [
+      'Vol international à 8 h 40 : enregistrement à fermer vers 7 h 40, donc être au terminal 3 vers 6 h 40 au plus tard. Il faut quitter le centre de Tokyo autour de 6 h 00.',
+      'À VÉRIFIER, c’est la contrainte la plus serrée du voyage : l’heure du premier monorail depuis Hamamatsuchō. Elle n’est pas indiquée sur le site de l’opérateur et je ne l’ai pas relevée. Si le premier départ est trop tardif, il faut un taxi ou une nuit près de l’aéroport.',
+      'Alternative à vérifier : la ligne Keikyū depuis Shinagawa, qui a ses propres premiers départs.',
+    ],
+  },
+]
+
+/**
  * Total de nuits annoncé dans la table de dates fournie par le voyageur.
  * Il sert de garde-fou : `checkIntegrity()` compare la somme des nuits des
  * étapes à ce chiffre et crie si une modification future les désaccorde.
@@ -127,21 +197,39 @@ export const TRIP: Trip = {
   heroPhotoId: 'kamikochi',
   flights: [
     {
+      label: 'Vol international aller',
+      from: 'Europe — aéroport de départ à préciser',
+      to: 'Tokyo Narita (NRT)',
+      date: '2026-11-06',
+      arrivalTime: '12:00',
+      certainty: 'confirmed',
+      price: {
+        eur: 1103,
+        certainty: 'confirmed',
+        scope: 'per-person',
+        note: 'Billet acheté : 1 103 € pour l’aller-retour. Le prix est porté par l’aller, le retour n’en porte aucun — sinon il serait compté deux fois. Le `scope` est « par personne » : à passer à « total » si ces 1 103 € couvrent plusieurs voyageurs.',
+      },
+      note: 'Atterrissage à Narita à 12 h 00, donnée fournie. Aéroport de départ, compagnie et numéro de vol non fournis.',
+    },
+    {
       label: 'Vol intérieur retour',
       from: 'Nagasaki (NGS)',
       to: 'Tokyo Haneda (HND)',
       date: '2026-12-02',
       certainty: 'estimate',
-      note: 'Date fixée par l’itinéraire. Compagnie, horaire et aéroport d’arrivée à confirmer.',
+      note: 'Date déduite de l’itinéraire, pas fournie. Le vol international repartant de Haneda, l’aéroport d’arrivée est maintenant fixé : Haneda. Compagnie et horaire à confirmer.',
     },
     {
-      label: 'Vols internationaux',
-      from: '—',
-      to: '—',
-      certainty: 'todo',
-      note: 'Non fournis. À caler sur les dates du séjour : arrivée le 6 novembre, retour le 5 décembre 2026.',
+      label: 'Vol international retour',
+      from: 'Tokyo Haneda (HND)',
+      to: 'Europe — aéroport d’arrivée à préciser',
+      date: '2026-12-05',
+      departureTime: '08:40',
+      certainty: 'confirmed',
+      note: 'Décollage de Haneda à 8 h 40, donnée fournie. Aucun prix ici : il est porté par l’aller, le billet étant un aller-retour. Voir l’avertissement du transfert vers Haneda — c’est l’horaire le plus contraignant du voyage.',
     },
   ],
+  transfers: TRANSFERS,
   passes: PASSES,
   budgetDefaults: {
     foodPerDayPerPerson: 4000,

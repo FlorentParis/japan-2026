@@ -11,14 +11,19 @@ import { DESTINATIONS } from '../src/data/destinations'
 import { JOURNEYS } from '../src/data/journeys'
 import { NUITS_ANNONCEES, TRIP } from '../src/data/trip'
 import {
+  activityTotals,
   allWarnings,
   budget,
+  flightTotals,
   gaps,
   overview,
   passAnalysis,
+  specialityTotals,
   totalsByMode,
+  transferTotals,
   tripDays,
 } from '../src/lib/derive'
+import { photoTotals } from '../src/lib/galleries'
 import { LEGS_GEOJSON, TRIP_BOUNDS } from '../src/lib/geojson'
 import { checkIntegrity } from '../src/lib/validate'
 
@@ -65,6 +70,34 @@ for (const total of totalsByMode()) {
   )
 }
 
+title('Vols et transferts d’aéroport')
+const vols = flightTotals()
+console.log(
+  `${vols.count} vols listés, ${vols.priced} avec un prix porté · ${vols.eur} € (${vols.jpy} ¥ au taux indicatif)` +
+    (vols.allConfirmed ? ' · tous confirmés' : ' · au moins un prix non confirmé'),
+)
+for (const vol of TRIP.flights) {
+  console.log(
+    `  ${vol.label.padEnd(26)} ${vol.from} → ${vol.to} · ${vol.date ?? 'date ?'}` +
+      (vol.departureTime ? ` · décollage ${vol.departureTime}` : '') +
+      (vol.arrivalTime ? ` · atterrissage ${vol.arrivalTime}` : '') +
+      ` · ${vol.certainty}`,
+  )
+}
+const transferts = transferTotals()
+console.log(
+  `${transferts.count} transferts, ${transferts.legs} tronçons · ${transferts.jpy} ¥` +
+    (transferts.unpriced > 0 ? ` (+${transferts.unpriced} sans tarif relevé)` : ''),
+)
+for (const transfert of TRIP.transfers ?? []) {
+  for (const leg of transfert.legs) {
+    console.log(
+      `  ${transfert.id.padEnd(12)} ${leg.fromPlace} → ${leg.toPlace} · ` +
+        `${leg.duration?.minutes ?? '?'} min · ${leg.cost?.jpy ?? '?'} ¥ · pass : ${leg.passCoverage}`,
+    )
+  }
+}
+
 title('Budget, hypothèses par défaut')
 const result = budget({
   travellers: TRIP.travellers?.count ?? 1,
@@ -103,6 +136,30 @@ for (const verdict of passes.verdicts) {
   console.log(`  ${fenetre}`)
 }
 console.log(`verdict tranchable : ${passes.conclusive ? 'oui' : 'non (dates manquantes)'}`)
+
+title('Activités, spécialités et photos')
+// Rappel utile ici plus qu'ailleurs : ces entrées ne viennent pas du voyageur.
+// Elles sont proposées, donc marquées « estimate » — et sans prix, faute de
+// grilles tarifaires relevées.
+const activites = activityTotals()
+const specialites = specialityTotals()
+console.log(
+  `${activites.count} activités sur ${DESTINATIONS.length - activites.destinationsSansActivite} étapes ` +
+    `(${activites.proposees} proposées, ${activites.destinationsSansActivite} étape(s) sans aucune) · ` +
+    `${activites.count - activites.withoutPrice} avec un prix relevé · ${activites.sansPhoto} sans photo`,
+)
+console.log(
+  `${specialites.count} spécialités locales sur ${specialites.destinations} étapes · ` +
+    `${specialites.sansPhoto} sans photo trouvée`,
+)
+const galeries = photoTotals()
+console.log(
+  `${galeries.fichiers} fichiers distincts · ${galeries.total} vignettes réparties · ` +
+    `minimum ${galeries.minimum} par étape · ${galeries.enDessousDuSeuil.length} étape(s) sous le seuil de 9`,
+)
+for (const etape of galeries.enDessousDuSeuil) {
+  console.log(`  ${etape.id.padEnd(14)} ${etape.count} photo(s) → enrichir \`galleryQueries\``)
+}
 
 title('Données manquantes et points de vigilance')
 const missing = gaps()

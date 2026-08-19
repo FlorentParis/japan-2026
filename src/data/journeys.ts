@@ -20,22 +20,8 @@
  * chiffre de mémoire n'est pas une donnée : le champ reste vide, le site le
  * signale, et le total « transports » est affiché comme incomplet.
  */
-import type { Journey, Money } from '../types'
-
-/** Tarif estimé, en yens, par personne. */
-const yen = (jpy: number, note?: string): Money => ({
-  jpy,
-  certainty: 'estimate',
-  note,
-  scope: 'per-person',
-})
-
-/** Tarif non relevé. Volontairement sans montant : mieux vaut un trou qu’un chiffre faux. */
-const tarifACompleter = (note: string): Money => ({ certainty: 'todo', note, scope: 'per-person' })
-
-/** Durée estimée, en minutes. */
-const mins = (minutes: number, note?: string) =>
-  ({ minutes, certainty: 'estimate' as const, note })
+import type { Journey } from '../types'
+import { mins, tarifACompleter, yen } from './unites'
 
 export const JOURNEYS: Journey[] = [
   // ─── 1 ─── Tokyo → Matsumoto ────────────────────────────────────────────
@@ -66,7 +52,7 @@ export const JOURNEYS: Journey[] = [
       },
     ],
     warnings: [
-      'Trajet depuis l’aéroport d’arrivée non compté : dépend de Haneda ou Narita, à préciser.',
+      'Le trajet depuis Narita n’est pas compté ici : il a eu lieu le 6 novembre, deux jours plus tôt, et figure comme transfert d’aéroport dans la section Transports.',
       'Départ le 8 novembre 2026 : l’Azusa est à sièges réservés, à prendre dès l’ouverture des ventes (un mois avant).',
     ],
   },
@@ -237,11 +223,14 @@ export const JOURNEYS: Journey[] = [
     ],
   },
 
-  // ─── 8 ─── Traversée de la route alpine, puis descente vers Nagano ──────
+  // ─── 8 ─── Traversée de la route alpine, jusqu'à Shinano-Ōmachi ─────────
+  // La descente vers Nagano n'est PAS dans ce trajet : elle a été détachée en
+  // « j08b », le lendemain matin, pour ne pas accumuler 9 h dans la journée du
+  // 17. Voir l'étape « omachi » dans destinations.ts.
   {
     id: 'j08',
     fromDestination: 'tateyama',
-    toDestination: 'nagano',
+    toDestination: 'omachi',
     geometryKind: 'schematic',
     legs: [
       {
@@ -325,10 +314,34 @@ export const JOURNEYS: Journey[] = [
         duration: mins(40),
         cost: yen(1800),
         passCoverage: 'not-covered',
-        note: 'Hors forfait de la route alpine.',
+        note: 'Hors forfait de la route alpine. Dernier tronçon de la journée : on dort à Shinano-Ōmachi.',
       },
+    ],
+    connections: [
+      { place: 'murodo', note: 'Point culminant, 2 450 m — arrêt possible pour marcher autour de l’étang Mikuriga-ike.' },
+      { place: 'ogizawa', note: 'Sortie est de la route alpine : on quitte le forfait, les billets suivants sont à part.' },
+    ],
+    warnings: [
+      'Journée entière : 2 h 30 de mouvement effectif sur la route alpine, mais 6 à 7 h porte à porte avec les attentes entre les huit tronçons. Prévoir de partir tôt de Toyama.',
+      'La descente vers Nagano a été détachée au lendemain matin (trajet suivant) : la journée du 17 s’arrête à Shinano-Ōmachi. Cela retire 1 h 50 de train et une correspondance à une journée qui atteignait sinon ~9 h et finissait de nuit.',
+      'Les bagages ne traversent pas : à faire expédier de Toyama vers Shinano-Ōmachi ou Nagano (takkyūbin), la veille.',
+      'Traversée le 17 novembre, à deux semaines de la fermeture annuelle : horaires réduits en fin de saison et sections susceptibles de fermer avant les autres. Calendrier à vérifier tronçon par tronçon.',
+      'À vérifier : existence d’un bus direct Ōgizawa → Nagano selon la saison, qui remplacerait les deux trajets par la vallée.',
+    ],
+  },
+
+  // ─── 8b ─── Shinano-Ōmachi → Nagano, le lendemain matin ─────────────────
+  // Détaché de la traversée alpine : ces deux tronçons pesaient 2 h 50 à la fin
+  // d'une journée qui en comptait déjà 6 à 7. Les identifiants gardent le
+  // préfixe « j08b » plutôt que de renuméroter tous les trajets suivants.
+  {
+    id: 'j08b',
+    fromDestination: 'omachi',
+    toDestination: 'nagano',
+    geometryKind: 'schematic',
+    legs: [
       {
-        id: 'j08.9',
+        id: 'j08b.1',
         mode: 'train',
         fromPlace: 'shinano-omachi',
         toPlace: 'matsumoto',
@@ -341,7 +354,7 @@ export const JOURNEYS: Journey[] = [
         note: 'La ligne Ōito descend vers le sud : on repasse par Matsumoto pour rejoindre Nagano.',
       },
       {
-        id: 'j08.10',
+        id: 'j08b.2',
         mode: 'train',
         fromPlace: 'matsumoto',
         toPlace: 'nagano',
@@ -354,15 +367,11 @@ export const JOURNEYS: Journey[] = [
       },
     ],
     connections: [
-      { place: 'murodo', note: 'Point culminant, 2 450 m — arrêt possible pour marcher autour de l’étang Mikuriga-ike.' },
-      { place: 'ogizawa', note: 'Sortie est de la route alpine : on quitte le forfait, les billets suivants sont à part.' },
       { place: 'matsumoto', note: 'Correspondance de la ligne Ōito vers le Ltd. Exp. Shinano.' },
     ],
     warnings: [
-      'Journée entière : 6 à 7 h de traversée avant même de rejoindre Nagano, soit ~9 h au total le 17 novembre. Prévoir de partir tôt.',
-      'Les bagages ne traversent pas : à faire expédier de Toyama vers Nagano (takkyūbin), la veille.',
-      'Traversée le 17 novembre, à deux semaines de la fermeture annuelle : horaires réduits en fin de saison et sections susceptibles de fermer avant les autres. Calendrier à vérifier tronçon par tronçon.',
-      'À vérifier : existence d’un bus direct Ōgizawa → Nagano selon la saison, qui remplacerait les 3 derniers tronçons.',
+      'Matinée du 18 novembre : ~1 h 50 de train, une correspondance à Matsumoto. On arrive à Nagano pour le déjeuner, avec l’après-midi disponible.',
+      'La ligne Ōito est un omnibus à fréquence faible : vérifier l’horaire du matin, c’est lui qui fixe l’heure de départ.',
     ],
   },
 
@@ -736,7 +745,7 @@ export const JOURNEYS: Journey[] = [
     ],
     warnings: [
       'Vol du 2 décembre 2026 : à réserver tôt, le prix double facilement au dernier moment.',
-      'Aéroport d’arrivée à Tokyo à confirmer (Haneda retenu ici, Narita possible selon la compagnie).',
+      'Aéroport d’arrivée : Haneda, désormais imposé par le vol international du 5 décembre qui en repart. Écarter les vols vers Narita, ils obligeraient à traverser Tokyo au petit matin du départ.',
       'Alternative non retenue : Shinkansen Nagasaki → Tokyo, ~7 h et plus cher hors pass.',
     ],
   },

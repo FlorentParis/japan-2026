@@ -22,6 +22,8 @@ export function ApercuView() {
   const etapesSansNuit = DESTINATIONS.filter((d) => d.stay === 'day').map((d) => d.name)
   const missing = gaps()
   const warnings = allWarnings()
+  /** Le vol qui porte le prix de l'aller-retour : le seul montant payé du voyage. */
+  const volAller = TRIP.flights.find((f) => f.price !== undefined)
   const issues = checkIntegrity()
   const blocking = missing.filter((g) => g.severity === 'blocking')
 
@@ -101,6 +103,16 @@ export function ApercuView() {
             muted={stats.bookedStays === 0}
           />
           <Stat
+            value={formatMoney(volAller?.price, currency)}
+            label="Billets d’avion"
+            hint={
+              volAller?.price
+                ? 'Aller-retour Europe ⇄ Tokyo, payé — le seul montant confirmé du voyage'
+                : 'Prix non fourni'
+            }
+            muted={!volAller?.price}
+          />
+          <Stat
             value={formatMoney({ jpy: stats.transportJpy, certainty: 'estimate' }, currency)}
             label="Transports, par personne"
             hint={
@@ -112,7 +124,8 @@ export function ApercuView() {
         </div>
         <p className="stats__foot">
           <CertaintyBadge certainty="estimate" /> Les montants et durées de transport sont des
-          estimations relevées sur les grilles tarifaires publiques. Rien n’est réservé.{' '}
+          estimations relevées sur les grilles tarifaires publiques. Hors billets d’avion, rien
+          n’est réservé : ni hébergement, ni train, ni activité.{' '}
           <button type="button" className="link-button" onClick={() => goTo('budget')}>
             Détail du budget
           </button>

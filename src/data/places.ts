@@ -14,6 +14,8 @@ const list: Place[] = [
   { id: 'tokyo', name: 'Tokyo', nameJa: '東京', kind: 'city', coord: [139.7671, 35.6812] },
   { id: 'shinjuku', name: 'Shinjuku', nameJa: '新宿駅', kind: 'station', coord: [139.7004, 35.6896] },
   { id: 'haneda', name: 'Aéroport de Haneda', nameJa: '羽田空港', kind: 'airport', coord: [139.7798, 35.5494] }, // prettier-ignore
+  { id: 'narita', name: 'Aéroport de Narita', nameJa: '成田空港', kind: 'airport', coord: [140.3864, 35.7647] }, // prettier-ignore
+  { id: 'hamamatsucho', name: 'Hamamatsuchō', nameJa: '浜松町駅', kind: 'station', coord: [139.7570, 35.6553] }, // prettier-ignore
 
   // Corridor de la ligne Chūō (Shinjuku → Matsumoto)
   { id: 'hachioji', name: 'Hachiōji', kind: 'station', coord: [139.3387, 35.6556] },
