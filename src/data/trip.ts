@@ -154,6 +154,7 @@ export const TRANSFERS: Transfer[] = [
       'Atterrissage à 12 h 00. Compter 45 à 60 min de formalités d’entrée et de bagages, puis 1 h de N’EX : arrivée dans Tokyo vers 14 h 30 au plus tôt.',
       'Alternatives non retenues, relevées sur japan-guide.com : Keisei Skyliner vers Ueno (40 min, 2 580 ¥, hors pass JR), Access Express (75–90 min, 1 060 ¥), bus TYO-NRT (65 min, 1 500 ¥). Le N’EX est retenu parce qu’il est le seul couvert par un pass JR.',
       'Le N’EX est à sièges réservés : réservation gratuite mais obligatoire, à faire au comptoir JR de l’aéroport en arrivant.',
+      'L’hôtel des deux premières nuits est maintenant réservé, à Azumabashi : le N’EX s’arrête à la gare de Tokyo, il reste donc un dernier tronçon jusqu’à Asakusa. Son tarif n’a pas été relevé et n’est pas compté ici — même convention que le trajet vers Hamamatsuchō au départ. Le Keisei Access Express (1 060 ¥, ci-dessus) dessert Asakusa sans changement, mais il est hors pass JR.',
     ],
   },
   {

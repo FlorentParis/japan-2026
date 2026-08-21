@@ -387,6 +387,14 @@
   font-size: var(--text-sm);
 }
 
+/* Le détail d'une réservation passe sous la ligne, sur toute sa largeur : la
+   colonne « hôtel » est trop étroite pour une adresse et un carrousel. */
+.hotel-row__detail {
+  grid-column: 1 / -1;
+  padding-top: var(--gap-2);
+  border-top: 1px solid var(--line);
+}
+
 @media (min-width: 860px) {
   .hotel-row {
     grid-template-columns: 13rem 9rem 1fr 9rem auto;

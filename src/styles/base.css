@@ -424,7 +424,7 @@ button {
   min-width: 0;
 }
 
-/* ── Carrousel d'une étape ────────────────────────────────────────────── */
+/* ── Carrousel de photos ──────────────────────────────────────────────── */
 
 .carrousel {
   position: relative;
@@ -510,6 +510,35 @@ button {
   font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
   pointer-events: none;
+}
+
+/* ── Détail d'un hébergement réservé ─────────────────────────────────── */
+
+/* Le même bloc sert dans la vue Hôtels et dans la fiche d'étape : seule la
+   largeur du carrousel change d'un endroit à l'autre (voir views.css et
+   timeline.css). */
+.hebergement {
+  display: grid;
+  gap: var(--gap-2);
+  margin-top: var(--gap-2);
+  min-width: 0;
+}
+
+.hebergement__adresse,
+.hebergement__horaires {
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+/* Le lien ne doit pas se couper en deux lignes au bout de l'adresse. */
+.hebergement__maps {
+  white-space: nowrap;
+}
+
+/* Une photo d'hôtel n'a pas besoin d'être plus large que ça : à pleine largeur
+   d'écran, treize vues de chambre feraient un diaporama d'agence. */
+.hebergement__photos {
+  max-width: 30rem;
 }
 
 /* ── Visionneuse plein écran ──────────────────────────────────────────── */

@@ -186,6 +186,12 @@
   max-height: 12rem;
 }
 
+/* Dans le champ « Hébergement », le carrousel de l'hôtel reste une vignette : la
+   fiche parle de l'étape, pas de l'hôtel — la vue Hôtels le montre en grand. */
+.field .hebergement__photos {
+  max-width: 20rem;
+}
+
 .dest-card__blurb {
   font-family: var(--font-serif);
   font-size: var(--text-base);

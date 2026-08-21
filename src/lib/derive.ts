@@ -590,8 +590,12 @@ export function budget(inputs: BudgetInputs) {
       icon: '🏨',
       jpy: acc.jpy,
       certainty: acc.complete ? 'confirmed' : 'todo',
-      incomplete: !acc.complete,
-      partial: 0,
+      // Dès qu'une réservation est faite, la ligne n'est plus vide : elle est
+      // minorée. Le montant s'affiche avec son « ≥ » plutôt que d'être caché
+      // derrière « à compléter » — le total le compte déjà, le masquer ferait
+      // mentir la phrase « les lignes à compléter n'y sont pas comptées ».
+      incomplete: acc.jpy === 0,
+      partial: acc.complete ? 0 : acc.missing,
     },
     {
       id: 'activities',

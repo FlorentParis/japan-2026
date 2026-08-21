@@ -124,8 +124,16 @@ export function ApercuView() {
         </div>
         <p className="stats__foot">
           <CertaintyBadge certainty="estimate" /> Les montants et durées de transport sont des
-          estimations relevées sur les grilles tarifaires publiques. Hors billets d’avion, rien
-          n’est réservé : ni hébergement, ni train, ni activité.{' '}
+          estimations relevées sur les grilles tarifaires publiques.{' '}
+          {/* Phrase déduite du nombre d'hébergements réservés, et non écrite en dur :
+              elle restera vraie à la prochaine réservation. */}
+          {stats.bookedStays === 0
+            ? 'Hors billets d’avion, rien n’est réservé : ni hébergement, ni train, ni activité.'
+            : `Hors billets d’avion, ${
+                stats.bookedStays === 1
+                  ? 'un seul hébergement est réservé'
+                  : `${stats.bookedStays} hébergements sont réservés`
+              } : il reste ${stats.staysToBook} étapes à trouver, et aucun train ni aucune activité n’est réservé.`}{' '}
           <button type="button" className="link-button" onClick={() => goTo('budget')}>
             Détail du budget
           </button>

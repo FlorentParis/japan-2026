@@ -31,6 +31,7 @@ import {
   EMPTY_POINTS,
   LEGS_GEOJSON,
   TRIP_BOUNDS,
+  spotCoords,
   spotsGeoJSON,
   type LegProperties,
 } from '../lib/geojson'
@@ -40,6 +41,12 @@ import { useTrip } from '../state/trip-state'
 import type { TransportMode } from '../types'
 
 const HIT_LAYER = 'leg-hit'
+
+/**
+ * Les deux calques de points d'une étape : ses repères de visite, et l'hôtel
+ * réservé. Ils partagent la source `spots` et se distinguent par `kind`.
+ */
+const SPOT_LAYERS = ['spot-dots', 'spot-hotel'] as const
 const casingLayer = (mode: TransportMode) => `leg-casing-${mode}`
 const lineLayer = (mode: TransportMode) => `leg-line-${mode}`
 
@@ -194,15 +201,32 @@ export function MapView({ active }: Props) {
         id: 'spot-dots',
         type: 'circle',
         source: 'spots',
+        filter: ['==', ['get', 'kind'], 'repere'],
         paint: {
           'circle-radius': 5,
-          'circle-color': '#8C5A3B',
+          'circle-color': '#8C5A3B', // --todo : ces repères ne sont pas un programme
           'circle-stroke-width': 2,
           'circle-stroke-color': '#ffffff',
         },
       })
 
-      // 4. Zone de clic large et invisible : viser un trait de 3 px au doigt
+      // 4. L'hôtel réservé : plus gros et vert — la couleur du confirmé, la même
+      //    que les liserés de la vue Hôtels. Sans quoi le point où l'on dort se
+      //    confondrait avec le Sensō-ji d'à côté.
+      map.addLayer({
+        id: 'spot-hotel',
+        type: 'circle',
+        source: 'spots',
+        filter: ['==', ['get', 'kind'], 'hebergement'],
+        paint: {
+          'circle-radius': 7,
+          'circle-color': '#2F6B4F', // --confirmed
+          'circle-stroke-width': 2.5,
+          'circle-stroke-color': '#ffffff',
+        },
+      })
+
+      // 5. Zone de clic large et invisible : viser un trait de 3 px au doigt
       //    est impossible, viser 22 px l'est.
       map.addLayer({
         id: HIT_LAYER,
@@ -302,20 +326,27 @@ export function MapView({ active }: Props) {
       actionsRef.current.selectJourney(props.journeyId, props.legId)
     })
 
-    map.on('click', 'spot-dots', (event) => {
-      const feature = event.features?.[0]
-      if (!feature) return
-      popup.remove()
-      new maplibregl.Popup({ offset: 12, className: 'map-popup', closeButton: false })
-        .setLngLat(event.lngLat)
-        .setText(String(feature.properties.name))
-        .addTo(map)
-    })
+    for (const couche of SPOT_LAYERS) {
+      map.on('click', couche, (event) => {
+        const feature = event.features?.[0]
+        if (!feature) return
+        popup.remove()
+        const nom = String(feature.properties.name)
+        new maplibregl.Popup({ offset: 12, className: 'map-popup', closeButton: false })
+          .setLngLat(event.lngLat)
+          // L'infobulle dit à quel titre le point est là : un repère de visite et
+          // l'hôtel réservé ne se lisent pas de la même façon.
+          .setText(feature.properties.kind === 'hebergement' ? `${nom} — hébergement` : nom)
+          .addTo(map)
+      })
+    }
 
     // Cliquer le fond de carte désélectionne.
     map.on('click', (event) => {
       if (!map.getLayer(HIT_LAYER)) return
-      const hits = map.queryRenderedFeatures(event.point, { layers: [HIT_LAYER, 'spot-dots'] })
+      const hits = map.queryRenderedFeatures(event.point, {
+        layers: [HIT_LAYER, ...SPOT_LAYERS],
+      })
       if (hits.length === 0) actionsRef.current.clearSelection()
     })
 
@@ -457,7 +488,9 @@ export function MapView({ active }: Props) {
 
     if (selection.kind === 'destination') {
       const dest = destination(selection.id)
-      const spots = dest.spots?.map((s) => s.coord) ?? []
+      // Les mêmes points que ceux dessinés, hôtel réservé compris : le cadre ne
+      // doit pas laisser dehors un repère qu'on vient d'afficher.
+      const spots = spotCoords(dest)
       if (spots.length > 1) {
         map.fitBounds(bounds([dest.coord, ...spots]), {
           padding: 90,

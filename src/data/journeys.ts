@@ -54,6 +54,7 @@ export const JOURNEYS: Journey[] = [
     warnings: [
       'Le trajet depuis Narita n’est pas compté ici : il a eu lieu le 6 novembre, deux jours plus tôt, et figure comme transfert d’aéroport dans la section Transports.',
       'Départ le 8 novembre 2026 : l’Azusa est à sièges réservés, à prendre dès l’ouverture des ventes (un mois avant).',
+      'L’hôtel réservé est à Asakusa et l’Azusa part de Shinjuku : compter le trajet en métro le matin du 8, avant l’heure du train. Ce tronçon urbain n’est pas chiffré ici — il relève de la ligne « transports locaux » du budget.',
     ],
   },
 

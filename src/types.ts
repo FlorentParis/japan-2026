@@ -51,13 +51,32 @@ export type DateInfo = {
   certainty: Certainty
 }
 
+/**
+ * Une image et son crédit.
+ *
+ * Deux origines, et deux seulement :
+ * ▸ Wikimedia Commons, sous licence libre — l'immense majorité, produite par
+ *   `scripts/fetch-photos.ts` ;
+ * ▸ les photos d'un établissement réservé, publiées sur son propre site — voir
+ *   `src/data/hebergements.ts`, qui explique pourquoi elles ne sont ni libres,
+ *   ni versionnées, ni redistribuées.
+ *
+ * Dans les deux cas `author`, `license` et `sourcePage` sont obligatoires et
+ * affichés sous l'image par `Figure` : le crédit n'est pas décoratif.
+ */
 export type Photo = {
   url: string
   width: number
   height: number
-  /** Nom du fichier Wikimedia Commons. */
+  /**
+   * Nom du fichier chez la source — celui de Commons, ou celui du serveur de
+   * l'établissement. Identifie l'image de façon unique dans tout le site : la
+   * visionneuse s'en sert pour retrouver son rang dans un lot.
+   */
   file: string
+  /** Auteur pour Commons, nom de l'établissement pour ses propres photos. */
   author: string
+  /** Licence libre, ou la nature du droit d'usage à défaut de licence. */
   license: string
   sourcePage: string
 }
@@ -99,6 +118,20 @@ export type Accommodation = {
   bookingUrl?: string
   /** Quartier ou adresse indicative. */
   area?: string
+  /** Adresse postale telle que l'établissement la publie. */
+  address?: string
+  /**
+   * Coordonnées de l'établissement. Elles servent au lien Maps — qui pointe
+   * alors le bâtiment exactement, au lieu de lancer une recherche sur une
+   * adresse — et au repère de l'hébergement sur la carte de l'étape.
+   */
+  coord?: Coord
+  /** Heure à partir de laquelle la chambre est disponible, « HH:MM ». */
+  checkIn?: string
+  /** Heure limite de départ, « HH:MM ». */
+  checkOut?: string
+  /** Clé dans `PHOTOS_HEBERGEMENT` (`src/data/hebergements.ts`). */
+  photosId?: string
   note?: string
 }
 

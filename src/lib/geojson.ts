@@ -26,7 +26,15 @@ export type LegProperties = {
   step: number
 }
 
-export type SpotProperties = { name: string; destinationId: string }
+/**
+ * `kind` distingue un lieu de visite de l'hôtel réservé : la carte les dessine
+ * différemment, sans quoi le point où l'on dort se confondrait avec le Sensō-ji.
+ */
+export type SpotProperties = {
+  name: string
+  destinationId: string
+  kind: 'repere' | 'hebergement'
+}
 
 function legFeature(leg: Leg, journey: Journey, step: number): Feature<LineString, LegProperties> {
   return {
@@ -63,16 +71,35 @@ export function journeyBounds(journey: Journey) {
   return bounds(journey.legs.flatMap(legPath))
 }
 
-/** Points d'intérêt d'une étape — affichés seulement quand elle est sélectionnée. */
+/**
+ * Points d'une étape — affichés seulement quand elle est sélectionnée : ses
+ * repères de visite, et l'hôtel s'il est réservé et localisé.
+ */
 export function spotsGeoJSON(dest?: Destination): FeatureCollection<Point, SpotProperties> {
+  const point = (
+    name: string,
+    coord: Coord,
+    kind: SpotProperties['kind'],
+  ): Feature<Point, SpotProperties> => ({
+    type: 'Feature',
+    properties: { name, destinationId: dest?.id ?? '', kind },
+    geometry: { type: 'Point', coordinates: coord },
+  })
+
+  const hotel = dest?.accommodation
   return {
     type: 'FeatureCollection',
-    features: (dest?.spots ?? []).map((spot) => ({
-      type: 'Feature' as const,
-      properties: { name: spot.name, destinationId: dest?.id ?? '' },
-      geometry: { type: 'Point' as const, coordinates: spot.coord },
-    })),
+    features: [
+      ...(dest?.spots ?? []).map((spot) => point(spot.name, spot.coord, 'repere')),
+      // Sans coordonnées, pas de repère : une adresse ne se place pas au jugé.
+      ...(hotel?.coord ? [point(hotel.name ?? 'Hébergement', hotel.coord, 'hebergement')] : []),
+    ],
   }
+}
+
+/** Les coordonnées à faire tenir dans le cadre quand une étape est sélectionnée. */
+export function spotCoords(dest?: Destination): Coord[] {
+  return spotsGeoJSON(dest).features.map((f) => f.geometry.coordinates as Coord)
 }
 
 export const EMPTY_POINTS: FeatureCollection<Point, SpotProperties> = {

@@ -79,9 +79,13 @@ export function Warnings({ items, title }: { items: string[]; title?: string }) 
 
 /**
  * Photo avec son crédit obligatoire.
- * Toutes les images viennent de Wikimedia Commons sous licence libre ; l'auteur,
- * la licence et le lien vers la page source sont affichés avec chaque image —
- * c'est ce que ces licences exigent, et ce n'est donc pas décoratif.
+ *
+ * L'auteur, la licence et le lien vers la page source sont affichés avec chaque
+ * image — c'est ce que les licences libres exigent, et ce n'est donc pas
+ * décoratif. Presque toutes les images viennent de Wikimedia Commons ; les seules
+ * exceptions sont les photos que les hébergements réservés publient d'eux-mêmes
+ * (`src/data/hebergements.ts`), qui ne sont pas libres et pour lesquelles ce
+ * crédit vaut attribution à défaut de licence.
  *
  * Cliquer dessus l'ouvre en grand. `groupe` dit alors quelles autres photos la
  * visionneuse peut parcourir : la galerie de l'étape, les vignettes d'une fiche…

@@ -1,5 +1,5 @@
 /** Mise en forme : argent, durées, dates, distances. */
-import type { Certainty, Duration, Money, PassCoverage, StayKind } from '../types'
+import type { Certainty, Coord, Duration, Money, PassCoverage, StayKind } from '../types'
 
 /**
  * Taux de change indicatif, pour l'affichage en euros uniquement.
@@ -91,6 +91,20 @@ export function formatDuration(duration: Duration | undefined): string {
 
 export function formatKm(km: number): string {
   return `${Math.round(km).toLocaleString('fr-FR')} km`
+}
+
+/**
+ * Lien Google Maps vers un point précis.
+ *
+ * Construit sur les coordonnées et non sur l'adresse : Maps place alors le repère
+ * exactement là, au lieu de lancer une recherche approximative sur un libellé —
+ * une adresse japonaise transcrite en alphabet latin n'est pas toujours
+ * retrouvée. Les coordonnées sont en ordre GeoJSON dans nos données, l'URL les
+ * veut en latitude puis longitude : c'est tout ce que fait cette fonction.
+ */
+export function lienMaps(coord: Coord): string {
+  const [lon, lat] = coord
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lon}`)}`
 }
 
 const DATE_FMT = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long' })

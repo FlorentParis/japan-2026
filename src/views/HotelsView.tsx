@@ -1,10 +1,15 @@
 /**
  * VUE HÔTELS.
  *
- * Aucun hébergement n'a été fourni : cette vue est donc, pour l'instant, une
- * liste de champs à remplir — un par étape où une nuit est possible. C'est
- * volontaire : un hôtel inventé serait pire qu'une case vide.
+ * Une ligne par étape où une nuit est possible. Les étapes réservées portent tout
+ * ce que la réservation dit — adresse, lien Maps, horaires, photos de
+ * l'établissement ; les autres restent des champs à remplir, avec le fichier à
+ * éditer. C'est volontaire : un hôtel inventé serait pire qu'une case vide.
+ *
+ * Les quatre compteurs du bandeau viennent de `accommodationTotals()` : ils
+ * suivent les réservations d'eux-mêmes, aucun chiffre n'est écrit ici.
  */
+import { Hebergement } from '../components/Hebergement'
 import { SectionTitle, CertaintyBadge, ToFill } from '../components/ui'
 import { DESTINATIONS } from '../data/destinations'
 import { accommodationTotals } from '../lib/derive'
@@ -93,6 +98,16 @@ export function HotelsView() {
               >
                 Détail
               </button>
+
+              {/* Sous la ligne, sur toute sa largeur : les colonnes sont trop
+                  étroites pour une adresse et un carrousel. Rien ne s'affiche
+                  tant que l'étape n'est pas réservée. */}
+              <Hebergement
+                hotel={hotel}
+                className="hotel-row__detail"
+                ratio="16 / 10"
+                sizes="(max-width: 860px) 92vw, 34rem"
+              />
             </li>
           )
         })}
@@ -100,8 +115,12 @@ export function HotelsView() {
 
       <p className="view__foot">
         Pour renseigner une nuit : ouvrir <code>src/data/destinations.ts</code>, trouver l’étape et
-        compléter son objet <code>accommodation</code> (nom, quartier, prix, nombre de nuits,
-        lien de réservation). Le total, la moyenne par nuit et le budget se recalculent seuls.
+        compléter son objet <code>accommodation</code> — <code>name</code>, <code>area</code>,{' '}
+        <code>price</code>, <code>nights</code>, <code>bookingUrl</code>, et pour une réservation
+        faite <code>address</code>, <code>coord</code> (lien Maps et repère sur la carte),{' '}
+        <code>checkIn</code>, <code>checkOut</code>. Les photos de l’établissement s’ajoutent à part,
+        dans <code>src/data/hebergements.ts</code>, et se rattachent par <code>photosId</code>. Le
+        total, la moyenne par nuit et le budget se recalculent seuls.
       </p>
     </div>
   )

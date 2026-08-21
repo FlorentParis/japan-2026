@@ -8,9 +8,11 @@
  * Sort en code 1 si une erreur d'intégrité est détectée.
  */
 import { DESTINATIONS } from '../src/data/destinations'
+import { photosHebergement } from '../src/data/hebergements'
 import { JOURNEYS } from '../src/data/journeys'
 import { NUITS_ANNONCEES, TRIP } from '../src/data/trip'
 import {
+  accommodationTotals,
   activityTotals,
   allWarnings,
   budget,
@@ -24,7 +26,7 @@ import {
   tripDays,
 } from '../src/lib/derive'
 import { photoTotals } from '../src/lib/galleries'
-import { LEGS_GEOJSON, TRIP_BOUNDS } from '../src/lib/geojson'
+import { LEGS_GEOJSON, TRIP_BOUNDS, spotsGeoJSON } from '../src/lib/geojson'
 import { checkIntegrity } from '../src/lib/validate'
 
 const title = (text: string) => console.log(`\n── ${text} ${'─'.repeat(Math.max(0, 60 - text.length))}`)
@@ -98,6 +100,36 @@ for (const transfert of TRIP.transfers ?? []) {
   }
 }
 
+title('Hébergements réservés')
+// Une réservation apporte des données que rien d'autre ne recoupe : on imprime
+// donc ce que le site en fera — le lien Maps, le repère sur la carte, les photos —
+// pour qu'un champ oublié se voie ici plutôt qu'à l'écran.
+const nuitees = accommodationTotals()
+console.log(
+  `${nuitees.nights} nuit(s) réservée(s) · ${nuitees.jpy} ¥ · ` +
+    `moyenne ${nuitees.perNight ? `${Math.round(nuitees.perNight)} ¥` : '—'} · ` +
+    `${nuitees.missing} étape(s) encore sans prix`,
+)
+for (const dest of DESTINATIONS) {
+  const hotel = dest.accommodation
+  if (hotel.status === 'todo') continue
+  const photos = photosHebergement(hotel.photosId)
+  const reperes = spotsGeoJSON(dest).features.filter((f) => f.properties.kind === 'hebergement')
+  console.log(
+    `  ${dest.name.padEnd(12)} ${hotel.name ?? 'SANS NOM'} · ${hotel.nights ?? '?'} nuit(s) · ` +
+      `${hotel.price?.jpy ?? '?'} ¥ · ${hotel.checkIn ?? '?'} → ${hotel.checkOut ?? '?'} · ` +
+      `${photos.length} photo(s) · ${reperes.length} repère(s) sur la carte`,
+  )
+  if (hotel.address && !hotel.coord) {
+    console.log('    ANOMALIE : adresse sans coordonnées — ni lien Maps, ni repère sur la carte.')
+  }
+  if (hotel.photosId && photos.length === 0) {
+    console.log(
+      `    ANOMALIE : photosId « ${hotel.photosId} » sans photo dans src/data/hebergements.ts.`,
+    )
+  }
+}
+
 title('Budget, hypothèses par défaut')
 const result = budget({
   travellers: TRIP.travellers?.count ?? 1,
@@ -110,10 +142,16 @@ const result = budget({
 for (const line of result.lines) {
   console.log(
     `${line.id.padEnd(14)} ${String(line.jpy).padStart(7)} ¥  ${line.certainty}` +
-      (line.incomplete ? '  → affiché « à compléter »' : ''),
+      (line.incomplete ? '  → affiché « à compléter »' : '') +
+      // Une ligne minorée affiche bien son montant, précédé d'un « ≥ » : c'est une
+      // autre façon d'être incomplet que le « à compléter », et il faut la voir ici.
+      (line.partial > 0 ? `  → affiché « ≥ », ${line.partial} montant(s) manquant(s)` : ''),
   )
 }
-console.log(`total ${result.total} ¥ · incomplet : ${result.incomplete ? 'oui' : 'non'}`)
+console.log(
+  `total ${result.total} ¥ · lignes vides : ${result.incomplete ? 'oui' : 'non'}` +
+    ` · montants manquants comptés zéro : ${result.partial}`,
+)
 if (!Number.isFinite(result.total)) console.log('ANOMALIE : le total n’est pas un nombre fini.')
 
 title('Pass ferroviaires')

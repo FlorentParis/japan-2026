@@ -12,6 +12,7 @@ import { journeysAround } from '../lib/derive'
 import { STAY_LABEL, formatDateRange, formatMoney } from '../lib/format'
 import { useTrip } from '../state/trip-state'
 import type { Certainty, Destination } from '../types'
+import { Hebergement } from './Hebergement'
 import { PhotoCarrousel } from './PhotoCarrousel'
 import { CertaintyBadge, ToFill, Warnings } from './ui'
 
@@ -85,6 +86,9 @@ export function DestinationCard({ dest }: { dest: Destination }) {
             <ToFill />
           )}
           {hotel.note && <p className="field__note">{hotel.note}</p>}
+          {/* Adresse, lien Maps, horaires et photos de l'établissement — rien du
+              tout tant que l'étape n'a pas d'hébergement réservé. */}
+          <Hebergement hotel={hotel} ratio="4 / 3" sizes="(max-width: 700px) 92vw, 420px" />
         </Field>
 
         <Field label="Activités" certainty={dest.activitiesStatus}>

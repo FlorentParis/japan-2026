@@ -301,31 +301,53 @@ async function main() {
     await ouvrirOnglet('Itinéraire')
     // Le temps que `useGalerie` obtienne le morceau des galeries.
     await attendre(4000)
+    // Deux sortes de carrousels partagent les mêmes classes : celui de la galerie
+    // d'une étape (`dest-card__photo`) et celui des photos d'un hôtel réservé
+    // (`hebergement__photos`). Les compter ensemble ferait échouer le contrôle
+    // « un carrousel par étape » à chaque nouvelle réservation.
     const itineraire = await evaluer(
       cdp,
       `(() => {
-         const carrousels = [...document.querySelectorAll('.carrousel')]
-         const vues = carrousels.map((c) => c.querySelectorAll('.carrousel__vue').length)
-         return {
-           nombre: carrousels.length,
-           vuesMin: vues.length ? Math.min(...vues) : 0,
-           vuesMax: vues.length ? Math.max(...vues) : 0,
-           avecFleches: carrousels.filter((c) => c.querySelector('.carrousel__fleche')).length,
-           cassees: [...document.querySelectorAll('.carrousel img')]
-             .filter((i) => i.complete && i.naturalWidth === 0).length,
+         const compte = (selecteur) => {
+           const carrousels = [...document.querySelectorAll(selecteur)]
+           const vues = carrousels.map((c) => c.querySelectorAll('.carrousel__vue').length)
+           return {
+             nombre: carrousels.length,
+             vuesMin: vues.length ? Math.min(...vues) : 0,
+             vuesMax: vues.length ? Math.max(...vues) : 0,
+             avecFleches: carrousels.filter((c) => c.querySelector('.carrousel__fleche')).length,
+             cassees: [...document.querySelectorAll(selecteur + ' img')]
+               .filter((i) => i.complete && i.naturalWidth === 0).length,
+             // Une image hors cadre n'est pas chargée : c'est le chargement
+             // paresseux qui fait son travail, pas une panne. Compté, pas jugé.
+             chargees: [...document.querySelectorAll(selecteur + ' img')]
+               .filter((i) => i.complete && i.naturalWidth > 0).length,
+           }
          }
+         return { etapes: compte('.carrousel.dest-card__photo'), hotels: compte('.carrousel.hebergement__photos') }
        })()`,
     )
+    const etapes = itineraire.etapes
     console.log(
-      `  itinéraire : ${itineraire.nombre} carrousels de ${itineraire.vuesMin} à ${itineraire.vuesMax} photos`,
+      `  itinéraire : ${etapes.nombre} carrousels de ${etapes.vuesMin} à ${etapes.vuesMax} photos`,
     )
-    verifier(itineraire.nombre === 18, `un carrousel par étape (${itineraire.nombre}/18)`)
-    verifier(itineraire.vuesMin >= 2, `plusieurs photos par étape (minimum ${itineraire.vuesMin})`)
+    verifier(etapes.nombre === 18, `un carrousel par étape (${etapes.nombre}/18)`)
+    verifier(etapes.vuesMin >= 2, `plusieurs photos par étape (minimum ${etapes.vuesMin})`)
     verifier(
-      itineraire.avecFleches === itineraire.nombre,
-      `chaque carrousel a ses flèches (${itineraire.avecFleches}/${itineraire.nombre})`,
+      etapes.avecFleches === etapes.nombre,
+      `chaque carrousel a ses flèches (${etapes.avecFleches}/${etapes.nombre})`,
     )
-    verifier(itineraire.cassees === 0, `aucune image cassée dans les carrousels (${itineraire.cassees})`)
+    verifier(etapes.cassees === 0, `aucune image cassée dans les carrousels (${etapes.cassees})`)
+
+    // Les photos des hébergements réservés : elles ne viennent pas de Wikimedia
+    // mais du serveur de l'établissement, et sont donc les plus susceptibles de
+    // disparaître sans prévenir.
+    const hotels = itineraire.hotels
+    console.log(
+      `  hébergements réservés : ${hotels.nombre} carrousel(s) de ${hotels.vuesMin} à ${hotels.vuesMax} photos` +
+        ` · ${hotels.chargees} chargée(s) à l’écran`,
+    )
+    verifier(hotels.cassees === 0, `aucune photo d’hôtel cassée (${hotels.cassees})`)
 
     await ouvrirOnglet('Carte')
     await attendre(5000)
@@ -336,7 +358,7 @@ async function main() {
          if (!etape) return { erreur: 'aucune étape dans la frise' }
          etape.click()
          await new Promise((r) => setTimeout(r, 2500))
-         const carrousel = document.querySelector('.timeline__step .carrousel')
+         const carrousel = document.querySelector('.timeline__step .carrousel.dest-card__photo')
          return {
            present: Boolean(carrousel),
            vues: carrousel?.querySelectorAll('.carrousel__vue').length ?? 0,

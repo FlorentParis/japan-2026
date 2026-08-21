@@ -15,6 +15,7 @@
 import { SectionTitle, CertaintyBadge, ToFill } from '../components/ui'
 import { TRIP } from '../data/trip'
 import {
+  accommodationTotals,
   budget,
   flightTotals,
   passAnalysis,
@@ -108,6 +109,7 @@ export function BudgetView() {
   /** Le retour international : le dernier vol dont l'heure de décollage est connue. */
   const volRetour = [...TRIP.flights].reverse().find((f) => f.departureTime !== undefined)
   const transferts = transferTotals()
+  const nuits = accommodationTotals()
 
   const result = budget({
     travellers: settings.travellers,
@@ -285,12 +287,18 @@ export function BudgetView() {
 
         {(result.incomplete || result.partial > 0) && (
           <p className="budget-table__warning">
-            Ce total est <strong>incomplet</strong> : les lignes marquées « à compléter » n’y sont
-            pas comptées
+            Ce total est <strong>incomplet</strong> :{' '}
+            {/* Les deux façons d'être incomplet ne coexistent pas toujours : ne
+                citer que celles qui sont effectivement à l'œuvre. */}
+            {result.incomplete && (
+              <>les lignes marquées « à compléter » n’y sont pas comptées</>
+            )}
+            {result.incomplete && result.partial > 0 && ', et '}
             {result.partial > 0 && (
               <>
-                , et {result.partial} montant(s) manquant(s) — tarifs de transport non relevés,
-                activités sans prix — sont comptés pour zéro, d’où le « ≥ »
+                {result.partial} montant(s) manquant(s) — tarifs de transport non relevés, activités
+                sans prix, étapes dont l’hébergement reste à réserver — sont comptés pour zéro, d’où
+                le « ≥ »
               </>
             )}
             . Il ne s’agit donc pas du coût du voyage, mais du coût de ce qui est actuellement
@@ -318,9 +326,22 @@ export function BudgetView() {
                 les seules heures fermes du voyage, et elles contraignent le premier et le dernier
                 jour : voir les points de vigilance.
               </li>
+              {/* Construite sur `accommodationTotals()` : la phrase suit les
+                  réservations au lieu d'affirmer qu'il n'y en a aucune. */}
               <li>
-                Les dates et le nombre de nuits de chaque étape. Aucun prix d’hébergement, en
-                revanche : rien n’est réservé.
+                Les dates et le nombre de nuits de chaque étape.{' '}
+                {nuits.nights > 0 ? (
+                  <>
+                    Côté hébergement, {formatMoney({ jpy: nuits.jpy, certainty: 'confirmed' }, currency)}{' '}
+                    de réservé pour {nuits.nights} nuit
+                    {nuits.nights > 1 ? 's' : ''} —{' '}
+                    {nuits.missing > 0
+                      ? `${nuits.missing} étapes n’ont encore aucun prix : le total ci-dessus est donc un minorant.`
+                      : 'toutes les étapes ont leur prix.'}
+                  </>
+                ) : (
+                  <>Aucun prix d’hébergement, en revanche : rien n’est réservé.</>
+                )}
               </li>
             </ul>
           ) : (

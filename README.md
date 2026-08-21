@@ -6,20 +6,22 @@ une galerie par étape, le budget et le détail des transports, tronçon par tro
 
 ## Règle de fond : aucune donnée inventée
 
-Trois choses seulement ont été fournies : la liste des villes, la table des dates
-et du nombre de nuits, puis les billets d’avion (1 103 €, arrivée à Narita le
-6 novembre à 12 h, départ de Haneda le 5 décembre à 8 h 40). Tout le reste est
+Quatre choses seulement ont été fournies : la liste des villes, la table des dates
+et du nombre de nuits, les billets d’avion (1 103 €, arrivée à Narita le
+6 novembre à 12 h, départ de Haneda le 5 décembre à 8 h 40) et la première
+réservation d’hôtel (Tokyo, les deux premières nuits, 33 930 ¥). Tout le reste est
 explicitement marqué :
 
 | Marque | Signification |
 | --- | --- |
-| `confirmé` | donnée fournie ou réservée — les dates, les nuits et les billets d’avion, à ce jour |
+| `confirmé` | donnée fournie ou réservée — les dates, les nuits, les billets d’avion et l’hôtel de Tokyo, à ce jour |
 | `estimé` | valeur relevée sur une grille tarifaire ou un horaire public, à revérifier |
 | `à compléter` | rien n’a été fourni — **aucune valeur n’est inventée pour combler le trou** |
 
-Conséquences visibles dans le site : aucun prix d’hôtel, et deux tarifs de train
-(Shikoku) volontairement absents. Le budget affiche « à compléter » là où il
-manque une donnée plutôt qu’un zéro.
+Conséquences visibles dans le site : une seule étape sur seize a un prix d’hôtel,
+et deux tarifs de train (Shikoku) volontairement absents. Le budget affiche
+« à compléter » là où il manque une donnée plutôt qu’un zéro — et, quand une part
+seulement est connue comme pour l’hébergement, le montant réel précédé d’un `≥`.
 
 ### Le cas des activités, des spécialités et des photos
 
@@ -42,6 +44,17 @@ Commons. Sans résultat exploitable, l’entrée s’affiche **sans image** — 
 avec la photo d’un autre lieu. La vue Photos affiche le compte réel de chaque
 étape et nomme celles qui restent sous le seuil de neuf, plutôt que d’affirmer
 que l’objectif est atteint.
+
+**Une seule exception, délibérée** : les photos d’un hébergement réservé
+(`src/data/hebergements.ts`). Aucun fonds libre ne montre l’intérieur d’un hôtel
+de quartier, et une image « d’ambiance » prise ailleurs serait exactement la donnée
+inventée que ce projet refuse. Ce sont donc les photos que l’établissement publie
+lui-même : elles ne sont **pas** libres de droits, elles sont **liées** à leur
+serveur d’origine et jamais recopiées — aucun fichier sous droits n’entre dans le
+dépôt ni dans `dist/` — et elles portent le même crédit cliquable que les autres,
+le nom de l’établissement à la place de l’auteur et la nature du droit d’usage à
+la place de la licence. Le carnet est personnel et n’est pas publié en ligne. Ce
+fichier est écrit à la main : `npm run photos` n’y touche pas.
 
 Une ville se laisse mal résumer par une photo : chaque fiche d’étape — dans
 l’itinéraire comme dans la frise de la vue Carte — porte donc un **carrousel** de
@@ -210,12 +223,20 @@ seul endroit à corriger.
 | `src/data/places.ts` | les points géographiques (gares, ports, cols, aéroports) et leurs coordonnées |
 | `src/data/journeys.ts` | les 17 déplacements et leurs 35 tronçons : mode, service, durée, prix, correspondances |
 | `src/data/unites.ts` | les fabriques `yen()`, `mins()`, `tarifACompleter()` — partagées par les deux fichiers ci-dessus |
+| `src/data/hebergements.ts` | écrit à la main : les photos des hébergements réservés, rattachées par `accommodation.photosId`. Les seules images non libres du site (voir plus haut) |
 | `src/data/photos.generated.ts` | **généré** par `npm run photos` : la photo de chaque sujet nommé, avec auteur, licence et page source. Ne pas modifier à la main |
 | `src/data/galleries.generated.ts` | **généré** aussi : les galeries par étape, chargées seulement avec la vue Photos |
 
 Exemples courants :
 
-- **renseigner un hôtel** → `src/data/destinations.ts`, champ `accommodation` de l’étape ;
+- **renseigner un hôtel** → `src/data/destinations.ts`, champ `accommodation` de
+  l’étape : `name`, `area`, `price`, `nights`, `bookingUrl`, et pour une
+  réservation faite `address`, `coord` (le lien Maps et le repère sur la carte sont
+  construits sur les coordonnées, pas sur l’adresse), `checkIn`, `checkOut` ;
+- **ajouter les photos d’un hôtel réservé** → une entrée dans
+  `src/data/hebergements.ts` — les URL, les dimensions et la catégorie de chaque
+  image se relèvent sur la page officielle de l’établissement, comme l’explique
+  l’en-tête du fichier — puis son `photosId` sur l’étape ;
 - **décaler une date** → `sejour('11-25', '11-27')` sur l’étape concernée, et celle
   d’avant ou d’après pour que la chaîne reste sans trou : `npm run qa` le dira ;
 - **changer l’année du voyage** → la constante `ANNEE`, en haut de
@@ -284,7 +305,11 @@ voyage, elles, ne viennent que des fichiers ci-dessus.
 - Fond de carte : [OpenFreeMap](https://openfreemap.org/), style Positron, sans clé API
 - Données cartographiques : [OpenStreetMap](https://www.openstreetmap.org/copyright)
 - Photos : [Wikimedia Commons](https://commons.wikimedia.org/) — auteur et licence
-  affichés sous chaque image, aucune image sous droits réservés
+  affichés sous chaque image
+- Seule exception, et seules images non libres du site : les photos que les
+  hébergements réservés publient d’eux-mêmes (aujourd’hui
+  [Tabist Urban Stays Asakusa](https://tabist.co.jp/en/h/B13HUSA)) — liées à leur
+  serveur d’origine, jamais recopiées dans le dépôt, et créditées sous chaque image
 
 ## Accessibilité et affichage
 

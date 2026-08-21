@@ -69,9 +69,30 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     galleryQueries: ['Asakusa Tokyo', 'Shinjuku night', 'Tokyo skyline autumn'],
     dates: sejour('11-06', '11-08'),
     nights: nuits(2),
+    // Première réservation d'hébergement du voyage. Tout vient de la
+    // confirmation du voyageur ; l'adresse, les horaires et les coordonnées sont
+    // recoupés avec la page officielle de l'établissement (`bookingUrl`), qui les
+    // donne à l'identique. `room` reste absent : la réservation ne dit pas quel
+    // type de chambre, et on ne le devine pas.
     accommodation: {
-      status: 'todo',
-      note: 'Arrivée dans Tokyo vers 14 h 30 seulement : un hôtel proche de la gare de Tokyo ou de Shinjuku évite un transport de plus avec les bagages. Shinjuku a l’avantage d’être le point de départ du train du 8 pour Matsumoto.',
+      status: 'confirmed',
+      name: 'Tabist Urban Stays Asakusa',
+      area: 'Azumabashi, Sumida-ku — 7 min à pied de la gare d’Asakusa',
+      address: '1-8-9 Azumabashi, Sumida-ku, Tokyo 130-0001',
+      coord: [139.8009, 35.7085],
+      checkIn: '15:00',
+      checkOut: '10:00',
+      nights: 2,
+      price: {
+        jpy: 33930,
+        certainty: 'confirmed',
+        // Le prix des deux nuits, pas un prix par personne : c'est ce que la
+        // confirmation annonce, et `accommodationTotals()` ne le multiplie donc pas.
+        scope: 'total',
+      },
+      bookingUrl: 'https://tabist.co.jp/en/h/B13HUSA',
+      photosId: 'tabist-urban-stays-asakusa',
+      note: 'Réservé : 33 930 ¥ pour les deux nuits. Arrivée possible de 15 h à 22 h, départ avant 10 h. L’entrée passe en verrouillage automatique de 22 h à 9 h, ouverture par code — à demander à la réception en arrivant.',
     },
     activities: [
       {
@@ -154,6 +175,8 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     warnings: [
       'Aéroport d’arrivée : Narita, confirmé. Atterrissage le 6 novembre à 12 h 00. Le transfert vers Tokyo est détaillé dans la section Transports.',
       'La demi-journée du 6 est à considérer comme perdue : 12 h d’atterrissage, plus les formalités et 1 h de Narita Express, met l’arrivée en ville vers 14 h 30 au plus tôt — après un vol long-courrier. Sur ces deux nuits, seule la journée du 7 novembre est une vraie journée de visite.',
+      'L’hôtel est à Azumabashi, le Narita Express dépose à la gare de Tokyo : il reste un trajet avec les bagages, dont le tarif n’a pas été relevé et qui n’est donc compté nulle part. Le Keisei Access Express, listé parmi les alternatives du transfert d’arrivée, dessert Asakusa directement.',
+      'Départ du 8 : l’Azusa part de Shinjuku, à l’autre bout de la ville. Prévoir le trajet Asakusa → Shinjuku en métro avant l’horaire du train — tarif non relevé, donc non compté lui non plus.',
     ],
     spots: [
       { name: 'Sensō-ji', coord: [139.7967, 35.7148], kind: 'culture' },
