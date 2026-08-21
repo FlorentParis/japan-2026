@@ -106,7 +106,9 @@ export function HotelsView() {
                 hotel={hotel}
                 className="hotel-row__detail"
                 ratio="16 / 10"
-                sizes="(max-width: 860px) 92vw, 34rem"
+                // Largeur réelle d'une vignette de frise, pas celle du bloc :
+                // annoncer 34 rem ferait télécharger treize images de pleine page.
+                sizes="(max-width: 860px) 40vw, 12rem"
               />
             </li>
           )

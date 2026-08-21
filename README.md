@@ -57,12 +57,21 @@ la place de la licence. Le carnet est personnel et n’est pas publié en ligne.
 fichier est écrit à la main : `npm run photos` n’y touche pas.
 
 Une ville se laisse mal résumer par une photo : chaque fiche d’étape — dans
-l’itinéraire comme dans la frise de la vue Carte — porte donc un **carrousel** de
-toute sa galerie, et un clic sur n’importe quelle image du site l’ouvre **en
-grand** dans une visionneuse que les flèches ← → parcourent. Les 160 ko de
-galeries ne sont pas pour autant chargés d’emblée : `src/lib/useGalerie.ts` les
-demande par un `import()` au premier rendu d’une fiche, et jusqu’à leur arrivée
-le carrousel montre la photo de tête, déjà présente. Jamais de trou.
+l’itinéraire comme dans la frise chronologique de la vue Carte — porte donc toute
+sa galerie en **frise de photos** : plusieurs vignettes côte à côte, que
+l’on pousse au doigt, à la molette ou par les deux flèches, la tranche affichée
+écrite dessous (« Photos 1–4 sur 20 »). Ce n’est volontairement pas un diaporama
+d’une vue à la fois — voir quatre vignettes dit tout de suite ce que l’étape
+contient. La largeur d’une vignette est le seul réglage, et il vit en CSS
+(`--frise-vue`, réglé par contexte : la colonne étroite de la carte, la pleine
+largeur de l’itinéraire) ; `Carrousel.tsx` mesure le pas de défilement sur le DOM
+plutôt que de recopier cette valeur, de sorte qu’un contexte peut changer la
+taille des vignettes sans toucher au composant. Un clic sur n’importe quelle image
+du site l’ouvre **en grand** dans une visionneuse que les flèches ← → parcourent.
+Les 160 ko de galeries ne sont pas pour autant chargés d’emblée :
+`src/lib/useGalerie.ts` les demande par un `import()` au premier rendu d’une
+fiche, et jusqu’à leur arrivée la frise montre la photo de tête, déjà
+présente. Jamais de trou.
 
 Les largeurs d’images demandées à Wikimedia ne sont pas libres : la production ne
 rend qu’une liste de **tailles standard** (20, 40, 60, 120, 250, 330, 500, 960,
@@ -94,6 +103,16 @@ Le prix du billet d’avion est stocké **en euros**, parce que c’est la devis
 laquelle il a été payé : c’est la donnée exacte. Le montant en yens qui apparaît
 dans les totaux n’en est qu’une conversion, au taux indicatif de `JPY_PER_EUR`.
 Jamais l’inverse — voir `Money.eur` dans `src/types.ts`.
+
+Ce taux est lui-même une donnée sourcée et **datée** : `1 € = 185,45 ¥`, taux de
+référence quotidien de la Banque centrale européenne relevé le 20 août 2026, et
+la vue Budget l’affiche avec sa date dès qu’on demande les euros. Il a
+remplacé un `165` arrondi, écrit de mémoire au premier commit, qui gonflait tous
+les euros du site de plus de 10 % — c’était la seule valeur du projet à échapper
+à la règle de fond. Un taux de référence n’est pas le taux facturé : une carte
+bancaire applique le cours du jour de la transaction et sa propre marge. Pour le
+mettre à jour, relever la même source et corriger `JPY_PER_EUR` **et**
+`JPY_PER_EUR_DATE` dans `src/lib/format.ts`.
 
 Un montant auquel il manque une composante n’est jamais présenté comme complet :
 
@@ -203,8 +222,12 @@ en choisit un autre : passer alors l’URL en argument
 peut pas voir : un `<img>` rendu correctement dont le fichier n’arrive jamais.
 Il parcourt la vue Photos pour déclencher le chargement paresseux et compte les
 images cassées, ouvre la visionneuse pour la parcourir à la souris et au
-clavier, vérifie qu’un carrousel garni existe pour chacune des dix-huit étapes
-et dans la fiche ouverte sur la carte, puis demande à Wikimedia dix largeurs
+clavier, vérifie qu’une frise garnie existe pour chacune des dix-huit étapes
+et dans la fiche ouverte sur la carte — et qu’elle se comporte en frise :
+plusieurs vignettes en vue, une flèche qui pousse d’exactement une vignette, un
+compteur qui donne la tranche, une flèche de droite qui se désactive au bout.
+C’est mesuré dans le navigateur, la largeur d’une vignette étant un `clamp()`
+que rien ne connaît hors du CSS. Il demande enfin à Wikimedia dix largeurs
 pour constater lesquelles sont servies. Ce dernier contrôle est le garde-fou du
 bug d’origine : il échoue si 400, 800 ou 1600 px se mettaient à fonctionner
 comme si de rien n’était. À travers un proxy d’entreprise, les quatre cents
@@ -327,5 +350,8 @@ voyage, elles, ne viennent que des fichiers ci-dessus.
 - la visionneuse est un `<dialog>` natif : la touche Échap, le piégeage du focus
   et l’inertie du reste de la page sont le travail du navigateur, pas un
   empilement de gestionnaires d’événements. Chaque photo s’y ouvre par un vrai
-  bouton, donc au clavier aussi, et les carrousels se défilent au doigt comme à
-  la molette (`scroll-snap`) sans dépendre de JavaScript.
+  bouton, donc au clavier aussi, et les frises de photos se défilent au doigt
+  comme à la molette (`scroll-snap`) sans dépendre de JavaScript — leurs flèches
+  ne font que pousser ce défilement, elles ne le remplacent pas ; la piste est
+  elle-même atteignable au clavier (`tabIndex`), les flèches ← → du clavier la
+  parcourent alors.

@@ -231,10 +231,11 @@
   }
 }
 
-/* Dans l'itinéraire, la fiche occupe toute la largeur de lecture : le carrousel
-   peut y respirer beaucoup plus que dans la colonne étroite de la carte. */
-.view--itineraire .dest-card__photo .photo--carrousel {
-  max-height: 20rem;
+/* Dans l'itinéraire, la fiche occupe toute la largeur de lecture : la frise peut
+   y respirer beaucoup plus que dans la colonne étroite de la carte — des
+   vignettes deux fois plus larges, et toujours trois ou quatre en vue. */
+.view--itineraire .dest-card__photo {
+  --frise-vue: clamp(10rem, 30%, 16rem);
 }
 
 .itinerary__journey {

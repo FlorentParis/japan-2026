@@ -12,7 +12,10 @@
  *   1. les largeurs demandées existent bien chez Wikimedia (requêtes réelles) ;
  *   2. aucune image de la vue Photos n'échoue à charger ;
  *   3. la visionneuse s'ouvre, se parcourt à la souris et au clavier, se ferme ;
- *   4. l'itinéraire et la fiche d'étape de la carte portent bien un carrousel.
+ *   4. l'itinéraire et la fiche d'étape de la carte portent bien une frise, qui
+ *      montre plusieurs vignettes à la fois et se pousse d'une vignette par
+ *      flèche — mesuré dans le navigateur, la largeur d'une vue étant un
+ *      `clamp()` du CSS que rien ne connaît hors de lui.
  *
  * Usage : `npm run preview` dans un terminal, puis `npm run qa:photos` dans un
  * autre. Une autre URL peut être passée en argument.
@@ -348,6 +351,60 @@ async function main() {
         ` · ${hotels.chargees} chargée(s) à l’écran`,
     )
     verifier(hotels.cassees === 0, `aucune photo d’hôtel cassée (${hotels.cassees})`)
+
+    // Une frise n'est pas un diaporama : plusieurs vignettes doivent tenir dans
+    // le cadre, et la flèche pousser d'une vignette — ni d'un écran entier, ni de
+    // rien du tout. Le pas est mesuré dans le navigateur, seul endroit où la
+    // largeur réelle d'une vue (un `clamp()` du CSS) soit connue.
+    const frise = await evaluer(
+      cdp,
+      `(async () => {
+         const pause = () => new Promise((r) => setTimeout(r, 800))
+         const frise = document.querySelector('.carrousel.dest-card__photo')
+         if (!frise) return { erreur: 'aucune frise dans l’itinéraire' }
+         const piste = frise.querySelector('.carrousel__piste')
+         const vues = frise.querySelectorAll('.carrousel__vue')
+         if (vues.length < 2) return { erreur: 'frise à une seule vue' }
+         const pas = vues[1].offsetLeft - vues[0].offsetLeft
+         const compteur = () => frise.querySelector('.carrousel__compteur')?.textContent.trim() ?? null
+         const depart = piste.scrollLeft
+         const compteurDepart = compteur()
+         frise.querySelector('.carrousel__fleche--apres').click()
+         await pause()
+         const avance = piste.scrollLeft - depart
+         piste.scrollTo({ left: piste.scrollWidth, behavior: 'instant' })
+         await pause()
+         return {
+           pas,
+           avance,
+           visibles: Math.round(piste.clientWidth / pas),
+           compteurDepart,
+           compteurFin: compteur(),
+           gauche: frise.querySelector('.carrousel__fleche--avant').disabled,
+           droite: frise.querySelector('.carrousel__fleche--apres').disabled,
+         }
+       })()`,
+    )
+    if (frise.erreur) {
+      anomalies += 1
+      console.log(`ÉCHEC  ${frise.erreur}`)
+    } else {
+      console.log(
+        `  frise : ${frise.visibles} vignette(s) en vue, pas de ${Math.round(frise.pas)} px` +
+          ` · « ${frise.compteurDepart} » puis « ${frise.compteurFin} »`,
+      )
+      verifier(frise.visibles >= 2, `plusieurs vignettes visibles à la fois (${frise.visibles})`)
+      verifier(
+        Math.abs(frise.avance - frise.pas) <= 2,
+        `la flèche pousse d’une vignette (${Math.round(frise.avance)} px pour un pas de ${Math.round(frise.pas)})`,
+      )
+      verifier(
+        /^Photos 1–\d+ sur \d+$/.test(frise.compteurDepart ?? ''),
+        `le compteur donne la tranche affichée (${frise.compteurDepart})`,
+      )
+      verifier(frise.droite, 'au bout de la frise, la flèche de droite est désactivée')
+      verifier(!frise.gauche, 'et celle de gauche redevient active')
+    }
 
     await ouvrirOnglet('Carte')
     await attendre(5000)

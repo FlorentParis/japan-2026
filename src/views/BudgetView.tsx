@@ -25,6 +25,8 @@ import {
 } from '../lib/derive'
 import {
   CERTAINTY_LABEL,
+  JPY_PER_EUR,
+  JPY_PER_EUR_DATE,
   formatAmount,
   formatDateRange,
   formatMoney,
@@ -154,7 +156,12 @@ export function BudgetView() {
         </div>
         {currency === 'eur' && (
           <span className="currency-switch__note">
-            Conversion indicative, taux fixe défini dans <code>src/lib/format.ts</code>.
+            {/* Un taux de change sans sa date ne veut rien dire : les deux sont
+                affichés, pour qu'un chiffre périmé se repère à l'écran. */}
+            Conversion indicative à 1 € = {JPY_PER_EUR.toLocaleString('fr-FR')} ¥, taux de
+            référence de la Banque centrale européenne du {JPY_PER_EUR_DATE} (
+            <code>src/lib/format.ts</code>). Un paiement par carte s’en écarte : marge de la
+            banque et taux du jour de la transaction.
           </span>
         )}
       </div>

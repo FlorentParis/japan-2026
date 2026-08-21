@@ -180,16 +180,12 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* La fiche montre tout un carrousel : la hauteur se borne sur les photos, le
-   conteneur du carrousel n'ayant pas de rapport d'aspect à lui. */
-.dest-card__photo .photo--carrousel {
-  max-height: 12rem;
-}
-
-/* Dans le champ « Hébergement », le carrousel de l'hôtel reste une vignette : la
-   fiche parle de l'étape, pas de l'hôtel — la vue Hôtels le montre en grand. */
-.field .hebergement__photos {
-  max-width: 20rem;
+/* La colonne de la carte est étroite : deux vignettes en vue et la troisième qui
+   dépasse, plutôt que trois si petites que le crédit de la photo les couvrirait.
+   Une seule règle pour les deux frises de la fiche — celle de l'étape et celle de
+   l'hôtel : c'est la largeur de la colonne qui commande, pas leur sujet. */
+.timeline__step .carrousel {
+  --frise-vue: clamp(8rem, 45%, 10rem);
 }
 
 .dest-card__blurb {

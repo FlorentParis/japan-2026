@@ -1,8 +1,9 @@
 /**
  * LES PHOTOS D'UNE ÉTAPE — dans l'itinéraire et dans la fiche ouverte sur la carte.
  *
- * Une seule photo par ville disait peu de choses du lieu : ici défile toute la
- * galerie de l'étape, et un clic ouvre l'image en grand dans la visionneuse.
+ * Une seule photo par ville disait peu de choses du lieu : ici toute la galerie
+ * de l'étape défile en frise, et un clic ouvre l'image en grand dans la
+ * visionneuse.
  *
  * Ce fichier ne fait que choisir les photos et les légender ; le défilement, les
  * flèches et le compteur sont dans `Carrousel`, qui sert aussi aux photos des
@@ -10,8 +11,8 @@
  *
  * Tant que le morceau des galeries n'est pas arrivé — et lors du rendu hors
  * navigateur de `npm run qa`, où il n'arrive jamais — c'est la photo de tête,
- * présente dans le lot initial, qui s'affiche seule. Jamais de trou, jamais de
- * fenêtre vide.
+ * présente dans le lot initial, qui s'affiche seule. Une frise d'une seule
+ * vignette, donc, mais jamais de trou ni de fenêtre vide.
  */
 import { PHOTOS } from '../data/photos.generated'
 import { useGalerie } from '../lib/useGalerie'

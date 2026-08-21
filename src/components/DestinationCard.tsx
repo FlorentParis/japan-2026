@@ -44,15 +44,17 @@ export function DestinationCard({ dest }: { dest: Destination }) {
 
   return (
     <article className="dest-card">
-      {/* Toute la galerie de l'étape, et non plus une seule vue : une ville se
-          laisse mal résumer par une photo. Un clic ouvre l'image en grand. */}
+      {/* Toute la galerie de l'étape en frise, et non plus une seule vue : une
+          ville se laisse mal résumer par une photo. Un clic ouvre l'image en
+          grand. `sizes` annonce la largeur d'une vignette — la frise en montre
+          trois ou quatre, pas une seule pleine largeur. */}
       <PhotoCarrousel
         destId={dest.id}
         name={dest.name}
         photoId={dest.photoId}
         ratio="16 / 9"
         className="dest-card__photo"
-        sizes="(max-width: 700px) 92vw, 640px"
+        sizes="(max-width: 700px) 32vw, 16rem"
       />
 
       <p className="dest-card__blurb">{dest.blurb}</p>
@@ -88,7 +90,7 @@ export function DestinationCard({ dest }: { dest: Destination }) {
           {hotel.note && <p className="field__note">{hotel.note}</p>}
           {/* Adresse, lien Maps, horaires et photos de l'établissement — rien du
               tout tant que l'étape n'a pas d'hébergement réservé. */}
-          <Hebergement hotel={hotel} ratio="4 / 3" sizes="(max-width: 700px) 92vw, 420px" />
+          <Hebergement hotel={hotel} ratio="4 / 3" sizes="(max-width: 700px) 40vw, 12rem" />
         </Field>
 
         <Field label="Activités" certainty={dest.activitiesStatus}>

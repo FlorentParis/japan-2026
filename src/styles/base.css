@@ -424,13 +424,26 @@ button {
   min-width: 0;
 }
 
-/* ── Carrousel de photos ──────────────────────────────────────────────── */
+/* ── Frise de photos ──────────────────────────────────────────────────── */
 
+/* Une pellicule, pas un diaporama : plusieurs vignettes côte à côte que l'on
+   pousse à l'horizontale. La largeur d'une vue est la seule chose qu'un contexte
+   ait à régler — la hauteur en découle par le rapport d'aspect demandé, et le
+   composant mesure le pas de défilement sur le DOM.
+   Le `clamp` écarte les deux ridicules : le timbre-poste dans une fiche étroite,
+   la photo pleine page dans une vue large. */
 .carrousel {
+  --frise-vue: clamp(8rem, 32%, 12rem);
+  --frise-gouttiere: 0.35rem;
+}
+
+/* Les flèches se posent sur les bords de la frise : c'est donc elle, et non le
+   bloc entier (compteur compris), qui leur sert de repère. */
+.carrousel__cadre {
   position: relative;
 }
 
-/* Le défilement est celui du navigateur : `scroll-snap` cale la photo suivante
+/* Le défilement est celui du navigateur : `scroll-snap` cale la vue suivante
    au bord, et le glissement au doigt marche sans une ligne de JavaScript. */
 .carrousel__piste {
   overflow-x: auto;
@@ -451,10 +464,11 @@ button {
 
 .carrousel__liste {
   display: flex;
+  gap: var(--frise-gouttiere);
 }
 
 .carrousel__vue {
-  flex: 0 0 100%;
+  flex: 0 0 var(--frise-vue);
   min-width: 0;
   scroll-snap-align: start;
 }
@@ -463,26 +477,37 @@ button {
   border-radius: var(--radius);
 }
 
-/* Les flèches flottent sur la photo : les mettre dessous ferait bouger toute la
-   fiche selon que l'étape a une photo ou vingt. */
+/* Sur une vignette de frise, le crédit occupait le tiers de l'image : plus petit
+   et plus serré, il reste lisible sans la manger. Il n'est ni tronqué ni masqué —
+   c'est l'attribution exigée par la licence, pas un ornement. */
+.photo--carrousel .photo__credit {
+  padding: 0.55rem 0.4rem 0.25rem;
+  font-size: 0.6rem;
+}
+
+/* Les flèches flottent sur les bords de la frise : les mettre dessous ferait
+   bouger toute la fiche selon que l'étape a une photo ou vingt. Sur une vignette
+   de frise, un disque de 2 rem couvrirait la moitié de l'image : d'où une taille
+   plus mesurée, et une ombre portée pour rester lisible sur une photo claire. */
 .carrousel__fleche {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 2rem;
-  height: 2rem;
+  width: 1.6rem;
+  height: 1.6rem;
   border: 0;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.55);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1;
   cursor: pointer;
   transition: background 0.15s ease, opacity 0.15s ease;
 }
 
 .carrousel__fleche:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .carrousel__fleche:disabled {
@@ -491,25 +516,22 @@ button {
 }
 
 .carrousel__fleche--avant {
-  left: var(--gap-2);
+  left: 0.2rem;
 }
 
 .carrousel__fleche--apres {
-  right: var(--gap-2);
+  right: 0.2rem;
 }
 
-/* En haut à gauche : en bas à droite, il tomberait sur le crédit de la photo. */
+/* Sous la frise et non plus en pastille sur la première vue : la tranche
+   affichée (« Photos 1–4 sur 13 ») est plus longue qu'un « 1 / 13 », et une
+   vignette de frise est trop petite pour la porter sans être masquée. */
 .carrousel__compteur {
-  position: absolute;
-  top: var(--gap-2);
-  left: var(--gap-2);
-  padding: 0.1rem 0.45rem;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
+  margin-top: 0.3rem;
+  text-align: right;
   font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
-  pointer-events: none;
+  color: var(--ink-muted);
 }
 
 /* ── Détail d'un hébergement réservé ─────────────────────────────────── */
@@ -535,11 +557,10 @@ button {
   white-space: nowrap;
 }
 
-/* Une photo d'hôtel n'a pas besoin d'être plus large que ça : à pleine largeur
-   d'écran, treize vues de chambre feraient un diaporama d'agence. */
-.hebergement__photos {
-  max-width: 30rem;
-}
+/* Aucune largeur maximale ici : depuis que les photos d'un hôtel défilent en
+   frise, treize vues de chambre ne font plus un diaporama d'agence mais une
+   pellicule basse, qui gagne au contraire à montrer plusieurs vignettes.
+   La fiche d'étape, elle, la garde étroite (voir `.field` dans timeline.css). */
 
 /* ── Visionneuse plein écran ──────────────────────────────────────────── */
 

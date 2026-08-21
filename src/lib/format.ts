@@ -5,8 +5,21 @@ import type { Certainty, Coord, Duration, Money, PassCoverage, StayKind } from '
  * Taux de change indicatif, pour l'affichage en euros uniquement.
  * Toutes les données sont stockées en yens : changer ce chiffre ne modifie
  * aucune donnée, seulement la conversion affichée.
+ *
+ * Source : taux de référence quotidien de la Banque centrale européenne
+ * (`eurofxref-daily.xml`), relevé le 20 août 2026. C'est le taux du marché,
+ * celui-là même qu'utilise la conversion affichée par une réservation Booking
+ * (33 930 ¥ → 182,97 €). Un paiement par carte s'en écarte un peu : la banque
+ * applique le taux du jour de la transaction et sa propre marge.
+ *
+ * Le chiffre précédent — 165, arrondi et sans source — datait du premier commit
+ * et gonflait tous les euros du site de plus de 10 %. Un taux sans date n'a pas
+ * de sens : relever le nouveau au même endroit, et corriger la date ci-dessous.
  */
-export const JPY_PER_EUR = 165
+export const JPY_PER_EUR = 185.45
+
+/** Date du relevé ci-dessus, affichée à côté des montants convertis. */
+export const JPY_PER_EUR_DATE = '20 août 2026'
 
 export type Currency = 'jpy' | 'eur'
 
