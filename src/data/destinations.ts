@@ -198,7 +198,25 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     galleryQueries: ['Matsumoto Nagano city', 'Matsumoto Castle autumn', 'Kaichi School Matsumoto'],
     dates: sejour('11-08', '11-10'),
     nights: nuits(2),
-    accommodation: { status: 'todo' },
+    // Adresse et horaires recoupés avec la fiche officielle de la chaîne
+    // (`bookingUrl`). Le voyageur écrit « Chuo 2-1-23 » ; la chaîne écrit
+    // « 2-1-23 Chuou » — même adresse, translittération différente du 中央, et
+    // c'est celle de l'établissement qui est retenue. Coordonnées obtenues par le
+    // géocodeur de l'Institut géographique du Japon, qui résout jusqu'au numéro.
+    accommodation: {
+      status: 'confirmed',
+      name: 'Toyoko Inn Matsumoto Ekimae Hommachi',
+      area: 'Hommachi — 6 min à pied de la sortie est de la gare de Matsumoto',
+      address: '2-1-23 Chuou, Matsumoto city, Nagano 390-0811',
+      coord: [137.969223, 36.231873],
+      checkIn: '15:00',
+      checkOut: '10:00',
+      nights: 2,
+      price: { jpy: 18480, certainty: 'confirmed', scope: 'total' },
+      bookingUrl: 'https://www.toyoko-inn.com/eng/search/detail/00102/',
+      photosId: 'toyoko-inn-matsumoto-ekimae-hommachi',
+      note: 'Réservé : 18 480 ¥ pour les deux nuits. Petit-déjeuner buffet compris et servi de 6 h 30 à 9 h — utile le 10, jour du départ tôt pour Kamikōchi. Départ avant 10 h.',
+    },
     activities: [
       {
         id: 'matsumoto-chateau',
@@ -301,7 +319,27 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     galleryQueries: ['Kamikochi Azusa River', 'Hotaka mountains Japan', 'Kamikochi autumn'],
     dates: sejour('11-10', '11-11'),
     nights: nuits(1),
-    accommodation: { status: 'todo' },
+    // Attention à la localisation : l'adresse « Azumi 4166-2 » est à Sawando, en
+    // fond de vallée, et non à Kamikōchi même — la vallée est fermée aux voitures
+    // et n'a qu'une poignée de refuges. Sawando est justement l'endroit où l'on
+    // laisse la voiture pour prendre la navette, ce qui explique le prix.
+    // `area` et le `warning` en disent la conséquence : la nuit ne se passe pas
+    // dans le parc. Coordonnées relevées sur la carte du site de l'établissement,
+    // qui se situe face au parking municipal n° 2.
+    accommodation: {
+      status: 'confirmed',
+      name: 'Guesthouse Tomoshibi',
+      area: 'Sawando, face au parking municipal n° 2 — l’entrée routière de Kamikōchi, hors de la vallée',
+      address: '4166-2 Azumi, Matsumoto, Nagano 390-1514',
+      coord: [137.6532006, 36.1655862],
+      checkIn: '15:00',
+      checkOut: '10:00',
+      nights: 1,
+      price: { jpy: 8911, certainty: 'confirmed', scope: 'total' },
+      bookingUrl: 'https://onsenyamagoya-tomoshibi.com/',
+      photosId: 'tomoshibi-sawando',
+      note: 'Réservé : 8 911 ¥ pour la nuit. L’établissement annonce un onsen alimenté par la source du Yake-dake (eau simple, accessible 24 h) et se trouve à l’arrêt des navettes : environ 29 min de bus jusqu’au terminal de Kamikōchi. Départ avant 10 h.',
+    },
     activities: [
       {
         id: 'kamikochi-kappabashi',
@@ -375,7 +413,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     warnings: [
       'Nuit du 10 au 11 novembre 2026 : ce sont les tout derniers jours de la saison. La vallée ferme mi-novembre (clôture annoncée le 15 novembre ces dernières années) et les hébergements ferment dans la même semaine — date exacte 2026 à confirmer avant de réserver.',
       'À 1 500 m d’altitude et à cette date : gel nocturne, neige possible, sentiers d’altitude parfois déjà fermés.',
-      'Peu d’hébergements dans la vallée, et une seule nuit prévue : à réserver en priorité.',
+      'Hébergement réservé, mais à Sawando et non dans la vallée : la nuit se passe à l’entrée routière, en fond de vallée, à environ 29 min de bus du terminal de Kamikōchi. La journée dans le parc est donc encadrée par les horaires de la navette, aller et retour — à vérifier une fois la grille de novembre 2026 publiée.',
       'Accès uniquement en bus ou taxi — aucune voiture privée n’entre dans la vallée.',
     ],
     spots: [
@@ -397,7 +435,28 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     galleryQueries: ['Takayama Gifu old town', 'Takayama Matsuri float', 'Hida Furukawa'],
     dates: sejour('11-11', '11-13'),
     nights: nuits(2),
-    accommodation: { status: 'todo' },
+    // Le seul hébergement du voyage sans site à lui : l'établissement était encore
+    // en pré-ouverture quand ces données ont été relevées (août 2026). Sa fiche
+    // Rakuten Travel sert donc de `bookingUrl`, faute de page officielle — elle est
+    // la seule source qui se recoupe avec la confirmation du voyageur. La fiche
+    // Jalan du même établissement a été écartée : trois consultations ont rendu
+    // trois hôtels différents, elle n'est pas citable.
+    // Ses photos viennent donc de cette même fiche, faute de mieux, et sans les
+    // catégories qu'ont les autres hébergements — voir `hebergements.ts`.
+    accommodation: {
+      status: 'confirmed',
+      name: 'Yutoria Resort Hida Takayama',
+      area: 'Daishinmachi — 8 min en voiture de la gare de Takayama, hors du centre historique',
+      address: '5-141-2 Daishinmachi, Takayama, Gifu 506-0851',
+      coord: [137.258621, 36.154137],
+      checkIn: '15:00',
+      checkOut: '11:00',
+      nights: 2,
+      price: { jpy: 26377, certainty: 'confirmed', scope: 'total' },
+      bookingUrl: 'https://travel.rakuten.co.jp/HOTEL/197430/197430.html',
+      photosId: 'yutoria-resort-hida-takayama',
+      note: 'Réservé : 26 377 ¥ pour les deux nuits. Grand établissement de 104 chambres avec 89 places de stationnement gratuites, mais à l’écart : les visites du centre historique demandent un bus ou un taxi. Départ avant 11 h, une heure plus tard qu’ailleurs.',
+    },
     activities: [
       {
         id: 'takayama-sanmachi',
@@ -494,6 +553,11 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       },
     ],
     specialitiesStatus: 'estimate',
+    warnings: [
+      'L’hôtel réservé était encore en pré-ouverture en août 2026 (« tarif spécial d’avant grande ouverture », clients signalant un séjour en pré-ouverture) : prestations et horaires peuvent bouger d’ici novembre. À reconfirmer directement auprès de l’établissement.',
+      'Les sources divergent sur le numéro de rue : 5-141-2 Daishinmachi selon la confirmation, 5-141-1 selon d’autres fiches du même établissement. C’est le premier qui est retenu, mais mieux vaut se guider sur le nom que sur le numéro en arrivant.',
+      'L’hôtel n’est pas dans le centre historique : environ 8 min en voiture de la gare. Les marchés du matin de Miyagawa, qui ferment vers midi, demandent donc un déplacement dès le lever.',
+    ],
     spots: [
       { name: 'Sanmachi-suji', coord: [137.2610, 36.1400], kind: 'quartier' },
       { name: 'Marché matinal de Miyagawa', coord: [137.2620, 36.1440], kind: 'food' },
@@ -513,7 +577,27 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     galleryQueries: ['Shirakawa-go Ogimachi', 'Gassho-zukuri farmhouse', 'Shirakawa-go autumn'],
     dates: sejour('11-13', '11-14'),
     nights: nuits(1),
-    accommodation: { status: 'todo' },
+    // Maison d'hôtes tenue par le centre d'activités « o8 » du village, dont le
+    // site (`bookingUrl`) donne adresse, horaires et navette. Les coordonnées ont
+    // demandé un détour : celles que publie l'office de tourisme tombent à une
+    // vingtaine de kilomètres du village, et ses fiches anglaise et japonaise ne
+    // désignent pas le même établissement sous le même numéro. Celles retenues
+    // viennent du lien Maps de la fiche japonaise juste, recoupées avec les
+    // 18 min de marche depuis le terminal de bus qu'annonce l'établissement.
+    accommodation: {
+      status: 'confirmed',
+      name: 'GuestHouse Shirakawa-Go INN',
+      area: 'Hatogaya — 1 min de l’arrêt de bus, 18 min à pied du terminal de Shirakawa-gō',
+      address: '445-1 Hatogaya, Shirakawa-mura, Ōno-gun, Gifu 501-5629',
+      coord: [136.8995, 36.27194],
+      checkIn: '16:00',
+      checkOut: '10:00',
+      nights: 1,
+      price: { jpy: 9799, certainty: 'confirmed', scope: 'total' },
+      bookingUrl: 'https://www.shirakawa-o8.com/guesthouse/',
+      photosId: 'shirakawa-go-inn',
+      note: 'Réservé : 9 799 ¥ pour la nuit. Cinq chambres en tout (quatre twin, une single), douches et toilettes partagées. Navette gratuite depuis le terminal de bus du village, et un seul départ le matin, à 8 h 30 : arrivée à partir de 16 h seulement, donc la visite d’Ogimachi se fait avant de déposer les bagages.',
+    },
     activities: [
       {
         id: 'shirakawago-ogimachi',
@@ -592,7 +676,8 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     ],
     specialitiesStatus: 'estimate',
     warnings: [
-      'Nuit sur place tranchée par ta table (1 nuit, du 13 au 14 novembre) : les logements du village sont des minshuku de quelques chambres et partent des mois à l’avance. C’est l’hébergement le plus contraint du voyage.',
+      'Nuit sur place réservée (1 nuit, du 13 au 14 novembre), ce qui lève la contrainte la plus serrée du voyage : le village n’a que des maisons de quelques chambres.',
+      'La chambre n’est disponible qu’à partir de 16 h, et la navette de l’hébergement ne fait qu’un départ le matin, à 8 h 30. La journée du 13 se visite donc avec les bagages en consigne au terminal de bus, et celle du 14 commence tôt.',
       'Les bus Takayama ⇄ Shirakawa-gō ⇄ Kanazawa se réservent : places limitées en haute saison.',
     ],
     spots: [
