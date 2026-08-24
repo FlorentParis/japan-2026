@@ -243,19 +243,32 @@ function pertinent(photo: Photo, cle: string | undefined): boolean {
  * tous les filtres puisque chacune est une photo correcte du bon sujet.
  *
  * Réduire les chiffres suffit à les reconnaître comme un même lot, sans avoir à
- * comparer les images : `omachi onsen kyo#s#` pour les treize. On n'en garde
- * alors qu'une par galerie. Deux séries voisines mais distinctes (« Peace Statue »
- * et « Statue of Peace » à Nagasaki) restent deux séries, ce qui est correct : ce
+ * comparer les images : `omachi onsen kyo#` pour les treize. On n'en garde alors
+ * qu'une par galerie. Deux séries voisines mais distinctes (« Peace Statue » et
+ * « Statue of Peace » à Nagasaki) restent deux séries, ce qui est correct : ce
  * sont deux sculptures.
  */
 function serie(file: string): string {
-  return sansAccents(file.replace(/\.[a-z0-9]+$/i, ''))
-    .replace(/\d+/g, '#')
-    // Tout ce qui n'est ni lettre latine ni marque de nombre disparaît : la
-    // ponctuation et les idéogrammes du même lot varient parfois d'un fichier à
-    // l'autre alors que la série est la même.
-    .replace(/[^a-z#]+/g, ' ')
-    .trim()
+  return (
+    sansAccents(file.replace(/\.[a-z0-9]+$/i, ''))
+      .replace(/\d+/g, '#')
+      // Tout ce qui n'est ni lettre latine ni marque de nombre disparaît : la
+      // ponctuation et les idéogrammes du même lot varient parfois d'un fichier à
+      // l'autre alors que la série est la même.
+      .replace(/[^a-z#]+/g, ' ')
+      // Les une ou deux lettres collées à un numéro sont la marque de variante du
+      // contributeur — taille, recadrage, retouche —, pas un mot du sujet. Réduire
+      // les chiffres ne suffisait pas à réunir « Omachi onsen-kyo09s3 »,
+      // « …08n » et « …04bs » : trois vues du même lot se retrouvaient dans la même
+      // galerie. Les absorber les ramène toutes à `omachi onsen kyo#`.
+      .replace(/#[a-z]{1,2}(?=#|\s|$)/g, '#')
+      .replace(/#[#\s]*#/g, '#')
+      // Un préfixe ou un suffixe purement numérique n'identifie rien non plus :
+      // « JP-13 Tsukishima monja street » et « Tsukishima monja street » sont le
+      // même cliché reversé sous deux noms.
+      .replace(/(^#\s*|\s*#$)/g, '')
+      .trim()
+  )
 }
 
 function versPhoto(info: any, title: string): Photo | undefined {

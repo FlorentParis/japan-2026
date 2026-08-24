@@ -64,14 +64,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     coord: [139.7671, 35.6812],
     stay: 'overnight',
     blurb:
-      'Point d’entrée du voyage. La mégapole s’explore par quartiers : Asakusa et son temple, Shibuya et son carrefour, les jardins impériaux.',
+      'Point d’entrée du voyage, et second séjour : le circuit classique ayant déjà été fait, l’étape se replie sur l’est de la ville, à portée de l’hôtel — Kappabashi, la rive de la Sumida, les quartiers d’artisans de Fukagawa.',
     photoId: 'tokyo',
     galleryQueries: [
-      'Asakusa Nakamise dori',
+      'Kappabashi dougugai street Tokyo',
       'Tokyo Sumida river bridge',
-      'Tokyo ginkgo autumn avenue',
-      'Shinjuku Omoide Yokocho alley',
-      'Ameyoko Ueno shopping street',
+      'Kiyosumi teien garden Tokyo',
+      'Shibamata Taishakuten temple',
+      'Sento public bath Tokyo',
       'Tokyo Yamanote line train',
     ],
     dates: sejour('11-06', '11-08'),
@@ -101,51 +101,72 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       photosId: 'tabist-urban-stays-asakusa',
       note: 'Réservé : 33 930 ¥ pour les deux nuits. Arrivée possible de 15 h à 22 h, départ avant 10 h. L’entrée passe en verrouillage automatique de 22 h à 9 h, ouverture par code — à demander à la réception en arrivant.',
     },
+    // Second séjour à Tokyo : le circuit canonique (Sensō-ji, Shibuya, Meiji-jingū,
+    // Tsukiji, Shinjuku Gyoen) a été fait au voyage précédent et a donc été retiré
+    // d'ici. Ce qui le remplace tient une contrainte simple : une seule vraie
+    // journée de visite (le samedi 7), encadrée par une arrivée en décalage
+    // horaire et un départ matinal — donc du proche, et du peu fatigant en
+    // premier. L'ordre de la liste suit les créneaux réels.
     activities: [
       {
-        id: 'tokyo-arrivee-sensoji',
-        name: 'Sensō-ji et la rue Nakamise',
-        category: 'culture',
-        description:
-          'Le plus ancien temple de Tokyo, fondé au VIIᵉ siècle, précédé d’une allée de boutiques de confiseries et d’éventails. C’est aussi le lieu de culte le plus fréquenté du pays par les Japonais eux-mêmes.',
-        photoQuery: 'Sensoji Asakusa Kaminarimon',
-        note: 'Enceinte ouverte en permanence, bâtiments principaux fermés le soir. Nakamise est saturée en milieu de journée : tôt le matin, la rue est vide.',
-      },
-      {
-        id: 'tokyo-arrivee-meiji',
-        name: 'Meiji-jingū et Harajuku',
-        category: 'culture',
-        description:
-          'Sanctuaire dédié à l’empereur Meiji, au milieu d’une forêt de cent mille arbres plantés à la main en 1920. Les mariages shintō du week-end s’y traversent en passant.',
-        photoQuery: 'Meiji Shrine Tokyo torii',
-        note: 'L’allée de ginkgos du Jingū Gaien, voisine, jaunit précisément fin novembre : c’est un des rendez-vous d’automne des Tokyoïtes.',
-      },
-      {
-        id: 'tokyo-arrivee-shibuya',
-        name: 'Carrefour de Shibuya',
+        id: 'tokyo-arrivee-kappabashi',
+        name: 'Kappabashi-dōgugai',
         category: 'quartier',
         description:
-          'Le passage piéton le plus emprunté du monde, vu d’en bas puis d’en haut. Autour, le quartier des grands magasins et des ruelles de restaurants de Nonbei Yokochō.',
-        photoQuery: 'Shibuya Crossing Tokyo',
-        note: 'La vue plongeante est payante depuis les terrasses des tours ; la passerelle de la gare et le café du premier étage en face la donnent gratuitement.',
+          'Huit cents mètres de rue consacrés à l’équipement des restaurants : couteaux forgés, moules à wagashi, vaisselle à la pièce, et les faux plats en résine dont les vitrines japonaises tirent leur allure. Les cuisiniers de la ville s’y fournissent.',
+        photoQuery: 'Kappabashi dougugai street Tokyo',
+        coord: [139.7893, 35.7133],
+        note: 'À 10 min à pied de l’hôtel, et la seule activité du séjour qui tienne debout un vendredi de fin d’après-midi en décalage horaire. Contrepartie : les boutiques ferment vers 17 h-18 h, et beaucoup le dimanche — c’est donc le vendredi ou jamais.',
       },
       {
-        id: 'tokyo-arrivee-tsukiji',
-        name: 'Marché extérieur de Tsukiji',
-        category: 'food',
+        id: 'tokyo-arrivee-jakotsuyu',
+        name: 'Sentō à eau noire de Jakotsu-yu',
+        category: 'onsen',
         description:
-          'Le marché de gros a déménagé à Toyosu, mais les quatre cents échoppes de la rue restent : oursins, omelettes grillées, couteaux de cuisine, thé. Très fréquenté par les Japonais, pour faire ses courses autant que pour déjeuner.',
-        photoQuery: 'Tsukiji Outer Market Tokyo',
-        note: 'Ferme en début d’après-midi et beaucoup de stands le dimanche. À faire le matin, ce qui tombe bien avec le décalage horaire.',
+          'Bain public de quartier alimenté par une source naturelle de kuroyu, cette eau brune presque noire chargée de matière végétale fossile qu’on trouve sous la plaine du Kantō. Un sentō de voisinage, à prix municipal, pas un établissement thermal.',
+        photoQuery: 'Sento public bath Tokyo',
+        coord: [139.7943, 35.7113],
+        note: 'À VÉRIFIER avant d’y compter : plusieurs sentō d’Asakusa ont fermé ces dernières années et je n’ai pas confirmé que celui-ci soit toujours en activité. À défaut, les onsen noirs d’Ōta-ku offrent la même eau. Le principe reste : un bain chaud le soir de l’arrivée est le meilleur outil contre le décalage horaire, et le voyage n’a autrement que des onsen de villégiature (Dōgo, Asama, Ōmachi), jamais un bain de quartier.',
       },
       {
-        id: 'tokyo-arrivee-shinjuku-gyoen',
-        name: 'Jardin national de Shinjuku Gyoen',
+        id: 'tokyo-arrivee-hokusai',
+        name: 'Musée Sumida Hokusai',
+        category: 'art',
+        description:
+          'Hokusai est né dans ce quartier et y a passé presque toute sa vie. Le musée lui est consacré dans un bâtiment d’aluminium fendu de Kazuyo Sejima, qui reflète les maisons alentour au lieu de leur tourner le dos.',
+        photoQuery: 'Sumida Hokusai Museum',
+        coord: [139.7986, 35.6989],
+        note: 'Fermé le lundi. À 15 min à pied de l’hôtel, et se fait en une heure : le format exact d’un créneau creux plutôt que d’une demi-journée.',
+      },
+      {
+        id: 'tokyo-arrivee-fukagawa',
+        name: 'Kiyosumi-teien et Fukagawa',
+        category: 'culture',
+        description:
+          'Le jardin de pierres que le fondateur de Mitsubishi s’est fait composer en faisant venir les roches par bateau de tout le pays ; le temple Fukagawa Fudō-dō, où le rituel du goma se célèbre plusieurs fois par jour au tambour devant un feu ; et Tomioka Hachiman, où le sumo professionnel est né. Autour, les torréfacteurs de Kiyosumi-Shirakawa.',
+        photoQuery: 'Kiyosumi teien garden Tokyo',
+        coord: [139.7975, 35.6805],
+        note: 'L’axe recommandé pour la journée du samedi : c’est l’est populaire, à deux stations de l’hôtel, et le rituel du feu est le seul moment franchement spectaculaire du séjour tokyoïte. C’est aussi le quartier du fukagawa-meshi listé plus bas — le plat et le lieu se visitent ensemble.',
+      },
+      {
+        id: 'tokyo-arrivee-shibamata',
+        name: 'Shibamata et le bac de Yagiri',
+        category: 'quartier',
+        description:
+          'Un bout de Tokyo d’avant-guerre au bord de l’Edogawa : le temple Taishakuten et sa galerie de panneaux de bois sculptés, la maison Yamamoto-tei et son jardin, une rue de marchands de dango, et le Yagiri-no-watashi — le dernier bac à rames de la ville, en service depuis l’époque d’Edo.',
+        photoQuery: 'Shibamata Taishakuten temple',
+        coord: [139.8721, 35.7627],
+        note: 'Alternative à Fukagawa pour le samedi, plus lointaine (35 min) mais encore moins fréquentée par les étrangers. Le bac ne traverse pas tous les jours en hiver : le samedi 7 novembre est un jour favorable, mais l’horaire du jour est à confirmer sur place.',
+      },
+      {
+        id: 'tokyo-arrivee-hyakkaen',
+        name: 'Mukōjima-Hyakkaen',
         category: 'nature',
         description:
-          'Ancien domaine impérial de 58 hectares : un jardin paysager anglais, un jardin français, et un jardin japonais avec pavillon de thé, au pied des tours de Shinjuku.',
-        photoQuery: 'Shinjuku Gyoen garden',
-        note: 'Fermé le lundi. Le 7 novembre est un peu tôt pour les érables de Tokyo, qui tournent plutôt fin novembre — les ginkgos, eux, y sont déjà jaunes.',
+          'Le seul jardin de fleurs d’Edo encore debout : un antiquaire l’a planté en 1804 pour ses amis lettrés, avec les plantes que citent les poèmes chinois et japonais, et des panneaux de calligraphie dans les allées. Un hectare, pas plus.',
+        photoQuery: 'Mukojima Hyakkaen garden',
+        coord: [139.8085, 35.7278],
+        note: 'Ouvre à 9 h, à deux stations de l’hôtel : c’est le format d’un dimanche matin, avant de récupérer les bagages pour Shinjuku. À ne prendre que si le trajet Asakusa → Shinjuku est déjà calé — sinon, laisser tomber.',
       },
     ],
     activitiesStatus: 'estimate',
@@ -185,10 +206,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       'L’hôtel est à Azumabashi, le Narita Express dépose à la gare de Tokyo : il reste un trajet avec les bagages, dont le tarif n’a pas été relevé et qui n’est donc compté nulle part. Le Keisei Access Express, listé parmi les alternatives du transfert d’arrivée, dessert Asakusa directement.',
       'Départ du 8 : l’Azusa part de Shinjuku, à l’autre bout de la ville. Prévoir le trajet Asakusa → Shinjuku en métro avant l’horaire du train — tarif non relevé, donc non compté lui non plus.',
     ],
+    // Repères de l'est de la ville, là où se joue l'étape. Sensō-ji reste dans la
+    // liste : il est à 400 m de l'hôtel et sert à situer le quartier sur la carte,
+    // même s'il n'est plus une activité proposée.
     spots: [
       { name: 'Sensō-ji', coord: [139.7967, 35.7148], kind: 'culture' },
-      { name: 'Carrefour de Shibuya', coord: [139.7005, 35.6595], kind: 'quartier' },
-      { name: 'Meiji-jingū', coord: [139.6993, 35.6764], kind: 'culture' },
+      { name: 'Kappabashi-dōgugai', coord: [139.7893, 35.7133], kind: 'quartier' },
+      { name: 'Kiyosumi-teien', coord: [139.7975, 35.6805], kind: 'nature' },
+      { name: 'Fukagawa Fudō-dō', coord: [139.7955, 35.6790], kind: 'culture' },
       { name: 'Tokyo Skytree', coord: [139.8107, 35.7101], kind: 'quartier' },
     ],
   },
@@ -337,6 +362,10 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       'Kamikochi forest trail',
       'Kamikochi bus terminal',
       'Sawando parking Kamikochi',
+      // Deux recherches de plus : la vallée n'a que quatre sujets nommés, et sa
+      // galerie plafonnait à seize vues là où les autres étapes en tiennent vingt.
+      'Kamikochi Azusa river',
+      'Kamikochi Taisho pond',
     ],
     dates: sejour('11-10', '11-11'),
     nights: nuits(1),
@@ -978,6 +1007,10 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       'Bijodaira Tateyama station',
       'Ogizawa Tateyama station',
       'Tateyama autumn alpine Toyama',
+      // « Mikurigaike » et non « Murodo » : Commons n'a presque aucun fichier
+      // orthographié ainsi — le plateau s'y écrit « Murodoh » ou « Murodō ».
+      'Mikurigaike Tateyama Toyama',
+      'Shomyo falls Toyama',
     ],
     dates: sejour('11-17', '11-17'),
     nights: nuitsDeduites(0),
@@ -1074,6 +1107,13 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       'Aoki lake Nagano',
       'Shinano-Omachi station',
       'Omachi Nagano autumn',
+      // Trois recherches de plus : c'était la galerie la plus courte du carnet, et
+      // quatre de ses douze vues montraient un plat photographié ailleurs. Les lacs
+      // se cherchent un par un — « Nishina », leur nom collectif, ne figure que dans
+      // un seul nom de fichier.
+      'Kizaki lake Nagano',
+      'Nakatsuna lake Nagano',
+      'Omachi onsen Nagano',
     ],
     dates: sejour('11-17', '11-18'),
     nights: nuitsDeduites(1),
@@ -2141,18 +2181,15 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     coord: [139.7671, 35.6812],
     stay: 'overnight',
     blurb:
-      'Retour dans la capitale par les airs, pour les trois derniers jours du voyage : de quoi reprendre les quartiers laissés de côté à l’arrivée.',
+      'Retour dans la capitale par les airs, pour les trois derniers jours du voyage. Les grands classiques ayant déjà été vus, l’étape se joue sur une excursion à Kamakura au pic des érables, et sur le Tokyo de spectacle, de librairies et d’illuminations que rien d’autre dans le voyage ne donne.',
     photoId: 'tokyo',
     galleryQueries: [
-      'Nezu shrine Tokyo',
+      'Kamakura Hasedera autumn',
       'Jimbocho bookshop Tokyo',
       'Tsukishima monja street Tokyo',
-      'Nihonbashi bridge Chuo Tokyo',
+      'Kabukiza theatre Ginza',
       'Sumida river Tokyo night',
-      // Et non « Ueno Tokyo autumn » : le parc d'Ueno abrite le Musée national, dont
-      // les milliers de photos d'objets « à décor d'herbes d'automne » saturaient la
-      // recherche. Yanaka est le quartier voisin, et se photographie lui-même.
-      'Yanaka Tokyo street',
+      'Tokyo winter illumination street',
     ],
     dates: sejour('12-02', '12-05'),
     nights: nuits(3),
@@ -2160,51 +2197,81 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       status: 'todo',
       note: 'Le vol de 8 h 40 impose de quitter la ville vers 6 h. Deux pistes : dormir près de Hamamatsuchō ou de Shinagawa, d’où partent le monorail et la ligne Keikyū pour Haneda ; ou passer la dernière nuit dans un hôtel de l’aéroport. La deuxième coûte une soirée à Tokyo, la première une heure de sommeil.',
     },
+    // Second séjour, là encore : Rikugi-en, Ueno, Yanaka, le Skytree et Marunouchi
+    // ont été faits au voyage précédent, Toyosu a été écarté par le voyageur. Ce qui
+    // reste est calibré sur 2,5 jours réels (le 2 en fin de journée, le 3, le 4 —
+    // le 5 n'existe pas, voir les avertissements), avec une excursion à Kamakura
+    // comme pièce centrale, demandée par le voyageur.
     activities: [
       {
-        id: 'tokyo-retour-rikugien',
-        name: 'Rikugi-en',
-        category: 'nature',
+        id: 'tokyo-retour-kamakura',
+        name: 'Kamakura, à la journée',
+        category: 'culture',
         description:
-          'Jardin de 1702 composé pour illustrer quatre-vingt-huit poèmes classiques : collines, étang central et sentiers étroits. Le plus beau jardin d’érables de Tokyo.',
-        photoQuery: 'Rikugien garden autumn maple',
-        note: 'Début décembre est exactement le pic des couleurs à Tokyo, et le jardin est éclairé le soir pendant cette quinzaine. C’est l’activité la mieux datée du séjour.',
+          'L’ancienne capitale militaire du Japon, entre collines et mer : le sanctuaire de Tsurugaoka Hachimangū sur son axe monumental, le grand Bouddha de bronze de Kōtoku-in, les temples zen de Kita-Kamakura, la bambouseraie de Hōkoku-ji, et Hase-dera dont le jardin en terrasses donne sur la baie. Le tramway Enoden rejoint la mer et Enoshima.',
+        photoQuery: 'Kamakura Hasedera autumn',
+        coord: [139.5563, 35.3260],
+        note: 'Une heure depuis la gare de Tokyo par la ligne Yokosuka, sans changement — c’est une excursion facile, pas une expédition. Début décembre est le pic des érables à Kamakura, qui virent une quinzaine après le centre de Tokyo, et Hase-dera éclaire son jardin le soir pendant cette période : la journée peut donc se terminer par l’illumination et rentrer sans se presser. À placer le jeudi 3 plutôt que le vendredi 4, pour ne pas avoir à revenir de Kamakura le dernier soir avec le déménagement vers l’aéroport à préparer.',
       },
       {
-        id: 'tokyo-retour-ueno',
-        name: 'Parc d’Ueno et ses musées',
+        id: 'tokyo-retour-nezu-museum',
+        name: 'Musée Nezu',
         category: 'art',
         description:
-          'Le premier parc public du Japon, où sont rassemblés le Musée national de Tokyo — plus grande collection d’art japonais au monde —, le musée d’art occidental de Le Corbusier et le musée des sciences.',
-        photoQuery: 'Ueno Park Tokyo National Museum',
-        note: 'La plupart des musées ferment le lundi. Le 2 décembre 2026 est un mercredi, le 3 un jeudi, le 4 un vendredi : pas de conflit.',
+          'La collection privée d’un magnat du rail — bronzes chinois archaïques, peinture bouddhique, ustensiles de thé — dans un bâtiment de Kengo Kuma à toit bas et long couloir de bambou. Derrière, un jardin en pente inattendu au milieu d’Aoyama, avec ses pavillons de thé et ses érables.',
+        photoQuery: 'Nezu Museum Tokyo garden',
+        coord: [139.7156, 35.6620],
+        note: 'Fermé le lundi. Le jardin est à son pic de couleurs début décembre, et c’est là le vrai motif de la visite. À ne pas confondre avec le sanctuaire Nezu, à l’autre bout de la ville : rien à voir. Les célèbres Iris de Kōrin appartiennent à cette collection mais ne sont exposés qu’au printemps — ne pas venir pour eux.',
       },
       {
-        id: 'tokyo-retour-yanaka',
-        name: 'Yanaka et Nezu',
+        id: 'tokyo-retour-jimbocho',
+        name: 'Jimbōchō, le quartier des libraires',
         category: 'quartier',
         description:
-          'Un des rares quartiers épargnés par le séisme de 1923 et les bombardements : maisons de bois, ateliers, un immense cimetière planté de cerisiers, et la rue commerçante de Yanaka Ginza avec son escalier au soleil couchant.',
-        photoQuery: 'Yanaka Ginza Tokyo',
-        note: 'Quartier de promenade des Tokyoïtes plus que des étrangers. Se fait à pied depuis Ueno.',
+          'Environ cent quatre-vingts librairies d’occasion sur quelques rues, nées autour des universités voisines à l’ère Meiji et spécialisées jusqu’à l’absurde : une boutique d’estampes, une de livres d’architecture, une d’affiches de cinéma. Les vitrines sont orientées au nord pour épargner le papier. Cafés d’avant-guerre et comptoirs de curry entre deux.',
+        photoQuery: 'Jimbocho bookshop Tokyo',
+        coord: [139.7576, 35.6957],
+        note: 'Beaucoup de boutiques ferment le dimanche : les 2, 3 et 4 décembre tombent bien. Les estampes se vendent à la pièce et sans cérémonie — c’est le souvenir le moins encombrant du voyage.',
       },
       {
-        id: 'tokyo-retour-toyosu',
-        name: 'Marché de Toyosu',
+        id: 'tokyo-retour-kabukiza',
+        name: 'Kabuki-za, billet d’un acte',
+        category: 'culture',
+        description:
+          'Le théâtre de kabuki de Ginza vend au quatrième étage des places dites hitomaku-mi : un acte isolé, quelques centaines de yens, sans réservation ni tenue. On entre, on voit une heure de spectacle, on ressort — la façon dont les habitués consomment le kabuki.',
+        photoQuery: 'Kabukiza theatre Ginza',
+        coord: [139.7676, 35.6695],
+        note: 'Décembre est le programme du « Grand Kabuki de décembre ». Les billets d’un acte se prennent le jour même à un guichet dédié, en file : les horaires de vente dépendent du découpage du programme du mois, à relever quelques jours avant. Location d’un boîtier de traduction possible aux étages payants, pas toujours au quatrième.',
+      },
+      {
+        id: 'tokyo-retour-teamlab',
+        name: 'teamLab Borderless',
+        category: 'art',
+        description:
+          'Dix mille mètres carrés d’installations numériques sans salles ni cartels, où les œuvres projetées migrent d’un espace à l’autre et réagissent aux visiteurs. Installé à Azabudai Hills depuis 2024.',
+        photoQuery: 'teamLab digital art installation',
+        coord: [139.7402, 35.6605],
+        note: 'Billet daté et horodaté obligatoire, souvent complet plusieurs jours à l’avance. C’est la seule proposition franchement contemporaine du voyage entier, qui est par ailleurs presque tout en art ancien et en villages — d’où sa présence ici plutôt qu’un musée de plus.',
+      },
+      {
+        id: 'tokyo-retour-illuminations',
+        name: 'Illuminations d’hiver',
+        category: 'quartier',
+        description:
+          'Décembre est la saison des éclairages urbains, pris très au sérieux ici : le lustre de Baccarat sous la verrière de Yebisu Garden Place, la pente de Keyakizaka à Roppongi alignée sur la Tour de Tokyo au bout de la perspective, et les berges de la rivière Meguro à Nakameguro.',
+        photoQuery: 'Tokyo winter illumination street',
+        coord: [139.7130, 35.6427],
+        note: 'En place sur toutes tes dates, la saison courant de mi-novembre à fin décembre. Ça se greffe sur une fin de journée, ce n’est pas une activité à part entière — utile le 2 décembre au soir, quand le vol de Nagasaki laisse une soirée et pas une journée.',
+      },
+      {
+        id: 'tokyo-retour-tsukishima',
+        name: 'Tsukishima et la rue du monja',
         category: 'food',
         description:
-          'Le successeur de Tsukiji, où se tient la vente aux enchères du thon : on l’observe depuis une galerie vitrée, tôt le matin. Restaurants de sushi des grossistes au premier étage.',
-        photoQuery: 'Toyosu Market Tokyo',
-        note: 'Fermé le dimanche et certains mercredis. Les enchères se tiennent vers 5 h 30 : l’accès libre à la galerie haute ne se réserve pas, celui du balcon inférieur si.',
-      },
-      {
-        id: 'tokyo-retour-skytree',
-        name: 'Tokyo Skytree et Sumida',
-        category: 'quartier',
-        description:
-          'Tour de 634 m, la plus haute structure du Japon, avec deux plateformes et un plancher de verre. En bas, l’ancien quartier des artisans et la promenade de la rivière Sumida.',
-        photoQuery: 'Tokyo Skytree tower',
-        note: 'Par temps clair et en hiver, le Fuji est visible depuis la plateforme — décembre est la meilleure saison pour ça. Billet daté conseillé.',
+          'Une île de remblai du XIXᵉ siècle, quadrillée de ruelles basses, dont la rue principale compte une cinquantaine de comptoirs de monjayaki à la file. On cuit soi-même sur la plaque, à la petite spatule, et le quartier ne vit que de ça le soir.',
+        photoQuery: 'Tsukishima monja street Tokyo',
+        coord: [139.7845, 35.6647],
+        note: 'C’est le lieu du monjayaki listé en spécialité ci-dessous : le plat n’avait jusqu’ici aucune adresse rattachée. Activité de dîner, sur le chemin du sud de la ville.',
       },
       {
         id: 'tokyo-retour-kagurazaka',
@@ -2213,15 +2280,18 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         description:
           'Ancien quartier de geishas sur une pente, dont les ruelles pavées et les impasses de restaurants subsistent derrière la rue principale. Une forte présence française y a laissé des boulangeries et un lycée.',
         photoQuery: 'Kagurazaka Tokyo alley',
+        coord: [139.7395, 35.7014],
+        note: 'La seule activité conservée de la liste précédente : c’est aussi la seule que le voyageur n’avait pas faite. Se fait en soirée, les impasses de restaurants ne s’animant qu’à la nuit.',
       },
       {
-        id: 'tokyo-retour-marunouchi',
-        name: 'Gare de Tokyo, Marunouchi et le palais impérial',
-        category: 'culture',
+        id: 'tokyo-retour-takao',
+        name: 'Mont Takao',
+        category: 'nature',
         description:
-          'La façade de brique de 1914 restaurée à l’identique, l’avenue Naka-dōri éclairée pour l’hiver, et les jardins est du palais impérial avec les fondations du donjon d’Edo.',
-        photoQuery: 'Tokyo Station Marunouchi building',
-        note: 'Les illuminations de Marunouchi commencent mi-novembre : elles seront en place. Les jardins du palais ferment le lundi et le vendredi.',
+          'Une montagne de 599 m au bout d’une ligne de banlieue, coiffée du temple Yakuō-in où le bouddhisme de montagne shugendō se pratique encore. Funiculaire jusqu’à mi-pente ou une heure et demie de montée, et par temps clair d’hiver le Fuji au bout de la crête.',
+        photoQuery: 'Mount Takao autumn maple',
+        coord: [139.2438, 35.6250],
+        note: 'ARBITRAGE : Takao et Kamakura occupent le même créneau — une journée entière de couleurs d’automne hors de la ville — et les 2,5 jours de l’étape n’en permettent qu’une. Kamakura a été retenue : elle est plus riche, et demandée. Takao reste ici comme rechange, notamment si le vol du 2 décembre arrive tôt et libère une journée de plus. 50 min de Shinjuku par la ligne Keiō, hors JR Pass.',
       },
     ],
     activitiesStatus: 'estimate',
@@ -2259,6 +2329,8 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       'Trois nuits du 2 au 5 décembre : c’est bien une étape, plus une simple correspondance.',
       'Vol de retour confirmé : Haneda, le 5 décembre à 8 h 40. En comptant la fermeture de l’enregistrement vers 7 h 40, il faut être au terminal vers 6 h 40 et donc quitter le centre de Tokyo autour de 6 h. La journée du 5 décembre n’existe pas : le voyage se termine en réalité le soir du 4.',
       'À VÉRIFIER avant de réserver l’hôtel : l’heure du premier monorail depuis Hamamatsuchō, que je n’ai pas trouvée publiée. Si elle est postérieure à 5 h 45 environ, il faut un taxi ou une nuit près de l’aéroport.',
+      'Budget réel de l’étape : 2,5 jours, pas 3. Le 2 décembre dépend de l’horaire du vol de Nagasaki, encore à choisir, et n’offrira au mieux qu’une fin de journée ; le 5 est nul. Avec Kamakura sur une journée pleine, il ne reste qu’une seule autre journée complète : la liste d’activités ci-dessus est donc plus longue que ce que le séjour peut absorber, et c’est volontaire — il faut y choisir, pas y cocher.',
+      'Kamakura n’est pas traitée comme une étape mais comme une excursion depuis Tokyo, avec retour le soir. Dormir sur place a été examiné et écarté : cela ferait trois hôtels en trois nuits (Tokyo, Kamakura, puis les environs de Shinagawa qu’impose le départ à l’aube) pour ne gagner qu’une matinée de temples déserts. Passer la dernière nuit à Kamakura est encore pire : le premier train part vers 4 h 50 pour un embarquement à 6 h 40, sans aucune marge, et les horaires de premier train ne sont de toute façon pas confirmés. Si le choix de dormir à Kamakura est finalement retenu, il faudra en faire une véritable étape — trajet, hébergement, nuits — et pas un aménagement de celle-ci.',
     ],
   },
 ]
