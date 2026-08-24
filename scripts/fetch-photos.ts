@@ -86,10 +86,26 @@ type Photo = {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-/** L'API Wikimedia rate-limite agressivement : on réessaie en espaçant. */
+/**
+ * L'API Wikimedia rate-limite agressivement : on réessaie en espaçant.
+ *
+ * On réessaie aussi quand `fetch` lui-même échoue, et pas seulement sur un 429.
+ * Une passe complète dure une vingtaine de minutes et ouvre des centaines de
+ * connexions : il suffit qu'une seule tombe (« SocketError: other side closed »,
+ * arrivé sur la dernière étape après vingt-cinq minutes) pour que tout le travail
+ * soit perdu sans qu'aucun fichier ne soit écrit. Une coupure de transport n'est
+ * pas une réponse de l'API, et se retente exactement de la même façon.
+ */
 async function api(base: string, params: Record<string, string>, attempt = 0): Promise<any> {
   const url = `${base}?${new URLSearchParams({ format: 'json', ...params })}`
-  const res = await fetch(url, { headers: { 'User-Agent': UA } })
+  let res: Response
+  try {
+    res = await fetch(url, { headers: { 'User-Agent': UA } })
+  } catch (erreur) {
+    if (attempt >= 5) throw erreur
+    await sleep(2000 * 2 ** attempt)
+    return api(base, params, attempt + 1)
+  }
   if (res.status === 429 && attempt < 5) {
     await sleep(2000 * 2 ** attempt)
     return api(base, params, attempt + 1)
