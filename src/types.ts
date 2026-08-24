@@ -232,6 +232,18 @@ export type Destination = {
    * Recherches Wikimedia Commons qui complètent la galerie de l'étape, en plus
    * de la photo de tête et de celles des activités. Objectif : au moins neuf
    * images par lieu — le script prévient quand une galerie reste en dessous.
+   *
+   * Elles servent à montrer ce qu'aucune activité ne montre : la ville de loin,
+   * une rue, un tram, la saison. Redemander un sujet déjà couvert par une
+   * activité ne rapporte que des variantes de la même vue — c'est ce que
+   * faisaient « Kaichi School Matsumoto » ou « Dogo Onsen Honkan », présents des
+   * deux côtés.
+   *
+   * ⚠️ Chaque recherche **commence** par le nom de son lieu. Le script exige que le
+   * nom de fichier porte le premier mot significatif de la recherche (voir
+   * `rechercher()` et `motCle()`) : « Nakasu Fukuoka night » ne rend rien si
+   * « Nakasu » n'est pas dans le nom du fichier, et « Canal City Hakata Fukuoka »
+   * s'ancrerait sur « canal », ce qui laisse entrer les canaux du monde entier.
    */
   galleryQueries?: string[]
   dates: DateInfo

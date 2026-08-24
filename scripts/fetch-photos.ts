@@ -50,6 +50,28 @@ const ARTICLES_DE_TETE: Record<string, string> = {
 /** Nombre de photos visé par étape. En dessous, le script le signale. */
 const GALERIE_MINIMUM = 9
 
+/**
+ * Plafond d'une galerie. Au-delà, on n'ajoute plus : mieux vaut quinze vues de
+ * quinze choses que vingt-quatre dont la moitié se ressemble.
+ */
+const GALERIE_MAXIMUM = 20
+
+/**
+ * Combien d'images un même sujet peut poser dans une galerie.
+ *
+ * C'EST LA RÈGLE QUI DÉCIDE DE LA VARIÉTÉ. Sans elle, un seul sujet remplissait
+ * la galerie entière : la recherche « Kaminarimon » rend douze photos acceptables
+ * de la même porte, et la galerie de Tokyo en portait dix sur vingt. Commons n'y
+ * était pour rien — c'est ici qu'on prenait tout ce qui passait le filtre.
+ *
+ * Deux, et non une : une seule vue par sujet rendrait la galerie sèche, et la
+ * deuxième est souvent un autre cadrage ou une autre saison, ce qui apporte.
+ */
+const PAR_SUJET = 2
+
+/** Même plafond pour une recherche d'appoint, qui n'a pas de sujet nommé. */
+const PAR_RECHERCHE = 2
+
 const UA = 'voyage-japon-planner/1.0 (personal trip site; contact: local)'
 
 type Photo = {
@@ -98,7 +120,24 @@ const REJETS = [
   /\b(logo|emblem|seal|crest|coat[ _]of[ _]arms|flag|banner|icon)\b/i,
   /\b(poster|leaflet|brochure|ticket|timetable|stamp|postcard|advertisement)\b/i,
   /\b(screenshot|scan|document|manuscript|newspaper|portrait[ _]of)\b/i,
+  // Un photomontage n'est pas une vue du lieu mais une mosaïque de vignettes,
+  // illisible à la taille d'une galerie : « Matsumoto Montage.jpg » y arrivait par
+  // la recherche sur le nom de la ville.
+  /\b(montage|collage)\b/i,
+  // Rendus cartographiques et images satellite : ce sont des cartes, que le
+  // premier motif de cette liste écarte déjà quand elles s'appellent « map ».
+  // « Libraries in Toyama city OSM.png » et « Landsat Takamatsu -Yashima 01.jpg »
+  // ne le disent pas ainsi.
+  /\b(osm|openstreetmap|landsat|sentinel)\b/i,
   /\b(monument[ _]to|grave|tombstone|memorial[ _]tablet)\b/i,
+  // Fonds d'archives numérisés. Ils remontent haut sur les noms de lieux parce que
+  // leur légende d'origine les nomme, et ils montrent le lieu tel qu'il n'est plus :
+  // « Nihonbashi dori Tokyo (NYPL Hades-2360399-4044198).jpg », « Women of Megijima
+  // (Kagawa pref., Japan) pre WW II.jpg ». Le motif `postcard` ci-dessus ne les
+  // attrape pas quand la carte postale se dit en japonais — 絵葉書 — comme dans
+  // « Nishi Hama Street, Nagasaki 長崎西浜町通 長崎手彩色絵葉書 明治～大正.jpg ».
+  /\b(nypl|bundesarchiv|tropenmuseum|nationaal[ _]archief|library[ _]of[ _]congress)\b/i,
+  /(絵葉書|絵はがき|繪葉書|\bpre[ _]ww)/i,
   // Une gravure ou une aquarelle du XIXᵉ siècle n'est pas une photo du plat ni du
   // lieu : la recherche « Muscat of Alexandria » remontait une planche botanique.
   /\b(engraving|illustration|drawing|painting|woodcut|lithograph|sketch|etching)\b/i,
@@ -127,13 +166,33 @@ const GENERIQUES = new Set([
   'with', 'from', 'this', 'that', 'sugar', 'noodles', 'sashimi', 'rice',
 ])
 
+/** Les mots d'une recherche qui disent quelque chose du sujet. */
+function motsSignificatifs(query: string): string[] {
+  return (sansAccents(query).match(/[a-z]{4,}/g) ?? []).filter((mot) => !GENERIQUES.has(mot))
+}
+
 /**
  * Le mot le plus spécifique d'une recherche : le premier qui ne soit pas
  * générique.
  */
 function motCle(query: string): string | undefined {
-  const mots = sansAccents(query).match(/[a-z]{4,}/g) ?? []
-  return mots.find((mot) => !GENERIQUES.has(mot))
+  return motsSignificatifs(query)[0]
+}
+
+/**
+ * Le dernier mot significatif, qui est presque toujours le lieu : « Ando Museum
+ * **Naoshima** », « Shinshu soba **Nagano** ».
+ *
+ * Il sert de second garde-fou pour les images de garnissage. Le premier mot-clé
+ * seul ne suffit pas : « Ando » a laissé entrer « Taichung ando museum
+ * rainbow.png » — un musée de Taïwan — dans la galerie de Naoshima. Ce contrôle
+ * n'est pas appliqué à la vignette du sujet lui-même, qui serait alors souvent
+ * vide : « Inside of the Ando Museum.jpg » ne nomme pas l'île, et c'est pourtant
+ * la bonne image. Pour une deuxième vue, en revanche, le doute ne rapporte rien —
+ * autant ne rien mettre.
+ */
+function motDeLieu(query: string): string | undefined {
+  return motsSignificatifs(query).at(-1)
 }
 
 function sansAccents(texte: string): string {
@@ -156,6 +215,31 @@ function sansAccents(texte: string): string {
  */
 function pertinent(photo: Photo, cle: string | undefined): boolean {
   return cle === undefined || sansAccents(photo.file).includes(cle)
+}
+
+/**
+ * Signature de série d'un nom de fichier : les nombres réduits à « # ».
+ *
+ * Un contributeur qui téléverse sa visite nomme ses fichiers en suite —
+ * « Omachi onsen-kyo01s3 … 13n », « Fugan Canal Kansui Park 260123 07 … 38 »,
+ * « Ritsurin Garden, Takamatsu 3-27 (26501902471) ». Ce sont treize vues du même
+ * endroit au même moment : la recherche les remonte toutes, et elles passaient
+ * tous les filtres puisque chacune est une photo correcte du bon sujet.
+ *
+ * Réduire les chiffres suffit à les reconnaître comme un même lot, sans avoir à
+ * comparer les images : `omachi onsen kyo#s#` pour les treize. On n'en garde
+ * alors qu'une par galerie. Deux séries voisines mais distinctes (« Peace Statue »
+ * et « Statue of Peace » à Nagasaki) restent deux séries, ce qui est correct : ce
+ * sont deux sculptures.
+ */
+function serie(file: string): string {
+  return sansAccents(file.replace(/\.[a-z0-9]+$/i, ''))
+    .replace(/\d+/g, '#')
+    // Tout ce qui n'est ni lettre latine ni marque de nombre disparaît : la
+    // ponctuation et les idéogrammes du même lot varient parfois d'un fichier à
+    // l'autre alors que la série est la même.
+    .replace(/[^a-z#]+/g, ' ')
+    .trim()
 }
 
 function versPhoto(info: any, title: string): Photo | undefined {
@@ -230,12 +314,19 @@ async function infosCommons(fileTitles: string[]) {
  * `generator=search` permet de récupérer URL, auteur et licence dans la même
  * requête. On ne devine aucun nom de fichier.
  *
- * `exigerPertinence` n'est vrai que pour les sujets nommés — une activité, une
- * spécialité. Là, l'image sera affichée sous une légende (« Sushi edomae ») : elle
- * doit donc porter le sujet dans son nom de fichier, sinon la légende mentirait.
- * Les recherches d'appoint d'une galerie, elles, n'annoncent rien de précis et
- * gardent le filtre large : un nom japonais ou translittéré autrement (« Zenko-ji »
- * pour « Zenkoji ») y resterait sinon sur le carreau pour rien.
+ * `exigerPertinence` vaut pour les sujets nommés — une activité, une spécialité.
+ * Là, l'image sera affichée sous une légende (« Sushi edomae ») : elle doit donc
+ * porter le sujet dans son nom de fichier, sinon la légende mentirait.
+ *
+ * Les recherches d'appoint d'une galerie y sont soumises aussi, alors qu'elles
+ * gardaient jusqu'ici le filtre large — l'idée étant qu'elles n'annoncent rien de
+ * précis, et qu'un nom translittéré autrement (« Zenko-ji » pour « Zenkoji ») y
+ * restait sinon sur le carreau pour rien. L'arbitrage a été renversé par ce qu'il
+ * laissait passer : une rue de Fukuoka dans la galerie de Nagano, une montagne du
+ * Tochigi dans celle de Tokyo. Comme la légende d'une photo de galerie est le nom
+ * du fichier, le lecteur lisait « Nagano — Shōwa-dōri … Fukuoka City ». Le
+ * garde-fou s'appuyant sur le premier mot significatif de la recherche, chaque
+ * `galleryQueries` commence donc par son lieu.
  */
 async function rechercher(query: string, limite: number, exigerPertinence = false): Promise<Photo[]> {
   const data = await api('https://commons.wikimedia.org/w/api.php', {
@@ -271,10 +362,29 @@ const galeries = new Map<string, Photo[]>()
 const dejaPris = new Set<string>()
 const rapport: string[] = []
 
-const ajouter = (destId: string, photo: Photo) => {
+/** Séries déjà représentées dans une galerie, par étape : une seule vue par lot. */
+const seriesParEtape = new Map<string, Set<string>>()
+
+/** Réserve un fichier pour de bon : il ne servira plus ailleurs sur le site. */
+const reserver = (photo: Photo) => {
   if (dejaPris.has(photo.file)) return false
   dejaPris.add(photo.file)
+  return true
+}
+
+/**
+ * Range une photo dans la galerie d'une étape, si elle y a sa place : galerie non
+ * pleine, fichier encore libre, et série pas déjà représentée.
+ */
+const ajouter = (destId: string, photo: Photo) => {
   const galerie = galeries.get(destId) ?? []
+  if (galerie.length >= GALERIE_MAXIMUM) return false
+  const series = seriesParEtape.get(destId) ?? new Set<string>()
+  const signature = serie(photo.file)
+  if (series.has(signature)) return false
+  if (!reserver(photo)) return false
+  series.add(signature)
+  seriesParEtape.set(destId, series)
   galerie.push(photo)
   galeries.set(destId, galerie)
   return true
@@ -307,32 +417,54 @@ for (const dest of DESTINATIONS) {
     ...(dest.specialities ?? []).map((s) => ({ id: s.id, query: s.photoQuery, quoi: 'spécialité' })),
   ]
 
+  // L'ordre de remplissage est ce qui décide du contenu d'une galerie pleine, et
+  // il va du plus varié au moins varié : une vue par sujet d'abord, puis les
+  // recherches d'appoint, et seulement s'il reste de la place une deuxième vue par
+  // sujet. Prendre les deux vues d'un sujet d'affilée remplissait la galerie avec
+  // les premières activités de la liste, et les dernières n'y figuraient pas.
+  const resultats = new Map<string, Photo[]>()
+
   for (const sujet of sujets) {
     if (!sujet.query) continue
-    // On demande plusieurs résultats pour survivre au filtrage et à la
-    // déduplication : la première image acceptable devient celle du sujet, les
-    // suivantes garnissent la galerie de l'étape.
+    // On demande plusieurs résultats pour survivre au filtrage, à la déduplication
+    // et au filtre de série : la première image acceptable devient celle du sujet.
     const trouvees = await rechercher(sujet.query, 12, true)
-    let retenue: Photo | undefined
-    for (const photo of trouvees) {
-      if (dejaPris.has(photo.file)) continue
-      if (!retenue) {
-        retenue = photo
-        photos.set(sujet.id, photo)
-      }
-      ajouter(dest.id, photo)
-      // Deux images par sujet suffisent à remplir les galeries sans les noyer.
-      if ((galeries.get(dest.id)?.length ?? 0) >= GALERIE_MINIMUM + 6) break
-    }
-    if (!retenue) {
-      rapport.push(`✗ ${sujet.quoi} ${sujet.id} — aucune image exploitable pour « ${sujet.query} »`)
+    resultats.set(sujet.id, trouvees)
+    const retenue = trouvees.find((photo) => {
+      if (dejaPris.has(photo.file)) return false
+      // La galerie peut refuser la photo (pleine, ou série déjà présente) : le
+      // sujet a tout de même besoin de sa vignette, on la lui réserve alors.
+      return ajouter(dest.id, photo) || reserver(photo)
+    })
+    if (retenue) photos.set(sujet.id, retenue)
+    else rapport.push(`✗ ${sujet.quoi} ${sujet.id} — aucune image exploitable pour « ${sujet.query} »`)
+  }
+
+  // 3. Recherches d'appoint. Elles montrent ce qu'aucune activité ne montre — la
+  // ville de loin, une rue le soir, la saison — et tournent donc toujours, non
+  // plus seulement quand la galerie est courte : c'est leur variété qu'on veut,
+  // pas leur remplissage.
+  for (const query of dest.galleryQueries ?? []) {
+    let posees = 0
+    for (const photo of await rechercher(query, 10, true)) {
+      if (posees >= PAR_RECHERCHE) break
+      if (ajouter(dest.id, photo)) posees++
     }
   }
 
-  // 3. Recherches d'appoint, pour atteindre le minimum de la galerie.
-  for (const query of dest.galleryQueries ?? []) {
-    if ((galeries.get(dest.id)?.length ?? 0) >= GALERIE_MINIMUM + 3) break
-    for (const photo of await rechercher(query, 10)) ajouter(dest.id, photo)
+  // 4. Deuxième vue des sujets, avec ce qui a déjà été rapporté : souvent un autre
+  // cadrage ou une autre saison, et aucune requête supplémentaire à l'API. Le
+  // contrôle de pertinence y est plus strict que pour la vignette du sujet — voir
+  // `motDeLieu()`.
+  for (const sujet of sujets) {
+    if (!sujet.query) continue
+    const lieu = motDeLieu(sujet.query)
+    let posees = 1
+    for (const photo of resultats.get(sujet.id) ?? []) {
+      if (posees >= PAR_SUJET) break
+      if (!pertinent(photo, lieu)) continue
+      if (ajouter(dest.id, photo)) posees++
+    }
   }
 
   const compte = galeries.get(dest.id)?.length ?? 0

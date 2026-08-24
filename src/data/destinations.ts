@@ -66,7 +66,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Point d’entrée du voyage. La mégapole s’explore par quartiers : Asakusa et son temple, Shibuya et son carrefour, les jardins impériaux.',
     photoId: 'tokyo',
-    galleryQueries: ['Asakusa Tokyo', 'Shinjuku night', 'Tokyo skyline autumn'],
+    galleryQueries: [
+      'Asakusa Nakamise dori',
+      'Tokyo Sumida river bridge',
+      'Tokyo ginkgo autumn avenue',
+      'Shinjuku Omoide Yokocho alley',
+      'Ameyoko Ueno shopping street',
+      'Tokyo Yamanote line train',
+    ],
     dates: sejour('11-06', '11-08'),
     nights: nuits(2),
     // Première réservation d'hébergement du voyage. Tout vient de la
@@ -195,7 +202,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Ville des Alpes japonaises, connue pour son donjon noir du XVIᵉ siècle — l’un des cinq châteaux classés trésor national.',
     photoId: 'matsumoto',
-    galleryQueries: ['Matsumoto Nagano city', 'Matsumoto Castle autumn', 'Kaichi School Matsumoto'],
+    galleryQueries: [
+      'Matsumoto Nawate street',
+      'Matsumoto city street Nagano',
+      'Matsumoto Japanese Alps view',
+      'Matsumoto station Nagano',
+      'Matsumoto Metoba river',
+      'Matsumoto Hakari Museum',
+    ],
     dates: sejour('11-08', '11-10'),
     nights: nuits(2),
     // Adresse et horaires recoupés avec la fiche officielle de la chaîne
@@ -316,7 +330,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Vallée d’altitude fermée aux voitures privées, au pied du massif du Hotaka. Balades le long de la rivière Azusa, du pont Kappa aux étangs.',
     photoId: 'kamikochi',
-    galleryQueries: ['Kamikochi Azusa River', 'Hotaka mountains Japan', 'Kamikochi autumn'],
+    galleryQueries: [
+      'Kamikochi Hotaka mountains',
+      'Kamikochi Yakedake volcano',
+      'Kamikochi larch autumn',
+      'Kamikochi forest trail',
+      'Kamikochi bus terminal',
+      'Sawando parking Kamikochi',
+    ],
     dates: sejour('11-10', '11-11'),
     nights: nuits(1),
     // Attention à la localisation : l'adresse « Azumi 4166-2 » est à Sawando, en
@@ -432,7 +453,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Ancienne ville de marchands au cœur de la région de Hida. Rues de bois sombre de Sanmachi-suji, marchés du matin, saké et bœuf de Hida.',
     photoId: 'takayama',
-    galleryQueries: ['Takayama Gifu old town', 'Takayama Matsuri float', 'Hida Furukawa'],
+    galleryQueries: [
+      'Takayama Gifu autumn',
+      'Takayama Miyagawa river',
+      'Takayama Gifu station',
+      'Hida Furukawa Gifu',
+      'Takayama woodcraft Gifu',
+      'Takayama Gifu night street',
+    ],
     dates: sejour('11-11', '11-13'),
     nights: nuits(2),
     // Le seul hébergement du voyage sans site à lui : l'établissement était encore
@@ -574,7 +602,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Village classé au patrimoine mondial pour ses fermes gasshō-zukuri aux toits de chaume à forte pente, conçus pour les hivers de neige lourde.',
     photoId: 'shirakawago',
-    galleryQueries: ['Shirakawa-go Ogimachi', 'Gassho-zukuri farmhouse', 'Shirakawa-go autumn'],
+    galleryQueries: [
+      'Shirakawa-go autumn',
+      'Shirakawa-go thatched roof gassho',
+      'Shirakawa-go rice field Gifu',
+      'Shirakawa-go irori interior',
+      'Shirakawa-go bus terminal',
+      'Shirakawa-go village night',
+    ],
     dates: sejour('11-13', '11-14'),
     nights: nuits(1),
     // Maison d'hôtes tenue par le centre d'activités « o8 » du village, dont le
@@ -696,7 +731,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Ancienne capitale du clan Maeda, épargnée par les bombardements. Kenroku-en, quartiers de geishas et de samouraïs, feuille d’or et marché de poissons.',
     photoId: 'kanazawa',
-    galleryQueries: ['Kanazawa Ishikawa city', 'Kenrokuen autumn', 'Kanazawa Station Tsuzumimon'],
+    galleryQueries: [
+      'Kanazawa Station Tsuzumimon',
+      'Kanazawa Ishikawa street',
+      'Kanazawa Kazuemachi district',
+      'Kanazawa Kutani ware',
+      'Kanazawa Myoryuji Ninjadera',
+      'Kanazawa yukitsuri autumn',
+    ],
     dates: sejour('11-14', '11-16'),
     nights: nuits(2),
     accommodation: { status: 'todo' },
@@ -819,7 +861,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Port de la mer du Japon adossé aux Alpes. Point de départ occidental de la route alpine Tateyama-Kurobe.',
     photoId: 'toyama',
-    galleryQueries: ['Toyama city Japan', 'Fugan Canal Kansui Park', 'Toyama Bay Tateyama'],
+    galleryQueries: [
+      'Toyama tram line',
+      'Toyama Bay Tateyama mountains',
+      'Toyama city street',
+      'Toyama Matsukawa river',
+      'Toyama station Shinkansen',
+      'Toyama autumn Japan',
+    ],
     dates: sejour('11-16', '11-17'),
     nights: nuits(1),
     accommodation: { status: 'todo' },
@@ -922,7 +971,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Traversée du massif de Tateyama en funiculaire, bus de montagne, téléphérique et bus électrique : de Toyama à Ōgizawa par Murodō (2 450 m) et le barrage de Kurobe.',
     photoId: 'tateyama',
-    galleryQueries: ['Tateyama Kurobe Alpine Route', 'Kurobe Dam', 'Murodo Tateyama snow'],
+    galleryQueries: [
+      'Tateyama Kurobe Alpine Route',
+      'Tateyama cable car Toyama',
+      'Tateyama trolley bus tunnel',
+      'Bijodaira Tateyama station',
+      'Ogizawa Tateyama station',
+      'Tateyama autumn alpine Toyama',
+    ],
     dates: sejour('11-17', '11-17'),
     nights: nuitsDeduites(0),
     accommodation: {
@@ -1011,7 +1067,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Petite ville au pied de la sortie est de la route alpine, adossée aux lacs Nishina et au massif d’Ushiro-Tateyama. Porte d’entrée du parc national des Alpes du Nord.',
     photoId: 'omachi',
-    galleryQueries: ['Omachi Nagano', 'Lake Kizaki Nagano', 'Nishina Three Lakes'],
+    galleryQueries: [
+      'Nishina lakes Nagano',
+      'Omachi Nagano townscape',
+      'Omachi Nagano Japanese Alps',
+      'Aoki lake Nagano',
+      'Shinano-Omachi station',
+      'Omachi Nagano autumn',
+    ],
     dates: sejour('11-17', '11-18'),
     nights: nuitsDeduites(1),
     accommodation: {
@@ -1089,7 +1152,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Ville née autour du Zenkō-ji, temple fondé au VIIᵉ siècle qui abrite la plus ancienne statue bouddhique du Japon.',
     photoId: 'nagano',
-    galleryQueries: ['Zenkoji Nagano temple', 'Jigokudani snow monkey', 'Obuse Nagano'],
+    galleryQueries: [
+      'Nagano city Showa-dori street',
+      'Nagano station Shinkansen',
+      'Chikuma river Nagano',
+      'Yudanaka onsen Nagano',
+      'Obuse chestnut Nagano',
+      'Nagano autumn Japan',
+    ],
     dates: sejour('11-18', '11-20'),
     nights: nuits(2),
     accommodation: { status: 'todo' },
@@ -1199,7 +1269,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Quartier Bikan : canal bordé d’entrepôts à riz blanchis à la chaux, saules et musée Ōhara — le premier musée d’art occidental du Japon.',
     photoId: 'kurashiki',
-    galleryQueries: ['Kurashiki Bikan historical quarter', 'Kurashiki canal', 'Ohara Museum of Art'],
+    galleryQueries: [
+      'Kurashiki Okayama street',
+      'Kurashiki canal boat willow',
+      'Kurashiki Monogatari Museum',
+      'Kurashiki denim Kojima',
+      'Kurashiki station Okayama',
+      'Kurashiki autumn Okayama',
+    ],
     dates: sejour('11-20', '11-21'),
     nights: nuits(1),
     accommodation: { status: 'todo' },
@@ -1312,10 +1389,12 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       'Le dôme de Genbaku et le parc du Mémorial de la Paix, classés au patrimoine mondial, dans une ville entièrement reconstruite après 1945. Miyajima, à une heure de là, porte le torii d’Itsukushima planté dans la mer.',
     photoId: 'hiroshima',
     galleryQueries: [
-      'Itsukushima Shrine torii Miyajima',
-      'Hiroshima Peace Memorial Park',
-      'Momijidani Park Miyajima autumn',
-      'Hiroshima city',
+      'Hiroshima tram streetcar',
+      'Miyajima deer Hiroshima',
+      'Hiroshima city night',
+      'Miyajima Omotesando street',
+      'Hiroshima Castle',
+      'Miyajima ferry Hiroshima',
     ],
     dates: sejour('11-21', '11-23'),
     nights: nuits(2),
@@ -1447,7 +1526,22 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Île-musée de la mer intérieure de Seto : architecture de Tadao Andō, collections Benesse, et les citrouilles de Yayoi Kusama posées face à la mer.',
     photoId: 'naoshima',
-    galleryQueries: ['Naoshima Kagawa island', 'Yayoi Kusama pumpkin Naoshima', 'Benesse House Naoshima'],
+    galleryQueries: [
+      // Huit recherches là où les autres étapes en ont six : l'île ne compte que
+      // quatre sujets nommés, tous des musées, et sa galerie serait la plus courte
+      // du carnet sans cet appoint.
+      // Pas de recherche sur la citrouille de Kusama : Commons n'a aucun fichier
+      // qui porte à la fois « Naoshima » et « pumpkin » — les vues de l'œuvre
+      // s'appellent « With Pumpkin », que le garde-fou écarte, à raison.
+      'Naoshima Benesse art site',
+      'Naoshima Kagawa island',
+      'Naoshima Miyanoura port',
+      'Naoshima Honmura',
+      'Naoshima bathhouse',
+      'Naoshima Kagawa coast',
+      'Naoshima ferry Kagawa',
+      'Naoshima sculpture',
+    ],
     dates: sejour('11-23', '11-23'),
     nights: nuitsDeduites(0),
     accommodation: {
@@ -1525,7 +1619,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Porte d’entrée de Shikoku, patrie des udon sanuki. Le jardin Ritsurin y déploie six étangs et treize collines composées.',
     photoId: 'takamatsu',
-    galleryQueries: ['Takamatsu Kagawa city', 'Ritsurin Garden autumn', 'Kotohira-gu shrine'],
+    galleryQueries: [
+      'Takamatsu Kagawa city',
+      'Takamatsu port ferry Kagawa',
+      'Kotoden Takamatsu train',
+      'Takamatsu chuo shopping arcade',
+      'Shodoshima island Kagawa',
+      'Megijima port Kagawa',
+    ],
     dates: sejour('11-23', '11-25'),
     nights: nuitsDeduites(2),
     accommodation: { status: 'todo' },
@@ -1641,7 +1742,16 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Plus grande ville de Shikoku. Son donjon d’origine domine la colline de Katsuyama, et Dōgo Onsen, mentionné dès les plus anciennes chroniques du Japon, se visite dans un bâtiment de bois de 1894.',
     photoId: 'matsuyama',
-    galleryQueries: ['Matsuyama Ehime city', 'Dogo Onsen Honkan', 'Matsuyama Castle Ehime'],
+    galleryQueries: [
+      'Matsuyama Ehime city',
+      // « Matsuyama Dogo … » et non « Dogo … » : les fichiers de Dōgo s'écrivent
+      // aussi « Dougoonsen », que la clé « dogo » ne reconnaît pas.
+      'Matsuyama Dogo street',
+      'Matsuyama tram Ehime',
+      'Ehime mikan orchard',
+      'Matsuyama Castle ropeway Ehime',
+      'Matsuyama Ehime port',
+    ],
     dates: sejour('11-25', '11-27'),
     nights: nuits(2),
     accommodation: { status: 'todo' },
@@ -1758,7 +1868,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Plus grande ville de Kyūshū, réputée pour ses yatai — les échoppes de rue au bord de la rivière Naka — et le ramen tonkotsu de Hakata.',
     photoId: 'fukuoka',
-    galleryQueries: ['Fukuoka city Hakata', 'Fukuoka yatai food stall', 'Dazaifu Tenmangu'],
+    galleryQueries: [
+      'Nakasu Fukuoka yatai night',
+      'Fukuoka Canal City Hakata',
+      'Hakata station Fukuoka',
+      'Momochi Fukuoka beach',
+      'Hakata Gion Yamakasa',
+      'Fukuoka castle Maizuru ruins',
+    ],
     dates: sejour('11-27', '11-29'),
     nights: nuits(2),
     accommodation: { status: 'todo' },
@@ -1883,7 +2000,17 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     blurb:
       'Ville portuaire en amphithéâtre, seule ouverte aux étrangers pendant deux siècles de fermeture du pays : Dejima, églises, et le parc de la Paix.',
     photoId: 'nagasaki',
-    galleryQueries: ['Nagasaki city view', 'Glover Garden Nagasaki', 'Hashima Gunkanjima island'],
+    galleryQueries: [
+      'Nagasaki tram streetcar',
+      'Oura church Nagasaki',
+      'Nagasaki Shinchi Chinatown',
+      // Et non « Nagasaki harbour » : le port de Nagasaki est surtout photographié
+      // dans les fonds d'archives militaires, et la recherche remontait une vue
+      // d'évacuation de prisonniers de 1945 — hors sujet pour un carnet de voyage.
+      'Nagasaki shopping arcade',
+      'Unzen onsen Nagasaki',
+      'Nagasaki Dutch Slope',
+    ],
     dates: sejour('11-29', '12-02'),
     nights: nuits(3),
     accommodation: { status: 'todo' },
@@ -2017,11 +2144,15 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       'Retour dans la capitale par les airs, pour les trois derniers jours du voyage : de quoi reprendre les quartiers laissés de côté à l’arrivée.',
     photoId: 'tokyo',
     galleryQueries: [
-      'Rikugien garden autumn',
-      'Ueno Park Tokyo',
-      'Tokyo Skytree',
+      'Nezu shrine Tokyo',
+      'Jimbocho bookshop Tokyo',
+      'Tsukishima monja street Tokyo',
+      'Nihonbashi bridge Chuo Tokyo',
+      'Sumida river Tokyo night',
+      // Et non « Ueno Tokyo autumn » : le parc d'Ueno abrite le Musée national, dont
+      // les milliers de photos d'objets « à décor d'herbes d'automne » saturaient la
+      // recherche. Yanaka est le quartier voisin, et se photographie lui-même.
       'Yanaka Tokyo street',
-      'Marunouchi Tokyo Station',
     ],
     dates: sejour('12-02', '12-05'),
     nights: nuits(3),
