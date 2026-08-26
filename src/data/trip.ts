@@ -25,11 +25,12 @@ const JR_NATIONAL_LEGS = [
   'j10.2',
   'j11.1',
   'j11.2', // ligne Uno
-  'j13.1', // Ltd. Exp. Ishizuchi (tarif non relevé)
-  'j14.1', // Ltd. Exp. Shiokaze (tarif non relevé)
+  'j13.1', // Ltd. Exp. Ishizuchi (tarif estimé à 6 000 ¥, sans source)
+  'j14.1', // Ltd. Exp. Shiokaze (tarif estimé à 6 000 ¥, sans source)
   'j14.2', // San'yō Shinkansen
   'j15.1', // Relay Kamome (billet direct)
   'j15.2', // Shinkansen Kamome
+  't-depart.1', // Tokyo Monorail, le 5 décembre — voir la note du transfert
 ]
 
 export const PASSES: RailPass[] = [
@@ -79,38 +80,67 @@ export const PASSES: RailPass[] = [
 ]
 
 /**
- * Pass régionaux pertinents pour ce parcours précis. Les tarifs ne sont pas
- * renseignés volontairement : je ne veux pas avancer un chiffre dont je ne suis
- * pas sûr. À compléter depuis les sites officiels.
+ * Pass régionaux pertinents pour ce parcours précis.
+ *
+ * Les tarifs sont désormais relevés sur les sites officiels des opérateurs, avec
+ * la source dans chaque note. Ils restent des ESTIMATIONS au sens du site : un
+ * tarif public n'est pas un billet acheté, et ces grilles changent — celle du JR
+ * Pass national a augmenté de 70 % en octobre 2023.
+ *
+ * Ils ne sont pas pris en compte dans le calcul de rentabilité : `passAnalysis()`
+ * ne compare que les pass de `PASSES`, dont les tronçons couverts sont
+ * inventoriés un par un. Faire de même ici demanderait de relever, pour chaque
+ * pass régional, la liste exacte de ses tronçons — travail utile, mais qui n'est
+ * pas fait. La liste ci-dessous est donc une piste chiffrée, pas un verdict.
  */
 export const REGIONAL_PASS_CANDIDATES = [
   {
     name: 'Takayama–Hokuriku Area Tourist Pass',
     scope:
       'Nagoya/Osaka ⇄ Takayama ⇄ Shirakawa-gō (bus inclus) ⇄ Kanazawa, 5 jours. Couvrirait les bus Takayama → Shirakawa-gō → Kanazawa des 13 et 14 novembre, qu’aucun pass JR ne couvre.',
-    price: { certainty: 'todo' as const },
+    price: {
+      jpy: 19800,
+      certainty: 'estimate' as const,
+      scope: 'per-person' as const,
+      note: 'tarif adulte relevé sur touristpass.jp (enfant 9 900 ¥), 5 jours consécutifs. Inclut les bus Takayama ⇄ Shirakawa-gō ⇄ Kanazawa/Toyama, réservation obligatoire, et 6 réservations de siège gratuites sur les express et le Shinkansen Hokuriku.',
+    },
     url: 'https://touristpass.jp/fr/takayama_hokuriku/',
   },
   {
     name: 'JR West San’yō–San’in Area Pass',
     scope:
-      'Osaka ⇄ Okayama ⇄ Hiroshima ⇄ Hakata, 7 jours, Nozomi inclus. Recouvre la séquence Kurashiki → Hiroshima → Uno, puis le Shinkansen vers Fukuoka : du 20 au 27 novembre, soit 8 jours — un de trop, à regarder de près.',
-    price: { certainty: 'todo' as const },
+      'Osaka ⇄ Okayama ⇄ Hiroshima ⇄ Hakata, 7 jours. Recouvre la séquence Kurashiki → Hiroshima → Uno, puis le Shinkansen vers Fukuoka : du 20 au 27 novembre, soit 8 jours — un de trop, à regarder de près.',
+    price: {
+      jpy: 23000,
+      certainty: 'estimate' as const,
+      scope: 'per-person' as const,
+      note: 'tarif adulte relevé sur westjr.co.jp (enfant 11 500 ¥), 7 jours consécutifs, sièges réservés inclus sur le Shinkansen San’yō entre Shin-Ōsaka et Hakata. La page ne dit pas si le Nozomi est admis : à vérifier avant achat, notre itinéraire n’en emprunte pas.',
+    },
     url: 'https://www.westjr.co.jp/global/fr/ticket/pass/sanyo_sanin/',
   },
   {
-    name: 'All Shikoku Rail Pass',
+    name: 'All Shikoku Rail Pass — 3 jours',
     scope:
-      'Réseau JR Shikoku et compagnies privées de l’île. Couvrirait Takamatsu → Matsuyama, et Matsuyama → Okayama jusqu’à Kojima seulement (au-delà du pont de Seto, c’est JR West). Pertinent pour les deux trajets dont le tarif n’est pas relevé.',
-    price: { certainty: 'todo' as const },
+      'Réseau JR Shikoku et compagnies privées de l’île. Couvrirait Takamatsu → Matsuyama, et Matsuyama → Okayama jusqu’à Kojima seulement (au-delà du pont de Seto, c’est JR West). C’est la piste la plus intéressante : ce sont précisément les deux trajets dont aucune grille ne publie le tarif, et dont les 6 000 ¥ inscrits sont un ordre de grandeur, pas un relevé.',
+    price: {
+      jpy: 12500,
+      certainty: 'estimate' as const,
+      scope: 'per-person' as const,
+      note: 'tarif adulte 3 jours relevé sur shikoku-railwaytrip.com (4 jours 15 500 ¥, 5 jours 17 500 ¥, 7 jours 20 500 ¥ ; 500 ¥ de moins à l’achat depuis l’étranger). Sièges non réservés uniquement, et rien au nord de Kojima vers Okayama. ⚠️ À partir du 1er octobre 2026, le ferry de Shōdoshima et le bus Olive n’y sont plus inclus.',
+    },
     url: 'https://shikoku-railwaytrip.com/railpass.html',
   },
   {
-    name: 'Tateyama Kurobe Alpine Route — forfait de traversée',
+    name: 'Tateyama Kurobe Alpine Route — traversée complète',
     scope:
-      'Ce n’est pas un pass JR : c’est le billet unique de la route alpine, indispensable et jamais couvert par un pass ferroviaire.',
-    price: { certainty: 'todo' as const },
-    url: 'https://www.alpen-route.com/en/',
+      'Ce n’est pas un pass JR : c’est le prix de la traversée, indispensable et jamais couvert par un pass ferroviaire. Le montant ci-contre couvre tout le trajet du 17 novembre, de Dentetsu-Toyama à Shinano-Ōmachi — soit les tronçons j07 et j08 réunis.',
+    price: {
+      jpy: 14010,
+      certainty: 'estimate' as const,
+      scope: 'per-person' as const,
+      note: 'somme des huit tarifs de tronçon publiés par japan-guide.com : Toyama Chihō 1 420 ¥, funiculaire de Tateyama 1 090 ¥, bus d’altitude 3 000 ¥, bus du tunnel 2 200 ¥, téléphérique 1 700 ¥, funiculaire de Kurobe 1 150 ¥, bus du Kanden 1 800 ¥, bus Ōgizawa → Shinano-Ōmachi 1 650 ¥. Le forfait officiel de la partie alpine (Tateyama → Ōgizawa) vaut donc 10 940 ¥. Le calculateur du site officiel est en JavaScript et n’a pas pu être relevé.',
+    },
+    url: 'https://www.alpen-route.com/en/fare/',
   },
 ]
 
@@ -169,16 +199,17 @@ export const TRANSFERS: Transfer[] = [
         toPlace: 'haneda',
         service: 'Tokyo Monorail, Haneda Express',
         duration: mins(13, 'Haneda Express, service le plus rapide'),
-        cost: yen(520, 'tarif adulte aller simple vers les terminaux 1, 2 et 3, relevé sur tokyo-monorail.co.jp'),
-        passCoverage: 'unknown',
+        cost: yen(520, 'tarif adulte aller simple vers les terminaux 1, 2 et 3, relevé sur tokyo-monorail.co.jp et confirmé par japan-guide.com'),
+        passCoverage: 'covered',
         via: [[139.7660, 35.5900]], // baie de Tokyo
-        note: 'Le trajet jusqu’à Hamamatsuchō dépend de l’hôtel, encore à renseigner : il n’est donc pas compté. La couverture du Tokyo Monorail par le JR Pass est à vérifier — elle est sans effet ici, aucun pass n’étant retenu à cette date.',
+        note: 'Le trajet jusqu’à Hamamatsuchō dépend de l’hôtel, encore à renseigner : il n’est donc pas compté. Le Tokyo Monorail appartient à JR East et est intégralement couvert par le JR Pass national (source : japan-guide.com/e/e2430.html) — il entre donc dans l’analyse de rentabilité des pass, ce qui n’était pas le cas tant que la couverture restait inconnue.',
       },
     ],
     warnings: [
       'Vol international à 8 h 40 : enregistrement à fermer vers 7 h 40, donc être au terminal 3 vers 6 h 40 au plus tard. Il faut quitter le centre de Tokyo autour de 6 h 00.',
-      'À VÉRIFIER, c’est la contrainte la plus serrée du voyage : l’heure du premier monorail depuis Hamamatsuchō. Elle n’est pas indiquée sur le site de l’opérateur et je ne l’ai pas relevée. Si le premier départ est trop tardif, il faut un taxi ou une nuit près de l’aéroport.',
-      'Alternative à vérifier : la ligne Keikyū depuis Shinagawa, qui a ses propres premiers départs.',
+      'Premier monorail : la première arrivée à Haneda est à 5 h 12 (japan-guide.com/e/e2430.html), soit un départ de Hamamatsuchō vers 4 h 50. Le départ de 6 h 00 tient donc largement — ce point, longtemps le plus serré du voyage, n’en est plus un. Reste à vérifier l’horaire exact du jour sur le site de l’opérateur, un 5 décembre en semaine.',
+      'Alternative : la ligne Keikyū depuis Shinagawa, 330 ¥ et 20 min, première arrivée à Haneda 5 h 27. Moins chère mais hors pass JR — et le monorail, lui, est couvert.',
+      'La durée retenue ici est celle du Haneda Express, 13 min. Le service ordinaire met 20 min (japan-guide) : prendre la marge la plus large tant que l’horaire du jour n’est pas vérifié.',
     ],
   },
 ]
@@ -193,24 +224,59 @@ export const NUITS_ANNONCEES = 29
 export const TRIP: Trip = {
   title: 'Traversée du Japon',
   subtitle: 'Des Alpes japonaises à Kyūshū, par la mer intérieure de Seto',
+  /**
+   * Le SÉJOUR AU JAPON, pas le voyage porte à porte.
+   *
+   * L'avion quitte Paris le 5 novembre et atterrit à Narita le 6 : le voyage dure
+   * donc un jour de plus que la période ci-dessous. C'est volontaire — cette
+   * période est celle que tout le site compte : 30 jours, 29 nuits, les dates des
+   * étapes, la durée du budget, l'étalement des trajets JR. L'y faire entrer le
+   * 5 novembre ajouterait un jour sans étape et une nuit passée en avion, et
+   * désaccorderait `tripDays()` (déduit des étapes) de cette période.
+   *
+   * Le 5 novembre n'est pas perdu pour autant : le vol le porte, et la vue
+   * « Aujourd'hui » compte ses jours restants jusqu'au décollage de Paris, pas
+   * jusqu'à l'arrivée au Japon (voir `departDeLaMaison()` dans `lib/aujourdhui.ts`).
+   */
   period: { start: '2026-11-06', end: '2026-12-05', certainty: 'confirmed' },
-  travellers: { count: 1, certainty: 'todo' },
+  travellers: { count: 1, certainty: 'confirmed' },
   heroPhotoId: 'kamikochi',
   flights: [
     {
       label: 'Vol international aller',
-      from: 'Europe — aéroport de départ à préciser',
-      to: 'Tokyo Narita (NRT)',
-      date: '2026-11-06',
-      arrivalTime: '12:00',
       certainty: 'confirmed',
+      // Deux avions, deux numéros, une escale : d'où les tronçons. Les bornes du
+      // trajet (Paris 12 h 25 → Narita 12 h 00 le lendemain) et le battement de
+      // l'escale sont recalculés par `itineraire()`, jamais recopiés ici.
+      segments: [
+        {
+          airline: 'China Eastern',
+          number: 'MU554',
+          from: 'Paris',
+          to: 'Shanghai Pudong (PVG)',
+          date: '2026-11-05',
+          departureTime: '12:25',
+          arrivalTime: '07:00',
+          arrivalDate: '2026-11-06',
+          note: 'Vol de nuit : on décolle le 5 et on atterrit le 6. L’aéroport parisien n’est pas précisé sur les informations transmises ; China Eastern dessert Roissy-Charles-de-Gaulle, à confirmer sur la réservation.',
+        },
+        {
+          airline: 'China Eastern',
+          number: 'MU727',
+          from: 'Shanghai Pudong (PVG)',
+          to: 'Tokyo Narita (NRT)',
+          date: '2026-11-06',
+          departureTime: '08:20',
+          arrivalTime: '12:00',
+        },
+      ],
       price: {
         eur: 1103,
         certainty: 'confirmed',
         scope: 'per-person',
-        note: 'Billet acheté : 1 103 € pour l’aller-retour. Le prix est porté par l’aller, le retour n’en porte aucun — sinon il serait compté deux fois. Le `scope` est « par personne » : à passer à « total » si ces 1 103 € couvrent plusieurs voyageurs.',
+        note: 'Billet acheté : 1 103 € pour l’aller-retour, pour un voyageur. Le prix est porté par l’aller, le retour n’en porte aucun — sinon il serait compté deux fois.',
       },
-      note: 'Atterrissage à Narita à 12 h 00, donnée fournie. Aéroport de départ, compagnie et numéro de vol non fournis.',
+      note: 'Horaires et numéros de vol fournis par le voyageur. Le battement de 1 h 20 à Shanghai qu’il indique se retrouve bien dans les horaires (7 h 00 → 8 h 20) : c’est court pour une correspondance internationale, même sans changer de compagnie. À vérifier auprès de China Eastern si les bagages sont enregistrés jusqu’à Narita.',
     },
     {
       label: 'Vol intérieur retour',
@@ -218,23 +284,44 @@ export const TRIP: Trip = {
       to: 'Tokyo Haneda (HND)',
       date: '2026-12-02',
       certainty: 'estimate',
-      note: 'Date déduite de l’itinéraire, pas fournie. Le vol international repartant de Haneda, l’aéroport d’arrivée est maintenant fixé : Haneda. Compagnie et horaire à confirmer.',
+      note: 'PAS ENCORE RÉSERVÉ, information du voyageur. Date déduite de l’itinéraire, pas fournie. Le vol international repartant de Haneda, l’aéroport d’arrivée est fixé. Compagnie, numéro, horaire et prix restent à renseigner une fois le billet pris — c’est le seul des trois vols dont rien n’est arrêté.',
     },
     {
       label: 'Vol international retour',
-      from: 'Tokyo Haneda (HND)',
-      to: 'Europe — aéroport d’arrivée à préciser',
-      date: '2026-12-05',
-      departureTime: '08:40',
       certainty: 'confirmed',
-      note: 'Décollage de Haneda à 8 h 40, donnée fournie. Aucun prix ici : il est porté par l’aller, le billet étant un aller-retour. Voir l’avertissement du transfert vers Haneda — c’est l’horaire le plus contraignant du voyage.',
+      segments: [
+        {
+          airline: 'China Eastern',
+          number: 'MU576',
+          from: 'Tokyo Haneda (HND)',
+          to: 'Shanghai Pudong (PVG)',
+          date: '2026-12-05',
+          departureTime: '08:40',
+          arrivalTime: '11:05',
+          note: 'C’est cet horaire qui contraint tout le dernier jour : voir l’avertissement du transfert vers Haneda.',
+        },
+        {
+          airline: 'China Eastern',
+          number: 'MU569',
+          from: 'Shanghai Pudong (PVG)',
+          to: 'Paris',
+          date: '2026-12-05',
+          departureTime: '12:25',
+          note: 'Heure d’atterrissage à Paris non fournie : elle reste vide plutôt que d’être déduite d’un temps de vol supposé.',
+        },
+      ],
+      note: 'Aucun prix ici : il est porté par l’aller, le billet étant un aller-retour. Même escale de 1 h 20 à Shanghai qu’à l’aller (11 h 05 → 12 h 25).',
     },
   ],
   transfers: TRANSFERS,
   passes: PASSES,
+  /**
+   * Repas et visites ont été retirés du budget à la demande du voyageur : leurs
+   * enveloppes journalières (4 000 ¥ et 2 000 ¥) pesaient à elles deux plus que
+   * tous les transports du voyage, sur la seule base d'une moyenne inventée. Ne
+   * reste que le transport local, qui se rattache à des trajets réels.
+   */
   budgetDefaults: {
-    foodPerDayPerPerson: 4000,
-    activitiesPerDayPerPerson: 2000,
     localTransportPerDayPerPerson: 800,
   },
 }

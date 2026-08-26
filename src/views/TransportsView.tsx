@@ -7,10 +7,11 @@
  * Sur les pass, la règle est stricte : l'économie n'est jamais présentée comme
  * certaine. Un pass n'est valable que sur des jours consécutifs ; maintenant que
  * les dates sont connues, chaque écart est calculé sur la meilleure période
- * d'activation possible et ce qui tombe en dehors est déduit. Restent deux
- * réserves, affichées en clair : les tarifs sont des estimations, et deux
- * tronçons couverts n'ont pas de tarif relevé — ils comptent pour zéro, ce qui
- * sous-estime l'intérêt du pass.
+ * d'activation possible et ce qui tombe en dehors est déduit. Reste une réserve,
+ * affichée en clair : les tarifs sont des estimations. Les blocs « minorant » et
+ * « tarif non relevé » sont conditionnels et disparaissent d'eux-mêmes maintenant
+ * que tous les tronçons couverts ont un montant — ils reviendront au premier
+ * tronçon ajouté sans tarif, sans qu'il y ait rien à rebrancher.
  */
 import { JourneyCard } from '../components/JourneyCard'
 import { CertaintyBadge, SectionTitle, ToFill, Warnings } from '../components/ui'
@@ -27,25 +28,68 @@ import {
   formatTime,
 } from '../lib/format'
 import { MODE_STYLES } from '../lib/modes'
+import { itineraire } from '../lib/vols'
 import { useTrip } from '../state/trip-state'
-import type { Flight } from '../types'
+import type { Flight, FlightSegment } from '../types'
 
 /**
- * Date et horaire d'un vol, réduits à ce qui est connu.
+ * Date et horaires d'un vol, réduits à ce qui est connu.
  *
- * Nos vols n'ont qu'un seul de leurs deux horaires : l'aller son atterrissage,
- * le retour son décollage. On dit donc lequel c'est, plutôt que d'afficher une
- * heure nue qu'on prendrait pour l'autre.
+ * Les bornes viennent de `itineraire()` : pour un vol à escale, ce sont le premier
+ * décollage et le dernier atterrissage, jamais ceux d'un tronçon intermédiaire.
+ * Quand l'atterrissage tombe le lendemain, la date est dite — un « décollage
+ * 12 h 25 · atterrissage 7 h 00 » sur une seule date se lirait à l'envers.
  */
 function quand(flight: Flight): string | undefined {
-  const depart = formatTime(flight.departureTime)
-  const arrivee = formatTime(flight.arrivalTime)
+  const itin = itineraire(flight)
+  const depart = formatTime(itin.departureTime)
+  const arrivee = formatTime(itin.arrivalTime)
+  const lendemain = itin.arrivalDate && itin.arrivalDate !== itin.departureDate
   const morceaux = [
-    formatDateRange(flight.date),
+    formatDateRange(itin.departureDate),
     depart && `décollage ${depart}`,
-    arrivee && `atterrissage ${arrivee}`,
+    arrivee && `atterrissage ${arrivee}${lendemain ? ` le ${formatDateRange(itin.arrivalDate)}` : ''}`,
   ].filter(Boolean)
   return morceaux.length > 0 ? morceaux.join(' · ') : undefined
+}
+
+/** Un tronçon de vol : la ligne qui porte le numéro de vol et ses horaires. */
+function TronconDeVol({
+  segment,
+  escale,
+}: {
+  segment: FlightSegment
+  escale?: { place: string; minutes?: number }
+}) {
+  const depart = formatTime(segment.departureTime)
+  const arrivee = formatTime(segment.arrivalTime)
+  return (
+    <span className="flights__segment">
+      <strong>
+        {segment.airline} {segment.number}
+      </strong>{' '}
+      {segment.from} <span aria-hidden="true">→</span> {segment.to}
+      {depart && ` · ${depart}`}
+      {/* L'atterrissage manquant est montré comme un trou : « · 12 h 25 » seul se
+          lirait comme un horaire complet alors qu'il n'y en a qu'un. */}
+      {depart && (arrivee ? ` → ${arrivee}` : <> → <ToFill>atterrissage</ToFill></>)}
+      {segment.arrivalDate && segment.arrivalDate !== segment.date && ' le lendemain'}
+      {escale && (
+        <span className="flights__escale">
+          {escale.minutes !== undefined ? (
+            <>
+              escale de {formatMinutes(escale.minutes)} à {escale.place}
+            </>
+          ) : (
+            <>
+              escale à {escale.place}, durée <ToFill />
+            </>
+          )}
+        </span>
+      )}
+      {segment.note && <span className="flights__note">{segment.note}</span>}
+    </span>
+  )
 }
 
 export function TransportsView() {
@@ -245,8 +289,11 @@ export function TransportsView() {
         <h4>Pass régionaux à étudier</h4>
         <p className="pass-analysis__intro">
           Sur ce parcours précis, plusieurs pass régionaux couvrent des tronçons que le pass
-          national ignore. Leurs tarifs ne sont pas renseignés ici : je ne les avance pas de
-          mémoire.
+          national ignore. Leurs tarifs sont maintenant relevés sur les sites des opérateurs — la
+          source est dans chaque note. <strong>Aucun écart n’est calculé pour eux</strong> : ce
+          calcul suppose l’inventaire tronçon par tronçon de ce que chaque pass couvre, et il n’a
+          été fait que pour les pass nationaux ci-dessus. Ce sont donc des pistes chiffrées, pas des
+          verdicts.
         </p>
         <ul className="pass-list pass-list--regional">
           {REGIONAL_PASS_CANDIDATES.map((pass) => (
@@ -260,9 +307,18 @@ export function TransportsView() {
                 <p className="pass-row__scope">{pass.scope}</p>
               </div>
               <div className="pass-row__price">
-                <ToFill>tarif</ToFill>
+                {pass.price.jpy !== undefined ? (
+                  <>
+                    {formatAmount(pass.price.jpy, currency)}
+                    <CertaintyBadge certainty={pass.price.certainty} label="tarif relevé" />
+                  </>
+                ) : (
+                  <ToFill>tarif</ToFill>
+                )}
               </div>
-              <div className="pass-row__delta" />
+              <div className="pass-row__window">
+                {pass.price.note && <p>{pass.price.note}</p>}
+              </div>
             </li>
           ))}
         </ul>
@@ -270,14 +326,30 @@ export function TransportsView() {
 
       <section className="flights">
         <h3>Vols</h3>
+        <p className="pass-analysis__intro">
+          Les deux vols internationaux passent par Shanghai Pudong : quatre avions, quatre numéros
+          de vol China Eastern. Chaque tronçon est listé avec ses horaires, et la durée de l’escale
+          est recalculée à partir d’eux plutôt que recopiée.{' '}
+          <strong>Aucune durée de vol n’est affichée</strong> : les horaires sont locaux, et sans le
+          décalage horaire de chaque escale une soustraction ne voudrait rien dire.
+        </p>
         <ul>
-          {TRIP.flights.map((flight) => (
+          {TRIP.flights.map((flight) => {
+            const itin = itineraire(flight)
+            return (
             <li key={flight.label}>
               <span className="flights__label">✈️ {flight.label}</span>
               <span className="flights__route">
-                {flight.from} → {flight.to}
+                {itin.from ?? <ToFill>départ</ToFill>} → {itin.to ?? <ToFill>arrivée</ToFill>}
               </span>
               <span className="flights__when">{quand(flight) ?? '—'}</span>
+              {itin.segments.map((segment, index) => (
+                <TronconDeVol
+                  key={segment.number}
+                  segment={segment}
+                  escale={itin.escales[index]}
+                />
+              ))}
               <span className="flights__price">
                 {flight.price ? (
                   <>
@@ -293,7 +365,8 @@ export function TransportsView() {
               <CertaintyBadge certainty={flight.certainty} />
               {flight.note && <span className="flights__note">{flight.note}</span>}
             </li>
-          ))}
+            )
+          })}
         </ul>
       </section>
 

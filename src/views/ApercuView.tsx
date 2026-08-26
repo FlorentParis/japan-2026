@@ -158,10 +158,13 @@ export function ApercuView() {
               </li>
             ))}
           </ul>
+          {/* Quand tout ce qui reste est bloquant — le cas depuis que les activités
+              ne réclament plus d'arbitrage — « 12 de ces 12 » se lirait mal. */}
           {blocking.length > 0 && (
             <p className="panel__foot">
-              {blocking.length} de ces éléments bloquent des calculs (durée du séjour, budget par
-              jour, rentabilité du pass).
+              {blocking.length === missing.length
+                ? 'Chacun de ces éléments est une réservation à faire : tant qu’elle manque, le budget la compte pour zéro et son total reste un minorant.'
+                : `${blocking.length} de ces éléments bloquent des calculs : une réservation manquante est comptée pour zéro, et le total du budget reste un minorant.`}
             </p>
           )}
         </section>

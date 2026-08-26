@@ -62,8 +62,17 @@
   white-space: nowrap;
 }
 
-.app-header__currency {
+.app-header__controls {
   grid-area: currency;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-2);
+}
+
+.app-header__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 50%;
@@ -72,10 +81,11 @@
   cursor: pointer;
   font-family: var(--font-serif);
   font-size: var(--text-lg);
+  line-height: 1;
   color: var(--ink-soft);
 }
 
-.app-header__currency:hover {
+.app-header__toggle:hover {
   border-color: var(--accent);
   color: var(--accent-ink);
 }

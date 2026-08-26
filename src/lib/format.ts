@@ -1,5 +1,13 @@
 /** Mise en forme : argent, durées, dates, distances. */
-import type { Certainty, Coord, Duration, Money, PassCoverage, StayKind } from '../types'
+import type {
+  ActivityCategory,
+  Certainty,
+  Coord,
+  Duration,
+  Money,
+  PassCoverage,
+  StayKind,
+} from '../types'
 
 /**
  * Taux de change indicatif, pour l'affichage en euros uniquement.
@@ -127,11 +135,29 @@ const DATE_ANNEE_FMT = new Intl.DateTimeFormat('fr-FR', {
   year: 'numeric',
 })
 
+const DATE_JOUR_FMT = new Intl.DateTimeFormat('fr-FR', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+})
+
 /**
  * Toutes les dates du site sont des chaînes `AAAA-MM-JJ`. On les lit à midi :
  * à minuit, un décalage horaire d'une heure suffirait à changer le jour affiché.
  */
 const jour = (iso: string) => new Date(`${iso}T12:00:00`)
+
+/**
+ * « jeudi 12 novembre 2026 » — avec le jour de la semaine.
+ *
+ * Réservé à la vue Aujourd'hui : ailleurs, une date sert à situer une étape dans
+ * le séjour et le jour de la semaine est du bruit. Sur place, c'est l'inverse —
+ * c'est lui qui dit si un musée sera fermé.
+ */
+export function formatLongDate(iso: string): string {
+  return DATE_JOUR_FMT.format(jour(iso))
+}
 
 export function formatDateRange(start?: string, end?: string): string | undefined {
   if (!start) return undefined
@@ -186,6 +212,21 @@ export const PASS_COVERAGE_SHORT: Record<PassCoverage, string> = {
   'not-covered': 'Hors pass',
   partial: 'Partiel',
   unknown: '?',
+}
+
+/**
+ * Pictogramme par catégorie d'activité. Ici plutôt que dans une vue : la vue
+ * Activités et la vue Aujourd'hui montrent les mêmes activités, et deux copies
+ * de cette table finiraient par se contredire.
+ */
+export const ACTIVITY_ICON: Record<ActivityCategory, string> = {
+  culture: '⛩️',
+  nature: '🌿',
+  food: '🍜',
+  art: '🎨',
+  onsen: '♨️',
+  quartier: '🏘️',
+  autre: '📍',
 }
 
 export const STAY_LABEL: Record<StayKind, string> = {

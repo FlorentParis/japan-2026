@@ -6,9 +6,10 @@
  */
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { TRIP } from './data/trip'
-import { useTrip, VIEWS } from './state/trip-state'
+import { useTrip, VIEWS, type ThemeMode } from './state/trip-state'
 import { ActivitesView } from './views/ActivitesView'
 import { ApercuView } from './views/ApercuView'
+import { AujourdhuiView } from './views/AujourdhuiView'
 import { BudgetView } from './views/BudgetView'
 import { HotelsView } from './views/HotelsView'
 import { ItineraireView } from './views/ItineraireView'
@@ -30,8 +31,22 @@ const PhotosView = lazy(() =>
   import('./views/PhotosView').then((module) => ({ default: module.PhotosView })),
 )
 
+/**
+ * Bouton de thème, dans la barre : un seul contrôle qui fait défiler les trois
+ * réglages. « Auto » d'abord, parce que c'est le défaut et le choix le plus
+ * respectueux — le carnet s'aligne sur le système sans rien imposer. L'icône
+ * montre l'état courant, l'info-bulle et l'étiquette pour lecteur d'écran disent
+ * lequel et vers quoi le clic mène.
+ */
+const THEME_CYCLE: Record<ThemeMode, { suivant: ThemeMode; icone: string; nom: string }> = {
+  auto: { suivant: 'light', icone: '🌗', nom: 'automatique (système)' },
+  light: { suivant: 'dark', icone: '☀️', nom: 'clair' },
+  dark: { suivant: 'auto', icone: '🌙', nom: 'sombre' },
+}
+
 function Header() {
-  const { view, setView, currency, setCurrency } = useTrip()
+  const { view, setView, currency, setCurrency, theme, setTheme } = useTrip()
+  const themeCourant = THEME_CYCLE[theme]
 
   return (
     <header className="app-header">
@@ -63,14 +78,25 @@ function Header() {
         </ul>
       </nav>
 
-      <button
-        type="button"
-        className="app-header__currency"
-        onClick={() => setCurrency(currency === 'jpy' ? 'eur' : 'jpy')}
-        title="Changer la devise d’affichage"
-      >
-        {currency === 'jpy' ? '¥' : '€'}
-      </button>
+      <div className="app-header__controls">
+        <button
+          type="button"
+          className="app-header__toggle"
+          onClick={() => setTheme(themeCourant.suivant)}
+          title={`Thème : ${themeCourant.nom}. Cliquer pour passer en ${THEME_CYCLE[themeCourant.suivant].nom}.`}
+          aria-label={`Thème ${themeCourant.nom}, changer`}
+        >
+          <span aria-hidden="true">{themeCourant.icone}</span>
+        </button>
+        <button
+          type="button"
+          className="app-header__toggle"
+          onClick={() => setCurrency(currency === 'jpy' ? 'eur' : 'jpy')}
+          title="Changer la devise d’affichage"
+        >
+          {currency === 'jpy' ? '¥' : '€'}
+        </button>
+      </div>
     </header>
   )
 }
@@ -98,6 +124,7 @@ export default function App() {
       <Header />
 
       <main className="app-main">
+        {view === 'aujourdhui' && <AujourdhuiView />}
         {view === 'apercu' && <ApercuView />}
         {mapMounted && (
           <div hidden={view !== 'carte'} className="app-main__keepalive">

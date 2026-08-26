@@ -13,20 +13,10 @@
 import { CertaintyBadge, PhotoFigure, SectionTitle, ToFill } from '../components/ui'
 import { DESTINATIONS } from '../data/destinations'
 import { activityTotals, galleryCount, specialityTotals } from '../lib/derive'
-import { formatMoney } from '../lib/format'
+import { ACTIVITY_ICON, formatMoney } from '../lib/format'
 import { lotDeLaFiche } from '../lib/lots'
 import { useTrip } from '../state/trip-state'
 import type { SpecialityKind } from '../types'
-
-const CATEGORY_ICON: Record<string, string> = {
-  culture: '⛩️',
-  nature: '🌿',
-  food: '🍜',
-  art: '🎨',
-  onsen: '♨️',
-  quartier: '🏘️',
-  autre: '📍',
-}
 
 const SPECIALITY_ICON: Record<SpecialityKind, string> = {
   plat: '🍲',
@@ -123,7 +113,7 @@ export function ActivitesView() {
                       <span className="activity-card__text">
                         <strong>
                           <span className="activity-card__icon" aria-hidden="true">
-                            {CATEGORY_ICON[activity.category] ?? '📍'}
+                            {ACTIVITY_ICON[activity.category]}
                           </span>{' '}
                           {activity.name}
                         </strong>
@@ -191,7 +181,7 @@ export function ActivitesView() {
                   <ul className="chips">
                     {dest.spots.map((spot) => (
                       <li key={spot.name} className="chip chip--quiet">
-                        <span aria-hidden="true">{CATEGORY_ICON[spot.kind ?? 'autre']}</span>{' '}
+                        <span aria-hidden="true">{ACTIVITY_ICON[spot.kind ?? 'autre']}</span>{' '}
                         {spot.name}
                       </li>
                     ))}

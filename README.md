@@ -3,25 +3,53 @@
 Site personnel de préparation d’un voyage au Japon : la carte de tout le parcours,
 la frise chronologique, les hébergements, les activités et spécialités locales,
 une galerie par étape, le budget et le détail des transports, tronçon par tronçon.
+Et, pour une fois sur place, un mode **« Aujourd’hui »** qui ne montre que la
+journée en cours.
 
 ## Règle de fond : aucune donnée inventée
 
-Quatre choses seulement ont été fournies : la liste des villes, la table des dates
-et du nombre de nuits, les billets d’avion (1 103 €, arrivée à Narita le
-6 novembre à 12 h, départ de Haneda le 5 décembre à 8 h 40) et la première
-réservation d’hôtel (Tokyo, les deux premières nuits, 33 930 ¥). Tout le reste est
-explicitement marqué :
+Cinq choses seulement ont été fournies : la liste des villes, la table des dates
+et du nombre de nuits, le fait que le voyageur part **seul**, l’itinéraire aérien
+complet (1 103 € l’aller-retour, quatre vols China Eastern via Shanghai Pudong,
+arrivée à Narita le 6 novembre à 12 h, départ de Haneda le 5 décembre à 8 h 40) et
+cinq réservations d’hôtel. Tout le reste est explicitement marqué :
 
 | Marque | Signification |
 | --- | --- |
-| `confirmé` | donnée fournie ou réservée — les dates, les nuits, les billets d’avion et l’hôtel de Tokyo, à ce jour |
+| `confirmé` | donnée fournie ou réservée — les dates, les nuits, les vols internationaux et cinq hôtels, à ce jour |
 | `estimé` | valeur relevée sur une grille tarifaire ou un horaire public, à revérifier |
 | `à compléter` | rien n’a été fourni — **aucune valeur n’est inventée pour combler le trou** |
 
-Conséquences visibles dans le site : une seule étape sur seize a un prix d’hôtel,
-et deux tarifs de train (Shikoku) volontairement absents. Le budget affiche
+Conséquences visibles dans le site : cinq étapes sur dix-huit ont un prix d’hôtel,
+et le vol intérieur Nagasaki → Tokyo n’est pas réservé. Le budget affiche
 « à compléter » là où il manque une donnée plutôt qu’un zéro — et, quand une part
 seulement est connue comme pour l’hébergement, le montant réel précédé d’un `≥`.
+
+**Une exception, tracée comme telle** : les deux trains de Shikoku qui encadrent
+l’étape de Matsuyama portent 6 000 ¥ chacun sur décision du voyageur. JR Shikoku ne
+publie pas sa grille en ligne et japan-guide.com ne donne qu’une fourchette
+(« environ 5 500 à 6 000 ¥ » pour Okayama → Matsuyama) ; ces deux montants étaient
+restés vides des semaines. Ce sont les **seuls** chiffres du site qui ne viennent
+pas d’une grille publique, et leurs notes le disent en majuscules à l’écran plutôt
+que de les faire passer pour des relevés.
+
+### Ce que le budget ne chiffre pas
+
+Le budget répond à « **ce que le voyage coûte avant d’y vivre** » : billets, nuits,
+pass, trajets. Les repas et les visites en ont été **retirés**, à la demande du
+voyageur et pour la raison même qui fonde ce projet. Ils étaient chiffrés par deux
+enveloppes journalières — 4 000 ¥ et 2 000 ¥ par jour et par personne — qu’aucune
+donnée ne soutenait : à elles deux, sur trente jours, elles pesaient plus lourd que
+tous les transports du voyage réunis. Un total dominé par un chiffre inventé
+n’informe pas, il rassure à tort.
+
+Reste une seule enveloppe journalière, `localTransportPerDayPerPerson` (800 ¥) :
+métro, bus urbains, consignes. Elle est conservée parce que ces trajets existent
+bel et bien, qu’ils ne sont dans aucune donnée d’étape, et que leur ordre de
+grandeur est petit devant le reste. La vue Budget dit en clair, sous le total, que
+les repas et les visites n’y sont pas — sans quoi son total se lirait comme « le
+coût du voyage ». Les activités restent toutes affichées ailleurs dans le site :
+c’est leur prix qui ne compte plus, pas leur existence.
 
 ### Le cas des activités, des spécialités et des photos
 
@@ -31,11 +59,20 @@ en propose. Ce qui s’affiche dans la vue « Activités et spécialités » est
 et le dit explicitement à l’écran. Ce sont des faits documentés sur des lieux et
 des plats publics — pas un programme arrêté, pas une réservation.
 
+Et ce statut est **l’état final**, pas une étape vers un choix. Le voyageur a dit
+qu’il n’arrêterait jamais de programme : il veut des suggestions pour les jours où
+il ne saura pas où aller. `gaps()` ne signale donc **rien** du côté des activités —
+un « à compléter » y réclamerait un arbitrage qui ne viendra pas, et la vue
+Aujourd’hui le remonterait chaque matin dans « à boucler avant de partir » alors
+qu’il n’y a rien à boucler.
+
 Ces entrées ne portent **volontairement aucun prix et aucune URL** : réciter une
 grille tarifaire ou un nom de domaine de mémoire produirait une donnée inventée,
-ce que ce projet refuse. Le budget compte les activités par une enveloppe
-journalière, clairement estimée. Les tarifs réels seront relevés pour les lieux
-effectivement retenus.
+ce que ce projet refuse. Et depuis que les enveloppes journalières « repas » et
+« visites » ont été retirées, le budget ne leur attribue **plus aucun montant** :
+elles ne coûtent rien à l’écran parce que rien n’est su de leur coût. L’absence de
+tarif n’est donc plus un trou dans un calcul — c’est simplement une information
+qu’on relèvera sur place, ou pas.
 
 Les photos ne sont jamais choisies par nom de fichier devinée : chaque activité,
 chaque spécialité et chaque étape déclare des **termes de recherche**
@@ -93,8 +130,12 @@ le sujet dans son nom de fichier** — c’est le garde-fou de `fetch-photos.ts`
 compare le mot le plus spécifique de la recherche au nom du fichier. Il écarte
 aussi les gravures, les planches botaniques et les photos d’emballage. Le prix à
 payer est assumé : quelques photos correctes sont perdues parce qu’elles sont
-nommées en japonais ou en latin scientifique, et deux ou trois entrées restent
-sans image. C’est le sens de la règle — une donnée manquante plutôt qu’une donnée
+nommées en japonais ou en latin scientifique. Reformuler la recherche vers le
+terme sous lequel Commons classe réellement le sujet (le lieu plutôt que le plat,
+la translittération courante plutôt que la savante) en récupère la plupart ; il
+reste alors une poignée d’entrées sans image, celles que Commons ne couvre pas du
+tout — un bain de quartier d’Asakusa, une installation d’art sous copyright.
+C’est le sens de la règle — une donnée manquante plutôt qu’une donnée
 fausse. Quand un plat n’est nommé qu’en japonais sur Commons, la recherche est
 écrite en kana ou en kanji (`ますのすし`), et le garde-fou se met alors en veille :
 une requête sans mot latin n’a pas de mot-clé à comparer.
@@ -140,6 +181,68 @@ Les tracés de la carte sont **schématiques** : ils suivent le corridor réel
 (vallées, gares, détroits) par points de passage, mais ce ne sont pas des relevés
 GPS. C’est écrit sous la carte.
 
+## Les vols : une liste de tronçons, des bornes déduites
+
+Les deux vols internationaux passent par Shanghai Pudong. Chacun est donc **deux
+avions**, mais reste **un seul `Flight`** dans `src/data/trip.ts` : ce sont ses
+`segments` qui portent la compagnie, le numéro, les aéroports et les horaires. Les
+découper en quatre entrées aurait cassé toutes les phrases du site qui parlent du
+voyage — « arrivée à Shanghai », « décollage de Shanghai » — alors que le voyageur
+va à Tokyo.
+
+`src/lib/vols.ts` déduit de cette liste ce dont les vues ont besoin, et rien de
+plus : `itineraire(vol)` rend le premier départ, le dernier arrivée, les escales
+avec leur durée, les numéros de vol, et **toutes les dates que le vol touche**.
+Deux conséquences :
+
+- **aucune durée de vol n’est affichée nulle part.** Les horaires sont locaux ;
+  soustraire 12 h 25 de Paris à 7 h 00 de Shanghai ne veut rien dire sans le
+  décalage de sept heures, et le changement d’heure tombe entre l’aller et le
+  retour. Les durées d’**escale**, elles, sont calculées : les deux horaires sont
+  au même aéroport, dans le même fuseau. `battement()` rend `undefined` — donc un
+  `à compléter` — si l’escale enjambe minuit, un chiffre négatif étant pire que
+  pas de chiffre ;
+- **un vol de nuit appartient à deux journées.** L’aller décolle le 5 novembre et
+  atterrit le 6 : `volDuJour()` le fait apparaître les deux jours. `TRIP.period`
+  commence pourtant le **6**, parce que c’est le séjour au Japon que tout le site
+  compte (nuits, fenêtres de pass, « jour N sur 30 »). Le 5 novembre est porté par
+  le vol et par `departDeLaMaison()`, sur lequel le compte à rebours est calé —
+  sinon il annoncerait « J−1 » à quelqu’un déjà à l’aéroport.
+
+## Le mode « Aujourd’hui »
+
+Les autres vues répondent à « comment est fait ce voyage ». La première,
+`views/AujourdhuiView.tsx`, répond à « qu’est-ce que je fais maintenant » — la
+seule question qui se pose une fois sur place : quel train part aujourd’hui, où
+je dors ce soir, ce qui est fermé. Elle est ouverte par défaut **pendant** le
+séjour uniquement (`vueInitiale()` dans `state/TripProvider.tsx`) ; avant et
+après, la journée en cours n’a rien à montrer et l’aperçu reprend sa place.
+
+Elle ne contient aucune donnée propre. `lib/aujourdhui.ts` répond, pour une date,
+à quatre questions posées aux mêmes fichiers que le reste du site :
+
+- **quelles étapes cette date touche-t-elle ?** Souvent deux : `dates.start` est
+  le jour d’arrivée, `dates.end` le jour de départ, et le jour de départ d’une
+  étape est le jour d’arrivée de la suivante. Le 17 novembre en touche trois, une
+  visite sans nuit s’intercalant entre deux étapes ;
+- **où dort-on ce soir ?** La seule étape dont on n’est pas encore reparti — donc
+  personne le dernier jour, où le vol international repart ;
+- **que se déplace-t-il ?** Les `Journey` dont c’est le jour de départ, les
+  transferts d’aéroport et les vols datés du jour ;
+- **quoi surveiller ?** Les avertissements des étapes, trajets et transferts du
+  jour seulement — en voyage, ceux de la semaine prochaine sont du bruit.
+
+Deux points d’attention :
+
+- **la date change à minuit sans recharger** (`lib/useDateDuJour.ts`) : le site
+  reste ouvert des heures dans un onglet de téléphone, et un « aujourd’hui » figé
+  au chargement afficherait le programme de la veille au réveil ;
+- **le jour est réglable à la main** (« Veille », « Lendemain »). Sans cela la vue
+  serait invérifiable jusqu’au 6 novembre. Dès que la date affichée n’est pas
+  celle du jour, le bandeau porte une pastille `jour simulé` et le dit en clair :
+  une projection sur le calendrier, pas un état réel. Ce réglage n’est pas
+  conservé — recharger la page revient au vrai jour.
+
 ## Démarrer
 
 ```bash
@@ -172,7 +275,14 @@ données. Il vérifie que :
   lieu sous le nom d’un autre ;
 - les sept vues rendues hors navigateur, plus la frise et la légende, ne
   contiennent ni erreur ni valeur parasite (`undefined`, `NaN`) — la vue Carte,
-  qui exige un canevas WebGL, est couverte par `npm run qa:carte`.
+  qui exige un canevas WebGL, est couverte par `npm run qa:carte` ;
+- la vue Aujourd’hui se rend sur **huit dates choisies** et non une seule : elle
+  dépend du jour, et un contrôle passé le 26 août ne verrait jamais autre chose
+  que le compte à rebours. La liste `JOURNEES` de `scripts/qa-rendu.tsx` couvre
+  l’avant-départ, le 5 novembre (jour du décollage de Paris, le seul où le compte
+  à rebours tombe à zéro), le premier jour au Japon, une journée de trajet, une
+  journée sur place, le 17 novembre (trois étapes le même jour), le dernier jour
+  et l’après-voyage.
 
 Il imprime aussi le compte des activités, des spécialités et des photos, avec le
 nombre d’entrées sans image trouvée et les étapes sous le seuil de neuf photos.
@@ -301,7 +411,7 @@ src/
   state/       sélection courante partagée entre la carte et la frise, vue courante, devise,
                visionneuse ouverte
   components/  carte, légende, frise, fiches d'étape et de trajet, galeries et visionneuse
-  views/       les huit sections du site
+  views/       les neuf sections du site
   styles/      jetons de design puis feuilles par domaine
 ```
 

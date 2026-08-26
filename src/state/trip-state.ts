@@ -16,6 +16,7 @@ export type Selection =
   | null
 
 export const VIEWS = [
+  { id: 'aujourdhui', label: 'Aujourd’hui', icon: '📍' },
   { id: 'apercu', label: 'Aperçu', icon: '🏯' },
   { id: 'carte', label: 'Carte', icon: '🗺️' },
   { id: 'itineraire', label: 'Itinéraire', icon: '📅' },
@@ -27,6 +28,14 @@ export const VIEWS = [
 ] as const
 
 export type ViewId = (typeof VIEWS)[number]['id']
+
+/**
+ * Réglage du thème : « auto » suit la préférence du système, « light » et
+ * « dark » l'imposent. Le rendu concret (l'attribut `data-theme` de <html>) est
+ * dérivé de ce réglage dans TripProvider ; « auto » n'est donc jamais une
+ * troisième couleur, seulement « ce que dit le système ».
+ */
+export type ThemeMode = 'auto' | 'light' | 'dark'
 
 export type TripState = {
   selection: Selection
@@ -42,6 +51,8 @@ export type TripState = {
   resetModes: () => void
   currency: Currency
   setCurrency: (currency: Currency) => void
+  theme: ThemeMode
+  setTheme: (theme: ThemeMode) => void
 }
 
 export const TripContext = createContext<TripState | null>(null)

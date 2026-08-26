@@ -15,13 +15,16 @@
  * (vallées, gares, détroits), ce ne sont pas des relevés GPS. Les vols sont des
  * arcs géodésiques calculés.
  *
- * ⚠️ Deux tronçons n'ont PAS de tarif : ceux de l'étape de Matsuyama, ajoutée
- * d'après la table de dates. La grille JR Shikoku n'a pas été relevée et un
- * chiffre de mémoire n'est pas une donnée : le champ reste vide, le site le
- * signale, et le total « transports » est affiché comme incomplet.
+ * ⚠️ Deux tronçons portent un tarif SANS SOURCE : les trains de Shikoku qui
+ * encadrent l'étape de Matsuyama, à 6 000 ¥ chacun. JR Shikoku ne publie pas sa
+ * grille en ligne et japan-guide.com ne donne qu'une fourchette (« environ 5 500
+ * à 6 000 ¥ » pour Okayama → Matsuyama) ; le voyageur a tranché pour 6 000 ¥
+ * plutôt que de laisser deux trous. C'est le seul endroit du fichier où un
+ * montant ne vient pas d'une grille publique — leurs notes le disent, et il faut
+ * les vérifier au guichet.
  */
 import type { Journey } from '../types'
-import { mins, tarifACompleter, yen } from './unites'
+import { mins, yen } from './unites'
 
 export const JOURNEYS: Journey[] = [
   // ─── 1 ─── Tokyo → Matsumoto ────────────────────────────────────────────
@@ -216,7 +219,7 @@ export const JOURNEYS: Journey[] = [
         toPlace: 'tateyama-st',
         service: 'Toyama Chihō Railway, ligne Tateyama',
         duration: mins(60),
-        cost: yen(1230),
+        cost: yen(1420, 'tarif adulte Dentetsu-Toyama → Tateyama relevé sur japan-guide.com — remplace une estimation de 1 230 ¥ qui n’avait pas de source'), // prettier-ignore
         passCoverage: 'not-covered',
         via: [[137.2800, 36.6700], [137.3000, 36.6300]],
         note: 'Compagnie privée. Départ de Dentetsu-Toyama, accolée à la gare JR.',
@@ -241,7 +244,7 @@ export const JOURNEYS: Journey[] = [
         toPlace: 'bijodaira',
         service: 'Funiculaire de Tateyama',
         duration: mins(7),
-        cost: yen(13000, 'forfait de traversée Tateyama → Ōgizawa : couvre les 7 tronçons de la route alpine. Tarif à vérifier sur le site officiel.'), // prettier-ignore
+        cost: yen(10940, 'traversée Tateyama → Ōgizawa : somme des six tarifs de tronçon publiés par japan-guide.com (1 090 + 3 000 + 2 200 + 1 700 + 1 150 + 1 800 ¥). Le prix est porté par ce premier tronçon, les cinq suivants portent la mention « inclus ». Remplace une estimation de 13 000 ¥ sans source. Le calculateur officiel d’alpen-route.com est en JavaScript et n’a pas pu être relevé.'), // prettier-ignore
         passCoverage: 'not-covered',
       },
       {
@@ -313,7 +316,7 @@ export const JOURNEYS: Journey[] = [
         toPlace: 'shinano-omachi',
         service: 'Bus Alpico',
         duration: mins(40),
-        cost: yen(1800),
+        cost: yen(1650, 'tarif adulte Ōgizawa → gare JR de Shinano-Ōmachi relevé sur japan-guide.com — remplace une estimation de 1 800 ¥ sans source'), // prettier-ignore
         passCoverage: 'not-covered',
         note: 'Hors forfait de la route alpine. Dernier tronçon de la journée : on dort à Shinano-Ōmachi.',
       },
@@ -581,8 +584,9 @@ export const JOURNEYS: Journey[] = [
         service: 'JR Ltd. Exp. Ishizuchi',
         line: 'Ligne Yosan',
         duration: mins(155, 'durée type d’un Ltd. Exp. sur les ~195 km de la ligne — horaire à confirmer'), // prettier-ignore
-        cost: tarifACompleter(
-          'Grille JR Shikoku non relevée : billet + supplément express à vérifier sur jr-shikoku.co.jp.',
+        cost: yen(
+          6000,
+          'ORDRE DE GRANDEUR retenu par le voyageur, pas un tarif relevé : aucune source ne le publie. Ni jr-shikoku.co.jp (page de tarifs en 404, site en échec de connexion), ni japan-guide.com (les pages d’accès de Takamatsu et de Matsuyama ne chiffrent que les trajets depuis Tokyo), ni shikoku-railwaytrip.com ne donnent le tarif Takamatsu → Matsuyama. Les 6 000 ¥ sont repris du seul repère trouvé sur l’île, l’estimation « 5 500 à 6 000 ¥ » que japan-guide.com donne pour Okayama → Matsuyama : c’est une distance comparable, mais ce n’est pas ce trajet. À vérifier au guichet. Piste chiffrée : l’All Shikoku Rail Pass 3 jours, 12 500 ¥, couvre ce trajet et le suivant jusqu’à Kojima — voir REGIONAL_PASS_CANDIDATES.',
         ),
         passCoverage: 'covered',
         via: [
@@ -598,7 +602,7 @@ export const JOURNEYS: Journey[] = [
     ],
     warnings: [
       'Trajet nouveau, créé pour l’étape de Matsuyama que ta table de dates ajoute : il ne figurait pas dans l’itinéraire de départ.',
-      'Tarif non renseigné volontairement : je n’ai pas relevé la grille JR Shikoku et je ne veux pas avancer un chiffre de mémoire. Le total de ce trajet est donc incomplet.',
+      'Tarif à 6 000 ¥ par décision du voyageur, faute de source : JR Shikoku ne publie pas sa grille en ligne. Ce n’est pas un tarif relevé, c’est un ordre de grandeur — le vérifier au guichet de Takamatsu.',
     ],
   },
 
@@ -618,8 +622,9 @@ export const JOURNEYS: Journey[] = [
         service: 'JR Ltd. Exp. Shiokaze',
         line: 'Lignes Yosan & Seto-Ōhashi',
         duration: mins(170, 'durée type d’un Shiokaze — horaire à confirmer'),
-        cost: tarifACompleter(
-          'Grille JR Shikoku / JR West non relevée : billet + supplément express à vérifier.',
+        cost: yen(
+          6000,
+          'ORDRE DE GRANDEUR retenu par le voyageur, pas un tarif relevé : japan-guide.com ne donne qu’une fourchette, « environ 5 500 à 6 000 ¥ » pour Okayama → Matsuyama, déduite d’un total Tokyo → Matsuyama de 22 000 ¥. Les 6 000 ¥ en sont la borne haute. Aucune grille unique ne publie ce trajet, qui franchit deux réseaux — JR Shikoku puis JR West au nord de Kojima. À vérifier au guichet.',
         ),
         passCoverage: 'covered',
         via: [
@@ -658,7 +663,7 @@ export const JOURNEYS: Journey[] = [
     warnings: [
       'Trajet nouveau : il remplace l’ancien Takamatsu → Fukuoka, puisque Matsuyama s’intercale entre les deux.',
       'Grosse journée le 27 novembre : ~4 h 30 de trajet effectif, plus la correspondance. On repasse par Okayama, donc on refait en sens inverse la côte de Shikoku parcourue le 25.',
-      'Tarif du premier tronçon non renseigné, comme pour le trajet précédent.',
+      'Tarif du premier tronçon à 6 000 ¥ par décision du voyageur : japan-guide.com n’en donne qu’une fourchette, « environ 5 500 à 6 000 ¥ », et le trajet franchit deux réseaux — aucune grille unique ne le publie.',
       'Alternatives non explorées : liaison maritime depuis le port de Matsuyama vers Kyūshū, ou vol intérieur Matsuyama → Fukuoka. Je ne les ai pas vérifiées — le train est retenu parce que c’est la seule option dont je suis sûr, et la seule couverte par un pass JR.',
     ],
   },

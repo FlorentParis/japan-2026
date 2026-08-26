@@ -14,6 +14,7 @@ import type { Certainty, Destination, Journey, Leg, RailPass, TransportMode } fr
 import { addDays, daysInclusive, moneyJpy } from './format'
 import { journeyDistanceKm, legDistanceKm } from './geo'
 import { MODE_ORDER } from './modes'
+import { itineraire } from './vols'
 
 // ─── Transports ──────────────────────────────────────────────────────────────
 
@@ -481,8 +482,6 @@ export type BudgetInputs = {
   travellers: number
   /** Durée du séjour en jours. Inconnue tant que les dates ne sont pas saisies. */
   days: number
-  foodPerDayPerPerson: number
-  activitiesPerDayPerPerson: number
   localTransportPerDayPerPerson: number
   /** Prix du pass retenu, 0 si aucun. */
   passJpy: number
@@ -511,10 +510,22 @@ export type BudgetLine = {
   partial: number
 }
 
+/**
+ * Le budget du voyage — c'est-à-dire ce qu'il coûte AVANT d'y vivre.
+ *
+ * Repas et visites n'y figurent pas, à la demande du voyageur. Ils y étaient sous
+ * forme d'enveloppes journalières (4 000 ¥ et 2 000 ¥ par jour et par personne),
+ * soit 180 000 ¥ à eux deux sur 30 jours : le premier poste du budget, plus lourd
+ * que tous les transports réunis, et le seul entièrement inventé. Les 102
+ * activités proposées restent visibles dans la section Activités et dans la vue
+ * « Aujourd'hui » — ce sont des suggestions, pas une dépense chiffrée.
+ *
+ * Le total qui sort d'ici n'est donc pas « le coût du voyage » : c'est le coût de
+ * ce qui s'achète à l'avance. Les vues qui l'affichent doivent le dire.
+ */
 export function budget(inputs: BudgetInputs) {
   const { travellers, days } = inputs
   const acc = accommodationTotals()
-  const act = activityTotals()
   const flights = flightTotals()
   const transfers = transferTotals()
   const couvertParLePass = passSavings(inputs.passId)
@@ -598,34 +609,10 @@ export function budget(inputs: BudgetInputs) {
       partial: acc.complete ? 0 : acc.missing,
     },
     {
-      id: 'activities',
-      label: 'Visites & activités',
-      detail:
-        act.count === 0
-          ? 'Aucune activité renseignée pour l’instant'
-          : `${act.count} activités, dont ${act.withoutPrice} sans prix`,
-      icon: '⛩️',
-      jpy: act.jpy + perDay(inputs.activitiesPerDayPerPerson),
-      certainty: 'estimate',
-      incomplete: days === 0,
-      // Les activités listées sans prix minorent la ligne, sans l'invalider :
-      // le forfait journalier ci-dessus reste, lui, entièrement compté.
-      partial: act.withoutPrice,
-    },
-    {
-      id: 'food',
-      label: 'Repas',
-      detail: `${inputs.foodPerDayPerPerson.toLocaleString('fr-FR')} ¥ / jour / personne`,
-      icon: '🍜',
-      jpy: perDay(inputs.foodPerDayPerPerson),
-      certainty: 'estimate',
-      incomplete: days === 0,
-      partial: 0,
-    },
-    {
       id: 'local',
       label: 'Transports locaux',
-      detail: 'Métro, bus urbains, consignes, IC card',
+      detail:
+        'Métro, bus urbains, consignes, IC card — la seule enveloppe journalière qui reste, réglable dans les hypothèses',
       icon: '🚇',
       jpy: perDay(inputs.localTransportPerDayPerPerson),
       certainty: 'estimate',
@@ -730,28 +717,38 @@ export function gaps(): Gap[] {
     })
   }
 
-  // Les activités et les spécialités sont des propositions, pas des choix du
-  // voyageur : ce qui manque ici, c'est son arbitrage — et les tarifs réels, qui
-  // ne seront relevés que pour les lieux retenus.
-  const propositions = activityTotals()
-  const gourmandises = specialityTotals()
-  if (propositions.proposees > 0) {
+  // Aucun manque signalé du côté des activités et des spécialités, volontairement.
+  // Le voyageur ne compte pas arrêter de programme : il veut des suggestions pour
+  // les jours où il ne saura pas où aller, et rien de plus. Leur statut « proposé »
+  // est donc l'état final, pas une étape vers un choix — un « à compléter » ici
+  // réclamerait un arbitrage qui ne viendra jamais, et l'absence de tarif n'est pas
+  // un trou puisque le budget ne les chiffre plus.
+
+  // Un vol non confirmé est un billet à acheter : c'est bloquant, au même titre
+  // qu'un hébergement à réserver. Les deux vols internationaux sont pris ;
+  // reste le Nagasaki → Tokyo, dont rien n'est arrêté.
+  const volsAReserver = TRIP.flights.filter((f) => f.certainty !== 'confirmed')
+  for (const vol of volsAReserver) {
     out.push({
-      id: 'activities-choice',
-      label: `${propositions.proposees} activités et ${gourmandises.count} spécialités proposées, aucune encore retenue ni chiffrée : les tarifs seront relevés pour les lieux choisis.`,
-      file: 'src/data/destinations.ts',
-      scope: 'Activités',
-      severity: 'nice-to-have',
+      id: `flight-${vol.label}`,
+      label: `${vol.label} pas encore réservé : ni compagnie, ni horaire, ni prix. Sa date même est déduite de l’itinéraire.`,
+      file: 'src/data/trip.ts',
+      scope: itineraire(vol).from ?? 'Vols',
+      severity: 'blocking',
     })
   }
 
-  // Les horaires et le prix des vols internationaux sont fournis, mais pas la
-  // compagnie ni les numéros de vol : sans eux, aucun horaire n'est vérifiable.
-  const volsSansReference = TRIP.flights.filter((f) => !f.airline || !f.number)
-  if (volsSansReference.length > 0) {
+  // Un vol confirmé sans numéro serait un horaire invérifiable : on le tiendrait
+  // pour ferme sans pouvoir le recouper auprès de la compagnie. Le test ne porte
+  // que sur les vols confirmés — un vol non réservé n'a légitimement ni compagnie
+  // ni numéro, et le manque est déjà dit par la boucle ci-dessus.
+  const volsConfirmesSansReference = TRIP.flights.filter(
+    (f) => f.certainty === 'confirmed' && itineraire(f).references.length === 0,
+  )
+  if (volsConfirmesSansReference.length > 0) {
     out.push({
       id: 'flights',
-      label: `${volsSansReference.length} vol(s) sans compagnie ni numéro : les horaires sont pris tels qu’ils ont été donnés, sans moyen de les recouper.`,
+      label: `${volsConfirmesSansReference.length} vol(s) donné(s) pour confirmé(s) sans compagnie ni numéro : leurs horaires sont pris tels quels, sans moyen de les recouper.`,
       file: 'src/data/trip.ts',
       scope: 'Arrivée & départ',
       severity: 'nice-to-have',

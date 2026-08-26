@@ -8,6 +8,10 @@
  * imprimé, pas un tableau de bord.
  */
 :root {
+  /* Fait suivre les contrôles natifs (barres de défilement, sélecteurs de date
+     et champs numériques du budget) au thème clair. Bascule en « dark » plus bas. */
+  color-scheme: light;
+
   /* Papiers et encres */
   --paper: #f6f3ed;
   --paper-raised: #fffdfa;
@@ -72,35 +76,46 @@
   --content-max: 1180px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #151412;
-    --paper-raised: #1e1d1a;
-    --paper-sunken: #262420;
-    --ink: #f1ede6;
-    --ink-soft: #c3bbae;
-    --ink-muted: #8d8678;
-    --line: #322f29;
-    --line-strong: #423e36;
+/*
+ * THÈME SOMBRE.
+ *
+ * Piloté par l'attribut `data-theme` de <html>, jamais par la seule préférence
+ * système : un petit script en tête d'`index.html` résout le réglage enregistré
+ * (« auto » suit le système, « clair »/« sombre » l'imposent) et pose l'attribut
+ * avant le premier rendu, pour qu'aucune page ne clignote. Le bouton de la barre
+ * de navigation ne fait que changer ce réglage. Les couleurs elles-mêmes n'ont
+ * pas bougé — c'est l'ancien bloc `prefers-color-scheme`, désormais commandé à la
+ * main.
+ */
+:root[data-theme='dark'] {
+  color-scheme: dark;
 
-    --accent: #e0664c;
-    --accent-ink: #f08d74;
-    --accent-wash: rgba(224, 102, 76, 0.12);
-    --indigo: #7d99d8;
-    --gold: #d6a44f;
-    --teal: #4fb6bf;
-    --forest: #6aa87b;
-    --plum: #9d8cc4;
+  --paper: #151412;
+  --paper-raised: #1e1d1a;
+  --paper-sunken: #262420;
+  --ink: #f1ede6;
+  --ink-soft: #c3bbae;
+  --ink-muted: #8d8678;
+  --line: #322f29;
+  --line-strong: #423e36;
 
-    --confirmed: #7bbd97;
-    --confirmed-wash: rgba(123, 189, 151, 0.14);
-    --estimate: #d9b061;
-    --estimate-wash: rgba(217, 176, 97, 0.14);
-    --todo: #d99a72;
-    --todo-wash: rgba(217, 154, 114, 0.14);
+  --accent: #e0664c;
+  --accent-ink: #f08d74;
+  --accent-wash: rgba(224, 102, 76, 0.12);
+  --indigo: #7d99d8;
+  --gold: #d6a44f;
+  --teal: #4fb6bf;
+  --forest: #6aa87b;
+  --plum: #9d8cc4;
 
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
-    --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.55);
-  }
+  --confirmed: #7bbd97;
+  --confirmed-wash: rgba(123, 189, 151, 0.14);
+  --estimate: #d9b061;
+  --estimate-wash: rgba(217, 176, 97, 0.14);
+  --todo: #d99a72;
+  --todo-wash: rgba(217, 154, 114, 0.14);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.55);
 }

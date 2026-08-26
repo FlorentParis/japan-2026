@@ -11,14 +11,19 @@
  * Les hypothèses (nombre de voyageurs, durée, dépenses par jour) sont réglables
  * et conservées dans le navigateur — ce sont des réglages, pas des données du
  * voyage.
+ *
+ * Depuis le retrait des enveloppes « repas » et « visites », ce tableau ne chiffre
+ * plus le coût de la vie sur place : il chiffre ce que le voyage coûte avant d'y
+ * vivre — les billets, les nuits, les pass, les trajets. La page le dit en clair
+ * plutôt que de laisser lire son total comme « le coût du voyage ».
  */
 import { SectionTitle, CertaintyBadge, ToFill } from '../components/ui'
 import { TRIP } from '../data/trip'
 import {
   accommodationTotals,
+  activityTotals,
   budget,
   flightTotals,
-  passAnalysis,
   transferTotals,
   tripDays,
   unpricedLegs,
@@ -34,13 +39,12 @@ import {
   formatTime,
 } from '../lib/format'
 import { usePersistentState } from '../lib/usePersistentState'
+import { itineraire } from '../lib/vols'
 import { useTrip } from '../state/trip-state'
 
 type Settings = {
   travellers: number
   days: number
-  food: number
-  activities: number
   local: number
   passId: string
 }
@@ -88,19 +92,19 @@ export function BudgetView() {
   // Clé versionnée : avant la saisie des dates, la durée par défaut valait 0 et
   // a pu être mémorisée telle quelle dans le navigateur. Changer la clé fait
   // repartir des valeurs par défaut plutôt que de conserver un 0 périmé qui
-  // annulerait toutes les lignes « par jour ».
-  const [settings, setSettings] = usePersistentState<Settings>('budget.v2', {
+  // annulerait toutes les lignes « par jour ». Passage en v3 au retrait des
+  // champs « repas » et « visites » : un réglage mémorisé en v2 les contiendrait
+  // encore, et le nombre de voyageurs y a pu être laissé à une valeur devenue
+  // fausse maintenant qu'on sait que le voyageur part seul.
+  const [settings, setSettings] = usePersistentState<Settings>('budget.v3', {
     travellers: TRIP.travellers?.count ?? 1,
     days: derivedDays ?? 0,
-    food: TRIP.budgetDefaults.foodPerDayPerPerson,
-    activities: TRIP.budgetDefaults.activitiesPerDayPerPerson,
     local: TRIP.budgetDefaults.localTransportPerDayPerPerson,
     passId: 'none',
   })
 
   const patch = (next: Partial<Settings>) => setSettings((current) => ({ ...current, ...next }))
 
-  const passes = passAnalysis()
   const selectedPass = TRIP.passes.find((p) => p.id === settings.passId)
   /** Services de transport dont le tarif n'a pas été relevé : le total est un minorant. */
   const sansTarif = unpricedLegs().map((leg) => leg.service ?? leg.id)
@@ -108,16 +112,21 @@ export function BudgetView() {
   const vols = flightTotals()
   /** Le vol qui porte le prix : par convention, l'aller d'un aller-retour acheté d'un bloc. */
   const volAller = TRIP.flights.find((f) => f.price !== undefined)
-  /** Le retour international : le dernier vol dont l'heure de décollage est connue. */
-  const volRetour = [...TRIP.flights].reverse().find((f) => f.departureTime !== undefined)
+  /**
+   * Le retour international : le dernier vol dont l'itinéraire a une heure de
+   * décollage. Le test porte sur l'itinéraire déduit et non sur `f.departureTime`,
+   * qui est vide sur un vol décrit par ses tronçons.
+   */
+  const volRetour = [...TRIP.flights].reverse().find((f) => itineraire(f).departureTime !== undefined)
+  const itinAller = volAller ? itineraire(volAller) : undefined
+  const itinRetour = volRetour ? itineraire(volRetour) : undefined
   const transferts = transferTotals()
   const nuits = accommodationTotals()
+  const activites = activityTotals()
 
   const result = budget({
     travellers: settings.travellers,
     days: settings.days,
-    foodPerDayPerPerson: settings.food,
-    activitiesPerDayPerPerson: settings.activities,
     localTransportPerDayPerPerson: settings.local,
     passJpy: selectedPass?.price.jpy ?? 0,
     passId: selectedPass?.id,
@@ -127,10 +136,17 @@ export function BudgetView() {
     <div className="view view--budget">
       <SectionTitle eyebrow="Argent" title="Budget">
         <p>
+          Ce tableau chiffre <strong>ce que le voyage coûte avant d’y vivre</strong> : les billets,
+          les nuits, les pass, les trajets. Les repas et les visites n’y figurent volontairement pas
+          — c’étaient deux enveloppes journalières inventées qui, à elles seules, pesaient plus que
+          tous les transports réunis. Le total ci-dessous n’est donc pas « le coût du voyage » : il
+          faut y ajouter ce que tu dépenseras sur place.
+        </p>
+        <p>
           Un seul prix a été fourni : le billet d’avion. Il porte la mention « confirmé ».{' '}
           <strong>Tout le reste de ce tableau est une estimation</strong> : les tarifs de transport
-          sont relevés sur les grilles publiques, les dépenses quotidiennes sont des hypothèses que
-          tu règles ci-dessous. Les deux ne sont jamais additionnés sans le dire.
+          sont relevés sur les grilles publiques, les transports locaux sont une hypothèse que tu
+          règles ci-dessous. Les deux ne sont jamais additionnés sans le dire.
         </p>
       </SectionTitle>
 
@@ -174,7 +190,7 @@ export function BudgetView() {
             value={settings.travellers}
             min={1}
             onChange={(travellers) => patch({ travellers })}
-            hint={TRIP.travellers?.certainty === 'todo' ? 'non fourni' : undefined}
+            hint={TRIP.travellers?.count === 1 ? 'le voyageur part seul' : undefined}
           />
           <NumberField
             label="Durée du séjour"
@@ -184,25 +200,12 @@ export function BudgetView() {
             hint={derivedDays ? `déduit des dates : ${derivedDays} jours` : 'aucune date fournie'}
           />
           <NumberField
-            label="Repas"
-            value={settings.food}
-            suffix="¥ / jour / pers."
-            step={500}
-            onChange={(food) => patch({ food })}
-          />
-          <NumberField
-            label="Visites"
-            value={settings.activities}
-            suffix="¥ / jour / pers."
-            step={500}
-            onChange={(activities) => patch({ activities })}
-          />
-          <NumberField
             label="Transports locaux"
             value={settings.local}
             suffix="¥ / jour / pers."
             step={100}
             onChange={(local) => patch({ local })}
+            hint="métro, bus urbains, consignes — la seule enveloppe journalière qui reste"
           />
           <label className="number-field">
             <span className="number-field__label">Pass ferroviaire</span>
@@ -228,8 +231,8 @@ export function BudgetView() {
         </div>
         {settings.days === 0 && (
           <p className="assumptions__warning">
-            Sans durée de séjour, les dépenses quotidiennes ne peuvent pas être calculées : elles
-            restent « à compléter ». Saisis une durée pour simuler, ou renseigne les dates dans{' '}
+            Sans durée de séjour, l’enveloppe des transports locaux ne peut pas être calculée : elle
+            reste « à compléter ». Saisis une durée pour simuler, ou renseigne les dates dans{' '}
             <code>src/data/destinations.ts</code>.
           </p>
         )}
@@ -303,15 +306,27 @@ export function BudgetView() {
             {result.incomplete && result.partial > 0 && ', et '}
             {result.partial > 0 && (
               <>
-                {result.partial} montant(s) manquant(s) — tarifs de transport non relevés, activités
-                sans prix, étapes dont l’hébergement reste à réserver — sont comptés pour zéro, d’où
-                le « ≥ »
+                {result.partial} montant(s) manquant(s) — tarifs de transport non relevés, étapes
+                dont l’hébergement reste à réserver — sont comptés pour zéro, d’où le « ≥ »
               </>
             )}
             . Il ne s’agit donc pas du coût du voyage, mais du coût de ce qui est actuellement
             renseigné.
           </p>
         )}
+
+        {/*
+          Affiché quelle que soit la complétude du tableau : c'est un manque
+          délibéré, pas une donnée à combler, et il fausserait la lecture du
+          total s'il n'était rappelé qu'en cas d'incomplétude.
+        */}
+        <p className="budget-table__warning">
+          <strong>Repas, cafés, visites et musées ne sont pas dans ce total.</strong> Ils en ont été
+          retirés parce qu’ils n’étaient chiffrés par aucune donnée : une moyenne par jour, inventée,
+          qui pesait plus lourd que tous les transports du voyage réunis. Les {activites.count}{' '}
+          activités suggérées restent visibles dans l’aperçu et sur chaque étape, simplement elles ne
+          comptent plus d’argent.
+        </p>
       </section>
 
       <section className="two-columns">
@@ -326,12 +341,15 @@ export function BudgetView() {
                 euros — l’affichage en yens ci-dessus en est une conversion au taux indicatif, pas
                 l’inverse.
               </li>
+              {/* Bornes lues sur l'itinéraire déduit : un vol à escale n'a pas
+                  d'heure à lui, ce sont son premier décollage et son dernier
+                  atterrissage qui contraignent la journée. */}
               <li>
-                Arrivée à {volAller?.to} le {formatDateRange(volAller?.date)} à{' '}
-                {formatTime(volAller?.arrivalTime)}, décollage de {volRetour?.from} le{' '}
-                {formatDateRange(volRetour?.date)} à {formatTime(volRetour?.departureTime)}. Ce sont
-                les seules heures fermes du voyage, et elles contraignent le premier et le dernier
-                jour : voir les points de vigilance.
+                Arrivée à {itinAller?.to} le {formatDateRange(itinAller?.arrivalDate)} à{' '}
+                {formatTime(itinAller?.arrivalTime)}, décollage de {itinRetour?.from} le{' '}
+                {formatDateRange(itinRetour?.departureDate)} à{' '}
+                {formatTime(itinRetour?.departureTime)}. Ce sont les seules heures fermes du voyage,
+                et elles contraignent le premier et le dernier jour : voir les points de vigilance.
               </li>
               {/* Construite sur `accommodationTotals()` : la phrase suit les
                   réservations au lieu d'affirmer qu'il n'y en a aucune. */}
@@ -360,10 +378,14 @@ export function BudgetView() {
         <div className="panel">
           <h3 className="panel__title">Ce qui est estimé</h3>
           <ul className="plain-list">
+            {/* Le montant est repris de la ligne du tableau, et non recalculé à
+                partir de `passAnalysis()` : ce total-là englobe les transferts
+                d'aéroport, qui font l'objet du point suivant — les additionner
+                ici les compterait deux fois à l'écran. */}
             <li>
               Transports entre les étapes :{' '}
               {formatPartialAmount(
-                passes.coveredJpy + passes.notCoveredJpy,
+                result.lines.find((l) => l.id === 'transport')?.jpy ?? 0,
                 sansTarif.length,
                 currency,
               )}{' '}
@@ -385,9 +407,13 @@ export function BudgetView() {
             </li>
             <li>Prix des pass : tarifs publics, à revérifier avant achat.</li>
             <li>
-              Repas, visites et transports locaux : hypothèses réglables ci-dessus, {CERTAINTY_LABEL.estimate.toLowerCase()} par nature.
+              Transports locaux : la seule enveloppe journalière conservée, réglable ci-dessus,{' '}
+              {CERTAINTY_LABEL.estimate.toLowerCase()} par nature. Repas et visites, eux, ne sont
+              plus estimés du tout : ils sont hors de ce budget.
             </li>
-            <li>Vol Nagasaki → Tokyo : très variable selon la date d’achat.</li>
+            <li>
+              Vol Nagasaki → Tokyo : pas encore réservé, et très variable selon la date d’achat.
+            </li>
           </ul>
         </div>
       </section>

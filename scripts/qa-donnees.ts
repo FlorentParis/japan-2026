@@ -28,6 +28,7 @@ import {
 import { photoTotals } from '../src/lib/galleries'
 import { LEGS_GEOJSON, TRIP_BOUNDS, spotsGeoJSON } from '../src/lib/geojson'
 import { checkIntegrity } from '../src/lib/validate'
+import { itineraire } from '../src/lib/vols'
 
 const title = (text: string) => console.log(`\n── ${text} ${'─'.repeat(Math.max(0, 60 - text.length))}`)
 
@@ -78,13 +79,39 @@ console.log(
   `${vols.count} vols listés, ${vols.priced} avec un prix porté · ${vols.eur} € (${vols.jpy} ¥ au taux indicatif)` +
     (vols.allConfirmed ? ' · tous confirmés' : ' · au moins un prix non confirmé'),
 )
+// Les bornes d'un vol sont déduites de ses tronçons : les lire sur `vol.from` /
+// `vol.date` afficherait « undefined » sur les deux vols internationaux, qui ne
+// portent plus que leur liste de segments.
 for (const vol of TRIP.flights) {
+  const itin = itineraire(vol)
   console.log(
-    `  ${vol.label.padEnd(26)} ${vol.from} → ${vol.to} · ${vol.date ?? 'date ?'}` +
-      (vol.departureTime ? ` · décollage ${vol.departureTime}` : '') +
-      (vol.arrivalTime ? ` · atterrissage ${vol.arrivalTime}` : '') +
+    `  ${vol.label.padEnd(26)} ${itin.from ?? 'départ ?'} → ${itin.to ?? 'arrivée ?'} · ${itin.departureDate ?? 'date ?'}` +
+      (itin.departureTime ? ` · décollage ${itin.departureTime}` : '') +
+      (itin.arrivalTime
+        ? ` · atterrissage ${itin.arrivalTime}` +
+          (itin.arrivalDate && itin.arrivalDate !== itin.departureDate ? ` le ${itin.arrivalDate}` : '')
+        : '') +
       ` · ${vol.certainty}`,
   )
+  for (const [index, segment] of itin.segments.entries()) {
+    const escale = itin.escales[index]
+    console.log(
+      `    ${segment.airline} ${segment.number} ${segment.from} → ${segment.to}` +
+        ` · ${segment.date ?? 'date ?'} ${segment.departureTime ?? '??:??'} → ${segment.arrivalTime ?? '??:??'}` +
+        (segment.arrivalDate ? ` (${segment.arrivalDate})` : '') +
+        (escale
+          ? ` · escale à ${escale.place} : ${escale.minutes !== undefined ? `${escale.minutes} min` : 'durée non calculable'}`
+          : ''),
+    )
+  }
+  // Pas une anomalie en soi : le vol intérieur n'est pas réservé, il n'a donc
+  // légitimement ni compagnie ni numéro. Ce serait une anomalie sur un vol dit
+  // « confirmé », et c'est ce que `gaps()` signale de son côté.
+  if (itin.references.length === 0) {
+    console.log(
+      `    Aucun numéro de vol${vol.certainty === 'confirmed' ? ' — ANOMALIE sur un vol confirmé' : ' (vol non réservé, attendu)'}.`,
+    )
+  }
 }
 const transferts = transferTotals()
 console.log(
@@ -134,8 +161,6 @@ title('Budget, hypothèses par défaut')
 const result = budget({
   travellers: TRIP.travellers?.count ?? 1,
   days: tripDays() ?? 0,
-  foodPerDayPerPerson: TRIP.budgetDefaults.foodPerDayPerPerson,
-  activitiesPerDayPerPerson: TRIP.budgetDefaults.activitiesPerDayPerPerson,
   localTransportPerDayPerPerson: TRIP.budgetDefaults.localTransportPerDayPerPerson,
   passJpy: 0,
 })

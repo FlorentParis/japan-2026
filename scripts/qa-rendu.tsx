@@ -17,13 +17,41 @@ import { Visionneuse } from '../src/components/Visionneuse'
 import { TripProvider } from '../src/state/TripProvider'
 import { ActivitesView } from '../src/views/ActivitesView'
 import { ApercuView } from '../src/views/ApercuView'
+import { AujourdhuiView } from '../src/views/AujourdhuiView'
 import { BudgetView } from '../src/views/BudgetView'
 import { HotelsView } from '../src/views/HotelsView'
 import { ItineraireView } from '../src/views/ItineraireView'
 import { PhotosView } from '../src/views/PhotosView'
 import { TransportsView } from '../src/views/TransportsView'
 
+/**
+ * La vue Aujourd'hui dépend de la date. Rendue une seule fois, elle ne
+ * montrerait que la branche correspondant au jour du contrôle — aujourd'hui le
+ * compte à rebours, et jamais le programme d'une journée de voyage. On la rend
+ * donc sur des jours choisis pour couvrir chaque cas de figure : le prop `date`
+ * n'existe que pour ça, et pour le « jour simulé » de l'interface.
+ */
+const JOURNEES: Array<[string, string]> = [
+  ['avant le départ', '2026-10-01'],
+  // Le jour de l'embarquement à Paris : encore « avant » le séjour, alors que le
+  // décollage a lieu. C'est le seul jour où le compte à rebours doit afficher 0.
+  ['jour du départ de Paris', '2026-11-05'],
+  ['premier jour, vol et transfert', '2026-11-06'],
+  ['journée de trajet', '2026-11-08'],
+  ['journée sur place', '2026-11-07'],
+  ['trois étapes le même jour', '2026-11-17'],
+  ['dernier jour, sans nuit', '2026-12-05'],
+  ['après le voyage', '2026-12-20'],
+]
+
 const cases: Array<[string, () => ReactElement]> = [
+  ...JOURNEES.map(
+    ([libelle, date]) =>
+      [`Aujourd’hui — ${libelle}`, () => createElement(AujourdhuiView, { date })] as [
+        string,
+        () => ReactElement,
+      ],
+  ),
   ['Aperçu', () => createElement(ApercuView)],
   ['Itinéraire', () => createElement(ItineraireView)],
   ['Hôtels', () => createElement(HotelsView)],

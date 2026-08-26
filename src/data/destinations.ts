@@ -124,7 +124,13 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         category: 'onsen',
         description:
           'Bain public de quartier alimenté par une source naturelle de kuroyu, cette eau brune presque noire chargée de matière végétale fossile qu’on trouve sous la plaine du Kantō. Un sentō de voisinage, à prix municipal, pas un établissement thermal.',
-        photoQuery: 'Sento public bath Tokyo',
+        // SANS PHOTO, et volontairement : Commons n'a aucune image de Jakotsu-yu, ni
+        // du kuroyu (les recherches « Jakotsuyu », « Jakotsu-yu Asakusa », « Kuroyu
+        // black water onsen » et « Asakusa sento bathhouse » ne rendent rien). Une
+        // recherche large — « Sento public bath Tokyo » — trouve bien des sentō, mais
+        // ce sont ceux de Tatsuno-yu ou de Minowa : la légende de la vignette étant le
+        // nom de l'activité, le lecteur croirait voir ce bain-ci. Mieux vaut pas
+        // d'image. Sans `photoQuery`, `checkIntegrity()` ne le compte pas comme un trou.
         coord: [139.7943, 35.7113],
         note: 'À VÉRIFIER avant d’y compter : plusieurs sentō d’Asakusa ont fermé ces dernières années et je n’ai pas confirmé que celui-ci soit toujours en activité. À défaut, les onsen noirs d’Ōta-ku offrent la même eau. Le principe reste : un bain chaud le soir de l’arrivée est le meilleur outil contre le décalage horaire, et le voyage n’a autrement que des onsen de villégiature (Dōgo, Asama, Ōmachi), jamais un bain de quartier.',
       },
@@ -196,7 +202,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         kind: 'douceur',
         description:
           'Petits gâteaux moulés fourrés de pâte de haricot rouge, cuits devant le client dans les échoppes d’Asakusa. Le souvenir comestible traditionnel du quartier.',
-        photoQuery: 'Ningyoyaki',
+        photoQuery: 'Ningyo-yaki Asakusa',
       },
     ],
     specialitiesStatus: 'estimate',
@@ -1288,7 +1294,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         kind: 'produit',
         description:
           'Deuxième région pomicole du Japon. Novembre est le cœur de la récolte des variétés tardives, Fuji et Shinano-gold : c’est la bonne semaine pour en acheter au bord de la route.',
-        photoQuery: 'Nagano apples orchard',
+        photoQuery: 'Obuse apple orchard Nagano',
       },
     ],
     specialitiesStatus: 'estimate',
@@ -1623,7 +1629,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         category: 'art',
         description:
           'Sept maisons vides du vieux village confiées à des artistes : un temple à escalier de verre, une pièce inondée où des chiffres lumineux comptent sous l’eau, une salle qu’on traverse dans le noir total.',
-        photoQuery: 'Art House Project Honmura Naoshima',
+        photoQuery: 'Honmura Naoshima gallery',
         note: 'Billet commun aux maisons, à retirer au centre de Honmura. Elles sont dispersées dans les ruelles : compter deux heures.',
       },
       {
@@ -1890,7 +1896,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     specialitiesStatus: 'estimate',
     warnings: [
       'Étape absente de l’itinéraire que tu m’avais donné au départ (…Naoshima/Takamatsu → Fukuoka…) : elle vient de ta table de dates. Je l’ai ajoutée entre Takamatsu et Fukuoka, ce qui crée deux trajets entièrement nouveaux.',
-      'Les tarifs de ces deux nouveaux trajets ne sont pas renseignés : je n’ai pas la grille JR Shikoku sous la main et je ne veux pas avancer un chiffre de mémoire. Le total « transports » est donc incomplet tant qu’ils ne sont pas relevés.',
+      'Les tarifs de ces deux nouveaux trajets sont fixés à 6 000 ¥ chacun par décision du voyageur, faute de source : JR Shikoku ne publie pas sa grille en ligne. Ce sont les deux seuls montants du voyage qui ne viennent pas d’une grille publique — à vérifier au guichet.',
     ],
     spots: [
       { name: 'Château de Matsuyama', coord: [132.7657, 33.8455], kind: 'culture' },
@@ -1926,7 +1932,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         category: 'food',
         description:
           'Une centaine d’échoppes démontables installées chaque soir sur les trottoirs, autour d’un comptoir de dix places : ramen, tempura, brochettes. Fukuoka en concentre l’essentiel de ce qui subsiste au Japon.',
-        photoQuery: 'Fukuoka yatai street stall',
+        photoQuery: 'Yatai Nakasu Fukuoka',
         note: 'Ouverture en début de soirée, fermeture tard, souvent pas par mauvais temps. Beaucoup ne prennent que des espèces et limitent le temps passé quand il y a la queue.',
       },
       {
@@ -1990,7 +1996,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         kind: 'plat',
         description:
           'Fondue de tripes de bœuf avec une montagne de chou et de ciboule, dans un bouillon soja ou miso. Plat d’après-guerre devenu la table d’hiver de Fukuoka.',
-        photoQuery: 'Motsunabe hot pot Fukuoka',
+        photoQuery: 'Motsunabe',
       },
       {
         id: 'spec-fukuoka-mentaiko',
@@ -1999,7 +2005,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         kind: 'produit',
         description:
           'Œufs de morue marinés au piment, adaptés d’une recette coréenne à Hakata dans les années 1950. Se mangent sur du riz, dans des pâtes, ou en tube à rapporter — le souvenir de Fukuoka.',
-        photoQuery: 'Mentaiko',
+        photoQuery: 'Mentaiko Fukuoka',
       },
       {
         id: 'spec-fukuoka-mizutaki',
@@ -2133,7 +2139,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         kind: 'douceur',
         description:
           'Gâteau de Savoie apporté par les Portugais au XVIᵉ siècle et devenu un gâteau japonais : œufs, farine, sucre et sirop d’amidon, très humide, vendu en pain rectangulaire.',
-        photoQuery: 'Castella cake Nagasaki',
+        photoQuery: 'Nagasaki kasutera',
       },
       {
         id: 'spec-nagasaki-sara-udon',
@@ -2209,7 +2215,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         category: 'culture',
         description:
           'L’ancienne capitale militaire du Japon, entre collines et mer : le sanctuaire de Tsurugaoka Hachimangū sur son axe monumental, le grand Bouddha de bronze de Kōtoku-in, les temples zen de Kita-Kamakura, la bambouseraie de Hōkoku-ji, et Hase-dera dont le jardin en terrasses donne sur la baie. Le tramway Enoden rejoint la mer et Enoshima.',
-        photoQuery: 'Kamakura Hasedera autumn',
+        photoQuery: 'Hasedera Kamakura',
         coord: [139.5563, 35.3260],
         note: 'Une heure depuis la gare de Tokyo par la ligne Yokosuka, sans changement — c’est une excursion facile, pas une expédition. Début décembre est le pic des érables à Kamakura, qui virent une quinzaine après le centre de Tokyo, et Hase-dera éclaire son jardin le soir pendant cette période : la journée peut donc se terminer par l’illumination et rentrer sans se presser. À placer le jeudi 3 plutôt que le vendredi 4, pour ne pas avoir à revenir de Kamakura le dernier soir avec le déménagement vers l’aéroport à préparer.',
       },
@@ -2249,7 +2255,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         category: 'art',
         description:
           'Dix mille mètres carrés d’installations numériques sans salles ni cartels, où les œuvres projetées migrent d’un espace à l’autre et réagissent aux visiteurs. Installé à Azabudai Hills depuis 2024.',
-        photoQuery: 'teamLab digital art installation',
+        photoQuery: 'teamLab Borderless',
         coord: [139.7402, 35.6605],
         note: 'Billet daté et horodaté obligatoire, souvent complet plusieurs jours à l’avance. C’est la seule proposition franchement contemporaine du voyage entier, qui est par ailleurs presque tout en art ancien et en villages — d’où sa présence ici plutôt qu’un musée de plus.',
       },
@@ -2259,7 +2265,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         category: 'quartier',
         description:
           'Décembre est la saison des éclairages urbains, pris très au sérieux ici : le lustre de Baccarat sous la verrière de Yebisu Garden Place, la pente de Keyakizaka à Roppongi alignée sur la Tour de Tokyo au bout de la perspective, et les berges de la rivière Meguro à Nakameguro.',
-        photoQuery: 'Tokyo winter illumination street',
+        photoQuery: 'Marunouchi illumination Tokyo',
         coord: [139.7130, 35.6427],
         note: 'En place sur toutes tes dates, la saison courant de mi-novembre à fin décembre. Ça se greffe sur une fin de journée, ce n’est pas une activité à part entière — utile le 2 décembre au soir, quand le vol de Nagasaki laisse une soirée et pas une journée.',
       },
@@ -2279,7 +2285,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         category: 'quartier',
         description:
           'Ancien quartier de geishas sur une pente, dont les ruelles pavées et les impasses de restaurants subsistent derrière la rue principale. Une forte présence française y a laissé des boulangeries et un lycée.',
-        photoQuery: 'Kagurazaka Tokyo alley',
+        photoQuery: 'Kagurazaka',
         coord: [139.7395, 35.7014],
         note: 'La seule activité conservée de la liste précédente : c’est aussi la seule que le voyageur n’avait pas faite. Se fait en soirée, les impasses de restaurants ne s’animant qu’à la nuit.',
       },
@@ -2289,7 +2295,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         category: 'nature',
         description:
           'Une montagne de 599 m au bout d’une ligne de banlieue, coiffée du temple Yakuō-in où le bouddhisme de montagne shugendō se pratique encore. Funiculaire jusqu’à mi-pente ou une heure et demie de montée, et par temps clair d’hiver le Fuji au bout de la crête.',
-        photoQuery: 'Mount Takao autumn maple',
+        photoQuery: 'Mount Takao view',
         coord: [139.2438, 35.6250],
         note: 'ARBITRAGE : Takao et Kamakura occupent le même créneau — une journée entière de couleurs d’automne hors de la ville — et les 2,5 jours de l’étape n’en permettent qu’une. Kamakura a été retenue : elle est plus riche, et demandée. Takao reste ici comme rechange, notamment si le vol du 2 décembre arrive tôt et libère une journée de plus. 50 min de Shinjuku par la ligne Keiō, hors JR Pass.',
       },

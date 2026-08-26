@@ -332,17 +332,65 @@ export type RailPass = {
   url?: string
 }
 
-export type Flight = {
-  label: string
+/**
+ * Un tronçon de vol : un seul avion, un seul numéro.
+ *
+ * C'est l'équivalent aérien d'un `Leg`. Un vol avec escale n'est pas un vol :
+ * c'est une suite d'avions, chacun avec son numéro, son aéroport et ses
+ * horaires. Les écrire dans un seul `Flight` obligeait à choisir entre l'heure
+ * de décollage de Paris et celle de Shanghai — donc à en perdre une, ou à faire
+ * passer l'une pour l'autre.
+ *
+ * Les bornes du trajet complet (premier décollage, dernier atterrissage, durée
+ * des escales) ne sont écrites nulle part : elles sont dérivées de cette liste
+ * par `itineraire()` dans `lib/vols.ts`, comme tous les totaux du site.
+ */
+export type FlightSegment = {
+  airline: string
+  /** Numéro de vol, préfixe IATA de la compagnie compris : « MU554 ». */
+  number: string
   from: string
   to: string
+  /** Date locale de décollage, AAAA-MM-JJ. */
   date?: string
   /** Heure locale de décollage, « HH:MM ». */
   departureTime?: string
   /** Heure locale d'atterrissage, « HH:MM ». */
   arrivalTime?: string
+  /**
+   * Date locale d'atterrissage, quand elle diffère de `date` : un vol de nuit
+   * atterrit le lendemain, et l'oublier ferait disparaître le trajet du
+   * calendrier de la vue « Aujourd'hui » le jour où il se termine.
+   */
+  arrivalDate?: string
+  note?: string
+}
+
+export type Flight = {
+  label: string
+  /**
+   * Aéroports de départ et d'arrivée du trajet complet. Absents quand
+   * `segments` est renseigné : ils s'y trouvent déjà, et les dupliquer ici
+   * ouvrirait la porte à deux versions divergentes du même aéroport.
+   */
+  from?: string
+  to?: string
+  date?: string
+  /** Heure locale de décollage, « HH:MM ». */
+  departureTime?: string
+  /** Heure locale d'atterrissage, « HH:MM ». */
+  arrivalTime?: string
+  /** Date locale d'atterrissage, si elle diffère de `date`. Voir `FlightSegment`. */
+  arrivalDate?: string
   airline?: string
   number?: string
+  /**
+   * Tronçons du vol, quand il y a une escale. Présents, ils sont la source :
+   * `from`, `to`, `date`, les horaires et la compagnie ci-dessus ne sont alors
+   * pas renseignés, et `itineraire()` les recalcule depuis les tronçons. Absents,
+   * les champs ci-dessus décrivent un vol direct.
+   */
+  segments?: FlightSegment[]
   /**
    * Prix du billet. Quand un aller-retour est acheté d'un bloc, le prix est
    * porté par le vol aller et le retour n'en porte aucun : même convention que
@@ -383,10 +431,15 @@ export type Trip = {
   /** Trajets aéroport ⇄ ville, à l'arrivée et au départ. */
   transfers?: Transfer[]
   passes: RailPass[]
-  /** Valeurs par défaut du calculateur de budget (ajustables dans l'UI). */
+  /**
+   * Valeurs par défaut du calculateur de budget (ajustables dans l'UI).
+   *
+   * Il n'y a plus qu'une enveloppe journalière, et c'est un choix du voyageur :
+   * repas et visites ont été retirés du budget, parce qu'une moyenne inventée
+   * pour ces deux postes pesait plus lourd que tout le reste sans reposer sur
+   * quoi que ce soit. Voir `budget()` dans `lib/derive.ts`.
+   */
   budgetDefaults: {
-    foodPerDayPerPerson: number
-    activitiesPerDayPerPerson: number
     localTransportPerDayPerPerson: number
   }
 }

@@ -13,6 +13,26 @@
       content="Carnet de voyage : itinéraire, carte des trajets, hébergements, activités et budget de la traversée du Japon, de Tokyo à Nagasaki."
     />
     <meta name="robots" content="noindex" />
+    <!--
+      Thème clair / sombre, posé AVANT le premier rendu pour qu'aucune page ne
+      clignote au chargement. Le réglage enregistré vaut « auto » (suivre le
+      système), « light » ou « dark » ; « auto » et l'absence de réglage se
+      résolvent via la préférence système. La même clé de stockage
+      (`voyage-japon:theme`) et la même logique sont reprises côté React, qui
+      prend ensuite le relais — ici on ne fait que devancer le premier paint.
+    -->
+    <script>
+      try {
+        var brut = localStorage.getItem('voyage-japon:theme')
+        var reglage = brut ? JSON.parse(brut) : 'auto'
+        var sombre =
+          reglage === 'dark' ||
+          (reglage !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = sombre ? 'dark' : 'light'
+      } catch (e) {
+        /* Stockage inaccessible : on laisse le thème clair par défaut. */
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
