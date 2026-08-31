@@ -11,6 +11,7 @@
 import { useEffect, useRef } from 'react'
 import { DESTINATIONS } from '../data/destinations'
 import { JOURNEYS } from '../data/journeys'
+import { etiquetteBagage } from '../lib/bagages'
 import { journeyTotals } from '../lib/derive'
 import { STAY_LABEL, formatDateRange, formatMinutes, formatPartialAmount } from '../lib/format'
 import { MODE_STYLES } from '../lib/modes'
@@ -54,6 +55,7 @@ export function Timeline({ compact }: { compact?: boolean }) {
         const journeySelected = journey && selection?.kind === 'journey' && selection.id === journey.id
         const totals = journey ? journeyTotals(journey) : undefined
         const dates = formatDateRange(dest.dates.start, dest.dates.end)
+        const bagage = etiquetteBagage(dest.id)
 
         return (
           <li key={dest.id} className="timeline__group">
@@ -80,6 +82,10 @@ export function Timeline({ compact }: { compact?: boolean }) {
                     {dates ?? <span className="to-fill">dates à compléter</span>}
                     <span className="timeline__stay"> · {STAY_LABEL[dest.stay]}</span>
                   </span>
+                  {/* Seules les cinq étapes touchées par un envoi de valise
+                      portent cette pastille. Sur les treize autres, la valise
+                      suit : une mention sur chaque ligne ne dirait plus rien. */}
+                  {bagage && <span className="timeline__bagage">🧳 {bagage}</span>}
                 </span>
               </button>
               {destSelected && <DestinationCard dest={dest} />}

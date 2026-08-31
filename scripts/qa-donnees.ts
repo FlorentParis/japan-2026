@@ -162,6 +162,7 @@ const result = budget({
   travellers: TRIP.travellers?.count ?? 1,
   days: tripDays() ?? 0,
   localTransportPerDayPerPerson: TRIP.budgetDefaults.localTransportPerDayPerPerson,
+  luggageForwardingPerShipment: TRIP.budgetDefaults.luggageForwardingPerShipment,
   passJpy: 0,
 })
 for (const line of result.lines) {

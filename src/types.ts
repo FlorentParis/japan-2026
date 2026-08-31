@@ -135,6 +135,52 @@ export type Accommodation = {
   note?: string
 }
 
+/**
+ * UN ENVOI DE VALISE d'un hébergement au suivant (takkyūbin / TA-Q-BIN).
+ *
+ * Le voyageur a demandé à ne pas traîner sa valise là où elle est un handicap :
+ * la route alpine Tateyama-Kurobe, qui se traverse en téléphériques et bus de
+ * tunnel ; Kamikōchi et les navettes de montagne ; Naoshima et ses deux ferries.
+ * Un envoi est la réponse à un de ces passages, et rien d'autre — d'où `reason`,
+ * obligatoire : un envoi sans motif est un envoi qu'on peut supprimer.
+ *
+ * Pourquoi un type à part, et pas un champ sur `Destination` : un envoi concerne
+ * **au moins trois** étapes — celle d'où il part, celle où on le retrouve, et
+ * toutes celles du milieu, qui se font sans valise. L'écrire sur les étapes
+ * obligerait à répéter la même information deux ou trois fois, avec deux ou trois
+ * versions possibles de la date. Ici elle est écrite une fois, et
+ * `lib/bagages.ts` en déduit ce que chaque étape a à dire.
+ *
+ * Les deux dates sont distinctes exprès. `sentOn` est le jour où l'on remet la
+ * valise à la réception ; `deliveredOn` est la date de livraison à faire inscrire
+ * sur le bordereau (配達日指定, gratuit chez Yamato). C'est cette désignation qui
+ * fait la sûreté du dispositif : sans elle, un colis « au plus vite » peut arriver
+ * la veille dans un hôtel qui ne vous attend pas encore.
+ */
+export type Expedition = {
+  id: string
+  /** Étape d'où part la valise. Identifiant de `Destination`. */
+  fromDestination: string
+  /** Étape où on la retrouve. Identifiant de `Destination`. */
+  toDestination: string
+  /** Jour de remise au transporteur, AAAA-MM-JJ. */
+  sentOn: string
+  /** Date de livraison à faire désigner sur le bordereau, AAAA-MM-JJ. */
+  deliveredOn: string
+  /**
+   * Aucun de ces envois n'est réservé : ce sont des dates calculées sur le
+   * calendrier du voyage, pas des bordereaux émis. D'où `estimate`, jamais
+   * `confirmed` tant qu'un envoi n'a pas été réellement déposé.
+   */
+  certainty: Certainty
+  /** Ce que l'envoi évite. Un envoi sans motif n'a pas lieu d'être. */
+  reason: string
+  price?: Money
+  note?: string
+  /** Points à vérifier : ramassage un dimanche, hôtel pas encore réservé… */
+  warnings?: string[]
+}
+
 export type ActivityCategory =
   | 'culture'
   | 'nature'
@@ -441,5 +487,10 @@ export type Trip = {
    */
   budgetDefaults: {
     localTransportPerDayPerPerson: number
+    /**
+     * Tarif supposé d'un envoi de valise d'hôtel à hôtel. Le nombre d'envois, lui,
+     * n'est pas un réglage : il vient de `data/bagages.ts`.
+     */
+    luggageForwardingPerShipment: number
   }
 }

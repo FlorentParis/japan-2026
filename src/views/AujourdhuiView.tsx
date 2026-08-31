@@ -17,18 +17,21 @@
  * celle du jour.
  */
 import { useState } from 'react'
+import { ExpeditionCard } from '../components/Bagages'
 import { Hebergement } from '../components/Hebergement'
 import { JourneyCard } from '../components/JourneyCard'
 import { CertaintyBadge, PhotoFigure, ToFill, Warnings } from '../components/ui'
 import { place } from '../data/places'
 import { TRIP } from '../data/trip'
 import { alertesDuJour, departDeLaMaison, journeeDu, type Journee } from '../lib/aujourdhui'
+import { bagagesDuJour, etape, jourAvecBagage } from '../lib/bagages'
 import { gaps, journeyLabel, journeyTotals } from '../lib/derive'
 import {
   ACTIVITY_ICON,
   STAY_LABEL,
   addDays,
   formatDateRange,
+  formatJourSemaine,
   formatLongDate,
   formatMinutes,
   formatMoney,
@@ -226,6 +229,60 @@ function Nuit({ dest, quand = 'Cette nuit' }: { dest: Destination; quand?: strin
           Fiche complète de l’étape
         </button>
       </div>
+    </section>
+  )
+}
+
+/**
+ * La valise, ce jour-là.
+ *
+ * C'est le seul poste du carnet qui demande une action irréversible à une heure
+ * précise : une valise remise trop tard rate le ramassage du jour, et arrive alors
+ * un jour après vous. Le bloc est donc placé avant l'hébergement, et il rend
+ * `null` les vingt-cinq jours où il n'y a rien à en faire.
+ */
+function Bagage({ date }: { date: string }) {
+  const jour = bagagesDuJour(date)
+  if (!jourAvecBagage(jour)) return null
+
+  /* Le jour du départ, l'envoi figure dans les deux listes : on ne le compte pas
+     deux fois — « à remettre » dit déjà tout, et dit ce qu'il y a à faire. */
+  const enRoute = jour.enRoute.filter((e) => !jour.aRemettre.includes(e))
+
+  return (
+    <section className="panel today-panel today-panel--bagage">
+      <h2 className="panel__title">
+        <span aria-hidden="true">🧳</span> La valise aujourd’hui
+      </h2>
+
+      {jour.aRemettre.length > 0 && (
+        <>
+          <p className="panel__intro">
+            <strong>À remettre à la réception aujourd’hui.</strong> Un hôtel n’a qu’un ramassage par
+            jour, souvent avant midi : le faire en descendant, pas en repartant.
+          </p>
+          {jour.aRemettre.map((expedition) => (
+            <ExpeditionCard key={expedition.id} expedition={expedition} />
+          ))}
+        </>
+      )}
+
+      {jour.aRecevoir.map((expedition) => (
+        <p key={expedition.id} className="panel__intro">
+          <strong>La valise est livrée aujourd’hui</strong> à{' '}
+          {etape(expedition.toDestination)?.accommodation.name ??
+            `l’hôtel de ${etape(expedition.toDestination)?.name}`}
+          . Vérifier à l’arrivée qu’elle est bien là avant de ressortir.
+        </p>
+      ))}
+
+      {enRoute.map((expedition) => (
+        <p key={expedition.id} className="panel__intro">
+          <strong>Journée sans valise.</strong> Elle est en route vers{' '}
+          {etape(expedition.toDestination)?.name}, livraison demandée pour le{' '}
+          {formatJourSemaine(expedition.deliveredOn)}.
+        </p>
+      ))}
     </section>
   )
 }
@@ -511,6 +568,11 @@ export function AujourdhuiView({ date: dateImposee }: { date?: string }) {
             )
           )}
 
+          {/* Avant l'hébergement : c'est à la réception qu'on remet la valise, et
+              le ramassage passe avant midi. Le lire après « cette nuit » serait le
+              lire trop tard. */}
+          <Bagage date={date} />
+
           {journee.nuit ? (
             <Nuit dest={journee.nuit} />
           ) : (
@@ -555,6 +617,15 @@ export function AujourdhuiView({ date: dateImposee }: { date?: string }) {
                 .
               </p>
             )}
+            {/* Le sac de jour se fait la veille au soir, pas sur le pas de la
+                porte : c'est la seule raison d'être de cette ligne ici. */}
+            {bagagesDuJour(demain.date).aRemettre.map((expedition) => (
+              <p key={expedition.id} className="panel__intro">
+                <strong>Valise à expédier demain</strong> vers {etape(expedition.toDestination)?.name},
+                livraison demandée pour le {formatJourSemaine(expedition.deliveredOn)} : préparer le
+                sac de jour ce soir.
+              </p>
+            ))}
             <Warnings items={demain.trajets.flatMap((j) => j.warnings ?? [])} title="À préparer ce soir" />
           </section>
         </>

@@ -6,11 +6,13 @@
  * des fichiers de `src/data/`. Modifier un prix dans les données met à jour
  * l'ensemble du site, sans risque de laisser un chiffre périmé quelque part.
  */
+import { EXPEDITIONS } from '../data/bagages'
 import { DESTINATIONS } from '../data/destinations'
 import { ALL_LEGS, JOURNEYS } from '../data/journeys'
 import { GALLERY_COUNTS, PHOTOS } from '../data/photos.generated'
 import { PASSES, TRIP } from '../data/trip'
 import type { Certainty, Destination, Journey, Leg, RailPass, TransportMode } from '../types'
+import { expeditionsSansDestinataire } from './bagages'
 import { addDays, daysInclusive, moneyJpy } from './format'
 import { journeyDistanceKm, legDistanceKm } from './geo'
 import { MODE_ORDER } from './modes'
@@ -483,6 +485,8 @@ export type BudgetInputs = {
   /** Durée du séjour en jours. Inconnue tant que les dates ne sont pas saisies. */
   days: number
   localTransportPerDayPerPerson: number
+  /** Tarif supposé d'un envoi de valise d'hôtel à hôtel. Voir la ligne « bagages ». */
+  luggageForwardingPerShipment: number
   /** Prix du pass retenu, 0 si aucun. */
   passJpy: number
   /**
@@ -609,6 +613,16 @@ export function budget(inputs: BudgetInputs) {
       partial: acc.complete ? 0 : acc.missing,
     },
     {
+      id: 'bagages',
+      label: 'Envois de valise',
+      detail: `${EXPEDITIONS.length} envois d’hôtel à hôtel, dont un imposé par la route alpine. Compté par colis et non par personne : c’est une valise qui voyage, pas un billet. Le tarif unitaire est une hypothèse réglable — la grille Yamato dépend de la taille du colis et du couple de préfectures, elle n’a pas été relevée`,
+      icon: '🧳',
+      jpy: EXPEDITIONS.length * inputs.luggageForwardingPerShipment,
+      certainty: 'estimate',
+      incomplete: inputs.luggageForwardingPerShipment === 0,
+      partial: 0,
+    },
+    {
       id: 'local',
       label: 'Transports locaux',
       detail:
@@ -705,6 +719,22 @@ export function gaps(): Gap[] {
         severity: 'blocking',
       })
     }
+  }
+
+  // Un envoi de valise a besoin d'un destinataire, et un destinataire est un
+  // établissement réservé : on ne remplit pas un bordereau avec « hôtel de
+  // Kanazawa ». Ce manque est déjà signalé comme hébergement à renseigner, mais
+  // pas avec la même conséquence — ici, c'est le nom et l'adresse qui manquent
+  // sur un colis, et la réservation devient contrainte : il faut un établissement
+  // qui accepte de recevoir un paquet avant l'arrivée.
+  for (const { expedition, dest } of expeditionsSansDestinataire()) {
+    out.push({
+      id: `bagage-${expedition.id}`,
+      label: `Envoi de valise du ${expedition.sentOn} sans destinataire : ${dest.name} n’est pas réservé. Choisir un établissement qui accepte de recevoir un colis avant l’arrivée.`,
+      file: 'src/data/destinations.ts',
+      scope: dest.name,
+      severity: 'blocking',
+    })
   }
 
   if (TRIP.travellers?.certainty === 'todo') {

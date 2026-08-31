@@ -111,6 +111,19 @@
   color: var(--ink-muted);
 }
 
+/* Pastille de valise, sur les cinq étapes touchées par un envoi et pas ailleurs.
+   `justify-self: start` parce que la colonne de texte est une grille : sans lui
+   la pastille prendrait toute la largeur et son fond ferait une bande. */
+.timeline__bagage {
+  justify-self: start;
+  margin-top: 0.2rem;
+  padding: 0.1rem var(--gap-2);
+  border-radius: var(--radius-xs);
+  background: var(--paper-sunken);
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+}
+
 /* ── Segment de trajet dans la frise ─────────────────────────────────── */
 
 .timeline__journey {

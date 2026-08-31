@@ -323,5 +323,11 @@ export const TRIP: Trip = {
    */
   budgetDefaults: {
     localTransportPerDayPerPerson: 800,
+    // Ordre de grandeur d'un colis de la taille d'une valise sur une longue
+    // distance, et rien de plus : la grille Yamato dépend de la taille du colis
+    // et du couple de préfectures, et elle n'a pas été relevée. C'est donc une
+    // hypothèse réglable dans la vue Budget, pas une donnée du voyage — à
+    // remplacer par le premier tarif annoncé à une réception.
+    luggageForwardingPerShipment: 2500,
   },
 }

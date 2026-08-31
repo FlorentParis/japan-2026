@@ -367,6 +367,7 @@ seul endroit à corriger.
 | `src/data/destinations.ts` | les 18 étapes : dates, nuits, hébergement, activités, spécialités locales, recherches de photos, repères, avertissements |
 | `src/data/places.ts` | les points géographiques (gares, ports, cols, aéroports) et leurs coordonnées |
 | `src/data/journeys.ts` | les 17 déplacements et leurs 35 tronçons : mode, service, durée, prix, correspondances |
+| `src/data/bagages.ts` | les 4 envois de valise d’hôtel à hôtel (takkyūbin), les hébergements où ne rien faire livrer, et les règles de guichet |
 | `src/data/unites.ts` | les fabriques `yen()`, `mins()`, `tarifACompleter()` — partagées par les deux fichiers ci-dessus |
 | `src/data/hebergements.ts` | écrit à la main : les photos des hébergements réservés, rattachées par `accommodation.photosId`. Les seules images non libres du site (voir plus haut) |
 | `src/data/photos.generated.ts` | **généré** par `npm run photos` : la photo de chaque sujet nommé, avec auteur, licence et page source. Ne pas modifier à la main |
@@ -405,6 +406,18 @@ Exemples courants :
 - **renseigner un tarif manquant** → remplacer `tarifACompleter(…)` par
   `yen(…)` sur le tronçon, dans `src/data/journeys.ts` : le total des transports,
   le budget et l’analyse du pass cessent alors d’être affichés avec un `≥` ;
+- **ajouter, décaler ou supprimer un envoi de valise** → le tableau `EXPEDITIONS`
+  de `src/data/bagages.ts`, et rien d’autre. On y écrit d’où, vers où, quel jour
+  on remet le colis et pour quelle date on fait désigner la livraison ; les étapes
+  traversées — celles qui se font **sans valise** — sont déduites des numéros
+  d’ordre par `src/lib/bagages.ts`. Kamikōchi n’est donc jamais marqué « sans
+  valise » quelque part : il l’est parce qu’il tombe entre Matsumoto et Takayama.
+  `npm run qa` refuse une remise ou une livraison qui tomberait en dehors des dates
+  de l’étape concernée, et deux envois qui se chevauchent — il n’y a qu’une valise ;
+- **corriger le tarif d’un envoi** → ce n’est pas une donnée du voyage mais une
+  hypothèse : `budgetDefaults.luggageForwardingPerShipment` dans
+  `src/data/trip.ts`, réglable dans la vue Budget. La grille Yamato dépend de la
+  taille du colis et du couple de préfectures, et elle n’a pas été relevée ;
 - **corriger un trajet aéroport ⇄ ville** → le tableau `TRANSFERS` de
   `src/data/trip.ts`. Ce ne sont pas des `Journey` : ils ne relient pas deux
   étapes, donc ils ne sont ni tracés sur la carte ni comptés dans le bilan par

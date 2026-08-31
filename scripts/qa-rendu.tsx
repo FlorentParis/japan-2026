@@ -39,7 +39,11 @@ const JOURNEES: Array<[string, string]> = [
   ['premier jour, vol et transfert', '2026-11-06'],
   ['journée de trajet', '2026-11-08'],
   ['journée sur place', '2026-11-07'],
+  // Le 17 est aussi le jour où la valise part vers Nagano, et le 14 celui où on
+  // la retrouve à Kanazawa : les deux branches du bloc « la valise » sont donc
+  // rendues au moins une fois chacune.
   ['trois étapes le même jour', '2026-11-17'],
+  ['jour où la valise est livrée', '2026-11-14'],
   ['dernier jour, sans nuit', '2026-12-05'],
   ['après le voyage', '2026-12-20'],
 ]

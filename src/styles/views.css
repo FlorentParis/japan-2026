@@ -86,6 +86,13 @@
   background: var(--paper-sunken);
 }
 
+/* La valise du jour : un liseré, parce que c'est le seul bloc de la vue qui
+   demande une action irréversible avant midi — une fois la valise partie, elle
+   ne revient pas. */
+.today-panel--bagage {
+  border-left: 3px solid var(--accent);
+}
+
 .today-panel__actions {
   display: flex;
   flex-wrap: wrap;
@@ -621,6 +628,195 @@
   .hotel-row {
     grid-template-columns: 13rem 9rem 1fr 9rem auto;
   }
+}
+
+/* ── Bagages : les envois de valise ──────────────────────────────────── */
+
+/* Le récapitulatif vit dans la vue Hôtels, juste sous les lignes de
+   réservation : un envoi va d'une réception à une autre, et ce qui le bloque est
+   une réservation manquante. */
+.bagages-panel {
+  display: grid;
+  gap: var(--gap-4);
+}
+
+.expeditions {
+  display: grid;
+  gap: var(--gap-3);
+}
+
+.expedition {
+  display: grid;
+  gap: var(--gap-2);
+  padding: var(--gap-3) var(--gap-4);
+  background: var(--paper-sunken);
+  border-radius: var(--radius);
+  /* Le liseré reprend la couleur des estimations : aucun de ces envois n'est
+     déposé, et la pastille de la fiche dit la même chose en mots. */
+  border-left: 3px solid var(--estimate);
+}
+
+.expedition__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-2);
+}
+
+.expedition__route {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.expedition__reason {
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+
+/* Deux dates, jamais empilées sans séparation : les confondre reviendrait à
+   remettre la valise le jour où on l'attend à l'arrivée. */
+.expedition__dates {
+  display: grid;
+  gap: var(--gap-2) var(--gap-4);
+  padding: var(--gap-2) 0;
+  border-top: 1px dotted var(--line-strong);
+  border-bottom: 1px dotted var(--line-strong);
+}
+
+.expedition__dates dt {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.expedition__dates dd {
+  display: grid;
+  gap: 0.1rem;
+  font-size: var(--text-sm);
+}
+
+.expedition__dates strong {
+  /* `Intl` rend « mardi 10 novembre » en minuscules : la capitale se met ici,
+     comme pour la date de la vue Aujourd'hui. */
+  text-transform: capitalize;
+  font-variant-numeric: tabular-nums;
+}
+
+.expedition__hotel {
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.expedition__sans,
+.expedition__note {
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+
+.expedition__note {
+  font-style: italic;
+}
+
+.expedition__warnings {
+  display: grid;
+  gap: var(--gap-1);
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+}
+
+.expedition__warnings li {
+  padding-left: var(--gap-3);
+  border-left: 2px solid var(--gold);
+}
+
+.bagages-panel__regles {
+  display: grid;
+  gap: var(--gap-2);
+}
+
+.bagages-panel__regles-title {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+.bagages-panel__regles ul {
+  display: grid;
+  gap: var(--gap-2);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+
+.bagages-panel__regles li {
+  padding-bottom: var(--gap-2);
+  border-bottom: 1px dotted var(--line);
+}
+
+.bagages-panel__regles li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+@media (min-width: 700px) {
+  .expedition__dates {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Bagages : le bloc d'une fiche d'étape ───────────────────────────── */
+
+/* Absent des treize étapes où la valise suit sans histoire — voir
+   `BagageDeLEtape`, qui ne rend rien du tout dans ce cas. */
+.bagage {
+  display: grid;
+  gap: var(--gap-2);
+  padding: var(--gap-3);
+  background: var(--paper-sunken);
+  border-radius: var(--radius);
+}
+
+.bagage__title {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  font-weight: 700;
+}
+
+.bagage__ligne {
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+  padding-left: var(--gap-3);
+  border-left: 2px solid var(--line-strong);
+}
+
+.bagage__ligne strong {
+  color: var(--ink);
+  text-transform: none;
+}
+
+/* Quatre couleurs pour quatre choses différentes à faire, et l'ordre de lecture
+   suit celui de la journée : ce qu'on n'a pas, ce qu'on donne, ce qu'on
+   récupère, ce qu'il ne faut surtout pas faire venir ici. */
+.bagage__ligne--sans {
+  border-left-color: var(--teal);
+}
+
+.bagage__ligne--partir {
+  border-left-color: var(--accent);
+}
+
+.bagage__ligne--arriver {
+  border-left-color: var(--confirmed);
+}
+
+.bagage__ligne--jamais {
+  border-left-color: var(--todo);
 }
 
 /* ── Activités ───────────────────────────────────────────────────────── */

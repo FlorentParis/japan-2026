@@ -7,12 +7,13 @@
  *
  * Le résultat est affiché en clair dans le site quand il n'est pas vide.
  */
+import { EXPEDITIONS } from '../data/bagages'
 import { DESTINATIONS } from '../data/destinations'
 import { JOURNEYS } from '../data/journeys'
 import { PLACES } from '../data/places'
 import { PHOTOS } from '../data/photos.generated'
 import { NUITS_ANNONCEES, PASSES, TRANSFERS } from '../data/trip'
-import type { Leg } from '../types'
+import type { Destination, Leg } from '../types'
 import { daysInclusive } from './format'
 
 export type IntegrityIssue = {
@@ -200,6 +201,65 @@ export function checkIntegrity(): IntegrityIssue[] {
     transferIds.add(t.id)
     verifierTroncons(t.id, t.legs)
   }
+
+  // ── Envois de valise ────────────────────────────────────────────────────
+  // Un envoi porte deux dates écrites à la main, et c'est le seul endroit du
+  // modèle où c'est le cas : partout ailleurs les dates viennent du calendrier
+  // des étapes. Le risque est donc réel et précis — remettre la valise un jour
+  // où l'on n'est plus à l'hôtel de départ, ou la faire livrer un jour où l'on
+  // n'est pas encore à celui d'arrivée. Personne ne s'en apercevrait à l'écran :
+  // les deux dates s'y afficheraient sans broncher.
+  const expeditionIds = new Set<string>()
+  const dansLesDates = (dest: Destination, date: string) => {
+    const { start, end } = dest.dates
+    // Une étape sans dates ne peut rien contredire : on ne prétend pas savoir.
+    if (!start) return true
+    return date >= start && date <= (end ?? start)
+  }
+
+  for (const e of EXPEDITIONS) {
+    if (expeditionIds.has(e.id)) error(e.id, 'Identifiant d’envoi en double.')
+    expeditionIds.add(e.id)
+
+    const de = DESTINATIONS.find((d) => d.id === e.fromDestination)
+    const vers = DESTINATIONS.find((d) => d.id === e.toDestination)
+    if (!de) error(e.id, `Étape de départ inconnue : « ${e.fromDestination} ».`)
+    if (!vers) error(e.id, `Étape d’arrivée inconnue : « ${e.toDestination} ».`)
+    if (!de || !vers) continue
+
+    // Un envoi remonte le parcours : ce serait une valise expédiée vers une ville
+    // déjà quittée. `lib/bagages.ts` en déduirait aussi un intervalle d'étapes
+    // traversées vide, donc un envoi sans raison d'être.
+    if (de.order >= vers.order) {
+      error(e.id, `L’envoi va de ${de.name} (${de.order}) vers ${vers.name} (${vers.order}) : il remonte le parcours.`)
+    }
+    if (e.deliveredOn < e.sentOn) {
+      error(e.id, `Livraison le ${e.deliveredOn}, remise le ${e.sentOn} : la valise arriverait avant d’être partie.`)
+    }
+    if (!dansLesDates(de, e.sentOn)) {
+      error(e.id, `Remise le ${e.sentOn}, alors que l’étape ${de.name} court du ${de.dates.start} au ${de.dates.end}.`)
+    }
+    if (!dansLesDates(vers, e.deliveredOn)) {
+      error(
+        e.id,
+        `Livraison le ${e.deliveredOn}, alors que l’étape ${vers.name} court du ${vers.dates.start} au ${vers.dates.end} : personne ne serait là pour la recevoir.`,
+      )
+    }
+  }
+
+  // Deux envois qui se chevauchent dans le temps, c'est deux valises — or il n'y
+  // en a qu'une. Le cas limite du même jour est licite et voulu : on récupère la
+  // valise le matin et on la réexpédie le lendemain, jamais dans la même seconde.
+  const parDate = [...EXPEDITIONS].sort((a, b) => a.sentOn.localeCompare(b.sentOn))
+  parDate.forEach((e, i) => {
+    const suivant = parDate[i + 1]
+    if (suivant && suivant.sentOn < e.deliveredOn) {
+      error(
+        e.id,
+        `Chevauchement avec ${suivant.id} : la valise repartirait le ${suivant.sentOn} alors qu’elle n’est livrée que le ${e.deliveredOn}.`,
+      )
+    }
+  })
 
   // ── Pass ────────────────────────────────────────────────────────────────
   for (const pass of PASSES) {

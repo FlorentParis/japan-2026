@@ -9,6 +9,7 @@
  * Les quatre compteurs du bandeau viennent de `accommodationTotals()` : ils
  * suivent les réservations d'eux-mêmes, aucun chiffre n'est écrit ici.
  */
+import { ListeDesExpeditions } from '../components/Bagages'
 import { Hebergement } from '../components/Hebergement'
 import { SectionTitle, CertaintyBadge, ToFill } from '../components/ui'
 import { DESTINATIONS } from '../data/destinations'
@@ -115,6 +116,11 @@ export function HotelsView() {
         })}
       </ul>
 
+      {/* Les envois de valise sont ici, et pas dans une section à eux : ils vont
+          d'une réception d'hôtel à une autre, et la seule chose qui les bloque est
+          une réservation manquante — c'est la page où on le voit. */}
+      <ListeDesExpeditions />
+
       <p className="view__foot">
         Pour renseigner une nuit : ouvrir <code>src/data/destinations.ts</code>, trouver l’étape et
         compléter son objet <code>accommodation</code> — <code>name</code>, <code>area</code>,{' '}
@@ -122,7 +128,9 @@ export function HotelsView() {
         faite <code>address</code>, <code>coord</code> (lien Maps et repère sur la carte),{' '}
         <code>checkIn</code>, <code>checkOut</code>. Les photos de l’établissement s’ajoutent à part,
         dans <code>src/data/hebergements.ts</code>, et se rattachent par <code>photosId</code>. Le
-        total, la moyenne par nuit et le budget se recalculent seuls.
+        total, la moyenne par nuit et le budget se recalculent seuls. Les envois de valise vivent
+        dans <code>src/data/bagages.ts</code> : un envoi n’y est écrit qu’une fois, et les étapes
+        qu’il traverse — celles qui se font sans valise — en sont déduites.
       </p>
     </div>
   )

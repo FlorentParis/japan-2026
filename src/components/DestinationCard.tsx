@@ -12,6 +12,7 @@ import { journeysAround } from '../lib/derive'
 import { STAY_LABEL, formatDateRange, formatMoney } from '../lib/format'
 import { useTrip } from '../state/trip-state'
 import type { Certainty, Destination } from '../types'
+import { BagageDeLEtape } from './Bagages'
 import { Hebergement } from './Hebergement'
 import { PhotoCarrousel } from './PhotoCarrousel'
 import { CertaintyBadge, ToFill, Warnings } from './ui'
@@ -107,6 +108,11 @@ export function DestinationCard({ dest }: { dest: Destination }) {
           )}
         </Field>
       </dl>
+
+      {/* Ce qu'il y a à faire de la valise sur cette étape — rien du tout sur les
+          treize étapes où elle suit sans histoire. Le bloc est déduit des envois
+          de `data/bagages.ts`, il n'y a aucune date à écrire par étape. */}
+      <BagageDeLEtape destId={dest.id} />
 
       {dest.spots && dest.spots.length > 0 && (
         <div className="dest-card__spots">

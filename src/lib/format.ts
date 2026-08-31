@@ -142,6 +142,12 @@ const DATE_JOUR_FMT = new Intl.DateTimeFormat('fr-FR', {
   year: 'numeric',
 })
 
+const DATE_SEMAINE_FMT = new Intl.DateTimeFormat('fr-FR', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+})
+
 /**
  * Toutes les dates du site sont des chaînes `AAAA-MM-JJ`. On les lit à midi :
  * à minuit, un décalage horaire d'une heure suffirait à changer le jour affiché.
@@ -157,6 +163,19 @@ const jour = (iso: string) => new Date(`${iso}T12:00:00`)
  */
 export function formatLongDate(iso: string): string {
   return DATE_JOUR_FMT.format(jour(iso))
+}
+
+/**
+ * « dimanche 22 novembre » — le jour de la semaine, sans l'année.
+ *
+ * Deuxième exception à la règle ci-dessus, et pour la même raison qu'elle : sur un
+ * envoi de valise, le jour de la semaine n'est pas du bruit, c'est la donnée qui
+ * décide. Un ramassage un dimanche n'est pas garanti, et le 23 novembre est férié
+ * au Japon — un « 22 → 23 novembre » sans jours de semaine cacherait précisément
+ * ce qu'il faut aller vérifier à la réception.
+ */
+export function formatJourSemaine(iso: string): string {
+  return DATE_SEMAINE_FMT.format(jour(iso))
 }
 
 export function formatDateRange(start?: string, end?: string): string | undefined {

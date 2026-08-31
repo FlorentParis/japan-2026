@@ -18,6 +18,7 @@
  * plutôt que de laisser lire son total comme « le coût du voyage ».
  */
 import { SectionTitle, CertaintyBadge, ToFill } from '../components/ui'
+import { EXPEDITIONS } from '../data/bagages'
 import { TRIP } from '../data/trip'
 import {
   accommodationTotals,
@@ -46,6 +47,8 @@ type Settings = {
   travellers: number
   days: number
   local: number
+  /** Tarif supposé d'un envoi de valise. Le nombre d'envois, lui, n'est pas réglable. */
+  bagages: number
   passId: string
 }
 
@@ -95,11 +98,15 @@ export function BudgetView() {
   // annulerait toutes les lignes « par jour ». Passage en v3 au retrait des
   // champs « repas » et « visites » : un réglage mémorisé en v2 les contiendrait
   // encore, et le nombre de voyageurs y a pu être laissé à une valeur devenue
-  // fausse maintenant qu'on sait que le voyageur part seul.
-  const [settings, setSettings] = usePersistentState<Settings>('budget.v3', {
+  // fausse maintenant qu'on sait que le voyageur part seul. Passage en v4 à
+  // l'arrivée des envois de valise : un réglage mémorisé en v3 n'a pas de champ
+  // `bagages`, et la ligne serait calculée sur `undefined` — donc à zéro, sans
+  // que rien à l'écran ne dise pourquoi.
+  const [settings, setSettings] = usePersistentState<Settings>('budget.v4', {
     travellers: TRIP.travellers?.count ?? 1,
     days: derivedDays ?? 0,
     local: TRIP.budgetDefaults.localTransportPerDayPerPerson,
+    bagages: TRIP.budgetDefaults.luggageForwardingPerShipment,
     passId: 'none',
   })
 
@@ -128,6 +135,7 @@ export function BudgetView() {
     travellers: settings.travellers,
     days: settings.days,
     localTransportPerDayPerPerson: settings.local,
+    luggageForwardingPerShipment: settings.bagages,
     passJpy: selectedPass?.price.jpy ?? 0,
     passId: selectedPass?.id,
   })
@@ -206,6 +214,16 @@ export function BudgetView() {
             step={100}
             onChange={(local) => patch({ local })}
             hint="métro, bus urbains, consignes — la seule enveloppe journalière qui reste"
+          />
+          <NumberField
+            label="Envoi de valise"
+            value={settings.bagages}
+            suffix="¥ / envoi"
+            step={100}
+            onChange={(bagages) => patch({ bagages })}
+            // Le nombre d'envois n'est pas réglable : il vient de `data/bagages.ts`.
+            // Seul le tarif unitaire l'est, parce que c'est lui qui est supposé.
+            hint={`${EXPEDITIONS.length} envois d’hôtel à hôtel — tarif à remplacer par le premier annoncé à une réception`}
           />
           <label className="number-field">
             <span className="number-field__label">Pass ferroviaire</span>
@@ -406,6 +424,14 @@ export function BudgetView() {
               compté.
             </li>
             <li>Prix des pass : tarifs publics, à revérifier avant achat.</li>
+            {/* Le seul poste dont même l'ordre de grandeur est une hypothèse :
+                la grille Yamato n'a pas été relevée, et le dire ici évite de
+                laisser lire le montant du tableau comme un tarif constaté. */}
+            <li>
+              Envois de valise : {EXPEDITIONS.length} colis d’hôtel à hôtel, au tarif unitaire
+              réglé ci-dessus. Ce tarif n’a pas été relevé — la grille Yamato dépend de la taille du
+              colis et du couple de préfectures. À corriger dès la première réception qui l’annonce.
+            </li>
             <li>
               Transports locaux : la seule enveloppe journalière conservée, réglable ci-dessus,{' '}
               {CERTAINTY_LABEL.estimate.toLowerCase()} par nature. Repas et visites, eux, ne sont
