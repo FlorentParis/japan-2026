@@ -61,15 +61,32 @@ const DRAW_ORDER = [...MODE_ORDER].reverse()
  */
 const DELAI_FOND_MS = 12_000
 
+/**
+ * Marges d'un recadrage, en pixels : la même de tous les côtés, plus la hauteur
+ * de ce qui masque le bas de la carte (le tiroir des étapes, sur mobile).
+ */
+const marges = (base: number, masqueBas: number) => ({
+  top: base,
+  left: base,
+  right: base,
+  bottom: base + masqueBas,
+})
+
 /** État du fond de carte, indépendant de l'état du tracé. */
 type EtatFond = 'attente' | 'distant' | 'secours'
 
 type Props = {
   /** La carte n'anime rien quand elle est masquée, et se remesure en réapparaissant. */
   active: boolean
+  /**
+   * Hauteur, en pixels, de ce qui recouvre le bas de la carte — le tiroir des
+   * étapes sur mobile. Les recadrages en tiennent compte : sans ça, on tape un
+   * repère et la carte le centre pile derrière le tiroir.
+   */
+  masqueBas?: number
 }
 
-export function MapView({ active }: Props) {
+export function MapView({ active, masqueBas = 0 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<maplibregl.Map | null>(null)
   const markersRef = useRef<Map<string, HTMLButtonElement>>(new Map())
@@ -88,6 +105,17 @@ export function MapView({ active }: Props) {
 
   const { selection, selectDestination, selectJourney, clearSelection, visibleModes, goTo } =
     useTrip()
+
+  /*
+   * Ce que le tiroir recouvre, gardé dans une référence : les effets de caméra le
+   * lisent au moment où ils recadrent, sans l'avoir en dépendance. Autrement,
+   * chaque déplacement du tiroir rejouerait un recadrage — la carte sauterait à
+   * chaque fois qu'on ouvre ou ferme la liste des étapes.
+   */
+  const masqueRef = useRef(masqueBas)
+  useEffect(() => {
+    masqueRef.current = masqueBas
+  }, [masqueBas])
 
   // Les gestionnaires d'événements de MapLibre sont posés une seule fois : ils
   // lisent les actions à travers cette référence, toujours à jour.
@@ -482,7 +510,7 @@ export function MapView({ active }: Props) {
     if (!map || !couches || !active) return
 
     if (!selection) {
-      map.fitBounds(TRIP_BOUNDS, { padding: 56, duration: cameraDuration() })
+      map.fitBounds(TRIP_BOUNDS, { padding: marges(56, masqueRef.current), duration: cameraDuration() })
       return
     }
 
@@ -493,12 +521,17 @@ export function MapView({ active }: Props) {
       const spots = spotCoords(dest)
       if (spots.length > 1) {
         map.fitBounds(bounds([dest.coord, ...spots]), {
-          padding: 90,
+          padding: marges(90, masqueRef.current),
           duration: cameraDuration(),
           maxZoom: 12,
         })
       } else {
-        map.easeTo({ center: dest.coord, zoom: Math.max(map.getZoom(), 9), duration: cameraDuration() })
+        map.easeTo({
+          center: dest.coord,
+          zoom: Math.max(map.getZoom(), 9),
+          padding: marges(0, masqueRef.current),
+          duration: cameraDuration(),
+        })
       }
       return
     }
@@ -507,7 +540,7 @@ export function MapView({ active }: Props) {
     if (!journey) return
     const target = selection.legId ? journey.legs.find((l) => l.id === selection.legId) : undefined
     const coords = target ? legPath(target) : journey.legs.flatMap(legPath)
-    map.fitBounds(bounds(coords), { padding: 70, duration: cameraDuration(), maxZoom: 11 })
+    map.fitBounds(bounds(coords), { padding: marges(70, masqueRef.current), duration: cameraDuration(), maxZoom: 11 })
   }, [selection, couches, active])
 
   // Une carte masquée par `display:none` perd ses dimensions : on la remesure.
@@ -517,7 +550,7 @@ export function MapView({ active }: Props) {
 
   const resetView = () => {
     clearSelection()
-    mapRef.current?.fitBounds(TRIP_BOUNDS, { padding: 56, duration: cameraDuration() })
+    mapRef.current?.fitBounds(TRIP_BOUNDS, { padding: marges(56, masqueRef.current), duration: cameraDuration() })
   }
 
   const reessayerLeFond = () => {

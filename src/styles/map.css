@@ -157,6 +157,16 @@
   backdrop-filter: blur(6px);
 }
 
+/*
+ * Avec le tiroir, le bas de la carte est occupé : le bandeau de sélection passe
+ * sous la barre « Voir tout le parcours », là où il reste lisible quelle que
+ * soit la hauteur du tiroir.
+ */
+.view--carte-tiroir .map-selection {
+  top: 3.4rem;
+  bottom: auto;
+}
+
 .map-selection span {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -321,6 +331,23 @@
   gap: var(--gap-3);
 }
 
+.legend__fermer {
+  flex: none;
+  border: 0;
+  background: var(--paper-sunken);
+  color: var(--ink-muted);
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  cursor: pointer;
+  align-self: center;
+}
+
+.legend__fermer:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
 .legend__title {
   font-size: var(--text-xs);
   font-family: var(--font-sans);
@@ -328,6 +355,8 @@
   letter-spacing: 0.14em;
   color: var(--ink-muted);
   font-weight: 700;
+  /* Pousse « Tout afficher » et la croix de fermeture à droite. */
+  margin-right: auto;
 }
 
 .legend__list {
@@ -400,6 +429,41 @@
 .legend__marker-sample--day {
   background: var(--paper-raised);
   box-shadow: 0 0 0 2px var(--accent) inset;
+}
+
+/*
+ * ── Légende en panneau, sur mobile ───────────────────────────────────────
+ *
+ * Sous la carte, la légende coûtait cher : quatre blocs de texte qu'on lit une
+ * fois, sur l'écran où chaque pixel devrait montrer le Japon. Elle devient donc
+ * un panneau, ouvert depuis le bouton « Modes » du tiroir. Elle reste dans le
+ * DOM au même endroit — c'est bien la même légende, seulement présentée
+ * autrement selon la place disponible.
+ */
+.view--carte-tiroir .legend {
+  position: absolute;
+  top: 3.4rem;
+  left: var(--gap-3);
+  right: var(--gap-3);
+  z-index: 25;
+  max-height: min(62dvh, calc(100% - 5rem));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--gap-3);
+  gap: var(--gap-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0.5rem 1.75rem rgba(0, 0, 0, 0.22);
+}
+
+/* La place ne manque plus dans le panneau : les pastilles peuvent s'enrouler. */
+.view--carte-tiroir .legend__list {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.view--carte-tiroir[data-legende='fermee'] .legend {
+  display: none;
 }
 
 @media (min-width: 700px) {

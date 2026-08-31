@@ -12,6 +12,7 @@
     "lint": "oxlint",
     "qa": "vite build --config scripts/qa.vite.config.ts && node .qa/donnees.mjs && node .qa/rendu.mjs",
     "qa:carte": "node scripts/qa-carte.mjs",
+    "qa:tiroir": "node scripts/qa-tiroir.mjs",
     "qa:photos": "node scripts/qa-photos.mjs",
     "photos": "vite build --config scripts/qa.vite.config.ts && node .qa/photos.mjs",
     "preview": "vite preview"

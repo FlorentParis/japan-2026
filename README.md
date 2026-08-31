@@ -259,6 +259,7 @@ npm run dev          # http://localhost:5173
 | `npm run qa` | contrôle des données + rendu de chaque vue hors navigateur |
 | `npm run qa:carte` | ouvre la carte dans un Chrome sans interface et vérifie qu’elle se dessine |
 | `npm run qa:photos` | dans le même Chrome : vérifie que les images arrivent, que la visionneuse et les carrousels marchent |
+| `npm run qa:tiroir` | émule un téléphone et manœuvre le tiroir des étapes de la vue Carte |
 | `npm run photos` | régénère `src/data/photos.generated.ts` depuis Wikimedia Commons |
 
 `npm run qa` est le contrôle à relancer après **chaque** modification des
@@ -327,6 +328,17 @@ autre terminal, puis `npm run qa:carte`. Il écrit une capture dans
 `http://localhost:4173/japan-2026/`. Si le port est déjà pris, `npm run preview`
 en choisit un autre : passer alors l’URL en argument
 (`npm run qa:photos -- http://localhost:4175/japan-2026/`).
+
+`npm run qa:tiroir` a besoin du même serveur. Il émule un iPhone (390 × 844,
+pointeur tactile) parce que le tiroir de la vue Carte n'existe qu'à cette taille :
+ses trois hauteurs sont calculées en JavaScript à partir de l'écran et de
+l'en-tête réels, donc ni le contrôle de rendu (hors navigateur) ni
+`npm run qa:carte` (fenêtre de bureau) ne peuvent en dire quoi que ce soit. Il
+vérifie que la carte occupe toute la hauteur, que chaque appui sur la poignée
+fait passer le tiroir de « à moitié » à « plein » puis à « replié », que replié il
+ne garde que son en-tête sans disparaître, que la légende ne s'affiche que sur
+demande, et que taper un repère sur la carte entrouvre le tiroir. Captures dans
+`.qa/tiroir.png` et `.qa/tiroir-legende.png`.
 
 `npm run qa:photos` a besoin du même serveur, et couvre ce que `npm run qa` ne
 peut pas voir : un `<img>` rendu correctement dont le fichier n’arrive jamais.
@@ -454,9 +466,16 @@ voyage, elles, ne viennent que des fichiers ci-dessus.
 - thème clair et sombre selon le réglage du système ;
 - `prefers-reduced-motion` est respecté, y compris pour les recadrages de la
   carte et le défilement de la frise ;
-- sur la vue Carte, la page elle-même ne défile pas : la carte garde une hauteur
-  fixe et la frise a sa propre zone de défilement, pour ne pas « piéger » le
-  doigt dans la carte ;
+- sur la vue Carte, la page elle-même ne défile pas : la frise a sa propre zone
+  de défilement, pour ne pas « piéger » le doigt dans la carte ;
+- sur cette même vue, **sur téléphone**, la frise devient un tiroir posé sur la
+  carte (`lib/useTiroir.ts`) : la carte occupe alors tout l’écran, et la liste
+  des étapes s’ouvre à trois hauteurs — replié, à moitié, plein — au doigt comme
+  au clavier (la poignée est un vrai bouton : Entrée fait défiler les paliers,
+  ↑ et ↓ les parcourent). Replié, le tiroir devient `inert` : une tabulation ne
+  peut pas se perdre sur des boutons cachés sous la carte. La légende des modes,
+  qui prenait un bon quart de la hauteur pour un texte qu’on lit une fois, passe
+  derrière le bouton « Modes » de son en-tête ;
 - la visionneuse est un `<dialog>` natif : la touche Échap, le piégeage du focus
   et l’inertie du reste de la page sont le travail du navigateur, pas un
   empilement de gestionnaires d’événements. Chaque photo s’y ouvre par un vrai

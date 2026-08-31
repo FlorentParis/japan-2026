@@ -2,9 +2,10 @@
  * Structure générale : en-tête collant, navigation, vue courante, pied de page.
  *
  * Conçu mobile d'abord. La vue « Carte » est le seul écran qui prend toute la
- * hauteur sans défilement de page : la carte y garde une taille fixe et la
- * frise possède sa propre zone de défilement, ce qui évite le classique
- * « piège au doigt » d'une carte plein écran au milieu d'une page qui défile.
+ * hauteur sans défilement de page : la frise possède sa propre zone de
+ * défilement, ce qui évite le classique « piège au doigt » d'une carte plein
+ * écran au milieu d'une page qui défile. Sur mobile, cette frise devient un
+ * tiroir posé sur la carte (voir plus bas, et `lib/useTiroir.ts`).
  */
 
 .app {
@@ -206,6 +207,7 @@
 }
 
 .view--carte {
+  position: relative;
   max-width: none;
   height: 100%;
   padding: 0;
@@ -233,6 +235,7 @@
 }
 
 .timeline-column__head {
+  position: relative;
   padding: var(--gap-3) var(--gap-4) var(--gap-2);
   border-bottom: 1px solid var(--line);
 }
@@ -250,6 +253,127 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: var(--gap-3) var(--gap-4) var(--gap-6);
+}
+
+/*
+ * Poignée, barre de préhension et bouton « Modes » : ils n'ont de sens que dans
+ * le tiroir. Sur grand écran la frise est une colonne fixe, il n'y a rien à
+ * glisser et la légende est déjà visible sous la carte.
+ */
+.timeline-column__barre,
+.timeline-column__prise,
+.timeline-column__filtres {
+  display: none;
+}
+
+/* ── Vue Carte sur mobile : la frise devient un tiroir ────────────────── */
+
+/*
+ * La carte prend toute la place, le tiroir se pose par-dessus. Trois hauteurs
+ * (replié / à moitié / plein) pilotées depuis `lib/useTiroir.ts`, qui écrit la
+ * hauteur en pixels en style en ligne — d'où le `height` absent ici : le CSS ne
+ * fournit qu'un repli le temps de la première mesure.
+ */
+.view--carte-tiroir {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.view--carte-tiroir .map-column {
+  grid-template-rows: minmax(0, 1fr);
+  border-bottom: 0;
+}
+
+.view--carte-tiroir .timeline-column {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  height: 50dvh;
+  border-top: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: 0 -0.5rem 1.75rem rgba(0, 0, 0, 0.18);
+  transition: height 0.24s ease;
+}
+
+.view--carte-tiroir .timeline-column__head {
+  /* Place pour la barre de préhension au-dessus, pour le bouton « Modes » à droite. */
+  padding-top: var(--gap-4);
+  padding-right: 6.75rem;
+}
+
+.view--carte-tiroir .timeline-column__barre {
+  display: block;
+  position: absolute;
+  top: 0.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.75rem;
+  height: 0.25rem;
+  border-radius: 999px;
+  background: var(--line-strong);
+}
+
+.view--carte-tiroir .timeline-column__prise {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: grab;
+  /* Sans quoi le navigateur interprète le glissement vertical comme un défilement. */
+  touch-action: none;
+}
+
+.view--carte-tiroir .timeline-column__prise:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/*
+ * L'en-tête garde toujours exactement le même contenu, y compris replié : sa
+ * hauteur *est* celle du palier replié (`lib/useTiroir.ts` la mesure). Masquer
+ * l'explication au repli ferait rétrécir l'en-tête, donc changer la hauteur du
+ * palier, donc redéclencher la mesure — un tiroir qui tremble à chaque fermeture.
+ */
+
+.view--carte-tiroir .timeline-column__filtres {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  position: absolute;
+  top: var(--gap-4);
+  right: var(--gap-4);
+  z-index: 2;
+  min-height: 2.25rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.view--carte-tiroir .timeline-column__filtres.is-actif {
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.timeline-column__filtres-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  padding: 0 0.2rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.65rem;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ── Tablette ────────────────────────────────────────────────────────── */

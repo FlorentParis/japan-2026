@@ -38,7 +38,12 @@ function LinePreview({ mode }: { mode: TransportMode }) {
   )
 }
 
-export function ModeLegend() {
+/**
+ * `onFermer` n'est fourni que là où la légende est un panneau qu'on ouvre —
+ * le tiroir de la vue Carte sur mobile. Sur grand écran, elle est simplement
+ * posée sous la carte et il n'y a rien à fermer.
+ */
+export function ModeLegend({ onFermer }: { onFermer?: () => void }) {
   const { visibleModes, toggleMode, resetModes } = useTrip()
   const totals = totalsByMode()
   const allVisible = visibleModes.length === totals.length
@@ -50,6 +55,16 @@ export function ModeLegend() {
         {!allVisible && (
           <button type="button" className="link-button" onClick={resetModes}>
             Tout afficher
+          </button>
+        )}
+        {onFermer && (
+          <button
+            type="button"
+            className="legend__fermer"
+            onClick={onFermer}
+            aria-label="Fermer la légende"
+          >
+            ✕
           </button>
         )}
       </div>

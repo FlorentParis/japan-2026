@@ -4,8 +4,9 @@
  * La vue « Carte » reste montée en permanence dès sa première ouverture : ré-initialiser
  * MapLibre à chaque aller-retour serait lent et ferait clignoter le fond de carte.
  */
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { TRIP } from './data/trip'
+import { scrollBehavior } from './lib/motion'
 import { useTrip, VIEWS, type ThemeMode } from './state/trip-state'
 import { ActivitesView } from './views/ActivitesView'
 import { ApercuView } from './views/ApercuView'
@@ -48,6 +49,19 @@ function Header() {
   const { view, setView, currency, setCurrency, theme, setTheme } = useTrip()
   const themeCourant = THEME_CYCLE[theme]
 
+  /*
+   * Sur mobile, les neuf sections ne tiennent pas dans la largeur : la barre
+   * défile. Sans ce recentrage, ouvrir « Transports » depuis un lien intérieur
+   * laissait l'onglet actif hors du champ de vision — on ne savait plus où on
+   * était dans le site.
+   */
+  const navRef = useRef<HTMLUListElement>(null)
+  useEffect(() => {
+    navRef.current
+      ?.querySelector('.app-nav__item.is-current')
+      ?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: scrollBehavior() })
+  }, [view])
+
   return (
     <header className="app-header">
       <div className="app-header__brand">
@@ -61,7 +75,7 @@ function Header() {
       </div>
 
       <nav className="app-nav" aria-label="Sections du site">
-        <ul>
+        <ul ref={navRef}>
           {VIEWS.map((item) => (
             <li key={item.id}>
               <button
