@@ -26,6 +26,7 @@ import {
   formatMoney,
   formatPartialAmount,
   formatTime,
+  moneyJpy,
 } from '../lib/format'
 import { MODE_STYLES } from '../lib/modes'
 import { itineraire } from '../lib/vols'
@@ -98,7 +99,7 @@ export function TransportsView() {
   const passes = passAnalysis()
   /** Services couverts par un pass mais dont le tarif n'a pas été relevé. */
   const sansTarif = passes.coveredLegs
-    .filter((leg) => leg.cost !== undefined && leg.cost.jpy === undefined)
+    .filter((leg) => leg.cost !== undefined && moneyJpy(leg.cost) === undefined)
     .map((leg) => leg.service ?? leg.id)
 
   return (
@@ -450,7 +451,7 @@ export function TransportsView() {
       <Warnings
         title="Rappels sur les transports"
         items={[
-          'Les tarifs sont des estimations en sièges non réservés sauf mention : compter un supplément pour les sièges réservés.',
+          'Les tarifs sont des estimations en sièges non réservés sauf mention : compter un supplément pour les sièges réservés. Seule exception, le vol Nagasaki → Haneda : son billet est acheté, et son prix est celui payé.',
           'Le Nozomi et le Mizuho ne sont pas couverts par le JR Pass national : les itinéraires retenus passent par des Hikari et des Sakura.',
           'Les bus de montagne (Kamikōchi, Shirakawa-gō, route alpine) se réservent et ferment l’hiver.',
         ]}

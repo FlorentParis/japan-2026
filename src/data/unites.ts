@@ -24,6 +24,24 @@ export const tarifACompleter = (note: string): Money => ({
   scope: 'per-person',
 })
 
+/**
+ * Montant réellement payé en euros — un billet acheté depuis l'Europe.
+ *
+ * Le montant est donc `confirmed` par nature : il vient d'une réservation, pas
+ * d'une grille publique. Aucun équivalent en yens n'est écrit ici, la conversion
+ * étant faite à l'affichage par `moneyJpy()` au taux daté de `format.ts`.
+ */
+export const euros = (eur: number, note?: string): Money => ({
+  eur,
+  certainty: 'confirmed',
+  note,
+  scope: 'per-person',
+})
+
 /** Durée estimée, en minutes. */
 export const mins = (minutes: number, note?: string) =>
   ({ minutes, certainty: 'estimate' as const, note })
+
+/** Durée ferme, celle qu'annonce une réservation. */
+export const minsFermes = (minutes: number, note?: string) =>
+  ({ minutes, certainty: 'confirmed' as const, note })

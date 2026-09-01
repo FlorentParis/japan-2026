@@ -8,8 +8,13 @@
  *
  * ⚠️ Tous les tarifs et durées ci-dessous sont des ESTIMATIONS relevées sur les
  * grilles publiques (JR, Nohi Bus, Alpico, ferries de la mer de Seto), en yens,
- * par personne, sièges non réservés sauf mention. Rien n'a été réservé : l'UI
- * les affiche systématiquement comme estimations, jamais comme des prix fermes.
+ * par personne, sièges non réservés sauf mention. L'UI les affiche
+ * systématiquement comme estimations, jamais comme des prix fermes.
+ *
+ * Une seule exception, et elle est marquée `confirmed` : le vol Nagasaki → Haneda
+ * (`j16.2`), dont le billet est acheté. C'est le seul tronçon du voyage qui porte
+ * un tarif ferme, et le seul libellé en euros — la devise dans laquelle il a été
+ * payé.
  *
  * ⚠️ Les tracés sont SCHÉMATIQUES : ils suivent le corridor réel par waypoints
  * (vallées, gares, détroits), ce ne sont pas des relevés GPS. Les vols sont des
@@ -24,7 +29,7 @@
  * les vérifier au guichet.
  */
 import type { Journey } from '../types'
-import { mins, yen } from './unites'
+import { euros, mins, minsFermes, yen } from './unites'
 
 export const JOURNEYS: Journey[] = [
   // ─── 1 ─── Tokyo → Matsumoto ────────────────────────────────────────────
@@ -742,16 +747,20 @@ export const JOURNEYS: Journey[] = [
         mode: 'plane',
         fromPlace: 'nagasaki-airport',
         toPlace: 'haneda',
-        service: 'Vol intérieur',
-        duration: mins(120),
-        cost: yen(20000, 'très variable : ~12 000 ¥ en réservant tôt, jusqu’à ~35 000 ¥ au dernier moment'),
+        service: 'Japan Airlines JL608',
+        duration: minsFermes(90, 'annoncé sur le billet ; 9 h 50 → 11 h 20, même fuseau aux deux bouts'),
+        // Seul tarif ferme de tout ce fichier, et le seul en euros : le billet a
+        // été acheté depuis la France. Le détail du vol (numéro, horaires, siège)
+        // vit dans `TRIP.flights`, qui ne porte pas le prix pour ne pas le compter
+        // deux fois — voir `flightTotals()`.
+        cost: euros(81.27, 'billet acheté, siège 21A'),
         passCoverage: 'not-covered',
-        note: 'ANA, JAL, Skymark et Solaseed desservent Haneda. Compagnie et horaire à choisir.',
+        note: 'Vol direct, 1 h 30. Décollage 9 h 50, atterrissage à Haneda 11 h 20.',
       },
     ],
     warnings: [
-      'Vol du 2 décembre 2026 : à réserver tôt, le prix double facilement au dernier moment.',
-      'Aéroport d’arrivée : Haneda, désormais imposé par le vol international du 5 décembre qui en repart. Écarter les vols vers Narita, ils obligeraient à traverser Tokyo au petit matin du départ.',
+      'Décollage à 9 h 50 : avec 45 min de bus limousine et l’enregistrement d’un vol intérieur clos ~20 min avant, il faut quitter la gare de Nagasaki vers 7 h 45 au plus tard. Vérifier l’horaire du premier bus limousine, non relevé ici.',
+      'Aéroport d’arrivée : Haneda, imposé par le vol international du 5 décembre qui en repart — le billet pris respecte cette contrainte.',
       'Alternative non retenue : Shinkansen Nagasaki → Tokyo, ~7 h et plus cher hors pass.',
     ],
   },

@@ -2172,6 +2172,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     specialitiesStatus: 'estimate',
     warnings: [
       'Trois nuits, le séjour le plus long après Tokyo : de quoi sortir de la ville (Gunkanjima, Shimabara) si tu veux étoffer le programme.',
+      'Le matin du 2 décembre n’existe pas : le vol de Haneda décolle à 9 h 50 et l’aéroport est à 45 min de bus, ce qui impose de quitter la gare vers 7 h 45. Le séjour se termine en réalité le soir du 1er.',
     ],
     spots: [
       { name: 'Glover Garden', coord: [129.8690, 32.7340], kind: 'culture' },
@@ -2205,7 +2206,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     },
     // Second séjour, là encore : Rikugi-en, Ueno, Yanaka, le Skytree et Marunouchi
     // ont été faits au voyage précédent, Toyosu a été écarté par le voyageur. Ce qui
-    // reste est calibré sur 2,5 jours réels (le 2 en fin de journée, le 3, le 4 —
+    // reste est calibré sur 2,5 jours réels (le 2 à partir du début d'après-midi, le 3, le 4 —
     // le 5 n'existe pas, voir les avertissements), avec une excursion à Kamakura
     // comme pièce centrale, demandée par le voyageur.
     activities: [
@@ -2267,7 +2268,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
           'Décembre est la saison des éclairages urbains, pris très au sérieux ici : le lustre de Baccarat sous la verrière de Yebisu Garden Place, la pente de Keyakizaka à Roppongi alignée sur la Tour de Tokyo au bout de la perspective, et les berges de la rivière Meguro à Nakameguro.',
         photoQuery: 'Marunouchi illumination Tokyo',
         coord: [139.7130, 35.6427],
-        note: 'En place sur toutes tes dates, la saison courant de mi-novembre à fin décembre. Ça se greffe sur une fin de journée, ce n’est pas une activité à part entière — utile le 2 décembre au soir, quand le vol de Nagasaki laisse une soirée et pas une journée.',
+        note: 'En place sur toutes tes dates, la saison courant de mi-novembre à fin décembre. Ça se greffe sur une fin de journée, ce n’est pas une activité à part entière — utile le 2 décembre au soir, jour d’arrivée de Nagasaki où il ne reste qu’une après-midi.',
       },
       {
         id: 'tokyo-retour-tsukishima',
@@ -2297,7 +2298,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
           'Une montagne de 599 m au bout d’une ligne de banlieue, coiffée du temple Yakuō-in où le bouddhisme de montagne shugendō se pratique encore. Funiculaire jusqu’à mi-pente ou une heure et demie de montée, et par temps clair d’hiver le Fuji au bout de la crête.',
         photoQuery: 'Mount Takao view',
         coord: [139.2438, 35.6250],
-        note: 'ARBITRAGE : Takao et Kamakura occupent le même créneau — une journée entière de couleurs d’automne hors de la ville — et les 2,5 jours de l’étape n’en permettent qu’une. Kamakura a été retenue : elle est plus riche, et demandée. Takao reste ici comme rechange, notamment si le vol du 2 décembre arrive tôt et libère une journée de plus. 50 min de Shinjuku par la ligne Keiō, hors JR Pass.',
+        note: 'ARBITRAGE : Takao et Kamakura occupent le même créneau — une journée entière de couleurs d’automne hors de la ville — et les 2,5 jours de l’étape n’en permettent qu’une. Kamakura a été retenue : elle est plus riche, et demandée. Takao reste ici comme rechange. Le vol du 2 décembre atterrit à 11 h 20, ce qui laisse une après-midi mais pas la journée pleine qu’il faudrait pour l’y caser. 50 min de Shinjuku par la ligne Keiō, hors JR Pass.',
       },
     ],
     activitiesStatus: 'estimate',
@@ -2335,7 +2336,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       'Trois nuits du 2 au 5 décembre : c’est bien une étape, plus une simple correspondance.',
       'Vol de retour confirmé : Haneda, le 5 décembre à 8 h 40. En comptant la fermeture de l’enregistrement vers 7 h 40, il faut être au terminal vers 6 h 40 et donc quitter le centre de Tokyo autour de 6 h. La journée du 5 décembre n’existe pas : le voyage se termine en réalité le soir du 4.',
       'À VÉRIFIER avant de réserver l’hôtel : l’heure du premier monorail depuis Hamamatsuchō, que je n’ai pas trouvée publiée. Si elle est postérieure à 5 h 45 environ, il faut un taxi ou une nuit près de l’aéroport.',
-      'Budget réel de l’étape : 2,5 jours, pas 3. Le 2 décembre dépend de l’horaire du vol de Nagasaki, encore à choisir, et n’offrira au mieux qu’une fin de journée ; le 5 est nul. Avec Kamakura sur une journée pleine, il ne reste qu’une seule autre journée complète : la liste d’activités ci-dessus est donc plus longue que ce que le séjour peut absorber, et c’est volontaire — il faut y choisir, pas y cocher.',
+      'Budget réel de l’étape : 2,5 jours, pas 3. Le 2 décembre, le vol de Nagasaki atterrit à Haneda à 11 h 20 : compter le monorail et la dépose des bagages, et l’étape commence en début d’après-midi — une demi-journée, pas une journée ; le 5 est nul. Avec Kamakura sur une journée pleine, il ne reste qu’une seule autre journée complète : la liste d’activités ci-dessus est donc plus longue que ce que le séjour peut absorber, et c’est volontaire — il faut y choisir, pas y cocher.',
       'Kamakura n’est pas traitée comme une étape mais comme une excursion depuis Tokyo, avec retour le soir. Dormir sur place a été examiné et écarté : cela ferait trois hôtels en trois nuits (Tokyo, Kamakura, puis les environs de Shinagawa qu’impose le départ à l’aube) pour ne gagner qu’une matinée de temples déserts. Passer la dernière nuit à Kamakura est encore pire : le premier train part vers 4 h 50 pour un embarquement à 6 h 40, sans aucune marge, et les horaires de premier train ne sont de toute façon pas confirmés. Si le choix de dormir à Kamakura est finalement retenu, il faudra en faire une véritable étape — trajet, hébergement, nuits — et pas un aménagement de celle-ci.',
     ],
   },

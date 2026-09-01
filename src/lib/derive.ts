@@ -31,8 +31,18 @@ export type ModeTotals = {
   unpricedLegs: number
 }
 
+/**
+ * Coût d'un tronçon en yens, quelle que soit sa devise d'origine.
+ *
+ * Passe par `moneyJpy()` et non par `leg.cost.jpy` : le vol Nagasaki → Haneda est
+ * payé en euros, et lire directement les yens le compterait pour zéro dans tous
+ * les totaux. Un tronçon sans `cost` vaut bien 0 — son prix est inclus dans un
+ * billet porté par un autre tronçon.
+ */
+const legJpy = (leg: Leg) => moneyJpy(leg.cost) ?? 0
+
 /** Un tronçon qui a bien un tarif à payer, mais dont le montant n'est pas relevé. */
-const sansTarif = (leg: Leg) => leg.cost !== undefined && leg.cost.jpy === undefined
+const sansTarif = (leg: Leg) => leg.cost !== undefined && moneyJpy(leg.cost) === undefined
 
 export function totalsByMode(): ModeTotals[] {
   return MODE_ORDER.map((mode) => {
@@ -41,7 +51,7 @@ export function totalsByMode(): ModeTotals[] {
       mode,
       legs: legs.length,
       km: legs.reduce((sum, { leg }) => sum + legDistanceKm(leg), 0),
-      jpy: legs.reduce((sum, { leg }) => sum + (leg.cost?.jpy ?? 0), 0),
+      jpy: legs.reduce((sum, { leg }) => sum + legJpy(leg), 0),
       includedLegs: legs.filter(({ leg }) => !leg.cost).length,
       unpricedLegs: legs.filter(({ leg }) => sansTarif(leg)).length,
     }
@@ -50,7 +60,7 @@ export function totalsByMode(): ModeTotals[] {
 
 /** Coût estimé de tous les trajets inter-étapes, par personne. */
 export function totalTransportJpy(): number {
-  return ALL_LEGS.reduce((sum, { leg }) => sum + (leg.cost?.jpy ?? 0), 0)
+  return ALL_LEGS.reduce((sum, { leg }) => sum + legJpy(leg), 0)
 }
 
 /**
@@ -89,7 +99,7 @@ export function totalTravelMinutes(): number {
 export function journeyTotals(journey: Journey) {
   return {
     minutes: journey.legs.reduce((s, l) => s + (l.duration?.minutes ?? 0), 0),
-    jpy: journey.legs.reduce((s, l) => s + (l.cost?.jpy ?? 0), 0),
+    jpy: journey.legs.reduce((s, l) => s + legJpy(l), 0),
     km: journeyDistanceKm(journey),
     /** Une durée n'est complète que si tous les legs en ont une. */
     minutesComplete: journey.legs.every((l) => l.duration),
@@ -226,8 +236,9 @@ export function galleryCount(destId: string): number {
  *
  * Seuls les vols qui portent un `price` sont comptés, et un aller-retour acheté
  * d'un bloc ne le porte qu'une fois. Le vol intérieur Nagasaki → Tokyo n'en
- * porte pas : c'est un tronçon de l'itinéraire (`j16`), déjà compté dans la
- * ligne « transports ». Le compter ici aussi le facturerait deux fois.
+ * porte pas, même depuis qu'il est acheté : son billet est porté par le tronçon
+ * `j16.2` de l'itinéraire, déjà compté dans la ligne « transports ». Le porter
+ * ici aussi le facturerait deux fois.
  *
  * La donnée d'origine est en euros, devise d'achat. La conversion en yens n'existe
  * que parce que les totaux du site s'additionnent en yens.
@@ -254,7 +265,7 @@ export function transferTotals() {
   return {
     count: transfers.length,
     legs: legs.length,
-    jpy: legs.reduce((s, l) => s + (l.cost?.jpy ?? 0), 0),
+    jpy: legs.reduce((s, l) => s + legJpy(l), 0),
     unpriced: legs.filter(sansTarif).length,
   }
 }
@@ -350,7 +361,7 @@ function passJourneys(pass: RailPass): PassJourney[] {
       journeyId: movement.id,
       label: movement.label,
       date,
-      jpy: legs.reduce((s, leg) => s + (leg.cost?.jpy ?? 0), 0),
+      jpy: legs.reduce((s, leg) => s + legJpy(leg), 0),
       legs: legs.length,
       unpriced: legs.filter(sansTarif).length,
     })
@@ -399,12 +410,12 @@ export function passAnalysis() {
   const all = datedLegs()
   const covered = all.filter((leg) => leg.passCoverage === 'covered')
   const notCovered = all.filter((leg) => leg.passCoverage === 'not-covered')
-  const coveredJpy = covered.reduce((s, leg) => s + (leg.cost?.jpy ?? 0), 0)
-  const notCoveredJpy = notCovered.reduce((s, leg) => s + (leg.cost?.jpy ?? 0), 0)
+  const coveredJpy = covered.reduce((s, leg) => s + legJpy(leg), 0)
+  const notCoveredJpy = notCovered.reduce((s, leg) => s + legJpy(leg), 0)
 
   const verdicts: PassVerdict[] = PASSES.map((pass) => {
     const passCovered = covered.filter((leg) => pass.coveredLegs.includes(leg.id))
-    const passCoveredJpy = passCovered.reduce((s, leg) => s + (leg.cost?.jpy ?? 0), 0)
+    const passCoveredJpy = passCovered.reduce((s, leg) => s + legJpy(leg), 0)
     const window = bestWindow(pass)
     // Sans dates il n'y a pas de fenêtre : on retombe sur la comparaison brute,
     // et `conclusive: false` interdit à l'UI de la présenter comme un verdict.
@@ -538,12 +549,11 @@ export function budget(inputs: BudgetInputs) {
 
   const lines: BudgetLine[] = [
     {
-      // La seule ligne du budget qui repose sur un chiffre payé. Elle est en
-      // tête parce que c'est aussi la plus grosse, et de loin.
+      // La plus grosse ligne du budget, et de loin, d'où sa place en tête.
       id: 'flights',
       label: 'Vols internationaux',
       detail: flights.allConfirmed
-        ? 'Billet aller-retour acheté — le seul montant ferme du budget. Le vol intérieur Nagasaki → Tokyo est compté dans la ligne des transports.'
+        ? 'Billet aller-retour acheté. Le vol intérieur Nagasaki → Tokyo est acheté lui aussi, mais compté dans la ligne des transports : c’est un tronçon de l’itinéraire.'
         : 'Prix des vols internationaux à renseigner',
       icon: '✈️',
       jpy: flights.jpy * travellers,
@@ -755,8 +765,9 @@ export function gaps(): Gap[] {
   // un trou puisque le budget ne les chiffre plus.
 
   // Un vol non confirmé est un billet à acheter : c'est bloquant, au même titre
-  // qu'un hébergement à réserver. Les deux vols internationaux sont pris ;
-  // reste le Nagasaki → Tokyo, dont rien n'est arrêté.
+  // qu'un hébergement à réserver. Les trois vols sont désormais pris — cette
+  // boucle ne produit donc plus rien, et c'est bien ainsi : elle reste branchée
+  // pour le jour où un vol s'ajoute, sans qu'il y ait rien à rebrancher.
   const volsAReserver = TRIP.flights.filter((f) => f.certainty !== 'confirmed')
   for (const vol of volsAReserver) {
     out.push({

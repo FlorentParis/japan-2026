@@ -43,6 +43,19 @@ const eurFmt = new Intl.NumberFormat('fr-FR', {
   maximumFractionDigits: 0,
 })
 
+/**
+ * Pour un montant payé en euros dont les centimes comptent.
+ *
+ * Les conversions restent arrondies à l'euro — afficher des centimes sur un
+ * chiffre issu d'un taux indicatif lui donnerait une précision qu'il n'a pas.
+ * Un prix réellement payé, lui, vaut 81,27 € et pas « 81 € ».
+ */
+const eurExactFmt = new Intl.NumberFormat('fr-FR', {
+  style: 'currency',
+  currency: 'EUR',
+  minimumFractionDigits: 2,
+})
+
 export function formatAmount(jpy: number, currency: Currency): string {
   return currency === 'jpy' ? jpyFmt.format(jpy) : eurFmt.format(jpy / JPY_PER_EUR)
 }
@@ -67,7 +80,11 @@ export function moneyJpy(money: Money | undefined): number | undefined {
  * réel — et converti seulement si l'on demande des yens.
  */
 export function formatMoney(money: Money | undefined, currency: Currency): string {
-  if (money?.eur !== undefined && currency === 'eur') return eurFmt.format(money.eur)
+  if (money?.eur !== undefined && currency === 'eur') {
+    // Les centimes ne sont montrés que s'il y en a : « 1 103 € », « 81,27 € ».
+    const fmt = Number.isInteger(money.eur) ? eurFmt : eurExactFmt
+    return fmt.format(money.eur)
+  }
   const jpy = moneyJpy(money)
   if (jpy === undefined) return '—'
   return formatAmount(jpy, currency)

@@ -104,9 +104,10 @@ for (const vol of TRIP.flights) {
           : ''),
     )
   }
-  // Pas une anomalie en soi : le vol intérieur n'est pas réservé, il n'a donc
-  // légitimement ni compagnie ni numéro. Ce serait une anomalie sur un vol dit
-  // « confirmé », et c'est ce que `gaps()` signale de son côté.
+  // Les trois vols sont réservés et portent tous un numéro : ce bloc ne devrait
+  // plus rien afficher. Il reste en place pour un vol qui s'ajouterait sans être
+  // encore pris — auquel cas l'absence de numéro est attendue, et n'est une
+  // anomalie que sur un vol dit « confirmé » (ce que `gaps()` signale aussi).
   if (itin.references.length === 0) {
     console.log(
       `    Aucun numéro de vol${vol.certainty === 'confirmed' ? ' — ANOMALIE sur un vol confirmé' : ' (vol non réservé, attendu)'}.`,

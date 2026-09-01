@@ -283,8 +283,16 @@ export const TRIP: Trip = {
       from: 'Nagasaki (NGS)',
       to: 'Tokyo Haneda (HND)',
       date: '2026-12-02',
-      certainty: 'estimate',
-      note: 'PAS ENCORE RÉSERVÉ, information du voyageur. Date déduite de l’itinéraire, pas fournie. Le vol international repartant de Haneda, l’aéroport d’arrivée est fixé. Compagnie, numéro, horaire et prix restent à renseigner une fois le billet pris — c’est le seul des trois vols dont rien n’est arrêté.',
+      departureTime: '09:50',
+      arrivalTime: '11:20',
+      airline: 'Japan Airlines',
+      number: 'JL608',
+      certainty: 'confirmed',
+      // Vol direct : pas de `segments`, les champs ci-dessus décrivent tout le
+      // trajet. Aucun `price` non plus, et c'est la convention du site : le
+      // billet est porté par le tronçon `j16.2` de l'itinéraire, où il entre dans
+      // la ligne « transports ». L'écrire ici aussi le compterait deux fois.
+      note: 'Billet pris : Japan Airlines JL608, vol direct, siège 21A, 81,27 €. Horaires et prix fournis par le voyageur. Le billet annonce 1 h 30 de vol, ce qui concorde avec les horaires locaux — Nagasaki et Tokyo sont dans le même fuseau. Le prix est porté par le tronçon j16.2 de l’itinéraire, pas ici : voir `flightTotals()`.',
     },
     {
       label: 'Vol international retour',

@@ -11,19 +11,21 @@ journée en cours.
 Cinq choses seulement ont été fournies : la liste des villes, la table des dates
 et du nombre de nuits, le fait que le voyageur part **seul**, l’itinéraire aérien
 complet (1 103 € l’aller-retour, quatre vols China Eastern via Shanghai Pudong,
-arrivée à Narita le 6 novembre à 12 h, départ de Haneda le 5 décembre à 8 h 40) et
-cinq réservations d’hôtel. Tout le reste est explicitement marqué :
+arrivée à Narita le 6 novembre à 12 h, départ de Haneda le 5 décembre à 8 h 40 ;
+et le vol intérieur du retour, Japan Airlines JL608 Nagasaki → Haneda le
+2 décembre, 9 h 50 → 11 h 20, 81,27 €) et cinq réservations d’hôtel. Tout le reste
+est explicitement marqué :
 
 | Marque | Signification |
 | --- | --- |
-| `confirmé` | donnée fournie ou réservée — les dates, les nuits, les vols internationaux et cinq hôtels, à ce jour |
+| `confirmé` | donnée fournie ou réservée — les dates, les nuits, les trois vols et cinq hôtels, à ce jour |
 | `estimé` | valeur relevée sur une grille tarifaire ou un horaire public, à revérifier |
 | `à compléter` | rien n’a été fourni — **aucune valeur n’est inventée pour combler le trou** |
 
-Conséquences visibles dans le site : cinq étapes sur dix-huit ont un prix d’hôtel,
-et le vol intérieur Nagasaki → Tokyo n’est pas réservé. Le budget affiche
-« à compléter » là où il manque une donnée plutôt qu’un zéro — et, quand une part
-seulement est connue comme pour l’hébergement, le montant réel précédé d’un `≥`.
+Conséquence visible dans le site : cinq étapes sur dix-huit ont un prix d’hôtel.
+Le budget affiche « à compléter » là où il manque une donnée plutôt qu’un zéro —
+et, quand une part seulement est connue comme pour l’hébergement, le montant réel
+précédé d’un `≥`.
 
 **Une exception, tracée comme telle** : les deux trains de Shikoku qui encadrent
 l’étape de Matsuyama portent 6 000 ¥ chacun sur décision du voyageur. JR Shikoku ne
@@ -188,20 +190,30 @@ avions**, mais reste **un seul `Flight`** dans `src/data/trip.ts` : ce sont ses
 `segments` qui portent la compagnie, le numéro, les aéroports et les horaires. Les
 découper en quatre entrées aurait cassé toutes les phrases du site qui parlent du
 voyage — « arrivée à Shanghai », « décollage de Shanghai » — alors que le voyageur
-va à Tokyo.
+va à Tokyo. Le troisième vol, l’intérieur Nagasaki → Haneda, est direct : il n’a
+pas de `segments`, et ses propres champs décrivent tout le trajet.
+
+Son prix, en revanche, n’est **pas** dans `trip.ts` : ce vol est aussi le tronçon
+`j16.2` de l’itinéraire, et c’est là qu’il porte son tarif — même convention que
+les billets groupés, un montant écrit une seule fois. Il y est libellé en euros,
+seul tronçon de `journeys.ts` dans ce cas et seul à porter un prix `confirmé` ;
+c’est pourquoi les totaux de tronçons passent tous par `moneyJpy()` et jamais par
+`leg.cost.jpy`, qui le compterait pour zéro.
 
 `src/lib/vols.ts` déduit de cette liste ce dont les vues ont besoin, et rien de
 plus : `itineraire(vol)` rend le premier départ, le dernier arrivée, les escales
 avec leur durée, les numéros de vol, et **toutes les dates que le vol touche**.
 Deux conséquences :
 
-- **aucune durée de vol n’est affichée nulle part.** Les horaires sont locaux ;
+- **aucune durée de vol n’est calculée.** Les horaires sont locaux ;
   soustraire 12 h 25 de Paris à 7 h 00 de Shanghai ne veut rien dire sans le
   décalage de sept heures, et le changement d’heure tombe entre l’aller et le
   retour. Les durées d’**escale**, elles, sont calculées : les deux horaires sont
   au même aéroport, dans le même fuseau. `battement()` rend `undefined` — donc un
   `à compléter` — si l’escale enjambe minuit, un chiffre négatif étant pire que
-  pas de chiffre ;
+  pas de chiffre. La seule durée de vol du site, les 1 h 30 du tronçon
+  Nagasaki → Haneda, est **écrite** : c’est celle du billet, pas une soustraction ;
+
 - **un vol de nuit appartient à deux journées.** L’aller décolle le 5 novembre et
   atterrit le 6 : `volDuJour()` le fait apparaître les deux jours. `TRIP.period`
   commence pourtant le **6**, parce que c’est le séjour au Japon que tout le site
@@ -368,7 +380,7 @@ seul endroit à corriger.
 | `src/data/places.ts` | les points géographiques (gares, ports, cols, aéroports) et leurs coordonnées |
 | `src/data/journeys.ts` | les 17 déplacements et leurs 35 tronçons : mode, service, durée, prix, correspondances |
 | `src/data/bagages.ts` | les 4 envois de valise d’hôtel à hôtel (takkyūbin), les hébergements où ne rien faire livrer, et les règles de guichet |
-| `src/data/unites.ts` | les fabriques `yen()`, `mins()`, `tarifACompleter()` — partagées par les deux fichiers ci-dessus |
+| `src/data/unites.ts` | les fabriques `yen()`, `euros()`, `mins()`, `minsFermes()`, `tarifACompleter()` — partagées par les deux fichiers ci-dessus |
 | `src/data/hebergements.ts` | écrit à la main : les photos des hébergements réservés, rattachées par `accommodation.photosId`. Les seules images non libres du site (voir plus haut) |
 | `src/data/photos.generated.ts` | **généré** par `npm run photos` : la photo de chaque sujet nommé, avec auteur, licence et page source. Ne pas modifier à la main |
 | `src/data/galleries.generated.ts` | **généré** aussi : les galeries par étape, chargées seulement avec la vue Photos |
