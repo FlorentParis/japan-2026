@@ -5,6 +5,7 @@
  * MapLibre à chaque aller-retour serait lent et ferait clignoter le fond de carte.
  */
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { BandeauReseau } from './components/BandeauReseau'
 import { TRIP } from './data/trip'
 import { scrollBehavior } from './lib/motion'
 import { useTrip, VIEWS, type ThemeMode } from './state/trip-state'
@@ -136,6 +137,12 @@ export default function App() {
   return (
     <div className={`app app--${view}`}>
       <Header />
+
+      {/* Sous l'en-tête et hors du <main> : c'est l'état du site, pas le contenu
+          de la section ouverte — et il ne doit pas disparaître en changeant de
+          vue. Le bandeau ne rend rien quand il n'a rien à dire, c'est-à-dire
+          presque toujours. */}
+      <BandeauReseau />
 
       <main className="app-main">
         {view === 'aujourdhui' && <AujourdhuiView />}

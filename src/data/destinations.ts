@@ -84,8 +84,11 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     accommodation: {
       status: 'confirmed',
       name: 'Tabist Urban Stays Asakusa',
+      nameJa: 'Tabist アーバンステイズ浅草',
       area: 'Azumabashi, Sumida-ku — 7 min à pied de la gare d’Asakusa',
       address: '1-8-9 Azumabashi, Sumida-ku, Tokyo 130-0001',
+      addressJa: '〒130-0001 東京都墨田区吾妻橋1-8-9',
+      phone: '03-6456-1935',
       coord: [139.8009, 35.7085],
       checkIn: '15:00',
       checkOut: '10:00',
@@ -251,8 +254,11 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     accommodation: {
       status: 'confirmed',
       name: 'Toyoko Inn Matsumoto Ekimae Hommachi',
+      nameJa: '東横INN松本駅前本町',
       area: 'Hommachi — 6 min à pied de la sortie est de la gare de Matsumoto',
       address: '2-1-23 Chuou, Matsumoto city, Nagano 390-0811',
+      addressJa: '〒390-0811 長野県松本市中央2-1-23',
+      phone: '0263-36-1045',
       coord: [137.969223, 36.231873],
       checkIn: '15:00',
       checkOut: '10:00',
@@ -287,6 +293,15 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         description:
           'Plus ancienne école primaire du Japon conservée, ouverte en 1873 : une façade de style occidental interprétée par des charpentiers japonais, avec octogone et angelots. Classée trésor national.',
         photoQuery: 'Kaichi School Matsumoto',
+      },
+      {
+        id: 'matsumoto-kusama',
+        name: 'Musée d’art de la ville de Matsumoto',
+        category: 'art',
+        description:
+          'Yayoi Kusama est née à Matsumoto, et ce musée municipal lui consacre une exposition permanente, « 魂のおきどころ » — le lieu où repose l’âme. Sa Grande Citrouille géante de 2017 est dans la collection, ses pois couvrent la façade du bâtiment et jusqu’aux distributeurs de boissons du parvis. La salle Kazuo Kamiyama et les calligraphies de Shinzan Kamijō complètent la maison.',
+        photoQuery: 'Matsumoto City Museum of Art',
+        note: 'Fermé le lundi, et 9 h – 17 h (dernière entrée 16 h 30) — or le 9 novembre est le seul jour plein de l’étape, et c’est un lundi qui n’est pas férié. À placer donc l’après-midi du 8, à l’arrivée de l’Azusa, avant l’hôtel : 800 ¥, billet de la collection, qui inclut bien l’exposition Kusama. Yayoi Kusama est morte le 27 août 2026 ; le musée annonce que l’exposition reste en place, mais l’affluence et d’éventuels aménagements de novembre sont à vérifier sur matsumoto-artmuse.jp avant d’y aller. C’est aussi le fil qui relie cette étape aux citrouilles de Naoshima, le 23.',
       },
       {
         id: 'matsumoto-yohashira',
@@ -385,8 +400,13 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     accommodation: {
       status: 'confirmed',
       name: 'Guesthouse Tomoshibi',
+      // Le site s'annonce « 信州上高地／旅人の宿 ともしび » : la première moitié est
+      // la région, pas le nom. Seul le nom est gardé, c'est celui de l'enseigne.
+      nameJa: '旅人の宿 ともしび',
       area: 'Sawando, face au parking municipal n° 2 — l’entrée routière de Kamikōchi, hors de la vallée',
       address: '4166-2 Azumi, Matsumoto, Nagano 390-1514',
+      addressJa: '〒390-1514 長野県松本市安曇4166番地2',
+      phone: '0263-93-2338',
       coord: [137.6532006, 36.1655862],
       checkIn: '15:00',
       checkOut: '10:00',
@@ -509,8 +529,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     accommodation: {
       status: 'confirmed',
       name: 'Yutoria Resort Hida Takayama',
+      nameJa: 'ユトリアリゾート飛騨高山',
       area: 'Daishinmachi — 8 min en voiture de la gare de Takayama, hors du centre historique',
-      address: '5-141-2 Daishinmachi, Takayama, Gifu 506-0851',
+      // Numéro corrigé en `-1` : la fiche Rakuten, seule source citable ici, écrit
+      // deux fois 大新町5-141-1. Le `-2` relevé auparavant était une erreur de
+      // recopie, et une adresse fausse d'un numéro se paie en taxi qui tourne.
+      address: '5-141-1 Daishinmachi, Takayama, Gifu 506-0851',
+      addressJa: '〒506-0851 岐阜県高山市大新町5-141-1',
+      phone: '0577-57-5580',
       coord: [137.258621, 36.154137],
       checkIn: '15:00',
       checkOut: '11:00',
@@ -657,8 +683,16 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     accommodation: {
       status: 'confirmed',
       name: 'GuestHouse Shirakawa-Go INN',
+      nameJa: '白川郷イン',
       area: 'Hatogaya — 1 min de l’arrêt de bus, 18 min à pied du terminal de Shirakawa-gō',
       address: '445-1 Hatogaya, Shirakawa-mura, Ōno-gun, Gifu 501-5629',
+      // Le code postal ne figure pas dans l'adresse japonaise du site, qui écrit
+      // seulement 岐阜県大野郡白川村鳩谷445-1 ; il est repris de l'adresse en
+      // alphabet latin de la même page. Rien n'est déduit, les deux sont publiés.
+      addressJa: '〒501-5629 岐阜県大野郡白川村鳩谷445-1',
+      // Un numéro de mobile, et c'est celui que l'établissement donne : les cinq
+      // chambres n'ont pas de standard.
+      phone: '080-5133-1508',
       coord: [136.8995, 36.27194],
       checkIn: '16:00',
       checkOut: '10:00',
@@ -776,7 +810,29 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     ],
     dates: sejour('11-14', '11-16'),
     nights: nuits(2),
-    accommodation: { status: 'todo' },
+    // Réservation faite : il ne reste de cette étape que ce que la confirmation
+    // annonce — nom, adresse, horaires, prix. Les champs absents le sont parce
+    // qu'aucune source ne les donne encore, pas par oubli : ni téléphone, ni lien
+    // de réservation, ni photos publiées par l'établissement, et pas de
+    // coordonnées relevées — d'où l'absence de lien Maps et de point sur la carte
+    // tant que la position n'est pas vérifiée. Les inventer au numéro de rue
+    // enverrait un taxi à côté.
+    accommodation: {
+      status: 'confirmed',
+      name: 'Arigato Stay Kanazawa Katamachi',
+      area: 'Katamachi — centre de Kanazawa',
+      address: '1-11-15-1 Katamachi, Kanazawa, Ishikawa, Japon',
+      // Transposition du seul élément transposable sans source : Katamachi
+      // s'écrit 片町, et le reste de l'adresse est une suite de numéros que
+      // l'ordre japonais laisse en place. Pas de 〒 : le code postal n'est pas
+      // sur la confirmation, et un code faux vaut moins que pas de code.
+      addressJa: '石川県金沢市片町1-11-15-1',
+      checkIn: '15:00',
+      checkOut: '10:00',
+      nights: 2,
+      price: { jpy: 24774, certainty: 'confirmed', scope: 'total' },
+      note: 'Réservé : 24 774 ¥ pour les deux nuits. Arrivée à partir de 15 h, départ avant 10 h. Restent à demander à l’établissement : le téléphone, et s’il accepte la valise envoyée de Takayama pour une livraison désignée au 14 — elle arrive avant l’heure d’arrivée.',
+    },
     activities: [
       {
         id: 'kanazawa-kenrokuen',
@@ -836,6 +892,15 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         description:
           'Enceinte du clan Maeda, dont plusieurs portes et magasins ont été reconstruits à l’ancienne, sans clous. Le jardin Gyokusen’inmaru, restitué à partir de fouilles, est éclairé certains soirs.',
         photoQuery: 'Kanazawa Castle gate',
+      },
+      {
+        id: 'kanazawa-myoryuji',
+        name: 'Myōryū-ji, le « temple des ninjas »',
+        category: 'culture',
+        description:
+          'Bâti en 1643 par Maeda Toshitsune, ce temple était en réalité un poste avancé déguisé, tourné contre une attaque éventuelle du shogunat : le shogun interdisait les fortifications, un temple non. Deux étages en façade, quatre en vérité et sept niveaux de structure — vingt-trois pièces, vingt-neuf escaliers, des trappes, des passages dérobés, une tour de guet pour alerter le château, et un puits de 25 m dont on raconte qu’il y menait. Aucun ninja n’y a jamais mis les pieds : le surnom vient des pièges.',
+        photoQuery: 'Myoryuji Kanazawa',
+        note: 'La visite se fait en groupe guidé, et le temple demande de réserver — conditions, horaires et âge minimum à vérifier sur myouryuji.or.jp, dont le serveur répond mal. C’est le seul site du voyage qui puisse se refuser à l’improviste, donc à régler avant le 14 novembre.',
       },
     ],
     activitiesStatus: 'estimate',
@@ -1370,6 +1435,15 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         photoQuery: 'Kojima Jeans Street',
         note: 'Kojima est à une vingtaine de minutes en train et bus du quartier Bikan : peu compatible avec une seule nuit et une matinée. À écarter, sauf si le denim est une raison de venir.',
       },
+      {
+        id: 'kurashiki-korakuen',
+        name: 'Kōraku-en et le château d’Okayama',
+        category: 'nature',
+        description:
+          'L’un des trois grands jardins du Japon, avec le Kenroku-en vu à Kanazawa une semaine plus tôt : commandé en 1687 par le seigneur d’Okayama, en jardin de promenade — vastes pelouses, rizière et champ de thé encore cultivés, cours d’eau détournés de l’Asahi. Le château noir, dit « le corbeau », est juste en face, de l’autre côté de la rivière, et fait partie de la vue depuis le jardin.',
+        photoQuery: 'Korakuen Okayama garden',
+        note: 'Ce n’est pas un détour : le 21 novembre, le trajet vers Hiroshima passe déjà par Okayama, où l’on monte dans le Shinkansen (voir Transports). Le jardin ouvre à 8 h du 1ᵉʳ octobre au 19 mars, ferme à 17 h et n’a aucun jour de fermeture annuelle — donc faisable en laissant les bagages en consigne à la gare, une dizaine de minutes de tram. Voir deux des trois grands jardins à une semaine d’écart ne se présentera pas deux fois.',
+      },
     ],
     activitiesStatus: 'estimate',
     specialities: [
@@ -1639,6 +1713,15 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         description:
           'Une maison de bois centenaire de Honmura dont l’intérieur a été entièrement refait en béton par Tadao Andō : le contraste des deux matières est le sujet même du musée.',
         photoQuery: 'Ando Museum Naoshima',
+      },
+      {
+        id: 'naoshima-sento',
+        name: 'Naoshima Bath « I ♥ 湯 »',
+        category: 'onsen',
+        description:
+          'Une œuvre de Shinro Ōtake dans laquelle on se baigne pour de vrai. Benesse la présente comme un lieu fait autant pour délasser les habitants de l’île que pour les faire se croiser avec les visiteurs : c’est le seul musée du voyage où il faut se déshabiller.',
+        photoQuery: 'Naoshima bathhouse I Love Yu',
+        note: 'Ouvre à 13 h et ferme à 21 h, 660 ¥, près du port de Miyanoura : c’est donc exactement ce qui se fait à la fin d’une journée sur l’île, avant le ferry. Fermé le lundi mais ouvert les lundis fériés, avec report au lendemain — la même règle que les musées Benesse, et donc à vérifier en même temps qu’eux pour le 23 (voir les avertissements de l’étape). Pas de maillot, savon et shampoing fournis, serviette à acheter sur place.',
       },
     ],
     activitiesStatus: 'estimate',
@@ -2066,8 +2149,17 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         name: 'Parc de la Paix et musée de la bombe atomique',
         category: 'culture',
         description:
-          'L’hypocentre du 9 août 1945, marqué par une colonne noire, la statue de la Paix, et un musée qui retrace la ville d’avant et la destruction. La cathédrale d’Urakami, à côté, était la plus grande d’Asie de l’Est.',
+          'L’hypocentre du 9 août 1945, marqué par une colonne noire, la statue de la Paix, et un musée qui retrace la ville d’avant et la destruction. Un pan de mur de la cathédrale d’Urakami a été remonté dans le parc, et ce qui restait d’elle est exposé au musée.',
         photoQuery: 'Nagasaki Peace Park statue',
+      },
+      {
+        id: 'nagasaki-urakami',
+        name: 'Cathédrale d’Urakami',
+        category: 'culture',
+        description:
+          'Achevée en 1925 par les descendants des chrétiens cachés du quartier d’Urakami, après deux siècles et demi d’interdiction : c’était le plus grand édifice chrétien d’Asie-Pacifique. La bombe a explosé à 500 m de là, pendant une messe, et n’en a rien laissé. La ville proposait de garder les ruines et un autre terrain ; la communauté a voulu rebâtir au même endroit, et l’a fait en 1959, sur le plan d’origine. Dans la cour sont posées les statues et la cloche de l’Angélus retrouvées dans les gravats, et la Vierge au visage brûlé.',
+        photoQuery: 'Urakami Cathedral Nagasaki',
+        note: 'À dix minutes à pied du parc de la Paix, en haut de la colline : c’est la même visite, et c’est ce qui lui donne son sens — la ville a choisi de reconstruire plutôt que de garder la ruine, à l’inverse du dôme de Hiroshima vu le 21 ou 22. C’est une église en activité, pas un monument : horaires de visite subordonnés aux offices.',
       },
       {
         id: 'nagasaki-dejima',

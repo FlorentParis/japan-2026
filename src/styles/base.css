@@ -557,6 +557,63 @@ button {
   white-space: nowrap;
 }
 
+/* L'adresse japonaise est la seule utilisable sur place : elle est donc à la
+   taille du texte courant et à l'encre pleine, là où l'adresse latine est en
+   petit gris. C'est l'inverse de la hiérarchie qu'on écrirait depuis la France. */
+.hebergement__japonais {
+  display: flex;
+  flex-wrap: wrap;
+  /* Le bouton s'aligne sur la dernière ligne, celle de l'adresse : posé sur la
+     première, il avait l'air de n'appartenir qu'au nom au-dessus. */
+  align-items: last baseline;
+  gap: var(--gap-1);
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+
+/* Le nom sur une ligne, l'adresse en dessous : c'est dans cet ordre qu'on les lit
+   à voix haute, et le bloc se montre alors tel quel sur un écran de téléphone. */
+.hebergement__nom-ja {
+  display: block;
+  font-weight: 600;
+}
+
+.hebergement__telephone {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Le bouton reste discret : c'est un outil à côté du texte, pas une action
+   principale. Il ne s'écrase jamais sous l'adresse — d'où `flex-shrink: 0`. */
+.copier {
+  flex-shrink: 0;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.copier:hover {
+  color: var(--ink);
+  border-color: var(--ink-muted);
+}
+
+.copier--copie {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.copier--echec {
+  color: var(--todo);
+  border-color: var(--todo);
+}
+
 /* Aucune largeur maximale ici : depuis que les photos d'un hôtel défilent en
    frise, treize vues de chambre ne font plus un diaporama d'agence mais une
    pellicule basse, qui gagne au contraire à montrer plusieurs vignettes.

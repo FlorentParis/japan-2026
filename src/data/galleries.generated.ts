@@ -13,7 +13,7 @@ import type { Photo } from '../types'
 export const GALLERIES: Record<string, Photo[]> = {
   "tokyo-arrivee": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg/1920px-Skyscrapers_of_Shinjuku_2009_January.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg/1920px-Skyscrapers_of_Shinjuku_2009_January.jpg",
     width: 1920,
     height: 1024,
     file: "Skyscrapers of Shinjuku 2009 January.jpg",
@@ -22,7 +22,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Skyscrapers_of_Shinjuku_2009_January.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_a_sunny_morning_in_Tokyo_Japan.jpg/1920px-Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_a_sunny_morning_in_Tokyo_Japan.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_a_sunny_morning_in_Tokyo_Japan.jpg/1920px-Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_a_sunny_morning_in_Tokyo_Japan.jpg",
     width: 1920,
     height: 1528,
     file: "Kappabashi-dori streetcorner (Kitchen town - southern end) a sunny morning in Tokyo Japan.jpg",
@@ -31,7 +31,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kappabashi-dori_streetcorner_(Kitchen_town_-_southern_end)_a_sunny_morning_in_Tokyo_Japan.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/2018_Sumida_Hokusai_Museum_2.jpg/1920px-2018_Sumida_Hokusai_Museum_2.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/2018_Sumida_Hokusai_Museum_2.jpg/1920px-2018_Sumida_Hokusai_Museum_2.jpg",
     width: 1920,
     height: 1262,
     file: "2018 Sumida Hokusai Museum 2.jpg",
@@ -40,7 +40,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:2018_Sumida_Hokusai_Museum_2.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Kiyosumi_Teien_5.jpg/1920px-Kiyosumi_Teien_5.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Kiyosumi_Teien_5.jpg/1920px-Kiyosumi_Teien_5.jpg",
     width: 1920,
     height: 1255,
     file: "Kiyosumi Teien 5.jpg",
@@ -58,7 +58,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shibamata_Taishakuten.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/In_Mukojima-Hyakkaen_Garden.jpg/1920px-In_Mukojima-Hyakkaen_Garden.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/In_Mukojima-Hyakkaen_Garden.jpg/1920px-In_Mukojima-Hyakkaen_Garden.jpg",
     width: 1920,
     height: 1440,
     file: "In Mukojima-Hyakkaen Garden.jpg",
@@ -67,7 +67,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:In_Mukojima-Hyakkaen_Garden.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Edomae_Sushi_at_GR_Shopping_Mall_%2820210417155355%29.jpg/1920px-Edomae_Sushi_at_GR_Shopping_Mall_%2820210417155355%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Edomae_Sushi_at_GR_Shopping_Mall_%2820210417155355%29.jpg/1920px-Edomae_Sushi_at_GR_Shopping_Mall_%2820210417155355%29.jpg",
     width: 1920,
     height: 1280,
     file: "Edomae Sushi at GR Shopping Mall (20210417155355).jpg",
@@ -76,7 +76,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Edomae_Sushi_at_GR_Shopping_Mall_(20210417155355).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Ten_zaru_soba_by_WordRidden_at_E-Kagen_in_Brighton.jpg/1920px-Ten_zaru_soba_by_WordRidden_at_E-Kagen_in_Brighton.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Ten_zaru_soba_by_WordRidden_at_E-Kagen_in_Brighton.jpg/1920px-Ten_zaru_soba_by_WordRidden_at_E-Kagen_in_Brighton.jpg",
     width: 1920,
     height: 2560,
     file: "Ten zaru soba by WordRidden at E-Kagen in Brighton.jpg",
@@ -94,7 +94,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Ningyo-yaki_bakery_Asakusa_Tokyo.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Cream_and_red_coffee_cup-shaped_balconies%2C_Niimi_Tableware%2C_Kappabashi_Dougu_Street%2C_Tokyo%2C_Japan.jpg/1920px-Cream_and_red_coffee_cup-shaped_balconies%2C_Niimi_Tableware%2C_Kappabashi_Dougu_Street%2C_Tokyo%2C_Japan.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Cream_and_red_coffee_cup-shaped_balconies%2C_Niimi_Tableware%2C_Kappabashi_Dougu_Street%2C_Tokyo%2C_Japan.jpg/1920px-Cream_and_red_coffee_cup-shaped_balconies%2C_Niimi_Tableware%2C_Kappabashi_Dougu_Street%2C_Tokyo%2C_Japan.jpg",
     width: 1920,
     height: 1536,
     file: "Cream and red coffee cup-shaped balconies, Niimi Tableware, Kappabashi Dougu Street, Tokyo, Japan.jpg",
@@ -103,7 +103,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Cream_and_red_coffee_cup-shaped_balconies,_Niimi_Tableware,_Kappabashi_Dougu_Street,_Tokyo,_Japan.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_Tokyo_Japan.jpg/1920px-Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_Tokyo_Japan.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_Tokyo_Japan.jpg/1920px-Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_Tokyo_Japan.jpg",
     width: 1920,
     height: 1386,
     file: "Kappabashi-dori streetcorner (Kitchen town - southern end) Tokyo Japan.jpg",
@@ -112,7 +112,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kappabashi-dori_streetcorner_(Kitchen_town_-_southern_end)_Tokyo_Japan.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Asahi_Breweries_headquarters_building_with_the_Asahi_Flame_and_Skytree_at_blue_hour_with_full_moon%2C_Sumida-ku%2C_Tokyo%2C_Japan.jpg/1920px-Asahi_Breweries_headquarters_building_with_the_Asahi_Flame_and_Skytree_at_blue_hour_with_full_moon%2C_Sumida-ku%2C_Tokyo%2C_Japan.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Asahi_Breweries_headquarters_building_with_the_Asahi_Flame_and_Skytree_at_blue_hour_with_full_moon%2C_Sumida-ku%2C_Tokyo%2C_Japan.jpg/1920px-Asahi_Breweries_headquarters_building_with_the_Asahi_Flame_and_Skytree_at_blue_hour_with_full_moon%2C_Sumida-ku%2C_Tokyo%2C_Japan.jpg",
     width: 1920,
     height: 1536,
     file: "Asahi Breweries headquarters building with the Asahi Flame and Skytree at blue hour with full moon, Sumida-ku, Tokyo, Japan.jpg",
@@ -121,7 +121,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Asahi_Breweries_headquarters_building_with_the_Asahi_Flame_and_Skytree_at_blue_hour_with_full_moon,_Sumida-ku,_Tokyo,_Japan.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/X-shaped_pedestrian_Sakura_bridge_over_Sumida_river%2C_linking_Tait%C5%8D_and_Sumida_wards%2C_view_from_Tokyo_Skytree%2C_Japan.jpg/1920px-X-shaped_pedestrian_Sakura_bridge_over_Sumida_river%2C_linking_Tait%C5%8D_and_Sumida_wards%2C_view_from_Tokyo_Skytree%2C_Japan.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/X-shaped_pedestrian_Sakura_bridge_over_Sumida_river%2C_linking_Tait%C5%8D_and_Sumida_wards%2C_view_from_Tokyo_Skytree%2C_Japan.jpg/1920px-X-shaped_pedestrian_Sakura_bridge_over_Sumida_river%2C_linking_Tait%C5%8D_and_Sumida_wards%2C_view_from_Tokyo_Skytree%2C_Japan.jpg",
     width: 1920,
     height: 1280,
     file: "X-shaped pedestrian Sakura bridge over Sumida river, linking Taitō and Sumida wards, view from Tokyo Skytree, Japan.jpg",
@@ -130,7 +130,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:X-shaped_pedestrian_Sakura_bridge_over_Sumida_river,_linking_Tait%C5%8D_and_Sumida_wards,_view_from_Tokyo_Skytree,_Japan.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Kiyosumi_Garden_%289227333374%29.jpg/1920px-Kiyosumi_Garden_%289227333374%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Kiyosumi_Garden_%289227333374%29.jpg/1920px-Kiyosumi_Garden_%289227333374%29.jpg",
     width: 1920,
     height: 1440,
     file: "Kiyosumi Garden (9227333374).jpg",
@@ -139,7 +139,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kiyosumi_Garden_(9227333374).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Bird_%40_Kiyosumi_Garden_%289227371118%29.jpg/1920px-Bird_%40_Kiyosumi_Garden_%289227371118%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Bird_%40_Kiyosumi_Garden_%289227371118%29.jpg/1920px-Bird_%40_Kiyosumi_Garden_%289227371118%29.jpg",
     width: 1920,
     height: 1440,
     file: "Bird @ Kiyosumi Garden (9227371118).jpg",
@@ -148,7 +148,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Bird_@_Kiyosumi_Garden_(9227371118).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Garden_at_Shibamata_Taishakuten.jpg/1920px-Garden_at_Shibamata_Taishakuten.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Garden_at_Shibamata_Taishakuten.jpg/1920px-Garden_at_Shibamata_Taishakuten.jpg",
     width: 1920,
     height: 1440,
     file: "Garden at Shibamata Taishakuten.jpg",
@@ -157,7 +157,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Garden_at_Shibamata_Taishakuten.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Stone_pagoda_at_Shibamata_Taishakuten.jpg/1920px-Stone_pagoda_at_Shibamata_Taishakuten.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Stone_pagoda_at_Shibamata_Taishakuten.jpg/1920px-Stone_pagoda_at_Shibamata_Taishakuten.jpg",
     width: 1920,
     height: 2560,
     file: "Stone pagoda at Shibamata Taishakuten.jpg",
@@ -166,7 +166,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Stone_pagoda_at_Shibamata_Taishakuten.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Tatsuno-yu_Sento_Tokyo_4.jpg/1920px-Tatsuno-yu_Sento_Tokyo_4.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Tatsuno-yu_Sento_Tokyo_4.jpg/1920px-Tatsuno-yu_Sento_Tokyo_4.jpg",
     width: 1920,
     height: 1440,
     file: "Tatsuno-yu Sento Tokyo 4.jpg",
@@ -175,7 +175,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tatsuno-yu_Sento_Tokyo_4.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Sento_public_bath_Taishoyu_-_Joyful_Minowa_Shopping_Street_in_Taito_Ward_%2850119416172%29.jpg/1920px-Sento_public_bath_Taishoyu_-_Joyful_Minowa_Shopping_Street_in_Taito_Ward_%2850119416172%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Sento_public_bath_Taishoyu_-_Joyful_Minowa_Shopping_Street_in_Taito_Ward_%2850119416172%29.jpg/1920px-Sento_public_bath_Taishoyu_-_Joyful_Minowa_Shopping_Street_in_Taito_Ward_%2850119416172%29.jpg",
     width: 1920,
     height: 1280,
     file: "Sento public bath Taishoyu - Joyful Minowa Shopping Street in Taito Ward (50119416172).jpg",
@@ -184,7 +184,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Sento_public_bath_Taishoyu_-_Joyful_Minowa_Shopping_Street_in_Taito_Ward_(50119416172).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Yamanote_Line_205_series_set_33_AD_Train_Tokyo_Station_20030202.JPG/1920px-Yamanote_Line_205_series_set_33_AD_Train_Tokyo_Station_20030202.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Yamanote_Line_205_series_set_33_AD_Train_Tokyo_Station_20030202.JPG/1920px-Yamanote_Line_205_series_set_33_AD_Train_Tokyo_Station_20030202.JPG",
     width: 1920,
     height: 1440,
     file: "Yamanote Line 205 series set 33 AD Train Tokyo Station 20030202.JPG",
@@ -195,7 +195,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "matsumoto": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Matsumoto_Castle_Keep_Tower.jpg/1920px-Matsumoto_Castle_Keep_Tower.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Matsumoto_Castle_Keep_Tower.jpg/1920px-Matsumoto_Castle_Keep_Tower.jpg",
     width: 1920,
     height: 1280,
     file: "Matsumoto Castle Keep Tower.jpg",
@@ -204,7 +204,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Matsumoto_Castle_Keep_Tower.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/130608_Matsumoto_Castle_Matsumoto_Nagano_pref_Japan01bs5.jpg/1920px-130608_Matsumoto_Castle_Matsumoto_Nagano_pref_Japan01bs5.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/130608_Matsumoto_Castle_Matsumoto_Nagano_pref_Japan01bs5.jpg/1920px-130608_Matsumoto_Castle_Matsumoto_Nagano_pref_Japan01bs5.jpg",
     width: 1920,
     height: 1280,
     file: "130608 Matsumoto Castle Matsumoto Nagano pref Japan01bs5.jpg",
@@ -213,7 +213,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:130608_Matsumoto_Castle_Matsumoto_Nagano_pref_Japan01bs5.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Nakamachi_street_Matsumoto_Nagano_pref_Japan07n.jpg/1920px-Nakamachi_street_Matsumoto_Nagano_pref_Japan07n.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Nakamachi_street_Matsumoto_Nagano_pref_Japan07n.jpg/1920px-Nakamachi_street_Matsumoto_Nagano_pref_Japan07n.jpg",
     width: 1920,
     height: 1280,
     file: "Nakamachi street Matsumoto Nagano pref Japan07n.jpg",
@@ -222,7 +222,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nakamachi_street_Matsumoto_Nagano_pref_Japan07n.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Former_Kaichi_School_2009.jpg/1920px-Former_Kaichi_School_2009.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Former_Kaichi_School_2009.jpg/1920px-Former_Kaichi_School_2009.jpg",
     width: 1920,
     height: 1127,
     file: "Former Kaichi School 2009.jpg",
@@ -231,7 +231,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Former_Kaichi_School_2009.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Torii_of_Yohashira_Shrine%2C_Matsumoto_-_Jun_27%2C_2009.jpg/1920px-Torii_of_Yohashira_Shrine%2C_Matsumoto_-_Jun_27%2C_2009.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Matsumoto_city_museum_of_art07nt3200.jpg/1920px-Matsumoto_city_museum_of_art07nt3200.jpg",
+    width: 1920,
+    height: 1280,
+    file: "Matsumoto city museum of art07nt3200.jpg",
+    author: "663highland",
+    license: "CC BY 2.5",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Matsumoto_city_museum_of_art07nt3200.jpg",
+  },
+    {
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Torii_of_Yohashira_Shrine%2C_Matsumoto_-_Jun_27%2C_2009.jpg/1920px-Torii_of_Yohashira_Shrine%2C_Matsumoto_-_Jun_27%2C_2009.jpg",
     width: 1920,
     height: 1280,
     file: "Torii of Yohashira Shrine, Matsumoto - Jun 27, 2009.jpg",
@@ -240,7 +249,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Torii_of_Yohashira_Shrine,_Matsumoto_-_Jun_27,_2009.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Asama_Onsen_Center.jpg/1920px-Asama_Onsen_Center.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Asama_Onsen_Center.jpg/1920px-Asama_Onsen_Center.jpg",
     width: 1920,
     height: 1439,
     file: "Asama Onsen Center.jpg",
@@ -258,7 +267,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Basashi_slices.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Sanzoku_yaki_%28cropped%29.jpg/1920px-Sanzoku_yaki_%28cropped%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Sanzoku_yaki_%28cropped%29.jpg/1920px-Sanzoku_yaki_%28cropped%29.jpg",
     width: 1920,
     height: 1441,
     file: "Sanzoku yaki (cropped).jpg",
@@ -267,7 +276,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Sanzoku_yaki_(cropped).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Shinshu_Soba_at_Kawakami_An.jpg/1920px-Shinshu_Soba_at_Kawakami_An.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Shinshu_Soba_at_Kawakami_An.jpg/1920px-Shinshu_Soba_at_Kawakami_An.jpg",
     width: 1920,
     height: 2560,
     file: "Shinshu Soba at Kawakami An.jpg",
@@ -285,7 +294,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Daio_Wasabi_Farm,_Azumino_-_panoramio.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/130608_Nawate_shop_street_Matsumoto_Nagano_pref_Japan02n.jpg/1920px-130608_Nawate_shop_street_Matsumoto_Nagano_pref_Japan02n.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/130608_Nawate_shop_street_Matsumoto_Nagano_pref_Japan02n.jpg/1920px-130608_Nawate_shop_street_Matsumoto_Nagano_pref_Japan02n.jpg",
     width: 1920,
     height: 1276,
     file: "130608 Nawate shop street Matsumoto Nagano pref Japan02n.jpg",
@@ -294,7 +303,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:130608_Nawate_shop_street_Matsumoto_Nagano_pref_Japan02n.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/View_to_the_east_of_the_Metoba_River_from_Sensai_Bridge%2C_Matsumoto%2C_2016.jpg/1920px-View_to_the_east_of_the_Metoba_River_from_Sensai_Bridge%2C_Matsumoto%2C_2016.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/View_to_the_east_of_the_Metoba_River_from_Sensai_Bridge%2C_Matsumoto%2C_2016.jpg/1920px-View_to_the_east_of_the_Metoba_River_from_Sensai_Bridge%2C_Matsumoto%2C_2016.jpg",
     width: 1920,
     height: 1277,
     file: "View to the east of the Metoba River from Sensai Bridge, Matsumoto, 2016.jpg",
@@ -303,16 +312,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:View_to_the_east_of_the_Metoba_River_from_Sensai_Bridge,_Matsumoto,_2016.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/250425_Matsumoto_City_Hakari_Museum_Matsumoto_Nagano_pref_Japan04s3.jpg/1920px-250425_Matsumoto_City_Hakari_Museum_Matsumoto_Nagano_pref_Japan04s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/250425_Matsumoto_City_Hakari_Museum_Matsumoto_Nagano_pref_Japan01s3.jpg/1920px-250425_Matsumoto_City_Hakari_Museum_Matsumoto_Nagano_pref_Japan01s3.jpg",
     width: 1920,
     height: 1280,
-    file: "250425 Matsumoto City Hakari Museum Matsumoto Nagano pref Japan04s3.jpg",
+    file: "250425 Matsumoto City Hakari Museum Matsumoto Nagano pref Japan01s3.jpg",
     author: "663highland",
     license: "CC BY-SA 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:250425_Matsumoto_City_Hakari_Museum_Matsumoto_Nagano_pref_Japan04s3.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:250425_Matsumoto_City_Hakari_Museum_Matsumoto_Nagano_pref_Japan01s3.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Matsumoto_street.jpg/1920px-Matsumoto_street.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Matsumoto_street.jpg/1920px-Matsumoto_street.jpg",
     width: 1920,
     height: 1440,
     file: "Matsumoto street.jpg",
@@ -321,7 +330,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Matsumoto_street.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Matsumoto-Station%2C_Alps-Exit_%28West-Exit%29_%2832410528112%29.jpg/1920px-Matsumoto-Station%2C_Alps-Exit_%28West-Exit%29_%2832410528112%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Matsumoto-Station%2C_Alps-Exit_%28West-Exit%29_%2832410528112%29.jpg/1920px-Matsumoto-Station%2C_Alps-Exit_%28West-Exit%29_%2832410528112%29.jpg",
     width: 1920,
     height: 1440,
     file: "Matsumoto-Station, Alps-Exit (West-Exit) (32410528112).jpg",
@@ -339,7 +348,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:JRE_DD16-11%2BView_Coaster_Kazekko_at_Matsumoto_Station_2016-07-02.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/JR_Shinonoi-Line_Minami-Matsumoto_Station_building.jpg/1920px-JR_Shinonoi-Line_Minami-Matsumoto_Station_building.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/JR_Shinonoi-Line_Minami-Matsumoto_Station_building.jpg/1920px-JR_Shinonoi-Line_Minami-Matsumoto_Station_building.jpg",
     width: 1920,
     height: 1046,
     file: "JR Shinonoi-Line Minami-Matsumoto Station building.jpg",
@@ -348,7 +357,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:JR_Shinonoi-Line_Minami-Matsumoto_Station_building.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Matsumoto_Station_20170204.jpg/1920px-Matsumoto_Station_20170204.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Matsumoto_Station_20170204.jpg/1920px-Matsumoto_Station_20170204.jpg",
     width: 1920,
     height: 1280,
     file: "Matsumoto Station 20170204.jpg",
@@ -357,7 +366,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Matsumoto_Station_20170204.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Metoba_river_bank%2C_near_Yohashira-jinja%2C_Matsumoto%2C_2016.jpg/1920px-Metoba_river_bank%2C_near_Yohashira-jinja%2C_Matsumoto%2C_2016.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Metoba_river_bank%2C_near_Yohashira-jinja%2C_Matsumoto%2C_2016.jpg/1920px-Metoba_river_bank%2C_near_Yohashira-jinja%2C_Matsumoto%2C_2016.jpg",
     width: 1920,
     height: 1277,
     file: "Metoba river bank, near Yohashira-jinja, Matsumoto, 2016.jpg",
@@ -365,19 +374,10 @@ export const GALLERIES: Record<string, Photo[]> = {
     license: "CC0",
     sourcePage: "https://commons.wikimedia.org/wiki/File:Metoba_river_bank,_near_Yohashira-jinja,_Matsumoto,_2016.jpg",
   },
-    {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/View_to_the_west_of_the_Metoba_River_from_Nakano_Bridge%2C_Matsumoto%2C_2016.jpg/1920px-View_to_the_west_of_the_Metoba_River_from_Nakano_Bridge%2C_Matsumoto%2C_2016.jpg",
-    width: 1920,
-    height: 1277,
-    file: "View to the west of the Metoba River from Nakano Bridge, Matsumoto, 2016.jpg",
-    author: "DimiTalen",
-    license: "CC0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:View_to_the_west_of_the_Metoba_River_from_Nakano_Bridge,_Matsumoto,_2016.jpg",
-  },
   ],
   "kamikochi": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Kamikochi_-_Kamikochi6538.jpg/1920px-Kamikochi_-_Kamikochi6538.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5e/Kamikochi_-_Kamikochi6538.jpg/1920px-Kamikochi_-_Kamikochi6538.jpg",
     width: 1920,
     height: 1280,
     file: "Kamikochi - Kamikochi6538.jpg",
@@ -395,7 +395,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kamikochi_Kappabashi_Bridge.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Kamikochi_Taisho_ike_stand_decayed_Tree.jpg/1920px-Kamikochi_Taisho_ike_stand_decayed_Tree.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Kamikochi_Taisho_ike_stand_decayed_Tree.jpg/1920px-Kamikochi_Taisho_ike_stand_decayed_Tree.jpg",
     width: 1920,
     height: 1440,
     file: "Kamikochi Taisho ike stand decayed Tree.jpg",
@@ -404,7 +404,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kamikochi_Taisho_ike_stand_decayed_Tree.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/150920_Myojin-ike_Kamikochi_Japan06n.jpg/1920px-150920_Myojin-ike_Kamikochi_Japan06n.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/150920_Myojin-ike_Kamikochi_Japan06n.jpg/1920px-150920_Myojin-ike_Kamikochi_Japan06n.jpg",
     width: 1920,
     height: 1280,
     file: "150920 Myojin-ike Kamikochi Japan06n.jpg",
@@ -422,7 +422,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kamikochi_Tokusawa_district_Aerial_photograph.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Photographer_at_Kamikochi_River_%2831243162663%29.jpg/1920px-Photographer_at_Kamikochi_River_%2831243162663%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Photographer_at_Kamikochi_River_%2831243162663%29.jpg/1920px-Photographer_at_Kamikochi_River_%2831243162663%29.jpg",
     width: 1920,
     height: 1080,
     file: "Photographer at Kamikochi River (31243162663).jpg",
@@ -431,7 +431,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Photographer_at_Kamikochi_River_(31243162663).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Salt-grilled_charr_%E5%B2%A9%E9%AD%9A%E3%81%AE%E5%A1%A9%E7%84%BC%E3%81%8D.jpg/1920px-Salt-grilled_charr_%E5%B2%A9%E9%AD%9A%E3%81%AE%E5%A1%A9%E7%84%BC%E3%81%8D.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Salt-grilled_charr_%E5%B2%A9%E9%AD%9A%E3%81%AE%E5%A1%A9%E7%84%BC%E3%81%8D.jpg/1920px-Salt-grilled_charr_%E5%B2%A9%E9%AD%9A%E3%81%AE%E5%A1%A9%E7%84%BC%E3%81%8D.jpg",
     width: 1920,
     height: 1440,
     file: "Salt-grilled charr 岩魚の塩焼き.jpg",
@@ -458,7 +458,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kamikochi_and_Mount_Hotaka_1999-05-22.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Kamik%C5%8Dchi%2C_Hida_Mountains_range%2C_Nagano_Prefecture%3B_September_2007_%2810%29.jpg/1920px-Kamik%C5%8Dchi%2C_Hida_Mountains_range%2C_Nagano_Prefecture%3B_September_2007_%2810%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Kamik%C5%8Dchi%2C_Hida_Mountains_range%2C_Nagano_Prefecture%3B_September_2007_%2810%29.jpg/1920px-Kamik%C5%8Dchi%2C_Hida_Mountains_range%2C_Nagano_Prefecture%3B_September_2007_%2810%29.jpg",
     width: 1920,
     height: 1280,
     file: "Kamikōchi, Hida Mountains range, Nagano Prefecture; September 2007 (10).jpg",
@@ -467,7 +467,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kamik%C5%8Dchi,_Hida_Mountains_range,_Nagano_Prefecture;_September_2007_(10).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Kamikochi_Bus_Terminal_02.JPG/1920px-Kamikochi_Bus_Terminal_02.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/Kamikochi_Bus_Terminal_02.JPG/1920px-Kamikochi_Bus_Terminal_02.JPG",
     width: 1920,
     height: 1440,
     file: "Kamikochi Bus Terminal 02.JPG",
@@ -476,7 +476,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kamikochi_Bus_Terminal_02.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/ALPICO_Kotsu_Sawando_Parking_Lot_2018.jpg/1920px-ALPICO_Kotsu_Sawando_Parking_Lot_2018.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/ALPICO_Kotsu_Sawando_Parking_Lot_2018.jpg/1920px-ALPICO_Kotsu_Sawando_Parking_Lot_2018.jpg",
     width: 1920,
     height: 1440,
     file: "ALPICO Kotsu Sawando Parking Lot 2018.jpg",
@@ -485,7 +485,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:ALPICO_Kotsu_Sawando_Parking_Lot_2018.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Kamikochi_Azusa_River.jpg/1920px-Kamikochi_Azusa_River.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Kamikochi_Azusa_River.jpg/1920px-Kamikochi_Azusa_River.jpg",
     width: 1920,
     height: 1440,
     file: "Kamikochi Azusa River.jpg",
@@ -503,7 +503,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kamikochi_Taisho-ike_busstop.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Kamikochi_Taisho-ike03s4s3200.jpg/1920px-Kamikochi_Taisho-ike03s4s3200.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Kamikochi_Taisho-ike03s4s3200.jpg/1920px-Kamikochi_Taisho-ike03s4s3200.jpg",
     width: 1920,
     height: 1280,
     file: "Kamikochi Taisho-ike03s4s3200.jpg",
@@ -512,7 +512,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kamikochi_Taisho-ike03s4s3200.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/View_from_Kappabashi_Bridge_in_Kamikochi_1.jpg/1920px-View_from_Kappabashi_Bridge_in_Kamikochi_1.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/View_from_Kappabashi_Bridge_in_Kamikochi_1.jpg/1920px-View_from_Kappabashi_Bridge_in_Kamikochi_1.jpg",
     width: 1920,
     height: 1440,
     file: "View from Kappabashi Bridge in Kamikochi 1.jpg",
@@ -521,18 +521,18 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:View_from_Kappabashi_Bridge_in_Kamikochi_1.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/150920_Taisho-ike_Kamikochi_Japan04n.jpg/1920px-150920_Taisho-ike_Kamikochi_Japan04n.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/150920_Taisho-ike_Kamikochi_Japan01n.jpg/1920px-150920_Taisho-ike_Kamikochi_Japan01n.jpg",
     width: 1920,
-    height: 1280,
-    file: "150920 Taisho-ike Kamikochi Japan04n.jpg",
+    height: 2880,
+    file: "150920 Taisho-ike Kamikochi Japan01n.jpg",
     author: "663highland",
     license: "CC BY 2.5",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:150920_Taisho-ike_Kamikochi_Japan04n.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:150920_Taisho-ike_Kamikochi_Japan01n.jpg",
   },
   ],
   "takayama": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Takayama%27s_Early_Winter_Welcome_%28NE%29.jpg/1920px-Takayama%27s_Early_Winter_Welcome_%28NE%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Takayama%27s_Early_Winter_Welcome_%28NE%29.jpg/1920px-Takayama%27s_Early_Winter_Welcome_%28NE%29.jpg",
     width: 1920,
     height: 1118,
     file: "Takayama's Early Winter Welcome (NE).jpg",
@@ -541,7 +541,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takayama%27s_Early_Winter_Welcome_(NE).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Sanmachi_Takayama06ds3872.jpg/1920px-Sanmachi_Takayama06ds3872.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Sanmachi_Takayama06ds3872.jpg/1920px-Sanmachi_Takayama06ds3872.jpg",
     width: 1920,
     height: 1285,
     file: "Sanmachi Takayama06ds3872.jpg",
@@ -550,7 +550,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Sanmachi_Takayama06ds3872.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Hida-Takayama_Miyagawa_Morning_Market_%2815668520238%29.jpg/1920px-Hida-Takayama_Miyagawa_Morning_Market_%2815668520238%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Hida-Takayama_Miyagawa_Morning_Market_%2815668520238%29.jpg/1920px-Hida-Takayama_Miyagawa_Morning_Market_%2815668520238%29.jpg",
     width: 1920,
     height: 1440,
     file: "Hida-Takayama Miyagawa Morning Market (15668520238).jpg",
@@ -559,7 +559,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hida-Takayama_Miyagawa_Morning_Market_(15668520238).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Takayama_Jinya_inside_view_201706.jpg/1920px-Takayama_Jinya_inside_view_201706.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Takayama_Jinya_inside_view_201706.jpg/1920px-Takayama_Jinya_inside_view_201706.jpg",
     width: 1920,
     height: 1280,
     file: "Takayama Jinya inside view 201706.jpg",
@@ -568,7 +568,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takayama_Jinya_inside_view_201706.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Takayama_festival_Yatai_Kaikan_No%2C1.JPG/1920px-Takayama_festival_Yatai_Kaikan_No%2C1.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Takayama_festival_Yatai_Kaikan_No%2C1.JPG/1920px-Takayama_festival_Yatai_Kaikan_No%2C1.JPG",
     width: 1920,
     height: 1440,
     file: "Takayama festival Yatai Kaikan No,1.JPG",
@@ -577,7 +577,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takayama_festival_Yatai_Kaikan_No,1.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/20131010_51_Takayama_-_Higashiyama_Walking_Course_%2810491225116%29.jpg/1920px-20131010_51_Takayama_-_Higashiyama_Walking_Course_%2810491225116%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/20131010_51_Takayama_-_Higashiyama_Walking_Course_%2810491225116%29.jpg/1920px-20131010_51_Takayama_-_Higashiyama_Walking_Course_%2810491225116%29.jpg",
     width: 1920,
     height: 1440,
     file: "20131010 51 Takayama - Higashiyama Walking Course (10491225116).jpg",
@@ -595,7 +595,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hida_Folk_Village,_Takayama_-_panoramio.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Grilling_Hida_Beef_%28Takayama_Street_Food%29_%2835910429046%29.jpg/1920px-Grilling_Hida_Beef_%28Takayama_Street_Food%29_%2835910429046%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Grilling_Hida_Beef_%28Takayama_Street_Food%29_%2835910429046%29.jpg/1920px-Grilling_Hida_Beef_%28Takayama_Street_Food%29_%2835910429046%29.jpg",
     width: 1920,
     height: 2260,
     file: "Grilling Hida Beef (Takayama Street Food) (35910429046).jpg",
@@ -604,7 +604,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Grilling_Hida_Beef_(Takayama_Street_Food)_(35910429046).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Hida_beef_with_Hoba-miso.jpg/1920px-Hida_beef_with_Hoba-miso.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Hida_beef_with_Hoba-miso.jpg/1920px-Hida_beef_with_Hoba-miso.jpg",
     width: 1920,
     height: 2107,
     file: "Hida beef with Hoba-miso.jpg",
@@ -613,7 +613,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hida_beef_with_Hoba-miso.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Midarashi_dango%2C_local_food_in_Takayama%2C_Takayama%2C_2016.jpg/1920px-Midarashi_dango%2C_local_food_in_Takayama%2C_Takayama%2C_2016.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Midarashi_dango%2C_local_food_in_Takayama%2C_Takayama%2C_2016.jpg/1920px-Midarashi_dango%2C_local_food_in_Takayama%2C_Takayama%2C_2016.jpg",
     width: 1920,
     height: 1440,
     file: "Midarashi dango, local food in Takayama, Takayama, 2016.jpg",
@@ -622,7 +622,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Midarashi_dango,_local_food_in_Takayama,_Takayama,_2016.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Sugidama_%28cedar_ball%29_outside_sake_brewery%2C_Takayama%2C_May_2017.jpg/1920px-Sugidama_%28cedar_ball%29_outside_sake_brewery%2C_Takayama%2C_May_2017.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Sugidama_%28cedar_ball%29_outside_sake_brewery%2C_Takayama%2C_May_2017.jpg/1920px-Sugidama_%28cedar_ball%29_outside_sake_brewery%2C_Takayama%2C_May_2017.jpg",
     width: 1920,
     height: 1280,
     file: "Sugidama (cedar ball) outside sake brewery, Takayama, May 2017.jpg",
@@ -631,7 +631,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Sugidama_(cedar_ball)_outside_sake_brewery,_Takayama,_May_2017.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Takayama%2C_Part_III_-_Takayama6358.jpg/1920px-Takayama%2C_Part_III_-_Takayama6358.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Takayama%2C_Part_III_-_Takayama6358.jpg/1920px-Takayama%2C_Part_III_-_Takayama6358.jpg",
     width: 1920,
     height: 1280,
     file: "Takayama, Part III - Takayama6358.jpg",
@@ -640,7 +640,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takayama,_Part_III_-_Takayama6358.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Takayama%2C_Part_I_-_Takayama6382.jpg/1920px-Takayama%2C_Part_I_-_Takayama6382.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Takayama%2C_Part_I_-_Takayama6382.jpg/1920px-Takayama%2C_Part_I_-_Takayama6382.jpg",
     width: 1920,
     height: 1280,
     file: "Takayama, Part I - Takayama6382.jpg",
@@ -649,7 +649,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takayama,_Part_I_-_Takayama6382.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Bank_on_east_side_of_Miyagawa_River_in_Ichinomiya%2C_Takayama%2C_Gifu.JPG/1920px-Bank_on_east_side_of_Miyagawa_River_in_Ichinomiya%2C_Takayama%2C_Gifu.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Bank_on_east_side_of_Miyagawa_River_in_Ichinomiya%2C_Takayama%2C_Gifu.JPG/1920px-Bank_on_east_side_of_Miyagawa_River_in_Ichinomiya%2C_Takayama%2C_Gifu.JPG",
     width: 1920,
     height: 1440,
     file: "Bank on east side of Miyagawa River in Ichinomiya, Takayama, Gifu.JPG",
@@ -658,7 +658,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Bank_on_east_side_of_Miyagawa_River_in_Ichinomiya,_Takayama,_Gifu.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Conjunction_of_Miyagawa_River_and_Kohachigagawa_River_from_train_of_Takayama_Main_Line.JPG/1920px-Conjunction_of_Miyagawa_River_and_Kohachigagawa_River_from_train_of_Takayama_Main_Line.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Conjunction_of_Miyagawa_River_and_Kohachigagawa_River_from_train_of_Takayama_Main_Line.JPG/1920px-Conjunction_of_Miyagawa_River_and_Kohachigagawa_River_from_train_of_Takayama_Main_Line.JPG",
     width: 1920,
     height: 1440,
     file: "Conjunction of Miyagawa River and Kohachigagawa River from train of Takayama Main Line.JPG",
@@ -667,7 +667,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Conjunction_of_Miyagawa_River_and_Kohachigagawa_River_from_train_of_Takayama_Main_Line.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Takayama_Station.jpg/1920px-Takayama_Station.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Takayama_Station.jpg/1920px-Takayama_Station.jpg",
     width: 1920,
     height: 1398,
     file: "Takayama Station.jpg",
@@ -676,7 +676,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takayama_Station.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Takayama_Train_and_Bus_Station_from_above.jpg/1920px-Takayama_Train_and_Bus_Station_from_above.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Takayama_Train_and_Bus_Station_from_above.jpg/1920px-Takayama_Train_and_Bus_Station_from_above.jpg",
     width: 1920,
     height: 1440,
     file: "Takayama Train and Bus Station from above.jpg",
@@ -685,7 +685,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takayama_Train_and_Bus_Station_from_above.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/JR_Hida-Furukawa_Station_ac_%281%29.jpg/1920px-JR_Hida-Furukawa_Station_ac_%281%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/JR_Hida-Furukawa_Station_ac_%281%29.jpg/1920px-JR_Hida-Furukawa_Station_ac_%281%29.jpg",
     width: 1920,
     height: 1277,
     file: "JR Hida-Furukawa Station ac (1).jpg",
@@ -694,16 +694,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:JR_Hida-Furukawa_Station_ac_(1).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Derailing_point_of_Hida-Furukawa_station.jpg/1920px-Derailing_point_of_Hida-Furukawa_station.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/View_of_Hida-Furukawa_Station.JPG/1920px-View_of_Hida-Furukawa_Station.JPG",
     width: 1920,
     height: 1440,
-    file: "Derailing point of Hida-Furukawa station.jpg",
-    author: "運動会プロテインパワー",
+    file: "View of Hida-Furukawa Station.JPG",
+    author: "そらみみ",
     license: "CC BY-SA 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Derailing_point_of_Hida-Furukawa_station.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:View_of_Hida-Furukawa_Station.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Little_shrine_near_Kajibashi_Bridge_in_Takayama%2C_Gifu_at_night.jpg/1920px-Little_shrine_near_Kajibashi_Bridge_in_Takayama%2C_Gifu_at_night.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Little_shrine_near_Kajibashi_Bridge_in_Takayama%2C_Gifu_at_night.jpg/1920px-Little_shrine_near_Kajibashi_Bridge_in_Takayama%2C_Gifu_at_night.jpg",
     width: 1920,
     height: 2560,
     file: "Little shrine near Kajibashi Bridge in Takayama, Gifu at night.jpg",
@@ -714,7 +714,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "shirakawago": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ogi_Shirakawa-g%C5%8D%2C_Gifu%2C_Japan.jpg/1920px-Ogi_Shirakawa-g%C5%8D%2C_Gifu%2C_Japan.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Ogi_Shirakawa-g%C5%8D%2C_Gifu%2C_Japan.jpg/1920px-Ogi_Shirakawa-g%C5%8D%2C_Gifu%2C_Japan.jpg",
     width: 1920,
     height: 1280,
     file: "Ogi Shirakawa-gō, Gifu, Japan.jpg",
@@ -723,7 +723,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Ogi_Shirakawa-g%C5%8D,_Gifu,_Japan.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Ogimachi_Village-02.jpg/1920px-Ogimachi_Village-02.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Ogimachi_Village-02.jpg/1920px-Ogimachi_Village-02.jpg",
     width: 1920,
     height: 1440,
     file: "Ogimachi Village-02.jpg",
@@ -732,7 +732,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Ogimachi_Village-02.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Shirakawago_village_%2812723707294%29.jpg/1920px-Shirakawago_village_%2812723707294%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Shirakawago_village_%2812723707294%29.jpg/1920px-Shirakawago_village_%2812723707294%29.jpg",
     width: 1920,
     height: 2880,
     file: "Shirakawago village (12723707294).jpg",
@@ -741,7 +741,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shirakawago_village_(12723707294).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Brook_along_the_garden_of_Wada_House%2C_Ogimachi%2C_Shirakawa.jpg/1920px-Brook_along_the_garden_of_Wada_House%2C_Ogimachi%2C_Shirakawa.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1e/Brook_along_the_garden_of_Wada_House%2C_Ogimachi%2C_Shirakawa.jpg/1920px-Brook_along_the_garden_of_Wada_House%2C_Ogimachi%2C_Shirakawa.jpg",
     width: 1920,
     height: 2887,
     file: "Brook along the garden of Wada House, Ogimachi, Shirakawa.jpg",
@@ -750,7 +750,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Brook_along_the_garden_of_Wada_House,_Ogimachi,_Shirakawa.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/View_of_rice_fields_and_buildings_from_near_Myozenji_Museum_%E6%98%8E%E5%96%84%E5%AF%BA%E9%83%B7%E5%9C%9F%E9%A4%A8_in_Shirakawa%2C_Gifu%2C_Japan_%28223%29.jpg/1920px-View_of_rice_fields_and_buildings_from_near_Myozenji_Museum_%E6%98%8E%E5%96%84%E5%AF%BA%E9%83%B7%E5%9C%9F%E9%A4%A8_in_Shirakawa%2C_Gifu%2C_Japan_%28223%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/View_of_rice_fields_and_buildings_from_near_Myozenji_Museum_%E6%98%8E%E5%96%84%E5%AF%BA%E9%83%B7%E5%9C%9F%E9%A4%A8_in_Shirakawa%2C_Gifu%2C_Japan_%28223%29.jpg/1920px-View_of_rice_fields_and_buildings_from_near_Myozenji_Museum_%E6%98%8E%E5%96%84%E5%AF%BA%E9%83%B7%E5%9C%9F%E9%A4%A8_in_Shirakawa%2C_Gifu%2C_Japan_%28223%29.jpg",
     width: 1920,
     height: 1440,
     file: "View of rice fields and buildings from near Myozenji Museum 明善寺郷土館 in Shirakawa, Gifu, Japan (223).jpg",
@@ -786,7 +786,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Ayu_no_Shioyaki.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Hakusan_Shirakawa-go_White_Road_P11_20251106.jpg/1920px-Hakusan_Shirakawa-go_White_Road_P11_20251106.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Hakusan_Shirakawa-go_White_Road_P11_20251106.jpg/1920px-Hakusan_Shirakawa-go_White_Road_P11_20251106.jpg",
     width: 1920,
     height: 1440,
     file: "Hakusan Shirakawa-go White Road P11 20251106.jpg",
@@ -795,7 +795,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hakusan_Shirakawa-go_White_Road_P11_20251106.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Hakusan_Shirakawa-go_White_Road_Kunimi_Observatory_20251106.jpg/1920px-Hakusan_Shirakawa-go_White_Road_Kunimi_Observatory_20251106.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Hakusan_Shirakawa-go_White_Road_Kunimi_Observatory_20251106.jpg/1920px-Hakusan_Shirakawa-go_White_Road_Kunimi_Observatory_20251106.jpg",
     width: 1920,
     height: 1440,
     file: "Hakusan Shirakawa-go White Road Kunimi Observatory 20251106.jpg",
@@ -804,7 +804,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hakusan_Shirakawa-go_White_Road_Kunimi_Observatory_20251106.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Shirakawa-go_-_Shirakawa178.jpg/1920px-Shirakawa-go_-_Shirakawa178.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Shirakawa-go_-_Shirakawa178.jpg/1920px-Shirakawa-go_-_Shirakawa178.jpg",
     width: 1920,
     height: 1280,
     file: "Shirakawa-go - Shirakawa178.jpg",
@@ -813,7 +813,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shirakawa-go_-_Shirakawa178.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Gassho-style_houses_at_World_Heritage_Site_in_Shirakawa_Village%2C_Gifu%2C_Japan_%28220%29.jpg/1920px-Gassho-style_houses_at_World_Heritage_Site_in_Shirakawa_Village%2C_Gifu%2C_Japan_%28220%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Gassho-style_houses_at_World_Heritage_Site_in_Shirakawa_Village%2C_Gifu%2C_Japan_%28220%29.jpg/1920px-Gassho-style_houses_at_World_Heritage_Site_in_Shirakawa_Village%2C_Gifu%2C_Japan_%28220%29.jpg",
     width: 1920,
     height: 1440,
     file: "Gassho-style houses at World Heritage Site in Shirakawa Village, Gifu, Japan (220).jpg",
@@ -822,7 +822,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Gassho-style_houses_at_World_Heritage_Site_in_Shirakawa_Village,_Gifu,_Japan_(220).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Rice_field_in_front_of_%E3%81%9C%E3%82%93%E5%8A%A9_in_Shirakawa%2C_Gifu%2C_Japan_%28219%29.jpg/1920px-Rice_field_in_front_of_%E3%81%9C%E3%82%93%E5%8A%A9_in_Shirakawa%2C_Gifu%2C_Japan_%28219%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Rice_field_in_front_of_%E3%81%9C%E3%82%93%E5%8A%A9_in_Shirakawa%2C_Gifu%2C_Japan_%28219%29.jpg/1920px-Rice_field_in_front_of_%E3%81%9C%E3%82%93%E5%8A%A9_in_Shirakawa%2C_Gifu%2C_Japan_%28219%29.jpg",
     width: 1920,
     height: 1440,
     file: "Rice field in front of ぜん助 in Shirakawa, Gifu, Japan (219).jpg",
@@ -831,7 +831,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Rice_field_in_front_of_%E3%81%9C%E3%82%93%E5%8A%A9_in_Shirakawa,_Gifu,_Japan_(219).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/View_of_rice_fields_from_Gassho_%E5%90%88%E6%8E%8C%E5%BA%B5_in_Shirakawa%2C_Gifu%2C_Japan_%28222%29.jpg/1920px-View_of_rice_fields_from_Gassho_%E5%90%88%E6%8E%8C%E5%BA%B5_in_Shirakawa%2C_Gifu%2C_Japan_%28222%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/View_of_rice_fields_from_Gassho_%E5%90%88%E6%8E%8C%E5%BA%B5_in_Shirakawa%2C_Gifu%2C_Japan_%28222%29.jpg/1920px-View_of_rice_fields_from_Gassho_%E5%90%88%E6%8E%8C%E5%BA%B5_in_Shirakawa%2C_Gifu%2C_Japan_%28222%29.jpg",
     width: 1920,
     height: 1440,
     file: "View of rice fields from Gassho 合掌庵 in Shirakawa, Gifu, Japan (222).jpg",
@@ -840,7 +840,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:View_of_rice_fields_from_Gassho_%E5%90%88%E6%8E%8C%E5%BA%B5_in_Shirakawa,_Gifu,_Japan_(222).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Shirakawa-goFireplace.jpg/1920px-Shirakawa-goFireplace.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Shirakawa-goFireplace.jpg/1920px-Shirakawa-goFireplace.jpg",
     width: 1920,
     height: 2880,
     file: "Shirakawa-goFireplace.jpg",
@@ -849,7 +849,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shirakawa-goFireplace.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Scene_at_Shirakawa-go_Bus_Terminal_01.jpg/1920px-Scene_at_Shirakawa-go_Bus_Terminal_01.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Scene_at_Shirakawa-go_Bus_Terminal_01.jpg/1920px-Scene_at_Shirakawa-go_Bus_Terminal_01.jpg",
     width: 1920,
     height: 1440,
     file: "Scene at Shirakawa-go Bus Terminal 01.jpg",
@@ -858,7 +858,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Scene_at_Shirakawa-go_Bus_Terminal_01.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/View_of_Shirakawa-go_Bus_Terminal.jpg/1920px-View_of_Shirakawa-go_Bus_Terminal.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/View_of_Shirakawa-go_Bus_Terminal.jpg/1920px-View_of_Shirakawa-go_Bus_Terminal.jpg",
     width: 1920,
     height: 607,
     file: "View of Shirakawa-go Bus Terminal.jpg",
@@ -867,7 +867,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:View_of_Shirakawa-go_Bus_Terminal.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Shirakawa-go_002.jpg/1920px-Shirakawa-go_002.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Shirakawa-go_002.jpg/1920px-Shirakawa-go_002.jpg",
     width: 1920,
     height: 1279,
     file: "Shirakawa-go 002.jpg",
@@ -876,7 +876,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shirakawa-go_002.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Shirakawago.jpg/1920px-Shirakawago.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/Shirakawago.jpg/1920px-Shirakawago.jpg",
     width: 1920,
     height: 1282,
     file: "Shirakawago.jpg",
@@ -896,7 +896,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "kanazawa": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Stone_lantern_Kenrokuen.jpg/1920px-Stone_lantern_Kenrokuen.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Stone_lantern_Kenrokuen.jpg/1920px-Stone_lantern_Kenrokuen.jpg",
     width: 1920,
     height: 1256,
     file: "Stone lantern Kenrokuen.jpg",
@@ -905,7 +905,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Stone_lantern_Kenrokuen.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Fountain_Kenrokuen_Garden_Kanazawa_Japan.JPG/1920px-Fountain_Kenrokuen_Garden_Kanazawa_Japan.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Fountain_Kenrokuen_Garden_Kanazawa_Japan.JPG/1920px-Fountain_Kenrokuen_Garden_Kanazawa_Japan.JPG",
     width: 1920,
     height: 1440,
     file: "Fountain Kenrokuen Garden Kanazawa Japan.JPG",
@@ -914,7 +914,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Fountain_Kenrokuen_Garden_Kanazawa_Japan.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Higashi_Chaya_district%2C_Kanazawa_%283810723944%29.jpg/1920px-Higashi_Chaya_district%2C_Kanazawa_%283810723944%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Higashi_Chaya_district%2C_Kanazawa_%283810723944%29.jpg/1920px-Higashi_Chaya_district%2C_Kanazawa_%283810723944%29.jpg",
     width: 1920,
     height: 1920,
     file: "Higashi Chaya district, Kanazawa (3810723944).jpg",
@@ -923,7 +923,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Higashi_Chaya_district,_Kanazawa_(3810723944).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Omicho_covered_market_western_entrance%2C_Kanazawa%2C_2016.jpg/1920px-Omicho_covered_market_western_entrance%2C_Kanazawa%2C_2016.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Omicho_covered_market_western_entrance%2C_Kanazawa%2C_2016.jpg/1920px-Omicho_covered_market_western_entrance%2C_Kanazawa%2C_2016.jpg",
     width: 1920,
     height: 1277,
     file: "Omicho covered market western entrance, Kanazawa, 2016.jpg",
@@ -932,7 +932,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Omicho_covered_market_western_entrance,_Kanazawa,_2016.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/21st_Century_Museum_of_Contemporary_Art%2C_Kanazawa011.jpg/1920px-21st_Century_Museum_of_Contemporary_Art%2C_Kanazawa011.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/21st_Century_Museum_of_Contemporary_Art%2C_Kanazawa011.jpg/1920px-21st_Century_Museum_of_Contemporary_Art%2C_Kanazawa011.jpg",
     width: 1920,
     height: 1280,
     file: "21st Century Museum of Contemporary Art, Kanazawa011.jpg",
@@ -950,7 +950,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nagamachi_buke_yashiki_-_samurai_residence_in_Kanazawa_-_Flickr_-_odako1_(1).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Gold_leaf_on_soft_ice_cream_-_Kanazawa%2C_Japan_-_DSC00135.jpg/1920px-Gold_leaf_on_soft_ice_cream_-_Kanazawa%2C_Japan_-_DSC00135.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Gold_leaf_on_soft_ice_cream_-_Kanazawa%2C_Japan_-_DSC00135.jpg/1920px-Gold_leaf_on_soft_ice_cream_-_Kanazawa%2C_Japan_-_DSC00135.jpg",
     width: 1920,
     height: 1986,
     file: "Gold leaf on soft ice cream - Kanazawa, Japan - DSC00135.jpg",
@@ -959,7 +959,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Gold_leaf_on_soft_ice_cream_-_Kanazawa,_Japan_-_DSC00135.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/View_of_Shissei-en_towards_the_main_gate_of_Kanazawa_Castle%2C_Kanazawa%2C_2016.jpg/1920px-View_of_Shissei-en_towards_the_main_gate_of_Kanazawa_Castle%2C_Kanazawa%2C_2016.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/View_of_Shissei-en_towards_the_main_gate_of_Kanazawa_Castle%2C_Kanazawa%2C_2016.jpg/1920px-View_of_Shissei-en_towards_the_main_gate_of_Kanazawa_Castle%2C_Kanazawa%2C_2016.jpg",
     width: 1920,
     height: 1277,
     file: "View of Shissei-en towards the main gate of Kanazawa Castle, Kanazawa, 2016.jpg",
@@ -986,7 +986,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Jibuni_01.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Chionoecetes_opilio_Kanikkokan.jpg/1920px-Chionoecetes_opilio_Kanikkokan.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Chionoecetes_opilio_Kanikkokan.jpg/1920px-Chionoecetes_opilio_Kanikkokan.jpg",
     width: 1920,
     height: 1440,
     file: "Chionoecetes opilio Kanikkokan.jpg",
@@ -1004,7 +1004,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Wagashi_001.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Tsuzumimon_Gate_in_front_of_Kanazawa_Station_20150120.JPG/1920px-Tsuzumimon_Gate_in_front_of_Kanazawa_Station_20150120.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Tsuzumimon_Gate_in_front_of_Kanazawa_Station_20150120.JPG/1920px-Tsuzumimon_Gate_in_front_of_Kanazawa_Station_20150120.JPG",
     width: 1920,
     height: 1440,
     file: "Tsuzumimon Gate in front of Kanazawa Station 20150120.JPG",
@@ -1013,16 +1013,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tsuzumimon_Gate_in_front_of_Kanazawa_Station_20150120.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Tsuzumimon_Gate_in_front_of_Kanazawa_Station_at_night_20150120.JPG/1920px-Tsuzumimon_Gate_in_front_of_Kanazawa_Station_at_night_20150120.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Tsuzumimon_Gate_in_front_of_Kanazawa_Station_in_the_morning_20150121.JPG/1920px-Tsuzumimon_Gate_in_front_of_Kanazawa_Station_in_the_morning_20150121.JPG",
     width: 1920,
     height: 1440,
-    file: "Tsuzumimon Gate in front of Kanazawa Station at night 20150120.JPG",
+    file: "Tsuzumimon Gate in front of Kanazawa Station in the morning 20150121.JPG",
     author: "そらみみ",
     license: "CC BY-SA 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Tsuzumimon_Gate_in_front_of_Kanazawa_Station_at_night_20150120.JPG",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Tsuzumimon_Gate_in_front_of_Kanazawa_Station_in_the_morning_20150121.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/131109_Kenrokuen_Kanazawa_Ishikawa_pref_Japan05s3.jpg/1920px-131109_Kenrokuen_Kanazawa_Ishikawa_pref_Japan05s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/131109_Kenrokuen_Kanazawa_Ishikawa_pref_Japan05s3.jpg/1920px-131109_Kenrokuen_Kanazawa_Ishikawa_pref_Japan05s3.jpg",
     width: 1920,
     height: 1276,
     file: "131109 Kenrokuen Kanazawa Ishikawa pref Japan05s3.jpg",
@@ -1031,7 +1031,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:131109_Kenrokuen_Kanazawa_Ishikawa_pref_Japan05s3.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/2024-10-26_Kanazawa_Castle%2C_Ishikawa-mon.jpg/1920px-2024-10-26_Kanazawa_Castle%2C_Ishikawa-mon.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/2024-10-26_Kanazawa_Castle%2C_Ishikawa-mon.jpg/1920px-2024-10-26_Kanazawa_Castle%2C_Ishikawa-mon.jpg",
     width: 1920,
     height: 1280,
     file: "2024-10-26 Kanazawa Castle, Ishikawa-mon.jpg",
@@ -1040,7 +1040,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:2024-10-26_Kanazawa_Castle,_Ishikawa-mon.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Dish%2C_Ko-Kutani_ware_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa%2C_Japan_-_DSC09863.jpg/1920px-Dish%2C_Ko-Kutani_ware_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa%2C_Japan_-_DSC09863.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Dish%2C_Ko-Kutani_ware_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa%2C_Japan_-_DSC09863.jpg/1920px-Dish%2C_Ko-Kutani_ware_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa%2C_Japan_-_DSC09863.jpg",
     width: 1920,
     height: 1862,
     file: "Dish, Ko-Kutani ware - Ishikawa Prefectural Museum of Traditional Arts and Crafts - Kanazawa, Japan - DSC09863.jpg",
@@ -1049,7 +1049,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Dish,_Ko-Kutani_ware_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa,_Japan_-_DSC09863.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Dish%2C_Kutani_ware%2C_Yoshidaya_style_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa%2C_Japan_-_DSC09855.jpg/1920px-Dish%2C_Kutani_ware%2C_Yoshidaya_style_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa%2C_Japan_-_DSC09855.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Dish%2C_Kutani_ware%2C_Yoshidaya_style_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa%2C_Japan_-_DSC09855.jpg/1920px-Dish%2C_Kutani_ware%2C_Yoshidaya_style_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa%2C_Japan_-_DSC09855.jpg",
     width: 1920,
     height: 1889,
     file: "Dish, Kutani ware, Yoshidaya style - Ishikawa Prefectural Museum of Traditional Arts and Crafts - Kanazawa, Japan - DSC09855.jpg",
@@ -1058,7 +1058,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Dish,_Kutani_ware,_Yoshidaya_style_-_Ishikawa_Prefectural_Museum_of_Traditional_Arts_and_Crafts_-_Kanazawa,_Japan_-_DSC09855.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Kanazawa_Kenrokuen_Garden_%28135265179%29.jpeg/1920px-Kanazawa_Kenrokuen_Garden_%28135265179%29.jpeg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Kanazawa_Kenrokuen_Garden_%28135265179%29.jpeg/1920px-Kanazawa_Kenrokuen_Garden_%28135265179%29.jpeg",
     width: 1920,
     height: 1279,
     file: "Kanazawa Kenrokuen Garden (135265179).jpeg",
@@ -1067,7 +1067,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kanazawa_Kenrokuen_Garden_(135265179).jpeg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Higashiyama_Higashi_Chaya_District_Kanazawa_%2829103739857%29.jpg/1920px-Higashiyama_Higashi_Chaya_District_Kanazawa_%2829103739857%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Higashiyama_Higashi_Chaya_District_Kanazawa_%2829103739857%29.jpg/1920px-Higashiyama_Higashi_Chaya_District_Kanazawa_%2829103739857%29.jpg",
     width: 1920,
     height: 2880,
     file: "Higashiyama Higashi Chaya District Kanazawa (29103739857).jpg",
@@ -1078,7 +1078,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "toyama": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Toyama_Municipal_Folk_Museum_%28mock_keep_tower_of_the_Toyama_Castle%29_20180503.jpg/1920px-Toyama_Municipal_Folk_Museum_%28mock_keep_tower_of_the_Toyama_Castle%29_20180503.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Toyama_Municipal_Folk_Museum_%28mock_keep_tower_of_the_Toyama_Castle%29_20180503.jpg/1920px-Toyama_Municipal_Folk_Museum_%28mock_keep_tower_of_the_Toyama_Castle%29_20180503.jpg",
     width: 1920,
     height: 1080,
     file: "Toyama Municipal Folk Museum (mock keep tower of the Toyama Castle) 20180503.jpg",
@@ -1087,7 +1087,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Toyama_Municipal_Folk_Museum_(mock_keep_tower_of_the_Toyama_Castle)_20180503.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Fugan_Canal_Kansui_Park_260123_19.jpg/1920px-Fugan_Canal_Kansui_Park_260123_19.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Fugan_Canal_Kansui_Park_260123_19.jpg/1920px-Fugan_Canal_Kansui_Park_260123_19.jpg",
     width: 1920,
     height: 1080,
     file: "Fugan Canal Kansui Park 260123 19.jpg",
@@ -1105,16 +1105,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Toyama_Castle.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/TOYAMA_KIRARI_Toyama_Glass_Art_Museum_ac_%283%29.jpg/1920px-TOYAMA_KIRARI_Toyama_Glass_Art_Museum_ac_%283%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/TOYAMA_KIRARI_Toyama_Glass_Art_Museum_ac_%282%29.jpg/1920px-TOYAMA_KIRARI_Toyama_Glass_Art_Museum_ac_%282%29.jpg",
     width: 1920,
     height: 1277,
-    file: "TOYAMA KIRARI Toyama Glass Art Museum ac (3).jpg",
+    file: "TOYAMA KIRARI Toyama Glass Art Museum ac (2).jpg",
     author: "Asturio Cantabrio",
     license: "CC BY-SA 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:TOYAMA_KIRARI_Toyama_Glass_Art_Museum_ac_(3).jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:TOYAMA_KIRARI_Toyama_Glass_Art_Museum_ac_(2).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Higashi-Iwase-Station-Platform.jpg/1920px-Higashi-Iwase-Station-Platform.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Higashi-Iwase-Station-Platform.jpg/1920px-Higashi-Iwase-Station-Platform.jpg",
     width: 1920,
     height: 1440,
     file: "Higashi-Iwase-Station-Platform.jpg",
@@ -1150,7 +1150,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Seriola_quinqueradiata_(200810).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Toyama_Black_Daiki.jpg/1920px-Toyama_Black_Daiki.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Toyama_Black_Daiki.jpg/1920px-Toyama_Black_Daiki.jpg",
     width: 1920,
     height: 1440,
     file: "Toyama Black Daiki.jpg",
@@ -1159,7 +1159,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Toyama_Black_Daiki.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Toyama_City_Tram_Line.jpg/1920px-Toyama_City_Tram_Line.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Toyama_City_Tram_Line.jpg/1920px-Toyama_City_Tram_Line.jpg",
     width: 1920,
     height: 1440,
     file: "Toyama City Tram Line.jpg",
@@ -1177,7 +1177,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Toyama_City_Tram_Line_in_1948.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Toyama_Bay002.jpg/1920px-Toyama_Bay002.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Toyama_Bay002.jpg/1920px-Toyama_Bay002.jpg",
     width: 1920,
     height: 1440,
     file: "Toyama Bay002.jpg",
@@ -1186,16 +1186,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Toyama_Bay002.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/2_Kai%C5%8Dmachi%2C_Imizu-shi%2C_Toyama-ken_934-0023%2C_Japan_-_panoramio.jpg/1920px-2_Kai%C5%8Dmachi%2C_Imizu-shi%2C_Toyama-ken_934-0023%2C_Japan_-_panoramio.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/8_Kai%C5%8Dmachi%2C_Imizu-shi%2C_Toyama-ken_934-0023%2C_Japan_-_panoramio_%285%29.jpg/1920px-8_Kai%C5%8Dmachi%2C_Imizu-shi%2C_Toyama-ken_934-0023%2C_Japan_-_panoramio_%285%29.jpg",
     width: 1920,
     height: 1440,
-    file: "2 Kaiōmachi, Imizu-shi, Toyama-ken 934-0023, Japan - panoramio.jpg",
+    file: "8 Kaiōmachi, Imizu-shi, Toyama-ken 934-0023, Japan - panoramio (5).jpg",
     author: "kiwa dokokano",
     license: "CC BY-SA 3.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:2_Kai%C5%8Dmachi,_Imizu-shi,_Toyama-ken_934-0023,_Japan_-_panoramio.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:8_Kai%C5%8Dmachi,_Imizu-shi,_Toyama-ken_934-0023,_Japan_-_panoramio_(5).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Otaguchi_Street_in_Toyama_city_ac_%281%29.jpg/1920px-Otaguchi_Street_in_Toyama_city_ac_%281%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Otaguchi_Street_in_Toyama_city_ac_%281%29.jpg/1920px-Otaguchi_Street_in_Toyama_city_ac_%281%29.jpg",
     width: 1920,
     height: 1642,
     file: "Otaguchi Street in Toyama city ac (1).jpg",
@@ -1204,7 +1204,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Otaguchi_Street_in_Toyama_city_ac_(1).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Toyama_Chukyoin-view_of_the_city_looking_out_of_the_shrine_with_chozuya.jpg/1920px-Toyama_Chukyoin-view_of_the_city_looking_out_of_the_shrine_with_chozuya.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Toyama_Chukyoin-view_of_the_city_looking_out_of_the_shrine_with_chozuya.jpg/1920px-Toyama_Chukyoin-view_of_the_city_looking_out_of_the_shrine_with_chozuya.jpg",
     width: 1920,
     height: 2560,
     file: "Toyama Chukyoin-view of the city looking out of the shrine with chozuya.jpg",
@@ -1213,7 +1213,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Toyama_Chukyoin-view_of_the_city_looking_out_of_the_shrine_with_chozuya.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Sakurabashi_Bridge_and_Matsukawa_pleasure_boat_in_Toyama_city.jpg/1920px-Sakurabashi_Bridge_and_Matsukawa_pleasure_boat_in_Toyama_city.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Sakurabashi_Bridge_and_Matsukawa_pleasure_boat_in_Toyama_city.jpg/1920px-Sakurabashi_Bridge_and_Matsukawa_pleasure_boat_in_Toyama_city.jpg",
     width: 1920,
     height: 1280,
     file: "Sakurabashi Bridge and Matsukawa pleasure boat in Toyama city.jpg",
@@ -1222,7 +1222,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Sakurabashi_Bridge_and_Matsukawa_pleasure_boat_in_Toyama_city.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Toyama_Chiho_Railway_Toyama_City_Tram_Line_-_flicker%285%29.jpg/1920px-Toyama_Chiho_Railway_Toyama_City_Tram_Line_-_flicker%285%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Toyama_Chiho_Railway_Toyama_City_Tram_Line_-_flicker%285%29.jpg/1920px-Toyama_Chiho_Railway_Toyama_City_Tram_Line_-_flicker%285%29.jpg",
     width: 1920,
     height: 1282,
     file: "Toyama Chiho Railway Toyama City Tram Line - flicker(5).jpg",
@@ -1231,7 +1231,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Toyama_Chiho_Railway_Toyama_City_Tram_Line_-_flicker(5).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/View_of_Shinkansen_Toyama_Station_Platform_260123_02.jpg/1920px-View_of_Shinkansen_Toyama_Station_Platform_260123_02.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/View_of_Shinkansen_Toyama_Station_Platform_260123_02.jpg/1920px-View_of_Shinkansen_Toyama_Station_Platform_260123_02.jpg",
     width: 1920,
     height: 1080,
     file: "View of Shinkansen Toyama Station Platform 260123 02.jpg",
@@ -1240,7 +1240,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:View_of_Shinkansen_Toyama_Station_Platform_260123_02.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Shinkansen_Entrance_of_Toyama_Station_260123_01.jpg/1920px-Shinkansen_Entrance_of_Toyama_Station_260123_01.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Shinkansen_Entrance_of_Toyama_Station_260123_01.jpg/1920px-Shinkansen_Entrance_of_Toyama_Station_260123_01.jpg",
     width: 1920,
     height: 1080,
     file: "Shinkansen Entrance of Toyama Station 260123 01.jpg",
@@ -1249,7 +1249,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shinkansen_Entrance_of_Toyama_Station_260123_01.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Yatsuomachi_Matsubara%2C_Toyama%2C_Toyama_Prefecture_939-2367%2C_Japan_-_panoramio.jpg/1920px-Yatsuomachi_Matsubara%2C_Toyama%2C_Toyama_Prefecture_939-2367%2C_Japan_-_panoramio.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Yatsuomachi_Matsubara%2C_Toyama%2C_Toyama_Prefecture_939-2367%2C_Japan_-_panoramio.jpg/1920px-Yatsuomachi_Matsubara%2C_Toyama%2C_Toyama_Prefecture_939-2367%2C_Japan_-_panoramio.jpg",
     width: 1920,
     height: 1440,
     file: "Yatsuomachi Matsubara, Toyama, Toyama Prefecture 939-2367, Japan - panoramio.jpg",
@@ -1269,7 +1269,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Murodoh.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Murodo_plateau_%2851831652916%29.jpg/1920px-Murodo_plateau_%2851831652916%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Murodo_plateau_%2851831652916%29.jpg/1920px-Murodo_plateau_%2851831652916%29.jpg",
     width: 1920,
     height: 1280,
     file: "Murodo plateau (51831652916).jpg",
@@ -1278,7 +1278,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Murodo_plateau_(51831652916).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Mikuri_Pond_and_Mikurigaike_Onsen.jpg/1920px-Mikuri_Pond_and_Mikurigaike_Onsen.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Mikuri_Pond_and_Mikurigaike_Onsen.jpg/1920px-Mikuri_Pond_and_Mikurigaike_Onsen.jpg",
     width: 1920,
     height: 1280,
     file: "Mikuri Pond and Mikurigaike Onsen.jpg",
@@ -1296,7 +1296,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kurobe_Dam_-_panoramio.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/%E5%A4%A7%E8%A7%80%E5%B3%B0%E7%BA%9C%E8%BB%8A%E7%AB%99_Daikanbo_Ropeway_Station_-_panoramio.jpg/1920px-%E5%A4%A7%E8%A7%80%E5%B3%B0%E7%BA%9C%E8%BB%8A%E7%AB%99_Daikanbo_Ropeway_Station_-_panoramio.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/%E5%A4%A7%E8%A7%80%E5%B3%B0%E7%BA%9C%E8%BB%8A%E7%AB%99_Daikanbo_Ropeway_Station_-_panoramio.jpg/1920px-%E5%A4%A7%E8%A7%80%E5%B3%B0%E7%BA%9C%E8%BB%8A%E7%AB%99_Daikanbo_Ropeway_Station_-_panoramio.jpg",
     width: 1920,
     height: 1274,
     file: "大觀峰纜車站 Daikanbo Ropeway Station - panoramio.jpg",
@@ -1305,7 +1305,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:%E5%A4%A7%E8%A7%80%E5%B3%B0%E7%BA%9C%E8%BB%8A%E7%AB%99_Daikanbo_Ropeway_Station_-_panoramio.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Shomyo-daki_1.jpg/1920px-Shomyo-daki_1.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Shomyo-daki_1.jpg/1920px-Shomyo-daki_1.jpg",
     width: 1920,
     height: 2560,
     file: "Shomyo-daki 1.jpg",
@@ -1314,7 +1314,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shomyo-daki_1.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Kurobe_Dam_curry_kurobe_Dam-resthouse.jpg/1920px-Kurobe_Dam_curry_kurobe_Dam-resthouse.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Kurobe_Dam_curry_kurobe_Dam-resthouse.jpg/1920px-Kurobe_Dam_curry_kurobe_Dam-resthouse.jpg",
     width: 1920,
     height: 1440,
     file: "Kurobe Dam curry kurobe Dam-resthouse.jpg",
@@ -1323,7 +1323,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kurobe_Dam_curry_kurobe_Dam-resthouse.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tateyama_Kurobe_Alpine_Route_-_AlpineRoute6316.jpg/1920px-Tateyama_Kurobe_Alpine_Route_-_AlpineRoute6316.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Tateyama_Kurobe_Alpine_Route_-_AlpineRoute6316.jpg/1920px-Tateyama_Kurobe_Alpine_Route_-_AlpineRoute6316.jpg",
     width: 1920,
     height: 1052,
     file: "Tateyama Kurobe Alpine Route - AlpineRoute6316.jpg",
@@ -1341,16 +1341,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tateyama_Cable_Car_in_Toyama.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Tateyama_cable_car_03.jpg",
+    url: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Tateyama_Cable_Car_2nd_Tunnel.jpg",
     width: 1600,
-    height: 2133,
-    file: "Tateyama cable car 03.jpg",
-    author: "amanar0302",
+    height: 900,
+    file: "Tateyama Cable Car 2nd Tunnel.jpg",
+    author: "Tx-re",
     license: "CC BY-SA 3.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Tateyama_cable_car_03.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Tateyama_Cable_Car_2nd_Tunnel.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Tateyama_Tunnel_Trolley_Bus_Current_Collector.jpg/1920px-Tateyama_Tunnel_Trolley_Bus_Current_Collector.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Tateyama_Tunnel_Trolley_Bus_Current_Collector.jpg/1920px-Tateyama_Tunnel_Trolley_Bus_Current_Collector.jpg",
     width: 1920,
     height: 1440,
     file: "Tateyama Tunnel Trolley Bus Current Collector.jpg",
@@ -1359,7 +1359,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tateyama_Tunnel_Trolley_Bus_Current_Collector.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Tateyama_Tunnel_Trolley_Bus_Series8000_Inside.jpg/1920px-Tateyama_Tunnel_Trolley_Bus_Series8000_Inside.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Tateyama_Tunnel_Trolley_Bus_Series8000_Inside.jpg/1920px-Tateyama_Tunnel_Trolley_Bus_Series8000_Inside.jpg",
     width: 1920,
     height: 1440,
     file: "Tateyama Tunnel Trolley Bus Series8000 Inside.jpg",
@@ -1377,7 +1377,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Bijodaira_Station_Tateyama_Cable_Car.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Tateyama_Cable_Car_%28Funicular%29_Bijodaira_Station.jpg/1920px-Tateyama_Cable_Car_%28Funicular%29_Bijodaira_Station.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Tateyama_Cable_Car_%28Funicular%29_Bijodaira_Station.jpg/1920px-Tateyama_Cable_Car_%28Funicular%29_Bijodaira_Station.jpg",
     width: 1920,
     height: 1280,
     file: "Tateyama Cable Car (Funicular) Bijodaira Station.jpg",
@@ -1386,7 +1386,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tateyama_Cable_Car_(Funicular)_Bijodaira_Station.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Mikurigaike_and_Midorigaike.jpg/1920px-Mikurigaike_and_Midorigaike.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Mikurigaike_and_Midorigaike.jpg/1920px-Mikurigaike_and_Midorigaike.jpg",
     width: 1920,
     height: 1280,
     file: "Mikurigaike and Midorigaike.jpg",
@@ -1404,7 +1404,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:20_Tateyama_from_Mikurigaike_1998-7-17.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Gorge_leading_to_Shomyo_Falls_%282006%29.jpg/1920px-Gorge_leading_to_Shomyo_Falls_%282006%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Gorge_leading_to_Shomyo_Falls_%282006%29.jpg/1920px-Gorge_leading_to_Shomyo_Falls_%282006%29.jpg",
     width: 1920,
     height: 1440,
     file: "Gorge leading to Shomyo Falls (2006).jpg",
@@ -1413,7 +1413,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Gorge_leading_to_Shomyo_Falls_(2006).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Shomyo_Falls.JPG/1920px-Shomyo_Falls.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Shomyo_Falls.JPG/1920px-Shomyo_Falls.JPG",
     width: 1920,
     height: 2497,
     file: "Shomyo Falls.JPG",
@@ -1422,7 +1422,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shomyo_Falls.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Kurobe_Dam_20141012_130913.jpg/1920px-Kurobe_Dam_20141012_130913.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Kurobe_Dam_20141012_130913.jpg/1920px-Kurobe_Dam_20141012_130913.jpg",
     width: 1920,
     height: 1076,
     file: "Kurobe Dam 20141012 130913.jpg",
@@ -1442,7 +1442,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "omachi": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Omachi_city_office.jpg/1920px-Omachi_city_office.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Omachi_city_office.jpg/1920px-Omachi_city_office.jpg",
     width: 1920,
     height: 1441,
     file: "Omachi city office.jpg",
@@ -1451,7 +1451,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Omachi_city_office.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Omachi_onsen-kyo09s3.jpg/1920px-Omachi_onsen-kyo09s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Omachi_onsen-kyo09s3.jpg/1920px-Omachi_onsen-kyo09s3.jpg",
     width: 1920,
     height: 1280,
     file: "Omachi onsen-kyo09s3.jpg",
@@ -1505,7 +1505,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:20070528KitaAlpsNishinaSanKoTagged.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Lake_Aoki_and_Lake_Nakatsuna_Aerial_photograph.1977.jpg/1920px-Lake_Aoki_and_Lake_Nakatsuna_Aerial_photograph.1977.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Lake_Aoki_and_Lake_Nakatsuna_Aerial_photograph.1977.jpg/1920px-Lake_Aoki_and_Lake_Nakatsuna_Aerial_photograph.1977.jpg",
     width: 1920,
     height: 2929,
     file: "Lake Aoki and Lake Nakatsuna Aerial photograph.1977.jpg",
@@ -1514,7 +1514,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Lake_Aoki_and_Lake_Nakatsuna_Aerial_photograph.1977.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/JR_Oito_Line_Shinano-Omachi_Station_building.jpg/1920px-JR_Oito_Line_Shinano-Omachi_Station_building.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/JR_Oito_Line_Shinano-Omachi_Station_building.jpg/1920px-JR_Oito_Line_Shinano-Omachi_Station_building.jpg",
     width: 1920,
     height: 1255,
     file: "JR Oito Line Shinano-Omachi Station building.jpg",
@@ -1523,7 +1523,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:JR_Oito_Line_Shinano-Omachi_Station_building.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/JR_Oito_Line_Shinano-Omachi_Station_Gates.jpg/1920px-JR_Oito_Line_Shinano-Omachi_Station_Gates.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/JR_Oito_Line_Shinano-Omachi_Station_Gates.jpg/1920px-JR_Oito_Line_Shinano-Omachi_Station_Gates.jpg",
     width: 1920,
     height: 1267,
     file: "JR Oito Line Shinano-Omachi Station Gates.jpg",
@@ -1532,7 +1532,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:JR_Oito_Line_Shinano-Omachi_Station_Gates.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Lake_Kizaki_Aerial_photograph.1977.jpg/1920px-Lake_Kizaki_Aerial_photograph.1977.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/Lake_Kizaki_Aerial_photograph.1977.jpg/1920px-Lake_Kizaki_Aerial_photograph.1977.jpg",
     width: 1920,
     height: 4342,
     file: "Lake Kizaki Aerial photograph.1977.jpg",
@@ -1541,7 +1541,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Lake_Kizaki_Aerial_photograph.1977.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Lake_Kizaki_from_northwest_-_September_2014.jpg/1920px-Lake_Kizaki_from_northwest_-_September_2014.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Lake_Kizaki_from_northwest_-_September_2014.jpg/1920px-Lake_Kizaki_from_northwest_-_September_2014.jpg",
     width: 1920,
     height: 1280,
     file: "Lake Kizaki from northwest - September 2014.jpg",
@@ -1550,7 +1550,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Lake_Kizaki_from_northwest_-_September_2014.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Lake-Nakatsuna_Cherry.jpg/1920px-Lake-Nakatsuna_Cherry.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Lake-Nakatsuna_Cherry.jpg/1920px-Lake-Nakatsuna_Cherry.jpg",
     width: 1920,
     height: 1280,
     file: "Lake-Nakatsuna Cherry.jpg",
@@ -1559,7 +1559,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Lake-Nakatsuna_Cherry.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Nakatsuna-lake.JPG/1920px-Nakatsuna-lake.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Nakatsuna-lake.JPG/1920px-Nakatsuna-lake.JPG",
     width: 1920,
     height: 1080,
     file: "Nakatsuna-lake.JPG",
@@ -1588,7 +1588,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "nagano": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/160501_Zenkoji_Nagano_Japan06s3.jpg/1920px-160501_Zenkoji_Nagano_Japan06s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/160501_Zenkoji_Nagano_Japan06s3.jpg/1920px-160501_Zenkoji_Nagano_Japan06s3.jpg",
     width: 1920,
     height: 1280,
     file: "160501 Zenkoji Nagano Japan06s3.jpg",
@@ -1597,7 +1597,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:160501_Zenkoji_Nagano_Japan06s3.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Zenkoji_temple_3.jpg/1920px-Zenkoji_temple_3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Zenkoji_temple_3.jpg/1920px-Zenkoji_temple_3.jpg",
     width: 1920,
     height: 1282,
     file: "Zenkoji temple 3.jpg",
@@ -1624,7 +1624,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Obuse_town-office.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Togakushi_-_Togakushi17.jpg/1920px-Togakushi_-_Togakushi17.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Togakushi_-_Togakushi17.jpg/1920px-Togakushi_-_Togakushi17.jpg",
     width: 1920,
     height: 2880,
     file: "Togakushi - Togakushi17.jpg",
@@ -1633,7 +1633,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Togakushi_-_Togakushi17.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Zenkoji_Temple_%E2%80%9CNakamise_street%E2%80%9D.jpg/1920px-Zenkoji_Temple_%E2%80%9CNakamise_street%E2%80%9D.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Zenkoji_Temple_%E2%80%9CNakamise_street%E2%80%9D.jpg/1920px-Zenkoji_Temple_%E2%80%9CNakamise_street%E2%80%9D.jpg",
     width: 1920,
     height: 1440,
     file: "Zenkoji Temple “Nakamise street”.jpg",
@@ -1642,7 +1642,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Zenkoji_Temple_%E2%80%9CNakamise_street%E2%80%9D.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Oyaki_001.jpg/1920px-Oyaki_001.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Oyaki_001.jpg/1920px-Oyaki_001.jpg",
     width: 1920,
     height: 1440,
     file: "Oyaki 001.jpg",
@@ -1651,7 +1651,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Oyaki_001.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Miso_001.jpg/1920px-Miso_001.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Miso_001.jpg/1920px-Miso_001.jpg",
     width: 1920,
     height: 1280,
     file: "Miso 001.jpg",
@@ -1660,7 +1660,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Miso_001.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Kurikinton%2C_a_Japanese_sweet.jpg/1920px-Kurikinton%2C_a_Japanese_sweet.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Kurikinton%2C_a_Japanese_sweet.jpg/1920px-Kurikinton%2C_a_Japanese_sweet.jpg",
     width: 1920,
     height: 1440,
     file: "Kurikinton, a Japanese sweet.jpg",
@@ -1669,16 +1669,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kurikinton,_a_Japanese_sweet.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Obuse_apple_orchard_ac_%281%29.jpg/1920px-Obuse_apple_orchard_ac_%281%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Obuse_apple_orchard_ac_%285%29.jpg/1920px-Obuse_apple_orchard_ac_%285%29.jpg",
     width: 1920,
     height: 1277,
-    file: "Obuse apple orchard ac (1).jpg",
+    file: "Obuse apple orchard ac (5).jpg",
     author: "Asturio Cantabrio",
     license: "CC BY-SA 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Obuse_apple_orchard_ac_(1).jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Obuse_apple_orchard_ac_(5).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Showa-dori_Street_Nagano_City.jpg/1920px-Showa-dori_Street_Nagano_City.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Showa-dori_Street_Nagano_City.jpg/1920px-Showa-dori_Street_Nagano_City.jpg",
     width: 1920,
     height: 1440,
     file: "Showa-dori Street Nagano City.jpg",
@@ -1696,7 +1696,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nagano-Shinkansen-Nagano-Station-C5211.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Hokuriku_Shinkansen_Nagano_station_namplate.jpg/1920px-Hokuriku_Shinkansen_Nagano_station_namplate.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Hokuriku_Shinkansen_Nagano_station_namplate.jpg/1920px-Hokuriku_Shinkansen_Nagano_station_namplate.jpg",
     width: 1920,
     height: 1080,
     file: "Hokuriku Shinkansen Nagano station namplate.jpg",
@@ -1705,7 +1705,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hokuriku_Shinkansen_Nagano_station_namplate.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Chikuma_River_Yashima_Bridge_Nagano.jpg/1920px-Chikuma_River_Yashima_Bridge_Nagano.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Chikuma_River_Yashima_Bridge_Nagano.jpg/1920px-Chikuma_River_Yashima_Bridge_Nagano.jpg",
     width: 1920,
     height: 1440,
     file: "Chikuma River Yashima Bridge Nagano.jpg",
@@ -1714,7 +1714,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Chikuma_River_Yashima_Bridge_Nagano.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Chikuma_river_Hekida_1976Y.jpg/1920px-Chikuma_river_Hekida_1976Y.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Chikuma_river_Hekida_1976Y.jpg/1920px-Chikuma_river_Hekida_1976Y.jpg",
     width: 1920,
     height: 1732,
     file: "Chikuma river Hekida 1976Y.jpg",
@@ -1723,7 +1723,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Chikuma_river_Hekida_1976Y.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Yudanaka_Onsen01n4272.jpg/1920px-Yudanaka_Onsen01n4272.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/Yudanaka_Onsen01n4272.jpg/1920px-Yudanaka_Onsen01n4272.jpg",
     width: 1920,
     height: 1280,
     file: "Yudanaka Onsen01n4272.jpg",
@@ -1732,7 +1732,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Yudanaka_Onsen01n4272.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Nagano_Yudanaka_sta13n4272.jpg/1920px-Nagano_Yudanaka_sta13n4272.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Nagano_Yudanaka_sta13n4272.jpg/1920px-Nagano_Yudanaka_sta13n4272.jpg",
     width: 1920,
     height: 2880,
     file: "Nagano Yudanaka sta13n4272.jpg",
@@ -1741,7 +1741,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nagano_Yudanaka_sta13n4272.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Chestnut_Obuse_City%2C_Nagano_Prefecture.jpg/1920px-Chestnut_Obuse_City%2C_Nagano_Prefecture.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Chestnut_Obuse_City%2C_Nagano_Prefecture.jpg/1920px-Chestnut_Obuse_City%2C_Nagano_Prefecture.jpg",
     width: 1920,
     height: 1440,
     file: "Chestnut Obuse City, Nagano Prefecture.jpg",
@@ -1759,7 +1759,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Chestnut_wood_block_pavement_at_Obuse_(Scenery).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Nagano_autumn_%2851981559855%29.jpg/1920px-Nagano_autumn_%2851981559855%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Nagano_autumn_%2851981559855%29.jpg/1920px-Nagano_autumn_%2851981559855%29.jpg",
     width: 1920,
     height: 1280,
     file: "Nagano autumn (51981559855).jpg",
@@ -1770,7 +1770,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "kurashiki": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/251101_Mount_Tsurugata_Kurashiki_Okayama_pref_Japan02s3.jpg/1920px-251101_Mount_Tsurugata_Kurashiki_Okayama_pref_Japan02s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/251101_Mount_Tsurugata_Kurashiki_Okayama_pref_Japan02s3.jpg/1920px-251101_Mount_Tsurugata_Kurashiki_Okayama_pref_Japan02s3.jpg",
     width: 1920,
     height: 1280,
     file: "251101 Mount Tsurugata Kurashiki Okayama pref Japan02s3.jpg",
@@ -1779,7 +1779,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:251101_Mount_Tsurugata_Kurashiki_Okayama_pref_Japan02s3.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Kurashiki_Canal_Area.jpg/1920px-Kurashiki_Canal_Area.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Kurashiki_Canal_Area.jpg/1920px-Kurashiki_Canal_Area.jpg",
     width: 1920,
     height: 1920,
     file: "Kurashiki Canal Area.jpg",
@@ -1788,7 +1788,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kurashiki_Canal_Area.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Kurashiki_Ohara_Art_Museum02nt3200.jpg/1920px-Kurashiki_Ohara_Art_Museum02nt3200.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Kurashiki_Ohara_Art_Museum02nt3200.jpg/1920px-Kurashiki_Ohara_Art_Museum02nt3200.jpg",
     width: 1920,
     height: 2885,
     file: "Kurashiki Ohara Art Museum02nt3200.jpg",
@@ -1797,7 +1797,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kurashiki_Ohara_Art_Museum02nt3200.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/The_front_entrance_of_kurashiki_ivy_square.JPG/1920px-The_front_entrance_of_kurashiki_ivy_square.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/The_front_entrance_of_kurashiki_ivy_square.JPG/1920px-The_front_entrance_of_kurashiki_ivy_square.JPG",
     width: 1920,
     height: 1440,
     file: "The front entrance of kurashiki ivy square.JPG",
@@ -1806,7 +1806,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:The_front_entrance_of_kurashiki_ivy_square.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Achi_Shrine_at_night.jpg/1920px-Achi_Shrine_at_night.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Achi_Shrine_at_night.jpg/1920px-Achi_Shrine_at_night.jpg",
     width: 1920,
     height: 1280,
     file: "Achi Shrine at night.jpg",
@@ -1815,13 +1815,22 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Achi_Shrine_at_night.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kojima_Jeans_Street_2021-08_ac_%285%29.jpg/1920px-Kojima_Jeans_Street_2021-08_ac_%285%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/Kojima_Jeans_Street_2021-08_ac_%285%29.jpg/1920px-Kojima_Jeans_Street_2021-08_ac_%285%29.jpg",
     width: 1920,
     height: 1277,
     file: "Kojima Jeans Street 2021-08 ac (5).jpg",
     author: "Asturio Cantabrio",
     license: "CC BY-SA 4.0",
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kojima_Jeans_Street_2021-08_ac_(5).jpg",
+  },
+    {
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Korakuen_%28japanese_garden%29_and_Okayama_castle.jpg/1920px-Korakuen_%28japanese_garden%29_and_Okayama_castle.jpg",
+    width: 1920,
+    height: 1440,
+    file: "Korakuen (japanese garden) and Okayama castle.jpg",
+    author: "Motokoka",
+    license: "CC BY-SA 4.0",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Korakuen_(japanese_garden)_and_Okayama_castle.jpg",
   },
     {
     url: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Mamakari_by_Kossy%40FINEDAYS_in_Akabane%2C_Tokyo.jpg",
@@ -1860,7 +1869,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Muscat_d%27Alexandrie.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Okayama_prfectural_Kurashiki_Seiryo_high_school.jpg/1920px-Okayama_prfectural_Kurashiki_Seiryo_high_school.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Okayama_prfectural_Kurashiki_Seiryo_high_school.jpg/1920px-Okayama_prfectural_Kurashiki_Seiryo_high_school.jpg",
     width: 1920,
     height: 1440,
     file: "Okayama prfectural Kurashiki Seiryo high school.jpg",
@@ -1869,7 +1878,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Okayama_prfectural_Kurashiki_Seiryo_high_school.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/211203_Kurashiki_Ivy_Square_Kurashiki_Okayama_pref_Japan07s3.jpg/1920px-211203_Kurashiki_Ivy_Square_Kurashiki_Okayama_pref_Japan07s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/211203_Kurashiki_Ivy_Square_Kurashiki_Okayama_pref_Japan07s3.jpg/1920px-211203_Kurashiki_Ivy_Square_Kurashiki_Okayama_pref_Japan07s3.jpg",
     width: 1920,
     height: 1276,
     file: "211203 Kurashiki Ivy Square Kurashiki Okayama pref Japan07s3.jpg",
@@ -1878,7 +1887,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:211203_Kurashiki_Ivy_Square_Kurashiki_Okayama_pref_Japan07s3.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/161015_Kurashiki_Monogatari_Museum_Kurashiki_Okayama_pref_Japan06s3.jpg/1920px-161015_Kurashiki_Monogatari_Museum_Kurashiki_Okayama_pref_Japan06s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/161015_Kurashiki_Monogatari_Museum_Kurashiki_Okayama_pref_Japan06s3.jpg/1920px-161015_Kurashiki_Monogatari_Museum_Kurashiki_Okayama_pref_Japan06s3.jpg",
     width: 1920,
     height: 1280,
     file: "161015 Kurashiki Monogatari Museum Kurashiki Okayama pref Japan06s3.jpg",
@@ -1887,7 +1896,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:161015_Kurashiki_Monogatari_Museum_Kurashiki_Okayama_pref_Japan06s3.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/%E5%80%89%E6%95%B7%E7%89%A9%E8%AA%9E%E9%A4%A8_Kurashiki_Story_Museum_-_panoramio.jpg/1920px-%E5%80%89%E6%95%B7%E7%89%A9%E8%AA%9E%E9%A4%A8_Kurashiki_Story_Museum_-_panoramio.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/%E5%80%89%E6%95%B7%E7%89%A9%E8%AA%9E%E9%A4%A8_Kurashiki_Story_Museum_-_panoramio.jpg/1920px-%E5%80%89%E6%95%B7%E7%89%A9%E8%AA%9E%E9%A4%A8_Kurashiki_Story_Museum_-_panoramio.jpg",
     width: 1920,
     height: 1280,
     file: "倉敷物語館 Kurashiki Story Museum - panoramio.jpg",
@@ -1896,7 +1905,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:%E5%80%89%E6%95%B7%E7%89%A9%E8%AA%9E%E9%A4%A8_Kurashiki_Story_Museum_-_panoramio.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Kurashiki_Station_North_Exit_in_rain_03.jpg/1920px-Kurashiki_Station_North_Exit_in_rain_03.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Kurashiki_Station_North_Exit_in_rain_03.jpg/1920px-Kurashiki_Station_North_Exit_in_rain_03.jpg",
     width: 1920,
     height: 1440,
     file: "Kurashiki Station North Exit in rain 03.jpg",
@@ -1905,7 +1914,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kurashiki_Station_North_Exit_in_rain_03.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Kurashiki_Station-1.jpg/1920px-Kurashiki_Station-1.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Kurashiki_Station-1.jpg/1920px-Kurashiki_Station-1.jpg",
     width: 1920,
     height: 1276,
     file: "Kurashiki Station-1.jpg",
@@ -1914,7 +1923,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kurashiki_Station-1.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Kurashiki_Canal_%E5%80%89%E6%95%B7%E5%B7%9D_-_panoramio.jpg/1920px-Kurashiki_Canal_%E5%80%89%E6%95%B7%E5%B7%9D_-_panoramio.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Kurashiki_Canal_%E5%80%89%E6%95%B7%E5%B7%9D_-_panoramio.jpg/1920px-Kurashiki_Canal_%E5%80%89%E6%95%B7%E5%B7%9D_-_panoramio.jpg",
     width: 1920,
     height: 1080,
     file: "Kurashiki Canal 倉敷川 - panoramio.jpg",
@@ -1923,7 +1932,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kurashiki_Canal_%E5%80%89%E6%95%B7%E5%B7%9D_-_panoramio.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/080727_Ohara_Museum_of_Art_Kurashiki_Okayama_pref_Japan01s3.jpg/1920px-080727_Ohara_Museum_of_Art_Kurashiki_Okayama_pref_Japan01s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/080727_Ohara_Museum_of_Art_Kurashiki_Okayama_pref_Japan01s3.jpg/1920px-080727_Ohara_Museum_of_Art_Kurashiki_Okayama_pref_Japan01s3.jpg",
     width: 1920,
     height: 1278,
     file: "080727 Ohara Museum of Art Kurashiki Okayama pref Japan01s3.jpg",
@@ -1932,27 +1941,18 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:080727_Ohara_Museum_of_Art_Kurashiki_Okayama_pref_Japan01s3.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Kurashiki_Ivy_Square_04.jpg/1920px-Kurashiki_Ivy_Square_04.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Kurashiki_Ivy_Square_02.jpg/1920px-Kurashiki_Ivy_Square_02.jpg",
     width: 1920,
     height: 1440,
-    file: "Kurashiki Ivy Square 04.jpg",
+    file: "Kurashiki Ivy Square 02.jpg",
     author: "ノボホショコロトソ",
     license: "CC BY 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Kurashiki_Ivy_Square_04.jpg",
-  },
-    {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Kurashiki_Achi-jinja_Sub-Shrine_1.jpg/1920px-Kurashiki_Achi-jinja_Sub-Shrine_1.jpg",
-    width: 1920,
-    height: 1511,
-    file: "Kurashiki Achi-jinja Sub-Shrine 1.jpg",
-    author: "Zairon",
-    license: "CC BY 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Kurashiki_Achi-jinja_Sub-Shrine_1.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Kurashiki_Ivy_Square_02.jpg",
   },
   ],
   "hiroshima": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Genbaku_Dome04-r.JPG/1920px-Genbaku_Dome04-r.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Genbaku_Dome04-r.JPG/1920px-Genbaku_Dome04-r.JPG",
     width: 1920,
     height: 1280,
     file: "Genbaku Dome04-r.JPG",
@@ -1961,7 +1961,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Genbaku_Dome04-r.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Hiroshima_Peace_Memorial_%28Genbaku_Dome%29%2C_20240817_0823_4200.jpg/1920px-Hiroshima_Peace_Memorial_%28Genbaku_Dome%29%2C_20240817_0823_4200.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Hiroshima_Peace_Memorial_%28Genbaku_Dome%29%2C_20240817_0823_4200.jpg/1920px-Hiroshima_Peace_Memorial_%28Genbaku_Dome%29%2C_20240817_0823_4200.jpg",
     width: 1920,
     height: 1278,
     file: "Hiroshima Peace Memorial (Genbaku Dome), 20240817 0823 4200.jpg",
@@ -1970,7 +1970,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hiroshima_Peace_Memorial_(Genbaku_Dome),_20240817_0823_4200.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Hiroshima_Peace_Memorial_Museum_2008_01.JPG/1920px-Hiroshima_Peace_Memorial_Museum_2008_01.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Hiroshima_Peace_Memorial_Museum_2008_01.JPG/1920px-Hiroshima_Peace_Memorial_Museum_2008_01.JPG",
     width: 1920,
     height: 1440,
     file: "Hiroshima Peace Memorial Museum 2008 01.JPG",
@@ -1979,7 +1979,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hiroshima_Peace_Memorial_Museum_2008_01.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Itsukushima-jinja_torii_at_sunset%2C_Miyajima%2C_Japan%2C_20240816_1812_4144.jpg/1920px-Itsukushima-jinja_torii_at_sunset%2C_Miyajima%2C_Japan%2C_20240816_1812_4144.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Itsukushima-jinja_torii_at_sunset%2C_Miyajima%2C_Japan%2C_20240816_1812_4144.jpg/1920px-Itsukushima-jinja_torii_at_sunset%2C_Miyajima%2C_Japan%2C_20240816_1812_4144.jpg",
     width: 1920,
     height: 1282,
     file: "Itsukushima-jinja torii at sunset, Miyajima, Japan, 20240816 1812 4144.jpg",
@@ -1988,7 +1988,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Itsukushima-jinja_torii_at_sunset,_Miyajima,_Japan,_20240816_1812_4144.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/KITLV_A959_-_Momijidani-park_in_de_Esdoornvallei_op_Itsukushima%2C_een_eiland_bij_Hatsukaichi_in_Japan%2C_KITLV_107994.tiff/lossy-page1-1920px-KITLV_A959_-_Momijidani-park_in_de_Esdoornvallei_op_Itsukushima%2C_een_eiland_bij_Hatsukaichi_in_Japan%2C_KITLV_107994.tiff.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/KITLV_A959_-_Momijidani-park_in_de_Esdoornvallei_op_Itsukushima%2C_een_eiland_bij_Hatsukaichi_in_Japan%2C_KITLV_107994.tiff/lossy-page1-1920px-KITLV_A959_-_Momijidani-park_in_de_Esdoornvallei_op_Itsukushima%2C_een_eiland_bij_Hatsukaichi_in_Japan%2C_KITLV_107994.tiff.jpg",
     width: 1600,
     height: 1012,
     file: "KITLV A959 - Momijidani-park in de Esdoornvallei op Itsukushima, een eiland bij Hatsukaichi in Japan, KITLV 107994.tiff",
@@ -1997,16 +1997,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:KITLV_A959_-_Momijidani-park_in_de_Esdoornvallei_op_Itsukushima,_een_eiland_bij_Hatsukaichi_in_Japan,_KITLV_107994.tiff",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Mount_Misen_detail_%28Miyajima%29_-_DSC02013.JPG/1920px-Mount_Misen_detail_%28Miyajima%29_-_DSC02013.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Mount_Misen_shrine_%28Miyajima%29_-_DSC02085.JPG/1920px-Mount_Misen_shrine_%28Miyajima%29_-_DSC02085.JPG",
     width: 1920,
     height: 1440,
-    file: "Mount Misen detail (Miyajima) - DSC02013.JPG",
+    file: "Mount Misen shrine (Miyajima) - DSC02085.JPG",
     author: "Daderot",
     license: "CC0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Mount_Misen_detail_(Miyajima)_-_DSC02013.JPG",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Mount_Misen_shrine_(Miyajima)_-_DSC02085.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/20100722_Hiroshima_Shukkeien_4387.jpg/1920px-20100722_Hiroshima_Shukkeien_4387.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/20100722_Hiroshima_Shukkeien_4387.jpg/1920px-20100722_Hiroshima_Shukkeien_4387.jpg",
     width: 1920,
     height: 1276,
     file: "20100722 Hiroshima Shukkeien 4387.jpg",
@@ -2015,25 +2015,25 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:20100722_Hiroshima_Shukkeien_4387.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Okonomimura_Building_at_night.jpg/1920px-Okonomimura_Building_at_night.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Signboard_of_Okonomimura_Building.jpg/1920px-Signboard_of_Okonomimura_Building.jpg",
     width: 1920,
-    height: 2560,
-    file: "Okonomimura Building at night.jpg",
+    height: 1440,
+    file: "Signboard of Okonomimura Building.jpg",
     author: "そらみみ",
     license: "CC BY-SA 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Okonomimura_Building_at_night.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Signboard_of_Okonomimura_Building.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Preparing_okonomiyaki_in_Hiroshima.jpg/1920px-Preparing_okonomiyaki_in_Hiroshima.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Prepared_okonomiyaki_in_Hiroshima.jpg/1920px-Prepared_okonomiyaki_in_Hiroshima.jpg",
     width: 1920,
-    height: 2880,
-    file: "Preparing okonomiyaki in Hiroshima.jpg",
+    height: 1280,
+    file: "Prepared okonomiyaki in Hiroshima.jpg",
     author: "EllieBellie25",
     license: "CC BY-SA 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Preparing_okonomiyaki_in_Hiroshima.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Prepared_okonomiyaki_in_Hiroshima.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Grilled_oysters_-_Food_in_Miyajima_-_DSC02187.JPG/1920px-Grilled_oysters_-_Food_in_Miyajima_-_DSC02187.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/Grilled_oysters_-_Food_in_Miyajima_-_DSC02187.JPG/1920px-Grilled_oysters_-_Food_in_Miyajima_-_DSC02187.JPG",
     width: 1920,
     height: 2716,
     file: "Grilled oysters - Food in Miyajima - DSC02187.JPG",
@@ -2051,7 +2051,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Momiji_Manju_Hiroshima.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Tsukemen_%28Dipping_Ramen%29_-_Goemon_Ramen_Bar_2023-07-16.jpg/1920px-Tsukemen_%28Dipping_Ramen%29_-_Goemon_Ramen_Bar_2023-07-16.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Tsukemen_%28Dipping_Ramen%29_-_Goemon_Ramen_Bar_2023-07-16.jpg/1920px-Tsukemen_%28Dipping_Ramen%29_-_Goemon_Ramen_Bar_2023-07-16.jpg",
     width: 1920,
     height: 1440,
     file: "Tsukemen (Dipping Ramen) - Goemon Ramen Bar 2023-07-16.jpg",
@@ -2060,7 +2060,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tsukemen_(Dipping_Ramen)_-_Goemon_Ramen_Bar_2023-07-16.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Hiroshima_streetcar_%284866175168%29.jpg/1920px-Hiroshima_streetcar_%284866175168%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Hiroshima_streetcar_%284866175168%29.jpg/1920px-Hiroshima_streetcar_%284866175168%29.jpg",
     width: 1920,
     height: 2880,
     file: "Hiroshima streetcar (4866175168).jpg",
@@ -2078,7 +2078,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hiroshima_A-Bomb_Tram_651.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Sika_Deer%2C_Miyajima%2C_Japan%2C_20240816_1653_3982.jpg/1920px-Sika_Deer%2C_Miyajima%2C_Japan%2C_20240816_1653_3982.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Sika_Deer%2C_Miyajima%2C_Japan%2C_20240816_1653_3982.jpg/1920px-Sika_Deer%2C_Miyajima%2C_Japan%2C_20240816_1653_3982.jpg",
     width: 1920,
     height: 2878,
     file: "Sika Deer, Miyajima, Japan, 20240816 1653 3982.jpg",
@@ -2087,7 +2087,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Sika_Deer,_Miyajima,_Japan,_20240816_1653_3982.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Miyajima_Deer_Sep08.jpg/1920px-Miyajima_Deer_Sep08.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Miyajima_Deer_Sep08.jpg/1920px-Miyajima_Deer_Sep08.jpg",
     width: 1920,
     height: 2880,
     file: "Miyajima Deer Sep08.jpg",
@@ -2096,16 +2096,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Miyajima_Deer_Sep08.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/View_of_Hiroshima_City_from_Fuchu_Town_at_night_1.jpg/1920px-View_of_Hiroshima_City_from_Fuchu_Town_at_night_1.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/View_of_Hiroshima_City_from_Fuchu_Town_at_night_2.jpg/1920px-View_of_Hiroshima_City_from_Fuchu_Town_at_night_2.jpg",
     width: 1920,
     height: 1440,
-    file: "View of Hiroshima City from Fuchu Town at night 1.jpg",
+    file: "View of Hiroshima City from Fuchu Town at night 2.jpg",
     author: "そらみみ",
     license: "CC BY-SA 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:View_of_Hiroshima_City_from_Fuchu_Town_at_night_1.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:View_of_Hiroshima_City_from_Fuchu_Town_at_night_2.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Hiroshima_by_night_%2815263331067%29.jpg/1920px-Hiroshima_by_night_%2815263331067%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/Hiroshima_by_night_%2815263331067%29.jpg/1920px-Hiroshima_by_night_%2815263331067%29.jpg",
     width: 1920,
     height: 1080,
     file: "Hiroshima by night (15263331067).jpg",
@@ -2114,7 +2114,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hiroshima_by_night_(15263331067).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Japanese_sika_deer_at_Miyajima%3B_2009.jpg/1920px-Japanese_sika_deer_at_Miyajima%3B_2009.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Japanese_sika_deer_at_Miyajima%3B_2009.jpg/1920px-Japanese_sika_deer_at_Miyajima%3B_2009.jpg",
     width: 1920,
     height: 1278,
     file: "Japanese sika deer at Miyajima; 2009.jpg",
@@ -2143,7 +2143,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Beachside_Torii,_Naoshima.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Chichu_art_museum02s2560.jpg/1920px-Chichu_art_museum02s2560.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Chichu_art_museum02s2560.jpg/1920px-Chichu_art_museum02s2560.jpg",
     width: 1920,
     height: 1280,
     file: "Chichu art museum02s2560.jpg",
@@ -2152,7 +2152,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Chichu_art_museum02s2560.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Benesse_house01s3200.jpg/1920px-Benesse_house01s3200.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/Benesse_house01s3200.jpg/1920px-Benesse_house01s3200.jpg",
     width: 1920,
     height: 1280,
     file: "Benesse house01s3200.jpg",
@@ -2161,7 +2161,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Benesse_house01s3200.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Naoshima_honmura_gallery.jpg/1920px-Naoshima_honmura_gallery.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Naoshima_honmura_gallery.jpg/1920px-Naoshima_honmura_gallery.jpg",
     width: 1920,
     height: 1440,
     file: "Naoshima honmura gallery.jpg",
@@ -2170,7 +2170,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Naoshima_honmura_gallery.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Inside_of_the_Ando_Museum.jpg/1920px-Inside_of_the_Ando_Museum.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Inside_of_the_Ando_Museum.jpg/1920px-Inside_of_the_Ando_Museum.jpg",
     width: 1920,
     height: 2880,
     file: "Inside of the Ando Museum.jpg",
@@ -2179,7 +2179,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Inside_of_the_Ando_Museum.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/150505_Benesse_House_Museum_Naoshima_Kagawa_pref_Japan01b3s5.jpg/1920px-150505_Benesse_House_Museum_Naoshima_Kagawa_pref_Japan01b3s5.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/150505_Benesse_House_Museum_Naoshima_Kagawa_pref_Japan01b3s5.jpg/1920px-150505_Benesse_House_Museum_Naoshima_Kagawa_pref_Japan01b3s5.jpg",
     width: 1920,
     height: 1280,
     file: "150505 Benesse House Museum Naoshima Kagawa pref Japan01b3s5.jpg",
@@ -2188,7 +2188,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:150505_Benesse_House_Museum_Naoshima_Kagawa_pref_Japan01b3s5.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Naoshima_Pavilion.jpg/1920px-Naoshima_Pavilion.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Naoshima_Pavilion.jpg/1920px-Naoshima_Pavilion.jpg",
     width: 1920,
     height: 2880,
     file: "Naoshima Pavilion.jpg",
@@ -2197,7 +2197,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Naoshima_Pavilion.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Naoshima_Islands%2C_Naoshima_Kagawa_Aerial_photograph.2007.jpg/1920px-Naoshima_Islands%2C_Naoshima_Kagawa_Aerial_photograph.2007.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Naoshima_Islands%2C_Naoshima_Kagawa_Aerial_photograph.2007.jpg/1920px-Naoshima_Islands%2C_Naoshima_Kagawa_Aerial_photograph.2007.jpg",
     width: 1920,
     height: 1847,
     file: "Naoshima Islands, Naoshima Kagawa Aerial photograph.2007.jpg",
@@ -2206,7 +2206,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Naoshima_Islands,_Naoshima_Kagawa_Aerial_photograph.2007.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Torii_Schrein%2C_Naoshima%2C.jpg/1920px-Torii_Schrein%2C_Naoshima%2C.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Torii_Schrein%2C_Naoshima%2C.jpg/1920px-Torii_Schrein%2C_Naoshima%2C.jpg",
     width: 1920,
     height: 1440,
     file: "Torii Schrein, Naoshima,.jpg",
@@ -2215,7 +2215,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Torii_Schrein,_Naoshima,.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Naoshima_miyanoura_port.jpg/1920px-Naoshima_miyanoura_port.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Naoshima_miyanoura_port.jpg/1920px-Naoshima_miyanoura_port.jpg",
     width: 1920,
     height: 1440,
     file: "Naoshima miyanoura port.jpg",
@@ -2224,7 +2224,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Naoshima_miyanoura_port.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Naoshima_Ferry_Terminal.jpg/1920px-Naoshima_Ferry_Terminal.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Naoshima_Ferry_Terminal.jpg/1920px-Naoshima_Ferry_Terminal.jpg",
     width: 1920,
     height: 1280,
     file: "Naoshima Ferry Terminal.jpg",
@@ -2233,7 +2233,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Naoshima_Ferry_Terminal.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Naoshima_honmura_port_terminal.jpg/1920px-Naoshima_honmura_port_terminal.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Naoshima_honmura_port_terminal.jpg/1920px-Naoshima_honmura_port_terminal.jpg",
     width: 1920,
     height: 1440,
     file: "Naoshima honmura port terminal.jpg",
@@ -2242,7 +2242,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Naoshima_honmura_port_terminal.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Naoshima_honmura_port_2025.JPG/1920px-Naoshima_honmura_port_2025.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Naoshima_honmura_port_2025.JPG/1920px-Naoshima_honmura_port_2025.JPG",
     width: 1920,
     height: 1440,
     file: "Naoshima honmura port 2025.JPG",
@@ -2269,7 +2269,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Naoshima_Bath_I%E2%99%A5%E6%B9%AF_%E7%9B%B4%E5%B3%B6%E9%8A%AD%E6%B9%AF_PC193562.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/From_the_ferry_to_Naoshima_%287046722809%29.jpg/1920px-From_the_ferry_to_Naoshima_%287046722809%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/From_the_ferry_to_Naoshima_%287046722809%29.jpg/1920px-From_the_ferry_to_Naoshima_%287046722809%29.jpg",
     width: 1920,
     height: 1279,
     file: "From the ferry to Naoshima (7046722809).jpg",
@@ -2278,7 +2278,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:From_the_ferry_to_Naoshima_(7046722809).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Jonge_vrouwen_poseren_voor_voorbijgangers_in_het_eiland_Naoshima%2C_-ca._19_juni_2009.jpg/1920px-Jonge_vrouwen_poseren_voor_voorbijgangers_in_het_eiland_Naoshima%2C_-ca._19_juni_2009.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Jonge_vrouwen_poseren_voor_voorbijgangers_in_het_eiland_Naoshima%2C_-ca._19_juni_2009.jpg/1920px-Jonge_vrouwen_poseren_voor_voorbijgangers_in_het_eiland_Naoshima%2C_-ca._19_juni_2009.jpg",
     width: 1920,
     height: 1440,
     file: "Jonge vrouwen poseren voor voorbijgangers in het eiland Naoshima, -ca. 19 juni 2009.jpg",
@@ -2287,7 +2287,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Jonge_vrouwen_poseren_voor_voorbijgangers_in_het_eiland_Naoshima,_-ca._19_juni_2009.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Naoshima_%287046729115%29.jpg/1920px-Naoshima_%287046729115%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/Naoshima_%287046729115%29.jpg/1920px-Naoshima_%287046729115%29.jpg",
     width: 1920,
     height: 2726,
     file: "Naoshima (7046729115).jpg",
@@ -2305,7 +2305,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Naoshima05.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/150505_Chichu_Art_Museum_Naoshima_Island_Kagawa_pref_Japan01s3.jpg/1920px-150505_Chichu_Art_Museum_Naoshima_Island_Kagawa_pref_Japan01s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/150505_Chichu_Art_Museum_Naoshima_Island_Kagawa_pref_Japan01s3.jpg/1920px-150505_Chichu_Art_Museum_Naoshima_Island_Kagawa_pref_Japan01s3.jpg",
     width: 1920,
     height: 1280,
     file: "150505 Chichu Art Museum Naoshima Island Kagawa pref Japan01s3.jpg",
@@ -2316,7 +2316,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "takamatsu": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Ritsurin_park16s3200.jpg/1920px-Ritsurin_park16s3200.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Ritsurin_park16s3200.jpg/1920px-Ritsurin_park16s3200.jpg",
     width: 1920,
     height: 1280,
     file: "Ritsurin park16s3200.jpg",
@@ -2325,7 +2325,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Ritsurin_park16s3200.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Ritsurin_Garden%2C_Takamatsu_3-27_%2826501902471%29.jpg/1920px-Ritsurin_Garden%2C_Takamatsu_3-27_%2826501902471%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Ritsurin_Garden%2C_Takamatsu_3-27_%2826501902471%29.jpg/1920px-Ritsurin_Garden%2C_Takamatsu_3-27_%2826501902471%29.jpg",
     width: 1920,
     height: 1280,
     file: "Ritsurin Garden, Takamatsu 3-27 (26501902471).jpg",
@@ -2334,7 +2334,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Ritsurin_Garden,_Takamatsu_3-27_(26501902471).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Takamatsu_castle09s3872.jpg/1920px-Takamatsu_castle09s3872.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Takamatsu_castle09s3872.jpg/1920px-Takamatsu_castle09s3872.jpg",
     width: 1920,
     height: 1285,
     file: "Takamatsu castle09s3872.jpg",
@@ -2343,7 +2343,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takamatsu_castle09s3872.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Kotohiragu%2CShrine%2CKagawa_-_panoramio.jpg/1920px-Kotohiragu%2CShrine%2CKagawa_-_panoramio.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/Kotohiragu%2CShrine%2CKagawa_-_panoramio.jpg/1920px-Kotohiragu%2CShrine%2CKagawa_-_panoramio.jpg",
     width: 1920,
     height: 1440,
     file: "Kotohiragu,Shrine,Kagawa - panoramio.jpg",
@@ -2352,7 +2352,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kotohiragu,Shrine,Kagawa_-_panoramio.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Yashima%2CTakamatsu_-_panoramio.jpg/1920px-Yashima%2CTakamatsu_-_panoramio.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Yashima%2CTakamatsu_-_panoramio.jpg/1920px-Yashima%2CTakamatsu_-_panoramio.jpg",
     width: 1920,
     height: 1440,
     file: "Yashima,Takamatsu - panoramio.jpg",
@@ -2361,7 +2361,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Yashima,Takamatsu_-_panoramio.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Kama-age_sanuki_udon_by_sekido_in_Takamatsu%2C_Kagawa.jpg/1920px-Kama-age_sanuki_udon_by_sekido_in_Takamatsu%2C_Kagawa.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Kama-age_sanuki_udon_by_sekido_in_Takamatsu%2C_Kagawa.jpg/1920px-Kama-age_sanuki_udon_by_sekido_in_Takamatsu%2C_Kagawa.jpg",
     width: 1920,
     height: 1280,
     file: "Kama-age sanuki udon by sekido in Takamatsu, Kagawa.jpg",
@@ -2370,7 +2370,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kama-age_sanuki_udon_by_sekido_in_Takamatsu,_Kagawa.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Shikokumura29s3200.jpg/1920px-Shikokumura29s3200.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Shikokumura29s3200.jpg/1920px-Shikokumura29s3200.jpg",
     width: 1920,
     height: 1285,
     file: "Shikokumura29s3200.jpg",
@@ -2379,7 +2379,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shikokumura29s3200.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Sanuki_udon_noodle_%282223059600%29.jpg/1920px-Sanuki_udon_noodle_%282223059600%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Sanuki_udon_noodle_%282223059600%29.jpg/1920px-Sanuki_udon_noodle_%282223059600%29.jpg",
     width: 1920,
     height: 1277,
     file: "Sanuki udon noodle (2223059600).jpg",
@@ -2388,7 +2388,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Sanuki_udon_noodle_(2223059600).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Honetsukidori_Ikkaku_-_Aug_5%2C_2012.jpg/1920px-Honetsukidori_Ikkaku_-_Aug_5%2C_2012.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Honetsukidori_Ikkaku_-_Aug_5%2C_2012.jpg/1920px-Honetsukidori_Ikkaku_-_Aug_5%2C_2012.jpg",
     width: 1920,
     height: 1440,
     file: "Honetsukidori Ikkaku - Aug 5, 2012.jpg",
@@ -2406,7 +2406,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Wasanbon.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Shodoshima_Olive_Park_Shodo_Island_Japan21bs3.jpg/1920px-Shodoshima_Olive_Park_Shodo_Island_Japan21bs3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Shodoshima_Olive_Park_Shodo_Island_Japan21bs3.jpg/1920px-Shodoshima_Olive_Park_Shodo_Island_Japan21bs3.jpg",
     width: 1920,
     height: 1280,
     file: "Shodoshima Olive Park Shodo Island Japan21bs3.jpg",
@@ -2424,7 +2424,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takamatsu_city_Kagawa_gymnasium_02.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Takamatsu_City%2C_Kagawa_Prefecture%3B_April_2015_%2816%29.jpg/1920px-Takamatsu_City%2C_Kagawa_Prefecture%3B_April_2015_%2816%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Takamatsu_City%2C_Kagawa_Prefecture%3B_April_2015_%2816%29.jpg/1920px-Takamatsu_City%2C_Kagawa_Prefecture%3B_April_2015_%2816%29.jpg",
     width: 1920,
     height: 1440,
     file: "Takamatsu City, Kagawa Prefecture; April 2015 (16).jpg",
@@ -2433,7 +2433,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takamatsu_City,_Kagawa_Prefecture;_April_2015_(16).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Port_of_Takamatsu_panorama_Apr_01_2021_05-43PM.jpeg/1920px-Port_of_Takamatsu_panorama_Apr_01_2021_05-43PM.jpeg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Port_of_Takamatsu_panorama_Apr_01_2021_05-43PM.jpeg/1920px-Port_of_Takamatsu_panorama_Apr_01_2021_05-43PM.jpeg",
     width: 1920,
     height: 754,
     file: "Port of Takamatsu panorama Apr 01 2021 05-43PM.jpeg",
@@ -2442,7 +2442,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Port_of_Takamatsu_panorama_Apr_01_2021_05-43PM.jpeg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Jumbo_Ferry_Takamatsu_east_terminal.jpg/1920px-Jumbo_Ferry_Takamatsu_east_terminal.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Jumbo_Ferry_Takamatsu_east_terminal.jpg/1920px-Jumbo_Ferry_Takamatsu_east_terminal.jpg",
     width: 1920,
     height: 1440,
     file: "Jumbo Ferry Takamatsu east terminal.jpg",
@@ -2451,7 +2451,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Jumbo_Ferry_Takamatsu_east_terminal.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Kotoden-1308_%28one_man_train%29.jpg/1920px-Kotoden-1308_%28one_man_train%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Kotoden-1308_%28one_man_train%29.jpg/1920px-Kotoden-1308_%28one_man_train%29.jpg",
     width: 1920,
     height: 1187,
     file: "Kotoden-1308 (one man train).jpg",
@@ -2460,7 +2460,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kotoden-1308_(one_man_train).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Kotoden_1306_Pokoden_at_Shirayama_Station.jpg/1920px-Kotoden_1306_Pokoden_at_Shirayama_Station.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/Kotoden_1306_Pokoden_at_Shirayama_Station.jpg/1920px-Kotoden_1306_Pokoden_at_Shirayama_Station.jpg",
     width: 1920,
     height: 1187,
     file: "Kotoden 1306 Pokoden at Shirayama Station.jpg",
@@ -2478,7 +2478,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Takamatsu_chuo_arcade.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Hotel_Green_Plaza_Shodoshima_Shodo_Island_Kagawa_pref_Japan01s3.jpg/1920px-Hotel_Green_Plaza_Shodoshima_Shodo_Island_Kagawa_pref_Japan01s3.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Hotel_Green_Plaza_Shodoshima_Shodo_Island_Kagawa_pref_Japan01s3.jpg/1920px-Hotel_Green_Plaza_Shodoshima_Shodo_Island_Kagawa_pref_Japan01s3.jpg",
     width: 1920,
     height: 1280,
     file: "Hotel Green Plaza Shodoshima Shodo Island Kagawa pref Japan01s3.jpg",
@@ -2487,7 +2487,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Hotel_Green_Plaza_Shodoshima_Shodo_Island_Kagawa_pref_Japan01s3.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Shodoshima-maru_No.1_Tonosho_Port_Shodo_Island_Kagawa_pref_Japan01bs5.jpg/1920px-Shodoshima-maru_No.1_Tonosho_Port_Shodo_Island_Kagawa_pref_Japan01bs5.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Shodoshima-maru_No.1_Tonosho_Port_Shodo_Island_Kagawa_pref_Japan01bs5.jpg/1920px-Shodoshima-maru_No.1_Tonosho_Port_Shodo_Island_Kagawa_pref_Japan01bs5.jpg",
     width: 1920,
     height: 1280,
     file: "Shodoshima-maru No.1 Tonosho Port Shodo Island Kagawa pref Japan01bs5.jpg",
@@ -2498,7 +2498,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "matsuyama": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Matsuyama_castle%28Iyo%296.JPG/1920px-Matsuyama_castle%28Iyo%296.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Matsuyama_castle%28Iyo%296.JPG/1920px-Matsuyama_castle%28Iyo%296.JPG",
     width: 1920,
     height: 1440,
     file: "Matsuyama castle(Iyo)6.JPG",
@@ -2516,13 +2516,13 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Matsuyama_Castle_Keep_Tower,_Ehime_-_Aug_24,_2009.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Dogo_onsen_honkan_long_exposure.jpg/1920px-Dogo_onsen_honkan_long_exposure.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Dogo_Onsen_Honkan_%28Main_building%29%2C_%E9%81%93%E5%BE%8C%E6%B8%A9%E6%B3%89_%E6%9C%AC%E9%A4%A8_-_panoramio_%288%29.jpg/1920px-Dogo_Onsen_Honkan_%28Main_building%29%2C_%E9%81%93%E5%BE%8C%E6%B8%A9%E6%B3%89_%E6%9C%AC%E9%A4%A8_-_panoramio_%288%29.jpg",
     width: 1920,
-    height: 1280,
-    file: "Dogo onsen honkan long exposure.jpg",
-    author: "Japanexperterna.se",
-    license: "CC BY-SA 3.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Dogo_onsen_honkan_long_exposure.jpg",
+    height: 692,
+    file: "Dogo Onsen Honkan (Main building), 道後温泉 本館 - panoramio (8).jpg",
+    author: "z tanuki",
+    license: "CC BY 3.0",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Dogo_Onsen_Honkan_(Main_building),_%E9%81%93%E5%BE%8C%E6%B8%A9%E6%B3%89_%E6%9C%AC%E9%A4%A8_-_panoramio_(8).jpg",
   },
     {
     url: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Botchan_Karakuri_Clock_20240820_%282%29.jpg",
@@ -2543,7 +2543,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Ni%C5%8D_Gate,_Ishiteji_temple,_Matsuyama_-_Aug_17,_2006.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Botchan-train%28Matsuyama_City%29.JPG/1920px-Botchan-train%28Matsuyama_City%29.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Botchan-train%28Matsuyama_City%29.JPG/1920px-Botchan-train%28Matsuyama_City%29.JPG",
     width: 1920,
     height: 2560,
     file: "Botchan-train(Matsuyama City).JPG",
@@ -2552,7 +2552,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Botchan-train(Matsuyama_City).JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Shiki_Memorial_Museum%28Matsuyama_City%29.JPG/1920px-Shiki_Memorial_Museum%28Matsuyama_City%29.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Shiki_Memorial_Museum%28Matsuyama_City%29.JPG/1920px-Shiki_Memorial_Museum%28Matsuyama_City%29.JPG",
     width: 1920,
     height: 1440,
     file: "Shiki Memorial Museum(Matsuyama City).JPG",
@@ -2561,7 +2561,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Shiki_Memorial_Museum(Matsuyama_City).JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Taimeshi_01.jpg/1920px-Taimeshi_01.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Taimeshi_01.jpg/1920px-Taimeshi_01.jpg",
     width: 1920,
     height: 1440,
     file: "Taimeshi 01.jpg",
@@ -2579,7 +2579,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Serving_jakoten_in_Dogo.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Citrus_unshiu_20101127_c.jpg/1920px-Citrus_unshiu_20101127_c.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Citrus_unshiu_20101127_c.jpg/1920px-Citrus_unshiu_20101127_c.jpg",
     width: 1920,
     height: 1440,
     file: "Citrus unshiu 20101127 c.jpg",
@@ -2588,16 +2588,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Citrus_unshiu_20101127_c.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Botchan_Dango.jpg/1920px-Botchan_Dango.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Botchan-Dango%28a_Japanese_Cake_of_Matsuyama_City%29.JPG/1920px-Botchan-Dango%28a_Japanese_Cake_of_Matsuyama_City%29.JPG",
     width: 1920,
-    height: 1280,
-    file: "Botchan Dango.jpg",
-    author: "Fred Cherrygarden",
-    license: "CC BY-SA 4.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Botchan_Dango.jpg",
+    height: 2560,
+    file: "Botchan-Dango(a Japanese Cake of Matsuyama City).JPG",
+    author: "Jyo81 (ja:User)",
+    license: "CC BY 3.0",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Botchan-Dango(a_Japanese_Cake_of_Matsuyama_City).JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/%E6%9D%BE%E5%B1%B1%E5%B8%82%E5%BA%81%E8%88%8E%E6%9C%AC%E9%A4%A8%28Matsuyama_city_main_hall%29.jpg/1920px-%E6%9D%BE%E5%B1%B1%E5%B8%82%E5%BA%81%E8%88%8E%E6%9C%AC%E9%A4%A8%28Matsuyama_city_main_hall%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/%E6%9D%BE%E5%B1%B1%E5%B8%82%E5%BA%81%E8%88%8E%E6%9C%AC%E9%A4%A8%28Matsuyama_city_main_hall%29.jpg/1920px-%E6%9D%BE%E5%B1%B1%E5%B8%82%E5%BA%81%E8%88%8E%E6%9C%AC%E9%A4%A8%28Matsuyama_city_main_hall%29.jpg",
     width: 1920,
     height: 1440,
     file: "松山市庁舎本館(Matsuyama city main hall).jpg",
@@ -2606,7 +2606,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:%E6%9D%BE%E5%B1%B1%E5%B8%82%E5%BA%81%E8%88%8E%E6%9C%AC%E9%A4%A8(Matsuyama_city_main_hall).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Matsuyama_city_office_Ehime_prefecture_Japan.jpg/1920px-Matsuyama_city_office_Ehime_prefecture_Japan.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Matsuyama_city_office_Ehime_prefecture_Japan.jpg/1920px-Matsuyama_city_office_Ehime_prefecture_Japan.jpg",
     width: 1920,
     height: 1440,
     file: "Matsuyama city office Ehime prefecture Japan.jpg",
@@ -2615,7 +2615,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Matsuyama_city_office_Ehime_prefecture_Japan.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Dogo_Shopping_Street%28Matsuyama_City%29.JPG/1920px-Dogo_Shopping_Street%28Matsuyama_City%29.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Dogo_Shopping_Street%28Matsuyama_City%29.JPG/1920px-Dogo_Shopping_Street%28Matsuyama_City%29.JPG",
     width: 1920,
     height: 1440,
     file: "Dogo Shopping Street(Matsuyama City).JPG",
@@ -2633,7 +2633,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nearby_Dogo_onsen_Hot_Springs,_Matsuyama_City,_Ehime_Prefecture,_Japan_-_panoramio.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Tram_at_Matsuyama_2015-04-13.jpg/1920px-Tram_at_Matsuyama_2015-04-13.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Tram_at_Matsuyama_2015-04-13.jpg/1920px-Tram_at_Matsuyama_2015-04-13.jpg",
     width: 1920,
     height: 1440,
     file: "Tram at Matsuyama 2015-04-13.jpg",
@@ -2642,7 +2642,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tram_at_Matsuyama_2015-04-13.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Matsuyama_city_station_tram_stop.jpg/1920px-Matsuyama_city_station_tram_stop.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Matsuyama_city_station_tram_stop.jpg/1920px-Matsuyama_city_station_tram_stop.jpg",
     width: 1920,
     height: 1440,
     file: "Matsuyama city station tram stop.jpg",
@@ -2651,7 +2651,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Matsuyama_city_station_tram_stop.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Matsuyama_castle_Ropeway%26Chairlift%28Iyo%29.JPG/1920px-Matsuyama_castle_Ropeway%26Chairlift%28Iyo%29.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Matsuyama_castle_Ropeway%26Chairlift%28Iyo%29.JPG/1920px-Matsuyama_castle_Ropeway%26Chairlift%28Iyo%29.JPG",
     width: 1920,
     height: 1440,
     file: "Matsuyama castle Ropeway&Chairlift(Iyo).JPG",
@@ -2660,7 +2660,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Matsuyama_castle_Ropeway%26Chairlift(Iyo).JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Matsuyama_Castle_Ropeway%2C_%E6%9D%BE%E5%B1%B1%E5%9F%8E_%E3%83%AD%E3%83%BC%E3%83%97%E3%82%A6%E3%82%A7%E3%82%A4_-_panoramio_%284%29.jpg/1920px-Matsuyama_Castle_Ropeway%2C_%E6%9D%BE%E5%B1%B1%E5%9F%8E_%E3%83%AD%E3%83%BC%E3%83%97%E3%82%A6%E3%82%A7%E3%82%A4_-_panoramio_%284%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Matsuyama_Castle_Ropeway%2C_%E6%9D%BE%E5%B1%B1%E5%9F%8E_%E3%83%AD%E3%83%BC%E3%83%97%E3%82%A6%E3%82%A7%E3%82%A4_-_panoramio_%284%29.jpg/1920px-Matsuyama_Castle_Ropeway%2C_%E6%9D%BE%E5%B1%B1%E5%9F%8E_%E3%83%AD%E3%83%BC%E3%83%97%E3%82%A6%E3%82%A7%E3%82%A4_-_panoramio_%284%29.jpg",
     width: 1920,
     height: 1440,
     file: "Matsuyama Castle Ropeway, 松山城 ロープウェイ - panoramio (4).jpg",
@@ -2680,7 +2680,7 @@ export const GALLERIES: Record<string, Photo[]> = {
   ],
   "fukuoka": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Fukuoka_Skyline_of_Seaside_Momochi.jpg/1920px-Fukuoka_Skyline_of_Seaside_Momochi.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Fukuoka_Skyline_of_Seaside_Momochi.jpg/1920px-Fukuoka_Skyline_of_Seaside_Momochi.jpg",
     width: 1920,
     height: 1439,
     file: "Fukuoka Skyline of Seaside Momochi.jpg",
@@ -2689,7 +2689,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Fukuoka_Skyline_of_Seaside_Momochi.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Seiry%C5%AB_Park_Fukuoka_Hakata_Yatai_Nakasu_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20250401_174434.jpg/1920px-Seiry%C5%AB_Park_Fukuoka_Hakata_Yatai_Nakasu_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20250401_174434.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Seiry%C5%AB_Park_Fukuoka_Hakata_Yatai_Nakasu_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20250401_174434.jpg/1920px-Seiry%C5%AB_Park_Fukuoka_Hakata_Yatai_Nakasu_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20250401_174434.jpg",
     width: 1920,
     height: 1080,
     file: "Seiryū Park Fukuoka Hakata Yatai Nakasu 1-chōme Hakata-ku Fukuoka 20250401 174434.jpg",
@@ -2698,7 +2698,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Seiry%C5%AB_Park_Fukuoka_Hakata_Yatai_Nakasu_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20250401_174434.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/20100719_Dazaifu_Tenmangu_Shrine_3328.jpg/1920px-20100719_Dazaifu_Tenmangu_Shrine_3328.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/20100719_Dazaifu_Tenmangu_Shrine_3328.jpg/1920px-20100719_Dazaifu_Tenmangu_Shrine_3328.jpg",
     width: 1920,
     height: 1277,
     file: "20100719 Dazaifu Tenmangu Shrine 3328.jpg",
@@ -2707,7 +2707,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:20100719_Dazaifu_Tenmangu_Shrine_3328.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Kushida_Shrine_the_Hakata_Wall_and_the_inner_sanctuary_1-41_Kami-kawabatamachi_Hakata-ku_Fukuoka_20231120.jpg/1920px-Kushida_Shrine_the_Hakata_Wall_and_the_inner_sanctuary_1-41_Kami-kawabatamachi_Hakata-ku_Fukuoka_20231120.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Kushida_Shrine_the_Hakata_Wall_and_the_inner_sanctuary_1-41_Kami-kawabatamachi_Hakata-ku_Fukuoka_20231120.jpg/1920px-Kushida_Shrine_the_Hakata_Wall_and_the_inner_sanctuary_1-41_Kami-kawabatamachi_Hakata-ku_Fukuoka_20231120.jpg",
     width: 1920,
     height: 1080,
     file: "Kushida Shrine the Hakata Wall and the inner sanctuary 1-41 Kami-kawabatamachi Hakata-ku Fukuoka 20231120.jpg",
@@ -2716,7 +2716,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kushida_Shrine_the_Hakata_Wall_and_the_inner_sanctuary_1-41_Kami-kawabatamachi_Hakata-ku_Fukuoka_20231120.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/%C5%8Chori_Park_The_pergola_in_Matsushima_%C5%8Chori-k%C5%8Den_Ch%C5%AB%C5%8D-ku_Fukuoka_20260514.jpg/1920px-%C5%8Chori_Park_The_pergola_in_Matsushima_%C5%8Chori-k%C5%8Den_Ch%C5%AB%C5%8D-ku_Fukuoka_20260514.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/%C5%8Chori_Park_The_pergola_in_Matsushima_%C5%8Chori-k%C5%8Den_Ch%C5%AB%C5%8D-ku_Fukuoka_20260514.jpg/1920px-%C5%8Chori_Park_The_pergola_in_Matsushima_%C5%8Chori-k%C5%8Den_Ch%C5%AB%C5%8D-ku_Fukuoka_20260514.jpg",
     width: 1920,
     height: 1081,
     file: "Ōhori Park The pergola in Matsushima Ōhori-kōen Chūō-ku Fukuoka 20260514.jpg",
@@ -2725,7 +2725,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:%C5%8Chori_Park_The_pergola_in_Matsushima_%C5%8Chori-k%C5%8Den_Ch%C5%AB%C5%8D-ku_Fukuoka_20260514.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Gate_of_Nanzoin_Temple_in_Sasaguri%2C_Kasuya%2C_Fukuoka.JPG/1920px-Gate_of_Nanzoin_Temple_in_Sasaguri%2C_Kasuya%2C_Fukuoka.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Gate_of_Nanzoin_Temple_in_Sasaguri%2C_Kasuya%2C_Fukuoka.JPG/1920px-Gate_of_Nanzoin_Temple_in_Sasaguri%2C_Kasuya%2C_Fukuoka.JPG",
     width: 1920,
     height: 1440,
     file: "Gate of Nanzoin Temple in Sasaguri, Kasuya, Fukuoka.JPG",
@@ -2734,7 +2734,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Gate_of_Nanzoin_Temple_in_Sasaguri,_Kasuya,_Fukuoka.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Tenjin-nishi_D%C5%8Dri_the_ENE_view_from_Kon-ya-machi_Sh%C5%8Dji_Tenjin_2-ch%C5%8Dme_Ch%C5%AB%C5%8D-ku_Fukuoka_20231114.jpg/1920px-Tenjin-nishi_D%C5%8Dri_the_ENE_view_from_Kon-ya-machi_Sh%C5%8Dji_Tenjin_2-ch%C5%8Dme_Ch%C5%AB%C5%8D-ku_Fukuoka_20231114.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/27/Tenjin-nishi_D%C5%8Dri_the_ENE_view_from_Kon-ya-machi_Sh%C5%8Dji_Tenjin_2-ch%C5%8Dme_Ch%C5%AB%C5%8D-ku_Fukuoka_20231114.jpg/1920px-Tenjin-nishi_D%C5%8Dri_the_ENE_view_from_Kon-ya-machi_Sh%C5%8Dji_Tenjin_2-ch%C5%8Dme_Ch%C5%AB%C5%8D-ku_Fukuoka_20231114.jpg",
     width: 1920,
     height: 1085,
     file: "Tenjin-nishi Dōri the ENE view from Kon-ya-machi Shōji Tenjin 2-chōme Chūō-ku Fukuoka 20231114.jpg",
@@ -2743,7 +2743,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tenjin-nishi_D%C5%8Dri_the_ENE_view_from_Kon-ya-machi_Sh%C5%8Dji_Tenjin_2-ch%C5%8Dme_Ch%C5%AB%C5%8D-ku_Fukuoka_20231114.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Tonkotsu_Ramen_Special%2C_Hakata_Choten%2C_Paris_001.jpg/1920px-Tonkotsu_Ramen_Special%2C_Hakata_Choten%2C_Paris_001.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Tonkotsu_Ramen_Special%2C_Hakata_Choten%2C_Paris_001.jpg/1920px-Tonkotsu_Ramen_Special%2C_Hakata_Choten%2C_Paris_001.jpg",
     width: 1920,
     height: 1280,
     file: "Tonkotsu Ramen Special, Hakata Choten, Paris 001.jpg",
@@ -2761,7 +2761,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Motsunabe.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Mentaiko_from_a_Fish_Market_in_Fukuoka.jpg/1920px-Mentaiko_from_a_Fish_Market_in_Fukuoka.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Mentaiko_from_a_Fish_Market_in_Fukuoka.jpg/1920px-Mentaiko_from_a_Fish_Market_in_Fukuoka.jpg",
     width: 1920,
     height: 2560,
     file: "Mentaiko from a Fish Market in Fukuoka.jpg",
@@ -2779,7 +2779,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Umegaemochi_in_Dazaifu.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Nakasu_Yatai_Stalls_%2819979437930%29.jpg/1920px-Nakasu_Yatai_Stalls_%2819979437930%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Nakasu_Yatai_Stalls_%2819979437930%29.jpg/1920px-Nakasu_Yatai_Stalls_%2819979437930%29.jpg",
     width: 1920,
     height: 1280,
     file: "Nakasu Yatai Stalls (19979437930).jpg",
@@ -2788,7 +2788,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nakasu_Yatai_Stalls_(19979437930).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Nakasu-yatai.JPG/1920px-Nakasu-yatai.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Nakasu-yatai.JPG/1920px-Nakasu-yatai.JPG",
     width: 1920,
     height: 1440,
     file: "Nakasu-yatai.JPG",
@@ -2797,7 +2797,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nakasu-yatai.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Canal_City_Fukuoka_Washington_Hotel_2-20_Sumiyoshi_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20240520.jpg/1920px-Canal_City_Fukuoka_Washington_Hotel_2-20_Sumiyoshi_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20240520.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Canal_City_Fukuoka_Washington_Hotel_2-20_Sumiyoshi_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20240520.jpg/1920px-Canal_City_Fukuoka_Washington_Hotel_2-20_Sumiyoshi_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20240520.jpg",
     width: 1920,
     height: 2560,
     file: "Canal City Fukuoka Washington Hotel 2-20 Sumiyoshi 1-chōme Hakata-ku Fukuoka 20240520.jpg",
@@ -2806,7 +2806,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Canal_City_Fukuoka_Washington_Hotel_2-20_Sumiyoshi_1-ch%C5%8Dme_Hakata-ku_Fukuoka_20240520.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Canal_City_in_Hakata%2C_Fukuoka_20140104-1.jpg/1920px-Canal_City_in_Hakata%2C_Fukuoka_20140104-1.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/df/Canal_City_in_Hakata%2C_Fukuoka_20140104-1.jpg/1920px-Canal_City_in_Hakata%2C_Fukuoka_20140104-1.jpg",
     width: 1920,
     height: 2560,
     file: "Canal City in Hakata, Fukuoka 20140104-1.jpg",
@@ -2815,7 +2815,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Canal_City_in_Hakata,_Fukuoka_20140104-1.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Fukuoka_City_Subway_Hakata_Station_the_information_board_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806.jpg/1920px-Fukuoka_City_Subway_Hakata_Station_the_information_board_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Fukuoka_City_Subway_Hakata_Station_the_information_board_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806.jpg/1920px-Fukuoka_City_Subway_Hakata_Station_the_information_board_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806.jpg",
     width: 1920,
     height: 1440,
     file: "Fukuoka City Subway Hakata Station the information board Hakata-eki-chūōgai Hakata-ku Fukuoka 20240806.jpg",
@@ -2824,7 +2824,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Fukuoka_City_Subway_Hakata_Station_the_information_board_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Fukuoka_City_Subway_Hakata_Station_the_concourse_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806_170810.jpg/1920px-Fukuoka_City_Subway_Hakata_Station_the_concourse_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806_170810.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Fukuoka_City_Subway_Hakata_Station_the_concourse_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806_170810.jpg/1920px-Fukuoka_City_Subway_Hakata_Station_the_concourse_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806_170810.jpg",
     width: 1920,
     height: 1080,
     file: "Fukuoka City Subway Hakata Station the concourse Hakata-eki-chūōgai Hakata-ku Fukuoka 20240806 170810.jpg",
@@ -2833,7 +2833,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Fukuoka_City_Subway_Hakata_Station_the_concourse_Hakata-eki-ch%C5%AB%C5%8Dgai_Hakata-ku_Fukuoka_20240806_170810.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Views_of_Hilton_Fukuoka_Seahawk_and_Fukuoka_Dome_from_Seaside_Momochi_Beach.jpg/1920px-Views_of_Hilton_Fukuoka_Seahawk_and_Fukuoka_Dome_from_Seaside_Momochi_Beach.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Views_of_Hilton_Fukuoka_Seahawk_and_Fukuoka_Dome_from_Seaside_Momochi_Beach.jpg/1920px-Views_of_Hilton_Fukuoka_Seahawk_and_Fukuoka_Dome_from_Seaside_Momochi_Beach.jpg",
     width: 1920,
     height: 949,
     file: "Views of Hilton Fukuoka Seahawk and Fukuoka Dome from Seaside Momochi Beach.jpg",
@@ -2842,7 +2842,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Views_of_Hilton_Fukuoka_Seahawk_and_Fukuoka_Dome_from_Seaside_Momochi_Beach.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Seaside_Momochi_Seaside_Park_the_W_pergola_Momochi-hama_4-ch%C5%8Dme_Sawara-ku_Fukuoka_20240604.jpg/1920px-Seaside_Momochi_Seaside_Park_the_W_pergola_Momochi-hama_4-ch%C5%8Dme_Sawara-ku_Fukuoka_20240604.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Seaside_Momochi_Seaside_Park_the_W_pergola_Momochi-hama_4-ch%C5%8Dme_Sawara-ku_Fukuoka_20240604.jpg/1920px-Seaside_Momochi_Seaside_Park_the_W_pergola_Momochi-hama_4-ch%C5%8Dme_Sawara-ku_Fukuoka_20240604.jpg",
     width: 1920,
     height: 1084,
     file: "Seaside Momochi Seaside Park the W pergola Momochi-hama 4-chōme Sawara-ku Fukuoka 20240604.jpg",
@@ -2851,7 +2851,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Seaside_Momochi_Seaside_Park_the_W_pergola_Momochi-hama_4-ch%C5%8Dme_Sawara-ku_Fukuoka_20240604.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/The_Hakata_Gion_Yamakasa.jpg/1920px-The_Hakata_Gion_Yamakasa.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/The_Hakata_Gion_Yamakasa.jpg/1920px-The_Hakata_Gion_Yamakasa.jpg",
     width: 1920,
     height: 3413,
     file: "The Hakata Gion Yamakasa.jpg",
@@ -2871,7 +2871,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nagasaki_City_View_from_Glover_Garden,_Nagasaki_2014.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/20190202_Nagasaki_Peace_Park_Statue_of_Peace-1.jpg/1920px-20190202_Nagasaki_Peace_Park_Statue_of_Peace-1.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/20190202_Nagasaki_Peace_Park_Statue_of_Peace-1.jpg/1920px-20190202_Nagasaki_Peace_Park_Statue_of_Peace-1.jpg",
     width: 1920,
     height: 2880,
     file: "20190202 Nagasaki Peace Park Statue of Peace-1.jpg",
@@ -2880,7 +2880,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:20190202_Nagasaki_Peace_Park_Statue_of_Peace-1.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/View_of_the_Former_Dutch_Trading_Post_on_Dejima_from_Tamae_Bridge%2C_Nagasaki%2C_20240815_1501_3720.jpg/1920px-View_of_the_Former_Dutch_Trading_Post_on_Dejima_from_Tamae_Bridge%2C_Nagasaki%2C_20240815_1501_3720.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/200321_Urakami_Cathedral_Nagasaki_Japan01bs.jpg/1920px-200321_Urakami_Cathedral_Nagasaki_Japan01bs.jpg",
+    width: 1920,
+    height: 1280,
+    file: "200321 Urakami Cathedral Nagasaki Japan01bs.jpg",
+    author: "663highland",
+    license: "CC BY 2.5",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:200321_Urakami_Cathedral_Nagasaki_Japan01bs.jpg",
+  },
+    {
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/View_of_the_Former_Dutch_Trading_Post_on_Dejima_from_Tamae_Bridge%2C_Nagasaki%2C_20240815_1501_3720.jpg/1920px-View_of_the_Former_Dutch_Trading_Post_on_Dejima_from_Tamae_Bridge%2C_Nagasaki%2C_20240815_1501_3720.jpg",
     width: 1920,
     height: 1282,
     file: "View of the Former Dutch Trading Post on Dejima from Tamae Bridge, Nagasaki, 20240815 1501 3720.jpg",
@@ -2898,7 +2907,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nagasaki-Glover-Garden-5415.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/View_of_Nagasaki_station_area_from_Mt._Inasa.jpg/1920px-View_of_Nagasaki_station_area_from_Mt._Inasa.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/View_of_Nagasaki_station_area_from_Mt._Inasa.jpg/1920px-View_of_Nagasaki_station_area_from_Mt._Inasa.jpg",
     width: 1920,
     height: 1280,
     file: "View of Nagasaki station area from Mt. Inasa.jpg",
@@ -2916,7 +2925,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nagasaki_Hashima_01.png",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Meganebashi%2C_Nagasaki_cropped_1.jpg/1920px-Meganebashi%2C_Nagasaki_cropped_1.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Meganebashi%2C_Nagasaki_cropped_1.jpg/1920px-Meganebashi%2C_Nagasaki_cropped_1.jpg",
     width: 1920,
     height: 1591,
     file: "Meganebashi, Nagasaki cropped 1.jpg",
@@ -2925,7 +2934,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Meganebashi,_Nagasaki_cropped_1.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/140322_Unzen_Onsen_Jigoku_Unzen_Nagasaki_pref_Japan13o.JPG/1920px-140322_Unzen_Onsen_Jigoku_Unzen_Nagasaki_pref_Japan13o.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/140322_Unzen_Onsen_Jigoku_Unzen_Nagasaki_pref_Japan13o.JPG/1920px-140322_Unzen_Onsen_Jigoku_Unzen_Nagasaki_pref_Japan13o.JPG",
     width: 1920,
     height: 1280,
     file: "140322 Unzen Onsen Jigoku Unzen Nagasaki pref Japan13o.JPG",
@@ -2934,7 +2943,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:140322_Unzen_Onsen_Jigoku_Unzen_Nagasaki_pref_Japan13o.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shikairo_Nagasaki_Japan05s.jpg/1920px-Shikairo_Nagasaki_Japan05s.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Shikairo_Nagasaki_Japan05s.jpg/1920px-Shikairo_Nagasaki_Japan05s.jpg",
     width: 1920,
     height: 1276,
     file: "Shikairo Nagasaki Japan05s.jpg",
@@ -2961,16 +2970,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Sara_udon_in_Kyoto.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Nagasaki_Shippoku_Hamakatsu09s.jpg/1920px-Nagasaki_Shippoku_Hamakatsu09s.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Nagasaki_Shippoku_Hamakatsu03s.jpg/1920px-Nagasaki_Shippoku_Hamakatsu03s.jpg",
     width: 1920,
     height: 1280,
-    file: "Nagasaki Shippoku Hamakatsu09s.jpg",
+    file: "Nagasaki Shippoku Hamakatsu03s.jpg",
     author: "663highland",
     license: "CC BY 2.5",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Nagasaki_Shippoku_Hamakatsu09s.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Nagasaki_Shippoku_Hamakatsu03s.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Mos_Burger_Nagasaki_Toruko-rice_burger.jpg/1920px-Mos_Burger_Nagasaki_Toruko-rice_burger.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Mos_Burger_Nagasaki_Toruko-rice_burger.jpg/1920px-Mos_Burger_Nagasaki_Toruko-rice_burger.jpg",
     width: 1920,
     height: 1438,
     file: "Mos Burger Nagasaki Toruko-rice burger.jpg",
@@ -2979,13 +2988,13 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Mos_Burger_Nagasaki_Toruko-rice_burger.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Nagasaki_Streetcar_M5292.jpg",
+    url: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Nagasaki_Streetcar_M5290.jpg",
     width: 1600,
-    height: 1189,
-    file: "Nagasaki Streetcar M5292.jpg",
+    height: 1192,
+    file: "Nagasaki Streetcar M5290.jpg",
     author: "Fg2",
     license: "Public domain",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Nagasaki_Streetcar_M5292.jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:Nagasaki_Streetcar_M5290.jpg",
   },
     {
     url: "https://upload.wikimedia.org/wikipedia/commons/3/33/Nagasaki_Trolley_M5176.jpg",
@@ -3006,7 +3015,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Oura_Church_in_Nagasaki,_20240814_0839_3201.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Oura_Cathedral_20180623.jpg/1920px-Oura_Cathedral_20180623.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/Oura_Cathedral_20180623.jpg/1920px-Oura_Cathedral_20180623.jpg",
     width: 1920,
     height: 2557,
     file: "Oura Cathedral 20180623.jpg",
@@ -3015,7 +3024,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Oura_Cathedral_20180623.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Nagasaki_Shinchi_Chinatown%2C_Nagasaki%2C_20240814_1024_3295.jpg/1920px-Nagasaki_Shinchi_Chinatown%2C_Nagasaki%2C_20240814_1024_3295.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Nagasaki_Shinchi_Chinatown%2C_Nagasaki%2C_20240814_1024_3295.jpg/1920px-Nagasaki_Shinchi_Chinatown%2C_Nagasaki%2C_20240814_1024_3295.jpg",
     width: 1920,
     height: 2411,
     file: "Nagasaki Shinchi Chinatown, Nagasaki, 20240814 1024 3295.jpg",
@@ -3024,7 +3033,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nagasaki_Shinchi_Chinatown,_Nagasaki,_20240814_1024_3295.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Gembumon_Gate_of_Nagasaki_Shinchi_Chinatown.JPG/1920px-Gembumon_Gate_of_Nagasaki_Shinchi_Chinatown.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Gembumon_Gate_of_Nagasaki_Shinchi_Chinatown.JPG/1920px-Gembumon_Gate_of_Nagasaki_Shinchi_Chinatown.JPG",
     width: 1920,
     height: 1440,
     file: "Gembumon Gate of Nagasaki Shinchi Chinatown.JPG",
@@ -3032,19 +3041,10 @@ export const GALLERIES: Record<string, Photo[]> = {
     license: "CC BY-SA 4.0",
     sourcePage: "https://commons.wikimedia.org/wiki/File:Gembumon_Gate_of_Nagasaki_Shinchi_Chinatown.JPG",
   },
-    {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Nagasaki_Arcade_Route_324_%2848768215496%29.jpg/1920px-Nagasaki_Arcade_Route_324_%2848768215496%29.jpg",
-    width: 1920,
-    height: 1280,
-    file: "Nagasaki Arcade Route 324 (48768215496).jpg",
-    author: "nobu3withfoxy from Iga,Mie, Japan",
-    license: "CC BY 2.0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:Nagasaki_Arcade_Route_324_(48768215496).jpg",
-  },
   ],
   "tokyo-retour": [
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Entrance_to_Hydrangea_Path_at_Hasedera_%28Kamakura%29.jpg/1920px-Entrance_to_Hydrangea_Path_at_Hasedera_%28Kamakura%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Entrance_to_Hydrangea_Path_at_Hasedera_%28Kamakura%29.jpg/1920px-Entrance_to_Hydrangea_Path_at_Hasedera_%28Kamakura%29.jpg",
     width: 1920,
     height: 1355,
     file: "Entrance to Hydrangea Path at Hasedera (Kamakura).jpg",
@@ -3053,7 +3053,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Entrance_to_Hydrangea_Path_at_Hasedera_(Kamakura).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Nezu_Museum_Garten-20091020-RM-114344.jpg/1920px-Nezu_Museum_Garten-20091020-RM-114344.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Nezu_Museum_Garten-20091020-RM-114344.jpg/1920px-Nezu_Museum_Garten-20091020-RM-114344.jpg",
     width: 1920,
     height: 1440,
     file: "Nezu Museum Garten-20091020-RM-114344.jpg",
@@ -3062,7 +3062,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Nezu_Museum_Garten-20091020-RM-114344.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Bookshop_in_Kanda-Jimbocho_area_of_Tokyo.JPG/1920px-Bookshop_in_Kanda-Jimbocho_area_of_Tokyo.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Bookshop_in_Kanda-Jimbocho_area_of_Tokyo.JPG/1920px-Bookshop_in_Kanda-Jimbocho_area_of_Tokyo.JPG",
     width: 1920,
     height: 1440,
     file: "Bookshop in Kanda-Jimbocho area of Tokyo.JPG",
@@ -3080,7 +3080,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Ginza_Kabukiza_2013_0428.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/TeamLab_Borderless%2C_Odaiba%2C_Tokyo%2C_Japan_%2849070645226%29.jpg/1920px-TeamLab_Borderless%2C_Odaiba%2C_Tokyo%2C_Japan_%2849070645226%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/TeamLab_Borderless%2C_Odaiba%2C_Tokyo%2C_Japan_%2849070645226%29.jpg/1920px-TeamLab_Borderless%2C_Odaiba%2C_Tokyo%2C_Japan_%2849070645226%29.jpg",
     width: 1920,
     height: 1280,
     file: "TeamLab Borderless, Odaiba, Tokyo, Japan (49070645226).jpg",
@@ -3098,7 +3098,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Marunouchi_Illumination,_Chiyoda,_Tokyo,_Japan.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Tsukishima_Monja_Street_%28Nakadori_Street%29%2C_Tokyo%3B_January_2017_%2801%29.jpg/1920px-Tsukishima_Monja_Street_%28Nakadori_Street%29%2C_Tokyo%3B_January_2017_%2801%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Tsukishima_Monja_Street_%28Nakadori_Street%29%2C_Tokyo%3B_January_2017_%2801%29.jpg/1920px-Tsukishima_Monja_Street_%28Nakadori_Street%29%2C_Tokyo%3B_January_2017_%2801%29.jpg",
     width: 1920,
     height: 1440,
     file: "Tsukishima Monja Street (Nakadori Street), Tokyo; January 2017 (01).jpg",
@@ -3107,7 +3107,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tsukishima_Monja_Street_(Nakadori_Street),_Tokyo;_January_2017_(01).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Kagurazaka_%2852364367900%29.jpg/1920px-Kagurazaka_%2852364367900%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Kagurazaka_%2852364367900%29.jpg/1920px-Kagurazaka_%2852364367900%29.jpg",
     width: 1920,
     height: 1440,
     file: "Kagurazaka (52364367900).jpg",
@@ -3116,16 +3116,16 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kagurazaka_(52364367900).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/View_of_Tokyo_from_Mount_Takao_%2854933%29.jpg/1920px-View_of_Tokyo_from_Mount_Takao_%2854933%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/View_of_Tokyo_from_Mount_Takao_%2835777%29.jpg/1920px-View_of_Tokyo_from_Mount_Takao_%2835777%29.jpg",
     width: 1920,
     height: 1446,
-    file: "View of Tokyo from Mount Takao (54933).jpg",
+    file: "View of Tokyo from Mount Takao (35777).jpg",
     author: "Syced",
     license: "CC0",
-    sourcePage: "https://commons.wikimedia.org/wiki/File:View_of_Tokyo_from_Mount_Takao_(54933).jpg",
+    sourcePage: "https://commons.wikimedia.org/wiki/File:View_of_Tokyo_from_Mount_Takao_(35777).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Monjayaki_dish_from_Tsukishima%2C_Tokyo%2C_Japan%3B_January_2013.jpg/1920px-Monjayaki_dish_from_Tsukishima%2C_Tokyo%2C_Japan%3B_January_2013.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Monjayaki_dish_from_Tsukishima%2C_Tokyo%2C_Japan%3B_January_2013.jpg/1920px-Monjayaki_dish_from_Tsukishima%2C_Tokyo%2C_Japan%3B_January_2013.jpg",
     width: 1920,
     height: 1280,
     file: "Monjayaki dish from Tsukishima, Tokyo, Japan; January 2013.jpg",
@@ -3134,7 +3134,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Monjayaki_dish_from_Tsukishima,_Tokyo,_Japan;_January_2013.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Fukagawameshi.jpg/1920px-Fukagawameshi.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Fukagawameshi.jpg/1920px-Fukagawameshi.jpg",
     width: 1920,
     height: 1440,
     file: "Fukagawameshi.jpg",
@@ -3143,7 +3143,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Fukagawameshi.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Dorayaki_and_sweet_potato_from_Kashiwa%2C_Tokyo%2C_Japan%3B_February_2012.jpg/1920px-Dorayaki_and_sweet_potato_from_Kashiwa%2C_Tokyo%2C_Japan%3B_February_2012.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Dorayaki_and_sweet_potato_from_Kashiwa%2C_Tokyo%2C_Japan%3B_February_2012.jpg/1920px-Dorayaki_and_sweet_potato_from_Kashiwa%2C_Tokyo%2C_Japan%3B_February_2012.jpg",
     width: 1920,
     height: 1280,
     file: "Dorayaki and sweet potato from Kashiwa, Tokyo, Japan; February 2012.jpg",
@@ -3152,7 +3152,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Dorayaki_and_sweet_potato_from_Kashiwa,_Tokyo,_Japan;_February_2012.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Books_along_a_walkway_in_the_Kanda-Jimbocho_area_of_Tokyo.JPG/1920px-Books_along_a_walkway_in_the_Kanda-Jimbocho_area_of_Tokyo.JPG",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Books_along_a_walkway_in_the_Kanda-Jimbocho_area_of_Tokyo.JPG/1920px-Books_along_a_walkway_in_the_Kanda-Jimbocho_area_of_Tokyo.JPG",
     width: 1920,
     height: 1440,
     file: "Books along a walkway in the Kanda-Jimbocho area of Tokyo.JPG",
@@ -3161,7 +3161,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Books_along_a_walkway_in_the_Kanda-Jimbocho_area_of_Tokyo.JPG",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Jimbocho_book_festival_%2838161699891%29.jpg/1920px-Jimbocho_book_festival_%2838161699891%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/Jimbocho_book_festival_%2838161699891%29.jpg/1920px-Jimbocho_book_festival_%2838161699891%29.jpg",
     width: 1920,
     height: 1280,
     file: "Jimbocho book festival (38161699891).jpg",
@@ -3170,7 +3170,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Jimbocho_book_festival_(38161699891).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Tsukishima_monja_street.jpg/1920px-Tsukishima_monja_street.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Tsukishima_monja_street.jpg/1920px-Tsukishima_monja_street.jpg",
     width: 1920,
     height: 1440,
     file: "Tsukishima monja street.jpg",
@@ -3188,7 +3188,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:JP-13_Tsukishima_monja_street.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Tokyo_Kabukiza_%288700938351%29.jpg/1920px-Tokyo_Kabukiza_%288700938351%29.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Tokyo_Kabukiza_%288700938351%29.jpg/1920px-Tokyo_Kabukiza_%288700938351%29.jpg",
     width: 1920,
     height: 2880,
     file: "Tokyo Kabukiza (8700938351).jpg",
@@ -3197,7 +3197,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Tokyo_Kabukiza_(8700938351).jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Kabukiza_Tower_2019-04.jpg/1920px-Kabukiza_Tower_2019-04.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Kabukiza_Tower_2019-04.jpg/1920px-Kabukiza_Tower_2019-04.jpg",
     width: 1920,
     height: 2453,
     file: "Kabukiza Tower 2019-04.jpg",
@@ -3206,7 +3206,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Kabukiza_Tower_2019-04.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Sumida_River_at_Night%2C_Tokyo.jpg/1920px-Sumida_River_at_Night%2C_Tokyo.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Sumida_River_at_Night%2C_Tokyo.jpg/1920px-Sumida_River_at_Night%2C_Tokyo.jpg",
     width: 1920,
     height: 1440,
     file: "Sumida River at Night, Tokyo.jpg",
@@ -3215,7 +3215,7 @@ export const GALLERIES: Record<string, Photo[]> = {
     sourcePage: "https://commons.wikimedia.org/wiki/File:Sumida_River_at_Night,_Tokyo.jpg",
   },
     {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Sumida_River_Walk_2025-12-07.jpg/1920px-Sumida_River_Walk_2025-12-07.jpg",
+    url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Sumida_River_Walk_2025-12-07.jpg/1920px-Sumida_River_Walk_2025-12-07.jpg",
     width: 1920,
     height: 2550,
     file: "Sumida River Walk 2025-12-07.jpg",

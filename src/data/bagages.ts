@@ -103,9 +103,9 @@ export const EXPEDITIONS: Expedition[] = [
     certainty: 'estimate',
     reason:
       'Shirakawa-gō : village de maisons gasshō entièrement piéton, arrivée à l’hébergement à partir de 16 h seulement et une seule navette depuis le terminal de bus. Sans envoi, la journée du 13 se passe à faire garder la valise à la consigne du terminal.',
-    note: 'Remise le matin du 13 au Yutoria Resort, livraison désignée au 14 à l’hôtel de Kanazawa. Une nuit à Shirakawa-gō avec un sac de jour — douches partagées, il ne faut pas grand-chose.',
+    note: 'Remise le matin du 13 au Yutoria Resort, livraison désignée au 14 à l’Arigato Stay Kanazawa Katamachi. Une nuit à Shirakawa-gō avec un sac de jour — douches partagées, il ne faut pas grand-chose.',
     warnings: [
-      'Suppose que l’hôtel de Kanazawa soit réservé et accepte les colis à l’avance : à vérifier au moment de réserver, pas après.',
+      'L’hôtel de Kanazawa est réservé, mais rien ne dit encore qu’il accepte les colis : la livraison du 14 tombe avant l’heure d’arrivée (15 h), il faut donc que quelqu’un soit là pour la recevoir. À confirmer auprès de l’établissement avant de remettre la valise.',
     ],
   },
   {

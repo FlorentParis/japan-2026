@@ -110,6 +110,14 @@ export type Place = {
 export type Accommodation = {
   status: Certainty
   name?: string
+  /**
+   * Nom de l'établissement en japonais, tel qu'il l'écrit lui-même.
+   *
+   * C'est ce nom-là qui est sur l'enseigne, et le seul qu'un chauffeur de taxi ou
+   * un passant puisse reconnaître : « Tabist Urban Stays Asakusa » ne se prononce
+   * ni ne se lit sur place. Voir `addressJa` pour la même raison, en plus urgent.
+   */
+  nameJa?: string
   /** Type de chambre / de logement. */
   room?: string
   /** Prix total du séjour dans cet hébergement. */
@@ -120,6 +128,27 @@ export type Accommodation = {
   area?: string
   /** Adresse postale telle que l'établissement la publie. */
   address?: string
+  /**
+   * La même adresse en japonais, telle que l'établissement l'écrit.
+   *
+   * Ce n'est pas un doublon décoratif : l'adresse en alphabet latin ne sert à rien
+   * à 22 h devant un chauffeur de taxi qui ne la lit pas, et le lien Maps ne sert
+   * à rien sans données mobiles. Celle-ci se montre ou se recopie, et fonctionne
+   * hors connexion.
+   *
+   * Écrite dans l'ordre japonais (préfecture, ville, quartier, numéro), 〒 compris :
+   * la réordonner « à la française » la rendrait inutilisable pour son seul usage.
+   */
+  addressJa?: string
+  /**
+   * Téléphone de l'établissement, au format national japonais (`0263-36-1045`).
+   *
+   * Pour prévenir d'un retard, ou demander où est passé le takkyūbin. Gardé tel
+   * que l'établissement le publie, sans indicatif international : c'est la forme
+   * qu'attend un téléphone une fois sur place, avec une carte SIM locale ou depuis
+   * le poste de la réception d'à côté.
+   */
+  phone?: string
   /**
    * Coordonnées de l'établissement. Elles servent au lien Maps — qui pointe
    * alors le bâtiment exactement, au lieu de lancer une recherche sur une

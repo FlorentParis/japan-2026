@@ -1,6 +1,7 @@
 /**
- * CE QU'APPORTE UNE RÉSERVATION D'HÉBERGEMENT : adresse, lien Maps, horaires
- * d'arrivée et de départ, photos de l'établissement.
+ * CE QU'APPORTE UNE RÉSERVATION D'HÉBERGEMENT : adresse en alphabet latin puis en
+ * japonais, lien Maps, téléphone, horaires d'arrivée et de départ, photos de
+ * l'établissement.
  *
  * Ce bloc complète — il ne répète pas. Le nom, le prix et la pastille de certitude
  * sont déjà affichés par ses deux appelants, chacun à sa façon : la ligne de la
@@ -14,6 +15,7 @@ import { lienMaps, formatTime } from '../lib/format'
 import { photosHebergement, type PhotoHebergement } from '../data/hebergements'
 import type { Accommodation } from '../types'
 import { Carrousel } from './Carrousel'
+import { BoutonCopier } from './ui'
 
 /**
  * « Arrivée à partir de 15 h · départ avant 10 h ».
@@ -55,7 +57,17 @@ export function Hebergement({
 }) {
   const photos = photosHebergement(hotel.photosId)
   const heures = horaires(hotel)
-  if (!hotel.address && !hotel.coord && !heures && photos.length === 0) return null
+  const enJaponais = [hotel.nameJa, hotel.addressJa].filter(Boolean).join('\n')
+  if (
+    !hotel.address &&
+    !hotel.coord &&
+    !enJaponais &&
+    !hotel.phone &&
+    !heures &&
+    photos.length === 0
+  ) {
+    return null
+  }
 
   const nom = hotel.name ?? 'l’hébergement'
   const lot = photos.map((photo) => ({ photo, legende: legende(nom, photo) }))
@@ -78,6 +90,35 @@ export function Hebergement({
               </a>
             </>
           )}
+        </p>
+      )}
+
+      {/*
+        L'adresse japonaise n'est pas une traduction de courtoisie : c'est la seule
+        forme utilisable sur place, à montrer à un chauffeur ou à recopier dans une
+        application. Elle est donc mise en avant, pas reléguée en petit gris — et
+        `lang="ja"` laisse le système choisir une police qui dessine les kanji.
+      */}
+      {enJaponais && (
+        <p className="hebergement__japonais">
+          <span lang="ja">
+            {hotel.nameJa && <span className="hebergement__nom-ja">{hotel.nameJa}</span>}
+            {hotel.addressJa}
+          </span>
+          {/* Le nom part avec l'adresse : c'est ce qu'il faut pour retrouver
+              l'établissement une fois collé dans une application de cartes. */}
+          <BoutonCopier
+            texte={enJaponais}
+            quoi={hotel.nameJa ? 'le nom et l’adresse en japonais' : 'l’adresse en japonais'}
+          />
+        </p>
+      )}
+
+      {hotel.phone && (
+        <p className="hebergement__telephone">
+          {/* Numéro cliquable : sur le téléphone qui lira ce carnet, c'est un appel
+              en un geste — pour prévenir d'un retard ou chercher une valise. */}
+          <a href={`tel:${hotel.phone.replace(/[^\d+]/g, '')}`}>{hotel.phone}</a>
         </p>
       )}
 

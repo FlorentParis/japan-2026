@@ -5,7 +5,7 @@
  * chiffre affiché sur le site porte, à côté de lui, la nature de sa source —
  * confirmé, estimé, ou à compléter. Rien n'est présenté comme sûr par défaut.
  */
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { PHOTOS } from '../data/photos.generated'
 import { CERTAINTY_HINT, CERTAINTY_LABEL } from '../lib/format'
 import { jeuDeSources } from '../lib/vignettes'
@@ -23,6 +23,46 @@ export function CertaintyBadge({ certainty, label }: { certainty: Certainty; lab
 /** Valeur absente, affichée franchement plutôt que remplacée par un zéro. */
 export function ToFill({ children }: { children?: ReactNode }) {
   return <span className="to-fill">{children ?? 'à compléter'}</span>
+}
+
+/**
+ * Recopie un texte dans le presse-papier.
+ *
+ * Sert aux adresses en japonais : les montrer suffit devant un chauffeur, mais
+ * pour les coller dans une application de cartes ou les envoyer par message, il
+ * faut pouvoir les prendre — et sélectionner à la main deux lignes de kanji sur un
+ * téléphone, dans un train, est une épreuve.
+ *
+ * L'échec est dit plutôt que passé sous silence : l'API du presse-papier est
+ * refusée en navigation privée et hors contexte sécurisé. Le texte reste affiché
+ * juste à côté, donc rien n'est perdu — encore faut-il savoir que le bouton n'a
+ * rien fait.
+ */
+export function BoutonCopier({ texte, quoi }: { texte: string; quoi: string }) {
+  const [etat, setEtat] = useState<'repos' | 'copie' | 'echec'>('repos')
+
+  const copier = async () => {
+    try {
+      await navigator.clipboard.writeText(texte)
+      setEtat('copie')
+    } catch {
+      setEtat('echec')
+    }
+    // Le retour au repos permet de recopier, et évite un « Copié » qui resterait
+    // affiché une demi-heure après le geste.
+    setTimeout(() => setEtat('repos'), 2500)
+  }
+
+  return (
+    <button
+      type="button"
+      className={`copier${etat === 'repos' ? '' : ` copier--${etat}`}`}
+      onClick={() => void copier()}
+      aria-label={`Copier ${quoi}`}
+    >
+      {etat === 'copie' ? 'Copié' : etat === 'echec' ? 'Copie refusée' : 'Copier'}
+    </button>
+  )
 }
 
 export function Stat({

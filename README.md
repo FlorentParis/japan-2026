@@ -255,6 +255,85 @@ Deux points d’attention :
   une projection sur le calendrier, pas un état réel. Ce réglage n’est pas
   conservé — recharger la page revient au vrai jour.
 
+## Les hébergements en japonais
+
+Chaque hébergement réservé porte, en plus de son nom et de son adresse en alphabet
+latin, ce que l’établissement publie de lui-même en japonais : `nameJa`,
+`addressJa`, `phone` (voir `Accommodation` dans `src/types.ts`).
+
+Ce n’est pas de la décoration. Une adresse en alphabet latin ne se lit pas par le
+chauffeur de taxi à qui on la montre à 22 h, et le lien « Voir sur Maps » ne
+s’ouvre pas sans données mobiles. L’adresse japonaise, elle, se montre telle
+quelle, se recopie d’un bouton — deux lignes de kanji ne se sélectionnent pas au
+doigt dans un train — et fonctionne hors connexion. Le téléphone est cliquable,
+pour prévenir d’un retard ou demander où est passée la valise.
+
+Deux règles pour ces champs :
+
+- **l’ordre japonais est conservé** (préfecture, ville, quartier, numéro, avec le
+  〒). Réordonner « à la française » rendrait l’adresse inutilisable pour son seul
+  usage ;
+- **rien n’est translittéré ni deviné.** Ce sont les chaînes que l’établissement
+  écrit, recopiées ; là où il ne publie pas la version japonaise, le champ reste
+  absent. Les rares écarts entre sources — un numéro de rue qui diffère d’une
+  fiche à l’autre — sont tranchés et **commentés sur place** dans
+  `src/data/destinations.ts`, jamais moyennés.
+
+## Hors connexion, et sur l’écran d’accueil
+
+Le carnet est fait pour être lu sur place : dans un train entre Toyama et Nagano,
+avec une carte SIM étrangère et des tunnels. Or il n’a **aucune API derrière lui** —
+l’itinéraire, les horaires, les adresses d’hôtel, les envois de valise sont tous
+dans le paquet JavaScript. Sans service worker, une coupure réseau rendait pourtant
+l’ensemble inaccessible, pour la seule raison qu’`index.html` n’avait pas pu être
+rechargé. C’est ce gâchis-là que `scripts/sw-modele.js` supprime.
+
+Concrètement : ouvrir le site une fois avec du réseau suffit à le rendre
+consultable en entier sans réseau, **les neuf sections comprises** — chacune est
+dans un paquet chargé à la demande, tous préchargés à l’installation.
+« Ajouter à l’écran d’accueil » donne alors une vraie application, qui démarre sans
+barre d’adresse et sans connexion.
+
+**Ce qui manque hors connexion, et c’est dit dans l’interface** — un bandeau
+apparaît sous l’en-tête (`components/BandeauReseau.tsx`) :
+
+- **le fond de carte**, qui vient d’OpenFreeMap. Le tracé de l’itinéraire et les
+  étapes restent affichés : `MapView` bascule sur un aplat couleur papier et le
+  dit, exactement comme lorsqu’un proxy d’entreprise bloque le fournisseur ;
+- **les photos jamais affichées**, qui viennent de Wikimedia Commons et des sites
+  des établissements. Celles qu’on a déjà regardées, elles, restent là : le
+  service worker garde les images et les tuiles **au fur et à mesure**, plafonnées
+  à 500 entrées. C’est aussi ce qui économise le forfait en itinérance — une tuile
+  déjà vue n’est jamais retéléchargée.
+
+Embarquer tuiles et photos aurait pesé des centaines de mégaoctets, et aurait fait
+du carnet un redistributeur d’images qu’il n’est pas (voir
+`src/data/hebergements.ts`).
+
+Trois points de mise en œuvre qui méritent d’être connus avant d’y toucher :
+
+- **la liste de précache est produite au build**, par `scripts/sw-plugin.ts`, parce
+  qu’elle contient les noms empreintés (`index-mMTic-cm.js`) et le contenu de
+  `public/`, que Rollup ne voit pas. Un précache qui référence un fichier disparu
+  échoue *en entier* : le mode hors ligne s’évanouirait sans un message ;
+- **la mise à jour ne s’impose jamais.** Une nouvelle version s’installe en
+  arrière-plan puis attend ; le bandeau propose de recharger. Sans cela, une
+  correction poussée pendant qu’on lit une page échangerait le code sous les pieds
+  de l’onglet — et une application installée ne se rafraîchit pas d’un F5 : sans ce
+  bandeau, un horaire corrigé la veille du départ resterait invisible tout le
+  voyage ;
+- **« hors connexion » n’est pas lu dans `navigator.onLine`**, qui se trompe dans
+  les deux sens : il annonce « en ligne » derrière un portail captif d’hôtel, et
+  aussi au démarrage d’une application installée sans réseau. `lib/reseau.ts` ne le
+  croit donc que lorsqu’il dit « non » — ce sens-là est fiable — et vérifie un
+  « oui » par une vraie requête, que le service worker laisse délibérément passer.
+
+`npm run qa:hors-ligne` rejoue tout le scénario dans Chrome : première visite avec
+réseau, vérification que le cache contient bien les fichiers émis, coupure,
+rechargement, puis ouverture des cinq sections chargées à la demande. C’est le seul
+contrôle possible ici — un service worker ne s’exécute pas sous Node, et un test
+qui relirait `dist/sw.js` ne prouverait que la présence de son propre texte.
+
 ## Démarrer
 
 ```bash
@@ -272,7 +351,9 @@ npm run dev          # http://localhost:5173
 | `npm run qa:carte` | ouvre la carte dans un Chrome sans interface et vérifie qu’elle se dessine |
 | `npm run qa:photos` | dans le même Chrome : vérifie que les images arrivent, que la visionneuse et les carrousels marchent |
 | `npm run qa:tiroir` | émule un téléphone et manœuvre le tiroir des étapes de la vue Carte |
+| `npm run qa:hors-ligne` | installe le site dans Chrome, coupe le réseau, et vérifie que le carnet s’affiche quand même |
 | `npm run photos` | régénère `src/data/photos.generated.ts` depuis Wikimedia Commons |
+| `npm run icones` | régénère les icônes PNG d’application depuis `public/favicon.svg` |
 
 `npm run qa` est le contrôle à relancer après **chaque** modification des
 données. Il vérifie que :
@@ -450,7 +531,13 @@ src/
   components/  carte, légende, frise, fiches d'étape et de trajet, galeries et visionneuse
   views/       les neuf sections du site
   styles/      jetons de design puis feuilles par domaine
+scripts/       outils hors application : contrôles, générateurs, service worker
 ```
+
+`scripts/` n’est jamais embarqué dans le site, à une exception près :
+`sw-modele.js` est un modèle que `sw-plugin.ts` complète au build pour écrire
+`dist/sw.js`. Le reste — contrôles CDP, générateur de photos, générateur d’icônes —
+ne tourne qu’en ligne de commande.
 
 ## Partager le site
 
@@ -464,7 +551,14 @@ Le site est déjà configuré pour GitHub Pages dans un sous-dossier : `base` va
 branche `gh-pages` via [`gh-pages`](https://github.com/tschaub/gh-pages). Pour un
 dépôt portant un autre nom, changer `base` **et** `homepage` dans
 `package.json` — sinon les fichiers JS et CSS seront cherchés à la racine du
-domaine et la page restera blanche.
+domaine et la page restera blanche. `base` détermine aussi la portée du service
+worker et le `start_url` de l’application installée ; comme tous les chemins du
+manifeste et du service worker sont relatifs, il n’y a rien d’autre à modifier.
+
+`dist/` contient donc, en plus du site : `manifest.webmanifest` et les icônes
+(recopiés de `public/`), et `sw.js` (écrit par le plugin). L’hébergeur doit servir
+le tout en **HTTPS** — sans quoi le navigateur refuse le service worker, et le
+site fonctionne comme avant, sans mode hors ligne. GitHub Pages le fait d’office.
 
 Réglages conservés dans le navigateur de chaque visiteur (et nulle part
 ailleurs) : la devise d’affichage et les hypothèses de budget. Les données du

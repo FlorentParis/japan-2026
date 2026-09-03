@@ -8,10 +8,86 @@
  * tiroir posé sur la carte (voir plus bas, et `lib/useTiroir.ts`).
  */
 
+/*
+ * Quatre pistes, et chaque enfant placée dans la sienne.
+ *
+ * Le bandeau d'état (hors connexion, mise à jour) ne rend rien la plupart du
+ * temps : sans placement explicite, son absence décalerait `<main>` et le pied de
+ * page d'une piste, et c'est le pied de page qui hériterait du `1fr`. Nommer les
+ * lignes évite ce piège une fois pour toutes.
+ */
 .app {
   min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
+}
+
+.app-header {
+  grid-row: 1;
+}
+
+.bandeau {
+  grid-row: 2;
+}
+
+.app-main {
+  grid-row: 3;
+}
+
+.app-footer {
+  grid-row: 4;
+}
+
+/* ── Bandeau d'état du site ──────────────────────────────────────────── */
+
+/*
+ * Deux messages, jamais décoratifs : « hors connexion » et « nouvelle version
+ * prête » (voir `components/BandeauReseau.tsx`). Ils tiennent sur une bande
+ * pleine largeur, sous l'en-tête collant — assez visible pour expliquer une carte
+ * sans décor, assez discret pour ne pas voler la place du programme du jour.
+ */
+.bandeau {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-3);
+  padding: var(--gap-2) var(--gap-4);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.bandeau strong {
+  color: var(--ink);
+}
+
+.bandeau__icone {
+  flex: none;
+  font-size: var(--text-lg);
+  line-height: 1;
+}
+
+.bandeau .button {
+  flex: none;
+  margin-left: auto;
+}
+
+.bandeau--hors-ligne {
+  background: var(--todo-wash);
+  border-bottom-color: color-mix(in srgb, var(--todo) 40%, transparent);
+}
+
+.bandeau--hors-ligne .bandeau__icone {
+  color: var(--todo);
+}
+
+.bandeau--maj {
+  background: var(--accent-wash);
+  border-bottom-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.bandeau--maj .bandeau__icone {
+  color: var(--accent);
 }
 
 /* ── En-tête ─────────────────────────────────────────────────────────── */
