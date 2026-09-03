@@ -1,3 +1,9 @@
+<!--
+  ⚠️ Le motif ci-dessous est recopié dans `scripts/icones.mjs`, qui le redessine en
+  PNG pour l'installation sur l'écran d'accueil (Android et iOS n'acceptent pas ce
+  SVG). Les deux ne sont pas liés automatiquement : modifier l'un, puis relancer
+  `npm run icones`.
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Traversée du Japon">
   <rect width="32" height="32" rx="7" fill="#f6f3ed"/>
   <path d="M4 23 C10 23 11 9 17 9 C23 9 24 20 28 20"

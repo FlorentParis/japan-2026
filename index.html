@@ -4,6 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/japan-2026/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--
+      Installation sur l'écran d'accueil. Le carnet se consulte sur place, dans un
+      train, avec une carte SIM étrangère : installé, il démarre sans réseau (voir
+      `scripts/sw-modele.js`) et sans la barre d'adresse qui mange déjà un dixième
+      de l'écran d'un téléphone.
+
+      Les icônes PNG sont produites par `npm run icones` à partir du favicon —
+      Android les exige dans le manifeste, iOS dans un `apple-touch-icon`, et ni
+      l'un ni l'autre ne se contente du SVG.
+    -->
+    <link rel="manifest" href="/japan-2026/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/japan-2026/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Japon 2026" />
+    <!--
+      `default`, et non `black-translucent` : le contenu ne passe pas sous la barre
+      d'état. C'est un choix de prudence — l'option translucide obligerait toute la
+      mise en page à réserver `env(safe-area-inset-top)`, y compris le tiroir de la
+      carte et ses hauteurs calculées, pour un gain de quelques pixels. iOS insère
+      donc la barre au-dessus du site, sur la couleur de fond du manifeste.
+    -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#f6f3ed" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#151412" media="(prefers-color-scheme: dark)" />
@@ -33,9 +56,9 @@
         /* Stockage inaccessible : on laisse le thème clair par défaut. */
       }
     </script>
-    <script type="module" crossorigin src="/japan-2026/assets/index-aZLDxco2.js"></script>
+    <script type="module" crossorigin src="/japan-2026/assets/index-1sjO76Hx.js"></script>
     <link rel="modulepreload" crossorigin href="/japan-2026/assets/rolldown-runtime-hePW80VL.js">
-    <link rel="stylesheet" crossorigin href="/japan-2026/assets/index-BsQI-Vlk.css">
+    <link rel="stylesheet" crossorigin href="/japan-2026/assets/index-Jjo-5Gm2.css">
   </head>
   <body>
     <div id="root"></div>
