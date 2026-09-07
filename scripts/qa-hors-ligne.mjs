@@ -249,7 +249,7 @@ async function main() {
     )
 
     verifier(etat.racine > 5000, 'le site est rendu', `${etat.racine} caractères dans #root`)
-    verifier(etat.onglets.length === 9, 'les 9 sections sont là', etat.onglets.join(' · '))
+    verifier(etat.onglets.length === 10, 'les 10 sections sont là', etat.onglets.join(' · '))
     verifier(etat.bandeau, 'le bandeau « hors connexion » est présent au chargement')
     verifier(
       etat.mentionneTokyo && etat.mentionneNagasaki,
@@ -260,11 +260,16 @@ async function main() {
     // Les autres sections doivent s'ouvrir aussi : elles sont dans des paquets
     // chargés à la demande, et c'est précisément ce qu'un précache incomplet
     // casserait — sans que la page d'accueil n'en laisse rien voir.
+    //
+    // « Pratique » est la seule dont l'ouverture hors connexion n'est pas un
+    // confort : c'est la page des numéros d'urgence, et le jour où l'on en a
+    // besoin est le jour où le réseau manque. Elle n'est pas chargée à la demande
+    // pour cette raison ; ce contrôle est là pour que cela reste vrai.
     const sections = await evaluer(
       cdp,
       `(async () => {
         const resultat = {}
-        for (const nom of ['Itinéraire', 'Hôtels', 'Photos', 'Budget', 'Transports']) {
+        for (const nom of ['Itinéraire', 'Hôtels', 'Photos', 'Budget', 'Transports', 'Pratique']) {
           const bouton = [...document.querySelectorAll('.app-nav__item')]
             .find((b) => b.innerText.trim().includes(nom))
           if (!bouton) { resultat[nom] = 'onglet absent'; continue }

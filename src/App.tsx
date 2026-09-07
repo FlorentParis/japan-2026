@@ -15,6 +15,7 @@ import { AujourdhuiView } from './views/AujourdhuiView'
 import { BudgetView } from './views/BudgetView'
 import { HotelsView } from './views/HotelsView'
 import { ItineraireView } from './views/ItineraireView'
+import { PratiqueView } from './views/PratiqueView'
 import { TransportsView } from './views/TransportsView'
 
 /**
@@ -51,7 +52,7 @@ function Header() {
   const themeCourant = THEME_CYCLE[theme]
 
   /*
-   * Sur mobile, les neuf sections ne tiennent pas dans la largeur : la barre
+   * Sur mobile, les dix sections ne tiennent pas dans la largeur : la barre
    * défile. Sans ce recentrage, ouvrir « Transports » depuis un lien intérieur
    * laissait l'onglet actif hors du champ de vision — on ne savait plus où on
    * était dans le site.
@@ -164,6 +165,12 @@ export default function App() {
         )}
         {view === 'budget' && <BudgetView />}
         {view === 'transports' && <TransportsView />}
+        {/* Pas de `lazy` ici, contrairement à la carte et aux photos : cette vue
+            pèse quelques kilo-octets de texte, et c'est celle qu'on ouvre le jour
+            où le réseau ne répond plus. Un `import()` la rendrait dépendante d'une
+            requête — même servie par le cache, c'est une condition de trop pour la
+            page des numéros d'urgence. */}
+        {view === 'pratique' && <PratiqueView />}
       </main>
 
       <footer className="app-footer">

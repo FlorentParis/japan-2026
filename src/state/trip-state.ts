@@ -25,6 +25,13 @@ export const VIEWS = [
   { id: 'photos', label: 'Photos', icon: '📷' },
   { id: 'budget', label: 'Budget', icon: '💴' },
   { id: 'transports', label: 'Transports', icon: '🚆' },
+  /*
+   * En dernier, et c'est voulu : c'est la seule section qu'on espère n'ouvrir
+   * jamais. La mettre plus haut la ferait passer devant des vues consultées tous
+   * les jours, pour gagner une seconde le jour où l'on cherche le 119 — or ce
+   * jour-là on ne parcourt pas la barre, on ouvre la dernière entrée.
+   */
+  { id: 'pratique', label: 'Pratique', icon: '🆘' },
 ] as const
 
 export type ViewId = (typeof VIEWS)[number]['id']

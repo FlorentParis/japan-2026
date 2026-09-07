@@ -16,6 +16,7 @@
     "qa:hors-ligne": "node scripts/qa-hors-ligne.mjs",
     "qa:tiroir": "node scripts/qa-tiroir.mjs",
     "qa:photos": "node scripts/qa-photos.mjs",
+    "qa:route": "node scripts/qa-route.mjs",
     "photos": "vite build --config scripts/qa.vite.config.ts && node .qa/photos.mjs",
     "preview": "vite preview"
   },

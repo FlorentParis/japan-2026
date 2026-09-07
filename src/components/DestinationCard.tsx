@@ -15,6 +15,7 @@ import type { Certainty, Destination } from '../types'
 import { BagageDeLEtape } from './Bagages'
 import { Hebergement } from './Hebergement'
 import { PhotoCarrousel } from './PhotoCarrousel'
+import { LigneSoleil } from './Soleil'
 import { CertaintyBadge, ToFill, Warnings } from './ui'
 
 function Field({
@@ -59,6 +60,20 @@ export function DestinationCard({ dest }: { dest: Destination }) {
       />
 
       <p className="dest-card__blurb">{dest.blurb}</p>
+
+      {/*
+        Ce que le jour donne de lumière, à l'arrivée. Calculé sur les coordonnées
+        de l'étape et son premier jour — voir `lib/soleil.ts`. Le voyage se déroule
+        en novembre : à cette saison la nuit tombe avant 17 h partout au Japon, et
+        une arrivée en milieu d'après-midi est une arrivée de nuit. C'est calculé
+        pour le jour d'arrivée et pas pour toute l'étape : quatre nuits plus tard,
+        le coucher a bougé de quelques minutes, et le libellé le dit.
+      */}
+      <LigneSoleil
+        date={dest.dates.start}
+        coord={dest.coord}
+        label="Le jour de l’arrivée"
+      />
 
       <dl className="fields">
         <Field label="Dates" certainty={dest.dates.certainty}>

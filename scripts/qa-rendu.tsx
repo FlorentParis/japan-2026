@@ -22,6 +22,7 @@ import { BudgetView } from '../src/views/BudgetView'
 import { HotelsView } from '../src/views/HotelsView'
 import { ItineraireView } from '../src/views/ItineraireView'
 import { PhotosView } from '../src/views/PhotosView'
+import { PratiqueView } from '../src/views/PratiqueView'
 import { TransportsView } from '../src/views/TransportsView'
 
 /**
@@ -63,6 +64,7 @@ const cases: Array<[string, () => ReactElement]> = [
   ['Photos', () => createElement(PhotosView)],
   ['Budget', () => createElement(BudgetView)],
   ['Transports', () => createElement(TransportsView)],
+  ['Pratique', () => createElement(PratiqueView)],
   ['Frise (composant)', () => createElement(Timeline, { compact: true })],
   ['Légende (composant)', () => createElement(ModeLegend)],
 ]

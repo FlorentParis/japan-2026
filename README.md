@@ -255,6 +255,63 @@ Deux points d’attention :
   une projection sur le calendrier, pas un état réel. Ce réglage n’est pas
   conservé — recharger la page revient au vrai jour.
 
+## La lumière du jour, calculée
+
+Le voyage tombe en novembre, et c’est ce qui rend ce bloc utile : à cette saison le
+soleil se couche avant 17 h partout au Japon, et une arrivée à 15 h 30 est une
+arrivée qui laisse une heure de jour. Chaque fiche d’étape porte donc la lumière du
+jour d’arrivée, et la vue Aujourd’hui un panneau pour le lieu du soir
+(`lib/soleil.ts`, `components/Soleil.tsx`).
+
+C’est la **seule famille de nombres du carnet qui soit calculée** et non relevée —
+d’où son statut : `estimate`, badge « calculé ». Le calcul est l’équation du lever
+de soleil classique (jour julien depuis J2000, anomalie moyenne, équation du
+centre, longitude écliptique, déclinaison, angle horaire), avec −0,833° pour
+l’horizon visible — le rayon du disque solaire plus la réfraction atmosphérique —
+et −6° pour la fin du crépuscule civil. L’heure du Japon est UTC+9 fixe : pas
+d’heure d’été à gérer.
+
+Trois choix qui ont une raison, et qu’il vaut mieux connaître avant d’y toucher :
+
+- **la durée du jour vient de l’angle horaire**, pas d’une soustraction du coucher
+  et du lever. Une soustraction de deux minutes-dans-la-journée passe négative dès
+  qu’un des deux instants franchit minuit ;
+- **`lumiereRestante()` distingue `0` de `undefined`.** Zéro veut dire « le soleil
+  est couché », `undefined` « il n’est pas encore levé ». Confondre les deux ferait
+  annoncer « plus de jour » à cinq heures du matin ;
+- **le compte à rebours de lumière restante ne s’affiche que le jour même.** Sur une
+  date simulée, « il reste 2 h de jour » serait une phrase fausse.
+
+Enfin, ce que le calcul ne sait pas est écrit à l’écran : il suppose un **horizon
+plat**. À Kamikōchi, à Takayama et sur la route alpine, le soleil disparaît derrière
+une crête bien avant l’heure annoncée.
+
+## La fiche pratique
+
+`src/data/pratique.ts` et `views/PratiqueView.tsx` : les numéros d’urgence, les
+contacts d’assistance, l’adresse de l’ambassade et une dizaine de phrases de
+dépannage. C’est la seule section qu’on espère n’ouvrir jamais, et c’est pour cela
+qu’elle est la dernière de la barre.
+
+Elle s’écarte du reste du carnet sur trois points, délibérément :
+
+- **le 110 et le 119 sont en haut, dans le plus grand corps de tout le site.** Le
+  Japon n’a pas de numéro d’ambulance distinct : le 119 couvre pompiers *et*
+  ambulance ;
+- **chaque numéro est un lien `tel:`** — on cherche un numéro pour l’appeler ;
+- **rien n’est chargé à distance**, et la vue n’est pas en `lazy` contrairement à la
+  carte et aux photos. Quelques kilo-octets de texte ne valent pas de rendre la page
+  des numéros d’urgence dépendante d’une requête, même servie par le cache.
+
+La règle du carnet s’applique ici plus qu’ailleurs : **aucun numéro n’est écrit de
+mémoire.** Chaque entrée porte sa source et sa date de relevé. Un numéro d’urgence
+inventé serait le pire des cas — il a l’air juste, on ne le vérifie pas, et on s’en
+aperçoit au moment où l’on en a besoin. Là où la source publique ne donnait rien
+(le numéro de France Consulaire, l’adresse de l’ambassade en japonais), l’entrée
+reste `todo` ou `estimate` **avec la raison affichée**. Trois entrées sont `todo`
+par nature — opposition de la carte bancaire, assistance de l’assurance voyage,
+contact en France : elles ne peuvent venir que du voyageur.
+
 ## Les hébergements en japonais
 
 Chaque hébergement réservé porte, en plus de son nom et de son adresse en alphabet
@@ -289,7 +346,7 @@ l’ensemble inaccessible, pour la seule raison qu’`index.html` n’avait pas 
 rechargé. C’est ce gâchis-là que `scripts/sw-modele.js` supprime.
 
 Concrètement : ouvrir le site une fois avec du réseau suffit à le rendre
-consultable en entier sans réseau, **les neuf sections comprises** — chacune est
+consultable en entier sans réseau, **les dix sections comprises** — chacune est
 dans un paquet chargé à la demande, tous préchargés à l’installation.
 « Ajouter à l’écran d’accueil » donne alors une vraie application, qui démarre sans
 barre d’adresse et sans connexion.
@@ -330,9 +387,51 @@ Trois points de mise en œuvre qui méritent d’être connus avant d’y touche
 
 `npm run qa:hors-ligne` rejoue tout le scénario dans Chrome : première visite avec
 réseau, vérification que le cache contient bien les fichiers émis, coupure,
-rechargement, puis ouverture des cinq sections chargées à la demande. C’est le seul
-contrôle possible ici — un service worker ne s’exécute pas sous Node, et un test
-qui relirait `dist/sw.js` ne prouverait que la présence de son propre texte.
+rechargement, puis ouverture de six sections, dont celles chargées à la demande.
+C’est le seul contrôle possible ici — un service worker ne s’exécute pas sous Node,
+et un test qui relirait `dist/sw.js` ne prouverait que la présence de son propre
+texte. La sixième section ouverte est « Pratique » : hors connexion, ce n’est pas un
+confort mais la raison d’être de la page.
+
+## L’adresse d’une page
+
+Le carnet a une adresse par section, et par élément sélectionné :
+
+```
+#/carte                       la carte, sans sélection
+#/carte/etape/kanazawa        la carte ouverte sur Kanazawa
+#/transports/trajet/j06       le déplacement j06 déplié
+#/transports/trajet/j06/j06.1 jusqu'au tronçon
+```
+
+Cela règle trois choses qui manquaient : recharger la page ne renvoyait plus à
+l’accueil, un lien envoyé par message ouvre bien la page qu’on voulait montrer, et
+le bouton retour d’Android referme la fiche ouverte au lieu de quitter le site.
+
+**Le fragment (`#/…`) et non un vrai chemin**, parce que le site est publié sur
+GitHub Pages : un hébergement statique ne réécrit rien, et `/japan-2026/carte`
+renverrait un 404 — sur le lien partagé, précisément le cas pour lequel la
+fonctionnalité existe.
+
+`lib/route.ts` lit et écrit ces adresses, `state/TripProvider.tsx` les relie à
+l’état. Trois points de mise en œuvre :
+
+- **on écrit par `pushState`, on lit sur `popstate` et `hashchange`.** Affecter
+  `location.hash` déclencherait `hashchange`, donc l’écouteur, donc un rendu pour
+  rien ; `pushState` est silencieux et empile quand même l’entrée d’historique qui
+  donne son sens au bouton retour. Le tout premier passage *remplace* au lieu
+  d’empiler, sans quoi arriver sur le site créerait deux entrées pour la même page ;
+- **une adresse qu’on ne sait pas lire ne déplace personne, mais ne reste pas dans
+  la barre.** Un identifiant d’étape inconnu est écarté et la section conservée ;
+  l’adresse est réparée par `replaceState`. La laisser serait pire qu’une coquetterie :
+  c’est l’adresse affichée que l’on copie pour la partager ;
+- **ce qui n’est pas dans l’adresse** : la devise, le thème, les filtres de la carte.
+  Ce sont des réglages de lecteur, gardés dans son navigateur. L’adresse porte ce
+  qu’on regarde, pas comment on le regarde — sans quoi un lien partagé imposerait
+  ses préférences à celui qui le reçoit.
+
+`npm run qa:route` atteste le tout dans un vrai Chrome, seul endroit où il existe un
+historique et un bouton retour.
 
 ## Démarrer
 
@@ -352,6 +451,7 @@ npm run dev          # http://localhost:5173
 | `npm run qa:photos` | dans le même Chrome : vérifie que les images arrivent, que la visionneuse et les carrousels marchent |
 | `npm run qa:tiroir` | émule un téléphone et manœuvre le tiroir des étapes de la vue Carte |
 | `npm run qa:hors-ligne` | installe le site dans Chrome, coupe le réseau, et vérifie que le carnet s’affiche quand même |
+| `npm run qa:route` | vérifie qu’un lien partagé ouvre la bonne page, qu’un rechargement la garde, et que le bouton retour ne quitte pas le site |
 | `npm run photos` | régénère `src/data/photos.generated.ts` depuis Wikimedia Commons |
 | `npm run icones` | régénère les icônes PNG d’application depuis `public/favicon.svg` |
 
@@ -367,7 +467,7 @@ données. Il vérifie que :
 - aucun identifiant d’activité ou de spécialité n’est utilisé deux fois — cet
   identifiant est aussi la clé de sa photo, un doublon afficherait l’image d’un
   lieu sous le nom d’un autre ;
-- les sept vues rendues hors navigateur, plus la frise et la légende, ne
+- les huit vues rendues hors navigateur, plus la frise et la légende, ne
   contiennent ni erreur ni valeur parasite (`undefined`, `NaN`) — la vue Carte,
   qui exige un canevas WebGL, est couverte par `npm run qa:carte` ;
 - la vue Aujourd’hui se rend sur **huit dates choisies** et non une seule : elle
@@ -449,6 +549,13 @@ comme si de rien n’était. À travers un proxy d’entreprise, les quatre cent
 requêtes de la vue Photos ne rentrent pas toutes dans le délai imparti ; le
 script distingue « en attente » de « cassée » et ne compte que la seconde.
 
+`npm run qa:route` a besoin du même serveur. Il ne lit jamais l’état de React —
+seulement le DOM : l’onglet marqué courant, l’étiquette du tiroir de la carte, le
+déplacement déplié. Interroger React attesterait que le routage se parle à
+lui-même. Il ouvre une adresse d’élément, recharge la page, en essaie une fausse,
+puis se sert de `history.back()` et `history.forward()` — c’est le bouton matériel
+d’Android qu’on imite, et c’est lui qui quittait l’application.
+
 ## Où modifier quoi
 
 Aucune donnée de voyage n’est écrite dans un composant. Un renseignement = un
@@ -462,6 +569,7 @@ seul endroit à corriger.
 | `src/data/journeys.ts` | les 17 déplacements et leurs 35 tronçons : mode, service, durée, prix, correspondances |
 | `src/data/bagages.ts` | les 4 envois de valise d’hôtel à hôtel (takkyūbin), les hébergements où ne rien faire livrer, et les règles de guichet |
 | `src/data/unites.ts` | les fabriques `yen()`, `euros()`, `mins()`, `minsFermes()`, `tarifACompleter()` — partagées par les deux fichiers ci-dessus |
+| `src/data/pratique.ts` | écrit à la main : numéros d’urgence, assistance consulaire, adresse de l’ambassade, phrases de dépannage. Chaque entrée porte sa source et sa date de relevé |
 | `src/data/hebergements.ts` | écrit à la main : les photos des hébergements réservés, rattachées par `accommodation.photosId`. Les seules images non libres du site (voir plus haut) |
 | `src/data/photos.generated.ts` | **généré** par `npm run photos` : la photo de chaque sujet nommé, avec auteur, licence et page source. Ne pas modifier à la main |
 | `src/data/galleries.generated.ts` | **généré** aussi : les galeries par étape, chargées seulement avec la vue Photos |
@@ -515,7 +623,13 @@ Exemples courants :
   `src/data/trip.ts`. Ce ne sont pas des `Journey` : ils ne relient pas deux
   étapes, donc ils ne sont ni tracés sur la carte ni comptés dans le bilan par
   mode. Ils ont leur ligne de budget et entrent dans l’analyse des pass, où
-  ignorer le Narita Express sous-estimerait le JR Pass.
+  ignorer le Narita Express sous-estimerait le JR Pass ;
+- **renseigner un numéro d’opposition de carte, d’assurance ou un contact en
+  France** → le tableau `A_RECOPIER` de `src/data/pratique.ts`. Ces trois entrées
+  sont `todo` parce que personne d’autre que le voyageur ne les connaît ; les y
+  écrire les fait passer en `confirmed`. **Relever le numéro sur la carte ou le
+  contrat, jamais de mémoire** — c’est la seule page du site où une erreur se
+  découvre au plus mauvais moment.
 
 Tout le reste (totaux, distances, durées, budget, statistiques de l’aperçu,
 rentabilité du pass) est recalculé à partir de ces fichiers par `src/lib/derive.ts`.
@@ -525,11 +639,12 @@ rentabilité du pass) est recalculé à partir de ces fichiers par `src/lib/deri
 ```
 src/
   data/        les données du voyage, et rien d'autre
-  lib/         calculs : géométrie, GeoJSON, formats, sélecteurs, contrôles d'intégrité
+  lib/         calculs : géométrie, GeoJSON, formats, sélecteurs, lever du soleil,
+               lecture et écriture de l'adresse, contrôles d'intégrité
   state/       sélection courante partagée entre la carte et la frise, vue courante, devise,
-               visionneuse ouverte
+               visionneuse ouverte — le tout reflété dans l'adresse de la page
   components/  carte, légende, frise, fiches d'étape et de trajet, galeries et visionneuse
-  views/       les neuf sections du site
+  views/       les dix sections du site
   styles/      jetons de design puis feuilles par domaine
 scripts/       outils hors application : contrôles, générateurs, service worker
 ```
@@ -561,8 +676,13 @@ le tout en **HTTPS** — sans quoi le navigateur refuse le service worker, et le
 site fonctionne comme avant, sans mode hors ligne. GitHub Pages le fait d’office.
 
 Réglages conservés dans le navigateur de chaque visiteur (et nulle part
-ailleurs) : la devise d’affichage et les hypothèses de budget. Les données du
-voyage, elles, ne viennent que des fichiers ci-dessus.
+ailleurs) : la devise d’affichage, le thème et les hypothèses de budget. Les données
+du voyage, elles, ne viennent que des fichiers ci-dessus.
+
+Pour partager une page précise et non le site entier, copier l’adresse telle qu’elle
+est affichée : elle suit la navigation (voir « L’adresse d’une page »). Comme tout
+tient dans le fragment, aucune configuration de réécriture n’est nécessaire côté
+hébergeur.
 
 ## Ressources externes
 

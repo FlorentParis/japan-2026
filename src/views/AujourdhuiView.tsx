@@ -20,6 +20,7 @@ import { useState } from 'react'
 import { ExpeditionCard } from '../components/Bagages'
 import { Hebergement } from '../components/Hebergement'
 import { JourneyCard } from '../components/JourneyCard'
+import { LumiereDuJour } from '../components/Soleil'
 import { CertaintyBadge, PhotoFigure, ToFill, Warnings } from '../components/ui'
 import { place } from '../data/places'
 import { TRIP } from '../data/trip'
@@ -39,6 +40,7 @@ import {
 } from '../lib/format'
 import { lotDeLaFiche } from '../lib/lots'
 import { MODE_STYLES } from '../lib/modes'
+import { maintenantAuJapon } from '../lib/soleil'
 import { useDateDuJour } from '../lib/useDateDuJour'
 import { itineraire } from '../lib/vols'
 import { useTrip } from '../state/trip-state'
@@ -345,6 +347,12 @@ export function AujourdhuiView({ date: dateImposee }: { date?: string }) {
 
   const journee = journeeDu(date)
   const demain = journeeDu(addDays(date, 1))
+  /**
+   * L'étape où l'on est au coucher du soleil : celle où l'on dort, à défaut la
+   * dernière de la journée. Sert à situer le calcul de la lumière — le soleil ne se
+   * couche pas à la même minute à Kurashiki et à Matsuyama.
+   */
+  const lieuDuSoir = journee.nuit ?? journee.etapes.at(-1)
   const alertes = alertesDuJour(journee)
   const aPreparer = gaps().filter((g) => g.severity === 'blocking')
   /** Le premier jour du séjour au Japon, pour l'écran d'avant-départ. */
@@ -583,6 +591,26 @@ export function AujourdhuiView({ date: dateImposee }: { date?: string }) {
                 l’avertissement du transfert vers Haneda, l’horaire le plus contraignant du voyage.
               </p>
             </section>
+          )}
+
+          {/*
+            Combien de jour il reste, juste avant le programme — c'est lui que
+            l'information commande. En novembre, le soleil se couche vers 16 h 30 :
+            savoir qu'il reste deux heures de lumière décide entre le jardin et le
+            musée, et rien d'autre dans le carnet ne le dit.
+
+            Le point de calcul est l'étape où l'on dort, à défaut la dernière de la
+            journée : c'est là qu'on sera au coucher du soleil, et c'est le coucher
+            qui intéresse. Une journée qui ne touche aucune étape n'a rien à
+            afficher.
+          */}
+          {lieuDuSoir && (
+            <LumiereDuJour
+              date={date}
+              coord={lieuDuSoir.coord}
+              lieu={lieuDuSoir.name}
+              aujourdhui={date === maintenantAuJapon().date}
+            />
           )}
 
           {journee.etapes.map((dest) => (
