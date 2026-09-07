@@ -223,6 +223,134 @@ const shirakawaGoInn = (
   sujet,
 })
 
+// ─── Kanazawa · Arigato Stay Kanazawa Katamachi ─────────────────────────────
+//
+// Deuxième jeu qui ne vient pas d'un site d'établissement, après Takayama :
+// l'hôtel n'a pas de site propre et sa fiche sur l'annuaire des hôteliers de
+// Kanazawa est la seule page qui publie ses photos. Elle porte un bloc JSON-LD
+// (`schema.org`, un `Hotel` et 79 `ImageObject`) : c'est de là que viennent les
+// chemins ci-dessous, pas d'une lecture du balisage.
+//
+// Trois décisions à garder en tête si on y revient :
+// ▸ La fiche ne légende aucune photo — ni catégorie, ni titre : seulement un
+//   numéro d'ordre. Comme pour Takayama, le sujet est donc « établissement » pour
+//   les neuf, et la fabrique n'a pas de paramètre `sujet` : la règle 2 interdit de
+//   nommer ce qu'on croit voir.
+// ▸ L'annuaire a un redimensionneur (`/data/Photos/1024x768w/…`, qui répond en
+//   WebP sous une URL en `.JPEG`, 21 à 226 kB au lieu de 77 à 503 kB). Il n'est
+//   pourtant pas utilisé : il **recadre** au format 4/3 au lieu de réduire. La
+//   photo 1, portrait de 1241 × 1579, en revient en 1024 × 768 — l'enseigne
+//   coupée. Ce sont donc les originaux qui sont liés, comme partout ailleurs dans
+//   ce fichier.
+// ▸ Neuf photos retenues sur 79. Les soixante-dix écartées ne montrent pas
+//   l'hôtel : la fiche remplit sa galerie de vues de Kanazawa — Kenroku-en, le
+//   marché Ōmichō, Higashi Chaya-gai, la gare — déjà couvertes par la galerie
+//   Commons de l'étape, et bien mieux. Les neuf gardées ont été regardées une à
+//   une : façade, chambres, salle de bain, hall, réception, laverie.
+//
+// Les dimensions sont mesurées sur chaque fichier (marqueur SOFn de l'en-tête
+// JPEG), une à une : elles vont de 940 à 2 880 px, aucun format commun à déduire.
+
+const ARIGATO_KATAMACHI =
+  'https://www.kanazawahotels.net/fr/property/trend-kanazawakatamachi.html'
+const ARIGATO_KATAMACHI_PHOTOS = 'https://www.kanazawahotels.net/data/Photos/OriginalPhoto/'
+
+const arigatoKatamachi = (
+  /**
+   * Chemin sous `OriginalPhoto/`, dossiers compris : ils diffèrent d'une photo à
+   * l'autre et ne se déduisent pas du numéro — ils viennent tels quels du JSON-LD.
+   */
+  file: string,
+  width: number,
+  height: number,
+): PhotoHebergement => ({
+  url: `${ARIGATO_KATAMACHI_PHOTOS}${file}`,
+  width,
+  height,
+  file,
+  author: 'Arigato Stay Kanazawa Katamachi',
+  license: 'photo de l’établissement',
+  sourcePage: ARIGATO_KATAMACHI,
+  // Comme pour Yutoria : pas de paramètre `sujet`, la source n'en donne aucun.
+  sujet: 'établissement',
+})
+
+// ─── Les deux fiches Agoda : Toyama et Shinano-Ōmachi ───────────────────────
+//
+// Troisième source qui n'est pas un site d'établissement, et la première commune
+// à deux hébergements — d'où une fabrique partagée. Les deux chaînes ont bien un
+// site, mais aucun des deux n'est lisible : `apahotel.com` répond 403 à tout ce
+// qui n'est pas un navigateur ordinaire (Akamai, jusqu'à un vrai Chrome piloté),
+// et Route Inn ne publie pas de galerie de l'établissement sur sa fiche. La page
+// de réservation est donc la seule qui montre ces deux hôtels.
+//
+// Ce que ça implique, et qui vaut pour les deux sections qui suivent :
+// ▸ Le redimensionneur d'Agoda **ne recadre pas** : `?s=1024x` ne fixe que la
+//   largeur et garde le rapport de chaque photo — vérifié fichier par fichier,
+//   0 recadrée sur 35 et sur 24. C'est donc l'inverse du redimensionneur de
+//   l'annuaire de Kanazawa (`1024x768w`, plus haut), et le même comportement que
+//   `?width=` chez Toyoko Inn. On demande 1 024 px là où les originaux font
+//   1 280 à 2 048 px : 27 à 134 kB par vue au lieu de plusieurs centaines.
+// ▸ Le chemin porte l'identifiant de la propriété (`285940`, `13868604`) et ses
+//   paramètres d'origine (`va`, `ca`, `ce`), recopiés tels quels. Cet identifiant
+//   est ce qui garantit qu'on ne prend pas les photos d'un autre hôtel : la page
+//   sert aussi des carrousels de recommandations, sous d'autres identifiants.
+// ▸ La fiche ne légende aucune photo — pas de catégorie, pas de titre, seulement
+//   un ordre d'affichage. Comme pour Takayama et Kanazawa, le sujet est donc
+//   « établissement » partout et la fabrique n'a pas de paramètre `sujet`.
+// ▸ Les dimensions sont mesurées sur chaque fichier tel que le redimensionneur le
+//   rend (marqueur SOFn de l'en-tête JPEG) : 1 024 × 560 à 1 024 × 768, la hauteur
+//   change d'une photo à l'autre et ne se déduit pas.
+// ▸ `sourcePage` est l'URL de la fiche sans ses paramètres de suivi (`cid`, `ds`) :
+//   ils identifient l'affilié qui a amené le clic, pas la page.
+
+/** Largeur demandée au redimensionneur d'Agoda, pour les deux fiches. */
+const LARGEUR_AGODA = 1024
+
+/**
+ * Fabrique commune aux deux fiches : les mécaniques sont identiques, seuls le nom
+ * de l'établissement et la page changent.
+ */
+const agoda =
+  (author: string, sourcePage: string) =>
+  (
+    /**
+     * Chemin complet chez le serveur d'images, identifiant de propriété et
+     * paramètres compris, `s=` exclu : il est recopié de la page, jamais reconstruit.
+     */
+    chemin: string,
+    width: number,
+    height: number,
+  ): PhotoHebergement => ({
+    url: `https://pix8.agoda.net/${chemin}&s=${LARGEUR_AGODA}x`,
+    width,
+    height,
+    // L'empreinte du fichier : la seule partie du chemin qui identifie la photo —
+    // le dossier qui la précède change d'un envoi à l'autre pour un même fichier.
+    file: chemin.replace(/^.*\//, '').replace(/\?.*$/, ''),
+    author,
+    license: 'photo de l’établissement',
+    sourcePage,
+    sujet: 'établissement',
+  })
+
+// ─── Toyama · APA Hotel Toyama-Ekimae-Minami ────────────────────────────────
+//
+// L'adresse de la fiche garde l'ancien nom de l'hôtel (`apa-villa-hotel-toyama-
+// ekimae`) alors que son titre annonce « APA Hotel Toyama-Ekimae Minami » : c'est
+// la même bascule de nom que celle relevée dans OpenStreetMap et documentée à
+// l'étape de Toyama. Une confirmation de plus, arrivée par une autre source.
+const apaToyama = agoda(
+  'APA Hotel Toyama-Ekimae-Minami',
+  'https://www.agoda.com/fr-fr/apa-villa-hotel-toyama-ekimae/hotel/toyama-jp.html',
+)
+
+// ─── Shinano-Ōmachi · Hotel Route-Inn Shinano-Ōmachi Ekimae ─────────────────
+const routeInnOmachi = agoda(
+  'Hotel Route-Inn Shinano-Ōmachi Ekimae',
+  'https://www.agoda.com/fr-fr/hotel-route-inn-shinano-omachi-ekimae/hotel/omachi-jp.html',
+)
+
 /**
  * Les photos d'un hébergement, par `Accommodation.photosId`.
  *
@@ -294,6 +422,76 @@ export const PHOTOS_HEBERGEMENT: Record<string, PhotoHebergement[]> = {
     shirakawaGoInn('counter.png', 'établissement', 950, 584),
     shirakawaGoInn('ラウンジ①　2025.jpg', 'établissement', 2268, 1701),
     shirakawaGoInn('フロントデスクNEW.jpg', 'établissement', 2268, 1701),
+  ],
+
+  // Ordre des numéros de la source, qui est aussi celui de sa galerie : la façade
+  // et son enseigne d'abord, les chambres ensuite, les parties communes après.
+  'arigato-stay-kanazawa-katamachi': [
+    arigatoKatamachi('17230/1723037/1723037265/photo-arigato-stay-kanazawa-katamachi-kanazawa-1.JPEG', 1241, 1579),
+    arigatoKatamachi('17432/1743229/1743229590/photo-arigato-stay-kanazawa-katamachi-kanazawa-3.JPEG', 2000, 1335),
+    arigatoKatamachi('17432/1743229/1743229601/photo-arigato-stay-kanazawa-katamachi-kanazawa-5.JPEG', 2000, 1335),
+    arigatoKatamachi('17432/1743229/1743229540/photo-arigato-stay-kanazawa-katamachi-kanazawa-12.JPEG', 2000, 1125),
+    arigatoKatamachi('17230/1723037/1723037270/photo-arigato-stay-kanazawa-katamachi-kanazawa-19.JPEG', 1653, 1240),
+    arigatoKatamachi('17230/1723037/1723037273/photo-arigato-stay-kanazawa-katamachi-kanazawa-20.JPEG', 2000, 1500),
+    arigatoKatamachi('17341/1734120/1734120648/photo-arigato-stay-kanazawa-katamachi-kanazawa-30.JPEG', 2880, 1920),
+    arigatoKatamachi('18023/1802369/1802369305/photo-arigato-stay-kanazawa-katamachi-kanazawa-50.JPEG', 940, 705),
+    arigatoKatamachi('8294/829415/829415666/photo-arigato-stay-kanazawa-katamachi-kanazawa-60.JPEG', 1280, 900),
+  ],
+
+  // Treize photos retenues sur trente-cinq. L'ordre est choisi ici, et c'est le
+  // seul jeu du fichier dans ce cas : le relevé de la page est trié par empreinte
+  // de fichier, pas par ordre d'affichage, et cet ordre-là n'a pas été retrouvé.
+  // C'est donc celui des autres hébergements du carnet — façade, parties communes,
+  // chambres, salle de bain, petit-déjeuner.
+  //
+  // Les vingt-deux écartées ont été regardées une à une. Dix-neuf ne montrent ni le
+  // bâtiment, ni une partie commune, ni une chambre, mais des gros plans d'objets
+  // sans lieu autour : serviettes pliées (deux fois), plateau d'amenities (trois
+  // fois), sachets de café, bloc-notes, formulaires administratifs, boîte de
+  // mouchoirs, oreillers, cintres, poubelles de tri, flacons de shampoing,
+  // réfrigérateur ouvert, une main sur un interrupteur, une main qui insère une
+  // carte, et deux écrans de télévision — l'un sur les logos Netflix et YouTube,
+  // l'autre sur BBC News. Même règle que pour les panneaux d'horaires d'Asakusa :
+  // illisibles ou muets à cette taille. Les trois dernières sont des doublons de
+  // cadrage : deux chambres reprises sous un angle voisin, et la baignoire deux fois.
+  'apa-hotel-toyama-ekimae-minami': [
+    apaToyama('hotelImages/285940/0/eddf8817b133c562044c89e0d0f01986.jpg?va=1&ce=3', 1024, 768),
+    apaToyama('hotelImages/285940/-1/bc9d566191a57e237ea4d99031402721.jpg?va=1&ce=0', 1024, 768),
+    apaToyama('hotelImages/285940/3083153/a61789ac508718b8d8d654a9580b9e2b.jpg?va=1&ce=3', 1024, 768),
+    apaToyama('hotelImages/285940/3083153/626aad796f0802ff5484d4476291bf6a.jpg?va=1&ce=3', 1024, 768),
+    apaToyama('property/285940/1131120379/1142eea49c341dd450156b760d98c46c.jpeg?va=1&ce=2', 1024, 768),
+    apaToyama('property/285940/1131120377/be6cbcac48f731cc4a123f8bf33ef3f8.jpeg?va=1&ce=2', 1024, 768),
+    apaToyama('property/285940/1389603865/cff6a74900fbb9d4a816ad590bea04e8.jpeg?va=1&ce=3', 1024, 768),
+    apaToyama('property/285940/1389603850/518a6bcd6d0ab0fe8e3cc4d44a2264b1.jpeg?va=1&ce=3', 1024, 766),
+    apaToyama('property/285940/1389603847/35114eceb0370c48e4af474891c74f98.jpeg?va=1&ce=3', 1024, 560),
+    apaToyama('hotelImages/285940/-1/a0451739f9e55c55762d770a1ccc1906.jpg?va=1&ca=13&ce=1', 1024, 768),
+    apaToyama('property/285940/1389603865/06c7adc597a28603f52b301d0a582e46.jpeg?va=1&ce=3', 1024, 768),
+    apaToyama('property/285940/1389603847/0d2acd715f2bc0617b3cc395f7a344ed.jpeg?va=1&ce=3', 1024, 766),
+    apaToyama('property/285940/1389603847/d9a42fbafc0ae6307a95f22c6ac27871.jpeg?va=1&ce=3', 1024, 560),
+  ],
+
+  // Neuf photos retenues sur vingt-quatre, même ordre : la façade — la seule du
+  // carnet où l'on voit à la fois l'hôtel et les Alpes derrière —, le grand bain,
+  // les chambres, les deux salles de bain.
+  //
+  // Écartées, là aussi après les avoir regardées une à une : sept gros plans
+  // d'objets (sachets d'amenities, bouilloire, plateau de thé, réfrigérateur
+  // ouvert, yukata plié, écran de télévision sur le portail de la chaîne, et des
+  // flacons dont l'image porte le filigrane d'un autre agrégateur), l'entrée de la
+  // chambre vue de l'intérieur — une porte et une patère —, et sept chambres de
+  // plus, assez proches des retenues pour qu'on ne distingue plus une simple d'une
+  // simple. Aucune vue de la ville dans ce lot : rien à écarter de ce côté,
+  // contrairement à Kanazawa.
+  'hotel-route-inn-shinano-omachi-ekimae': [
+    routeInnOmachi('hotelImages/13868604/-1/627cf4e1a105e26d311ffc1788c98005.jpg?va=1&ce=0', 1024, 724),
+    routeInnOmachi('hotelImages/13868604/-1/f21642457ba604520a24cc311a0b47b5.jpg?va=1&ca=14&ce=1', 1024, 682),
+    routeInnOmachi('hotelImages/13868604/162044349/21f149e5dff63c7085be60d714e75f62.jpg?va=1&ce=3', 1024, 768),
+    routeInnOmachi('property/13868604/1248808072/0b6c0ce324e940d436204dace743b6af.jpeg?va=1&ce=3', 1024, 767),
+    routeInnOmachi('property/13868604/658581951/385f43597e803e1fb033adda5fe33cc4.jpeg?va=1&ce=0', 1024, 767),
+    routeInnOmachi('property/13868604/754645492/de159f66732ada7d00569084bff3d7af.jpeg?va=1&ce=3', 1024, 768),
+    routeInnOmachi('hotelImages/13868604/163537017/150d8f7419a720987f94e5c160a9d55b.jpg?va=1&ce=3', 1024, 768),
+    routeInnOmachi('property/13868604/658791208/d6c77004293d719a2777723b59d887c1.jpeg?va=1&ce=3', 1024, 767),
+    routeInnOmachi('hotelImages/13868604/-1/388fc713e146991b932a9c3b2b69d424.jpg?va=1&ca=11&ce=1', 1024, 768),
   ],
 }
 

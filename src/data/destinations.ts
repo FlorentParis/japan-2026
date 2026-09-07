@@ -810,12 +810,18 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     ],
     dates: sejour('11-14', '11-16'),
     nights: nuits(2),
-    // Réservation faite : il ne reste de cette étape que ce que la confirmation
-    // annonce — nom, adresse, horaires, prix. Les champs absents le sont parce
-    // qu'aucune source ne les donne encore, pas par oubli : ni téléphone, ni lien
-    // de réservation, ni photos publiées par l'établissement, et pas de
-    // coordonnées relevées — d'où l'absence de lien Maps et de point sur la carte
-    // tant que la position n'est pas vérifiée. Les inventer au numéro de rue
+    // Réservation faite, puis complétée par la fiche de l'établissement sur
+    // l'annuaire des hôteliers de Kanazawa (`kanazawahotels.net`), dont le bloc
+    // JSON-LD donne le téléphone, le code postal et l'heure limite d'arrivée — et
+    // recoupe au passage le nom et les deux horaires de la confirmation. Ses
+    // photos viennent de la même source, sous `arigato-stay-kanazawa-katamachi`
+    // dans `hebergements.ts`.
+    //
+    // Ce qui manque toujours : pas de lien de réservation, et surtout pas de
+    // coordonnées. La fiche en propose bien (36.559285, 136.652897), mais d'une
+    // seule source, et Nominatim place ce point à 175 m du centre de Katamachi
+    // sans confirmer le bâtiment — d'où l'absence de lien Maps et de point sur la
+    // carte tant que la position n'est pas vérifiée. Une coordonnée fausse
     // enverrait un taxi à côté.
     accommodation: {
       status: 'confirmed',
@@ -824,14 +830,17 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       address: '1-11-15-1 Katamachi, Kanazawa, Ishikawa, Japon',
       // Transposition du seul élément transposable sans source : Katamachi
       // s'écrit 片町, et le reste de l'adresse est une suite de numéros que
-      // l'ordre japonais laisse en place. Pas de 〒 : le code postal n'est pas
-      // sur la confirmation, et un code faux vaut moins que pas de code.
-      addressJa: '石川県金沢市片町1-11-15-1',
+      // l'ordre japonais laisse en place. Le 〒920-0981 vient du JSON-LD de la
+      // fiche, pas de la confirmation, qui ne porte pas de code postal.
+      addressJa: '〒920-0981 石川県金沢市片町1-11-15-1',
+      // `81762617701` sur la fiche, remis au format national comme les autres.
+      phone: '076-261-7701',
       checkIn: '15:00',
       checkOut: '10:00',
       nights: 2,
       price: { jpy: 24774, certainty: 'confirmed', scope: 'total' },
-      note: 'Réservé : 24 774 ¥ pour les deux nuits. Arrivée à partir de 15 h, départ avant 10 h. Restent à demander à l’établissement : le téléphone, et s’il accepte la valise envoyée de Takayama pour une livraison désignée au 14 — elle arrive avant l’heure d’arrivée.',
+      photosId: 'arigato-stay-kanazawa-katamachi',
+      note: 'Réservé : 24 774 ¥ pour les deux nuits. Arrivée de 15 h à 23 h 59, départ avant 10 h. L’établissement s’appelait « Hotel Trend Kanazawa Katamachi » (ホテルトレンド金沢片町) : c’est encore ce nom que rendent certaines recherches et l’adresse même de sa fiche. Reste à lui demander s’il accepte la valise envoyée de Takayama pour une livraison désignée au 14 — elle arrive avant l’heure d’arrivée.',
     },
     activities: [
       {
@@ -971,7 +980,42 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     ],
     dates: sejour('11-16', '11-17'),
     nights: nuits(1),
-    accommodation: { status: 'todo' },
+    // Réservation faite. La confirmation donne le nom, le prix, l'adresse en
+    // alphabet latin et les deux horaires ; le reste vient de la fiche officielle
+    // d'APA, qui recoupe exactement ces quatre éléments — « No. 177
+    // アパホテル〈富山駅前南〉, 〒930-0003 富山県富山市桜町1-5-20, 15:00/10:00 ».
+    //
+    // Cette fiche a demandé un détour : apahotel.com renvoie 403 à tout ce qui
+    // n'est pas un navigateur de passage, y compris à un vrai Chrome piloté depuis
+    // ici (blocage Akamai). Elle a donc été lue dans l'archive du Wayback Machine,
+    // qui la publie telle quelle. Si on doit y revenir, l'adresse vivante est
+    // `apahotel.com/hotel/hokuriku/toyama/toyama-ekimae-minami/`.
+    //
+    // Au passage, une confusion à ne pas refaire : OpenStreetMap nomme encore ce
+    // bâtiment « アパヴィラホテル富山駅前 » (APA Villa Hotel Toyama-Ekimae). Ce n'est
+    // pas un autre hôtel — APA l'a rebaptisé, et l'adresse est la même au numéro
+    // près. Il y a bien un second APA « 富山駅前 » tout court, mais à 明輪町88-2, de
+    // l'autre côté de la gare.
+    accommodation: {
+      status: 'confirmed',
+      name: 'APA Hotel Toyama-Ekimae-Minami',
+      nameJa: 'アパホテル〈富山駅前南〉',
+      area: 'Sakuramachi — au sud de la gare de Toyama',
+      address: '1-5-20 Sakuramachi, Toyama, Toyama, Japon',
+      addressJa: '〒930-0003 富山県富山市桜町1-5-20',
+      // Position du bâtiment dans OpenStreetMap, dont l'adresse relevée
+      // (富山県富山市桜町1丁目5-20) est celle de la fiche APA, chiffre pour chiffre :
+      // ce n'est donc pas un géocodage approché d'une rue, mais un bâtiment
+      // identifié par deux sources d'accord. Recoupement : 191 m de la gare
+      // Dentetsu-Toyama, ce que « 駅前南 » — au sud du parvis — décrit bien.
+      coord: [137.2136, 36.6990],
+      checkIn: '15:00',
+      checkOut: '10:00',
+      nights: 1,
+      price: { jpy: 7920, certainty: 'confirmed', scope: 'total' },
+      photosId: 'apa-hotel-toyama-ekimae-minami',
+      note: 'Réservé : 7 920 ¥ pour la nuit. Arrivée à partir de 15 h, départ avant 10 h. Pas de téléphone ici : la fiche APA lisible dans l’archive ne le porte pas, et le seul numéro trouvé — 076-431-3111, dans OpenStreetMap — y est attaché à l’ancien nom de l’établissement. À confirmer auprès de l’hôtel avant de compter dessus. C’est aussi depuis cette réception que partirait la valise le 17 au matin, si l’envoi vers Shinano-Ōmachi ou Nagano se fait d’ici — voir l’avertissement de la route alpine.',
+    },
     activities: [
       {
         id: 'toyama-kansui',
@@ -1054,7 +1098,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     ],
     specialitiesStatus: 'estimate',
     warnings: [
-      'Une seule nuit, et c’est la base de départ de la traversée du 17 : prévoir un hôtel près de la gare et vérifier le premier départ Dentetsu-Toyama → Tateyama.',
+      'Une seule nuit, et c’est la base de départ de la traversée du 17. L’hôtel est réservé, à 200 m de Dentetsu-Toyama : reste à vérifier le premier départ Dentetsu-Toyama → Tateyama, dont dépend toute la journée.',
     ],
     spots: [
       { name: 'Château de Toyama', coord: [137.2130, 36.6930], kind: 'culture' },
@@ -1187,10 +1231,39 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
       'Omachi onsen Nagano',
     ],
     dates: sejour('11-17', '11-18'),
-    nights: nuitsDeduites(1),
+    // Plus déduit : la réservation du 17 au 18 confirme que la nuit est bien ici.
+    nights: nuits(1),
+    // Réservation faite, et cette fois la source officielle est lisible sans
+    // détour : la fiche de la chaîne recoupe le nom, les deux horaires et
+    // l'adresse de la confirmation, et ajoute le 〒, le téléphone et l'accès.
+    //
+    // Elle tranche aussi la question que posait l'ancienne note de ce champ — la
+    // gare ou Ōmachi Onsen-kyō : c'est la gare, à 80 m selon la chaîne, et l'hôtel
+    // a son propre bain d'eau thermale. La comparaison n'a plus lieu d'être.
     accommodation: {
-      status: 'todo',
-      note: 'Ōmachi Onsen-kyō, station thermale située sur la ligne de bus Ōgizawa → Shinano-Ōmachi, est plus proche de la sortie de la route alpine que la gare : à comparer. Disponibilité mi-novembre à vérifier, la saison de ski n’est pas encore ouverte.',
+      status: 'confirmed',
+      name: 'Hotel Route-Inn Shinano-Ōmachi Ekimae',
+      nameJa: 'ホテルルートイン信濃大町駅前',
+      area: 'Face à la gare de Shinano-Ōmachi',
+      address: '3167-7 Ōmachi, Ōmachi, Nagano, Japon',
+      addressJa: '〒398-0002 長野県大町市大町3167-7',
+      // La chaîne publie deux numéros : 050-5576-7888, sa centrale de
+      // réservation, et 0261-21-1127, le poste de l'hôtel lui-même — donné comme
+      // recours si le 050 ne passe pas. C'est celui-là qui est gardé : ce champ
+      // sert à joindre cette réception-là, pas un standard national.
+      phone: '0261-21-1127',
+      // Bâtiment relevé dans OpenStreetMap, dont l'adresse et le fax
+      // (0261-21-1128) sont exactement ceux de la fiche de la chaîne. Recoupement
+      // de la position : 124 m de la gare de Shinano-Ōmachi, quand la fiche
+      // annonce 80 m — l'écart est celui d'un centre de bâtiment à un point de
+      // gare, pas celui d'une erreur d'adresse.
+      coord: [137.8602, 36.5000],
+      checkIn: '15:00',
+      checkOut: '10:00',
+      nights: 1,
+      price: { jpy: 12650, certainty: 'confirmed', scope: 'total' },
+      photosId: 'hotel-route-inn-shinano-omachi-ekimae',
+      note: 'Réservé : 12 650 ¥ pour la nuit. Arrivée à partir de 15 h, départ avant 10 h. L’hôtel a un grand bain d’eau thermale, le « 旅人の湯 », ouvert de 15 h à 2 h puis de 5 h à 10 h : c’est le bain du soir de la route alpine, sur place et sans détour. La chaîne annonce aussi un petit-déjeuner buffet gratuit et une laverie ; les horaires du petit-déjeuner ne sont pas sur la fiche, à demander à l’arrivée.',
     },
     activities: [
       {
@@ -1200,7 +1273,7 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
         description:
           'Petite station thermale sur la route de la sortie est de la route alpine, à l’entrée du parc national. Eau sulfatée, une dizaine d’auberges, plusieurs bains extérieurs face aux Alpes.',
         photoQuery: 'Omachi Onsen Nagano',
-        note: 'C’est l’activité qui va avec cette étape : arriver d’Ōgizawa en fin d’après-midi et se mettre dans un bain. Plusieurs auberges ouvrent leurs bains aux visiteurs de passage.',
+        note: 'C’est l’activité qui va avec cette étape : arriver d’Ōgizawa en fin d’après-midi et se mettre dans un bain. Plusieurs auberges ouvrent leurs bains aux visiteurs de passage. À mettre en balance avec le fait que l’hôtel réservé, à la gare, a lui aussi son bain d’eau thermale, ouvert jusqu’à 2 h : venir jusqu’ici est un choix, plus une nécessité.',
       },
       {
         id: 'omachi-alpine-museum',
@@ -1245,11 +1318,14 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     specialitiesStatus: 'estimate',
     warnings: [
       'Étape ajoutée pour couper la journée du 17 novembre : la traversée de la route alpine s’arrête à Ōgizawa, on descend à Shinano-Ōmachi et on rejoint Nagano le lendemain matin. Cela retire 1 h 50 de train et une correspondance à la journée la plus lourde du voyage, qui passe d’environ 9 h à 7 h porte à porte.',
-      'Ta table donne « 17–18 nov. Tateyama → Nagano, 1 nuit » : c’est cette nuit-là, ici plutôt qu’à Nagano. Le nombre de nuits du voyage est inchangé (29), et Nagano retrouve exactement les 2 nuits que ta table lui donne.',
+      'Ta table donne « 17–18 nov. Tateyama → Nagano, 1 nuit » : c’est cette nuit-là, ici plutôt qu’à Nagano. Le nombre de nuits du voyage est inchangé (29), et Nagano retrouve exactement les 2 nuits que ta table lui donne. L’hôtel réservé du 17 au 18 à Shinano-Ōmachi tranche la question : ce n’est plus une lecture de la table, c’est une réservation.',
       'Cette étape reste une coupure, pas une visite : les trois activités proposées ci-dessus tiennent en une soirée et une matinée, et sont à confirmer selon l’heure de sortie de la route alpine — qui n’est pas connue à ce jour.',
     ],
     spots: [
-      { name: 'Gare de Shinano-Ōmachi', coord: [137.8580, 36.5030], kind: 'quartier' },
+      // Position de la gare relevée dans OpenStreetMap. L'ancienne valeur reprenait
+      // le point de l'étape, à 390 m d'ici : avec l'hôtel désormais sur la carte,
+      // à 124 m du quai, l'écart se voyait.
+      { name: 'Gare de Shinano-Ōmachi', coord: [137.8616, 36.5001], kind: 'quartier' },
       { name: 'Lac Kizaki', coord: [137.8330, 36.5560], kind: 'nature' },
     ],
   },
