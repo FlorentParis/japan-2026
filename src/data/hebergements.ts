@@ -351,6 +351,131 @@ const routeInnOmachi = agoda(
   'https://www.agoda.com/fr-fr/hotel-route-inn-shinano-omachi-ekimae/hotel/omachi-jp.html',
 )
 
+// ─── Nagano · Chūōkan Shimizuya Ryokan ──────────────────────────────────────
+//
+// Deuxième jeu tiré d'une fiche Rakuten Travel, après Yutoria, et pour la même
+// raison : ce ryokan de la rue du Zenkō-ji n'a pas de site à lui. Les moteurs de
+// recherche sont tous bloqués depuis cette adresse, et sa seule page citable qui
+// publie des photos est sa fiche Rakuten (hôtel 136242). Comme pour Yutoria, les
+// URL liées sont les originaux de cette fiche — les mêmes que renvoie une
+// recherche d'images —, jamais la copie signée et périssable d'un agrégateur.
+//
+// Trois points à garder si on y revient :
+// ▸ La fiche ne légende aucune photo : le sujet est donc « établissement » pour
+//   les neuf, et la fabrique n'a pas de paramètre `sujet` — même règle que Yutoria
+//   et Kanazawa, deviner ce qu'on croit voir enfreindrait la règle 2.
+// ▸ Rakuten ne sert que les originaux (chemin `/origin/`), et ceux de ce ryokan
+//   sont petits — 300 × 225 à 950 × 500 px, mesurés un à un. C'est l'inverse de
+//   Yutoria, dont les originaux montaient à 6 024 px : ici il n'y a rien de plus
+//   grand à demander, la fiche ne publie pas mieux.
+// ▸ Neuf photos retenues sur quatorze. Les cinq écartées, regardées une à une : le
+//   logo en idéogrammes de l'auberge (deux fois, 211 × 70 et 199 × 70 px, ce n'est
+//   pas une photo), les lanternes de pierre d'un sanctuaire, le Zenkō-ji lui-même
+//   — déjà le spot de l'étape — et une vue de la rue du quartier : mêmes écarts
+//   qu'à Kanazawa et Asakusa, ces sujets-là sont couverts par la galerie Commons.
+//
+// À remplacer dès que l'auberge ouvre un site : la clé et le `photosId` sont en
+// place, seules les URL et les catégories changeraient.
+
+const SHIMIZUYA = 'https://travel.rakuten.co.jp/HOTEL/136242/136242.html'
+const SHIMIZUYA_PHOTOS = 'https://trvimg.r10s.jp/share/image_up/136242/origin/'
+
+const shimizuya = (
+  /** Nom du fichier chez Rakuten, empreinte comprise : c'est son seul identifiant. */
+  file: string,
+  width: number,
+  height: number,
+): PhotoHebergement => ({
+  url: `${SHIMIZUYA_PHOTOS}${file}`,
+  width,
+  height,
+  file,
+  author: 'Chūōkan Shimizuya Ryokan',
+  license: 'photo de l’établissement',
+  sourcePage: SHIMIZUYA,
+  // Comme pour Yutoria et Kanazawa : pas de paramètre `sujet`, la source n'en
+  // donne aucun.
+  sujet: 'établissement',
+})
+
+// ─── Kurashiki · Toyoko Inn Kurashiki-eki Minami-guchi ──────────────────────
+//
+// Deuxième hôtel de la chaîne Toyoko Inn du carnet, après Matsumoto, et même
+// mécanique : le site officiel range les photos par établissement (code 00035),
+// et c'est la page japonaise qui les catégorise en clair — « 外観 » (façade),
+// « シングル » (chambre simple), « フロント » (réception), « 朝食 » (petit-déjeuner) ;
+// la page anglaise ne traduit pas ces libellés. Le redimensionneur de la chaîne
+// ne recadre pas : `?width=1280` ne fixe que la largeur et garde le rapport.
+
+const TOYOKO_KURASHIKI = 'https://www.toyoko-inn.com/eng/search/detail/00035/'
+
+const toyokoKurashiki = (
+  /** Identifiant du fichier chez le redimensionneur de la chaîne. */
+  file: string,
+  sujet: SujetHebergement,
+  width: number,
+  height: number,
+): PhotoHebergement => ({
+  url: `https://toyoko-inn.imagewave.pictures/${file}?width=1280`,
+  width,
+  height,
+  file,
+  author: 'Toyoko Inn Kurashiki-eki Minami-guchi',
+  license: 'photo de l’établissement',
+  sourcePage: TOYOKO_KURASHIKI,
+  sujet,
+})
+
+// ─── Takamatsu · OKAERI Tsukijichō ──────────────────────────────────────────
+//
+// Le cas le plus difficile du carnet. Cet OKAERI est un logement tenu par un
+// hôte privé (une location d'appartement, pas un hôtel de chaîne) : il n'a pas
+// de site à lui, et comme tous les moteurs de recherche sont bloqués depuis
+// cette adresse, aucune source consultable ne le mentionnait — l'étape avait
+// donc d'abord été remplie sans photos. Sa seule page citable est celle de la
+// réservation, chez L-Tike (ローチケ旅行, l'agence de voyage de Lawson) : c'est
+// elle qui a fourni le lien, et c'est elle qui montre le logement.
+//
+// L-Tike revend en fait des fiches Booking.com : ses photos sont servies par le
+// CDN d'images de Booking (`bstatic.com`), et c'est de là qu'elles sont liées,
+// jamais recopiées. Points à garder si on y revient :
+// ▸ La fiche porte un seul identifiant Booking (44862711 côté L-Tike) et ne sert
+//   les photos que de ce logement ; les autres hôtels qu'elle affiche sont dans
+//   un carrousel de recommandations qui, lui, n'utilise pas ce CDN — aucune de
+//   leurs images ne se mêle donc à ce jeu. C'est ce qui garantit qu'on ne prend
+//   pas les photos d'un autre établissement.
+// ▸ La variante `max1024x768` du CDN **ne recadre pas** : elle inscrit la photo
+//   dans une boîte de 1 024 × 768 en gardant son rapport — d'où 1 024 × 768 pour
+//   les paysages et 576 × 768 pour les portraits, Booking normalisant ses envois
+//   au format 4:3. C'est l'inverse de la variante `840x460` que sert la page par
+//   défaut, qui, elle, recadre à ce rapport (même piège que le `1024x768w` de
+//   l'annuaire de Kanazawa).
+// ▸ Le jeton `?k=` est une empreinte du contenu, stable, pas une signature qui
+//   expire : l'URL reste valable dans le temps.
+// ▸ La fiche ne légende aucune photo, ne donne qu'un ordre d'affichage : le sujet
+//   est donc « établissement » partout et la fabrique n'a pas de paramètre
+//   `sujet` — même règle que pour les fiches Agoda et Rakuten ci-dessus.
+
+const OKAERI = 'https://tour.l-tike.com/hotels/domestic/hotel/44862711/'
+
+const okaeri = (
+  /** Identifiant Booking de la photo (le nombre du chemin `.../{id}.jpg`). */
+  id: string,
+  /** Jeton de contenu `?k=`, recopié de la page — jamais reconstruit. */
+  k: string,
+  width: number,
+  height: number,
+): PhotoHebergement => ({
+  url: `https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/${id}.jpg?k=${k}&o=`,
+  width,
+  height,
+  file: `${id}.jpg`,
+  author: 'OKAERI Tsukijichō',
+  license: 'photo de l’établissement',
+  sourcePage: OKAERI,
+  sujet: 'établissement',
+})
+
 /**
  * Les photos d'un hébergement, par `Accommodation.photosId`.
  *
@@ -492,6 +617,62 @@ export const PHOTOS_HEBERGEMENT: Record<string, PhotoHebergement[]> = {
     routeInnOmachi('hotelImages/13868604/163537017/150d8f7419a720987f94e5c160a9d55b.jpg?va=1&ce=3', 1024, 768),
     routeInnOmachi('property/13868604/658791208/d6c77004293d719a2777723b59d887c1.jpeg?va=1&ce=3', 1024, 767),
     routeInnOmachi('hotelImages/13868604/-1/388fc713e146991b932a9c3b2b69d424.jpg?va=1&ca=11&ce=1', 1024, 768),
+  ],
+
+  // Neuf photos retenues sur quatorze. L'ordre est choisi ici, comme pour Toyama :
+  // le relevé de la fiche est trié par empreinte, pas par ordre d'affichage. C'est
+  // donc l'ordre des autres hébergements du carnet — façade, parties communes,
+  // chambres, petit-déjeuner. Dimensions mesurées une à une (marqueur SOFn) : elles
+  // vont de 300 × 225 à 950 × 500 px, la fiche ne publie rien de plus grand.
+  'chuokan-shimizuya-ryokan': [
+    shimizuya('9915b15c3423a20bb499b20ae1f87c1a7143517f.47.9.26.3.jpg', 950, 500),
+    shimizuya('63a25e1b09105d7afdd6588540bf384529c75dcd.47.9.26.3.jpg', 950, 500),
+    shimizuya('55874cb9e4168b95676910d2d77f8281bd0dd92d.47.9.26.3.jpg', 950, 500),
+    shimizuya('80de7c330ac26de45f1ecca68c2c10c85cc7573a.47.9.26.3.jpg', 950, 500),
+    shimizuya('521eee285e1a4e7d9ef1254a085f68e848375cfc.47.9.26.3.jpg', 520, 360),
+    shimizuya('1de0bddc9c43b40b856ff89307411a58b2853033.47.9.26.3.jpg', 300, 225),
+    shimizuya('43351f23a436f1c5c69cac726a59b369c34ebaf9.47.9.26.3.jpg', 460, 360),
+    shimizuya('acd349796d514bacce6343528f7d3d7689568037.47.9.26.3.jpg', 460, 360),
+    shimizuya('febffd0503a759f5c1bcf88143e33a2ecb5d1e1d.47.9.26.3.jpg', 300, 225),
+  ],
+
+  // Ordre de la galerie de la chaîne : 外観, シングル, フロント, 朝食.
+  'toyoko-inn-kurashiki-eki-minami-guchi': [
+    toyokoKurashiki('EbobbydQo7ZQxAJKgTGCC5', 'établissement', 1280, 1919),
+    toyokoKurashiki('vMGch3k2HHNj2BhW4bfYkb', 'chambre', 1280, 720),
+    toyokoKurashiki('f7ecZe2GrvZEH5rh3nGVR9', 'établissement', 1280, 853),
+    // 朝食 : l'original ne fait que 640 px de large, le redimensionneur ne
+    // l'agrandit pas.
+    toyokoKurashiki('ZBHKE4oKSrLxY4QfdcRGph', 'établissement', 640, 480),
+  ],
+
+  // Douze photos retenues sur quatre-vingt-huit. L'ordre est choisi ici — la
+  // fiche ne donne qu'un défilé sans catégories —, c'est donc celui des autres
+  // hébergements du carnet : la façade, les parties communes, les chambres, puis
+  // la cuisine et la salle de bain. Toutes mesurées 1 024 × 768 (la boîte de la
+  // variante `max1024x768`, la photo au format 4:3 qui la remplit).
+  //
+  // Les soixante-seize écartées ont été regardées une à une sur une planche. Ce
+  // logement compte plusieurs unités quasi identiques : l'essentiel du lot est
+  // fait de reprises très proches d'une même chambre, d'une même kitchenette ou
+  // d'un même coin repas, sous un angle voisin — on garde un représentant de
+  // chaque, pas la série. Le reste est des gros plans d'objets sans lieu autour,
+  // même écart qu'à Toyama et Shinano-Ōmachi : plaque à induction, bouilloire,
+  // cuiseur à riz, flacons d'amenities, couverts, lave-linge, égouttoir, placards
+  // ouverts, chaussons, prises murales — muets à cette taille.
+  'okaeri-tsukijicho': [
+    okaeri('570778047', '97ee153f5e604aab9611a856d2e43befd873a092080c304ce137678b83e3ee03', 1024, 768),
+    okaeri('545134014', '133e5c6bea9a14bf724df32b183d78420e41f12bdc8d846b441adda78f4f55b2', 1024, 768),
+    okaeri('545141037', '59171bb8dfd71d0e7a47b6bc5adbe91448b282f0e16b16f7adf3a77bc5638ffc', 1024, 768),
+    okaeri('545136969', '8cb48a2c6c42b4ed5817457f7b4ab4430f7d8cca9f27830511199e5017ff9a15', 1024, 768),
+    okaeri('545141051', '248567f568631038a2524fd0e00c8d90ab334644fb40331d209e384ce0129ca0', 1024, 768),
+    okaeri('545141034', '1869d86d52f1c20affa5c9101594d9d265706573eb1321c76609599877dda60e', 1024, 768),
+    okaeri('545139149', 'c48b51c00dad8b78abfb5801b5c41db2be6540e1f5e839acffeda8cf0ee9fbd7', 1024, 768),
+    okaeri('545134037', '45472fd73278711ad42fded405da6d3295dbf2898e4c3e1d239078c3f1db43bd', 1024, 768),
+    okaeri('545136952', 'ad071dda816b352111d69e1e16b2f89620a4f5617b61957e1bf6da1d027aec13', 1024, 768),
+    okaeri('545141035', '5dd2632d8597ec115f5258a7ae8314ddfed26b53da547ce2948d8cfcf5dfa7f3', 1024, 768),
+    okaeri('545136964', 'e5ed54a28d02de9779b8c666f410ea1056e5692d4eba3aec6015e1fc4b214fe4', 1024, 768),
+    okaeri('545134026', '6d82c0389e45943714fd0a3bca39d82ab5cc15c3333936a0201fef8a430d8701', 1024, 768),
   ],
 }
 

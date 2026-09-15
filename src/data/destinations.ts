@@ -1349,7 +1349,30 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     ],
     dates: sejour('11-18', '11-20'),
     nights: nuits(2),
-    accommodation: { status: 'todo' },
+    accommodation: {
+      status: 'confirmed',
+      name: 'Chūōkan Shimizuya Ryokan',
+      nameJa: '中央館清水屋旅館',
+      area: 'Daimon-chō — sur l’allée du Zenkō-ji',
+      address: '49 Daimonchō, Nagano, Nagano, Japon',
+      addressJa: '〒380-0841 長野県長野市大門町49',
+      // Auberge sans site propre ni numéro publié — ni sa fiche Rakuten, ni
+      // OpenStreetMap ne portent de téléphone : le champ `phone` est donc absent
+      // plutôt qu'inventé, voir la note.
+      //
+      // Position relevée dans OpenStreetMap, où un nœud porte exactement le nom de
+      // l'auberge — « 中央館 清水屋旅館 », tourism=hotel — sur l'allée du grand
+      // temple (大門町), la rue que l'adresse 大門町49 désigne. Deux sources d'accord
+      // sur l'identité et la rue, comme pour Toyama et Shinano-Ōmachi ; c'est le
+      // même niveau de recoupement, la fiche Rakuten ne donnant que l'adresse.
+      coord: [138.1876, 36.6553],
+      checkIn: '15:00',
+      checkOut: '10:00',
+      nights: 2,
+      price: { jpy: 23100, certainty: 'confirmed', scope: 'total' },
+      photosId: 'chuokan-shimizuya-ryokan',
+      note: 'Réservé : 23 100 ¥ pour les deux nuits. Arrivée à partir de 15 h, départ avant 10 h. Ryokan sur l’allée qui monte au Zenkō-ji, à quelques minutes à pied du temple. Pas de numéro de téléphone ici : ni le site de réservation ni OpenStreetMap ne le publient — à demander à la réservation si besoin de joindre l’auberge. Sa fiche Rakuten Travel (hôtel 136242) la note 4,00 sur 5 pour 61 avis.',
+    },
     activities: [
       {
         id: 'nagano-zenkoji',
@@ -1466,7 +1489,27 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     ],
     dates: sejour('11-20', '11-21'),
     nights: nuits(1),
-    accommodation: { status: 'todo' },
+    accommodation: {
+      status: 'confirmed',
+      name: 'Toyoko Inn Kurashiki-eki Minami-guchi',
+      nameJa: '東横INN倉敷駅南口',
+      area: 'Face à la sortie sud de la gare de Kurashiki',
+      address: '2-10-20 Achi, Kurashiki, Okayama, Japon',
+      addressJa: '〒710-0055 岡山県倉敷市阿知2-10-20',
+      phone: '086-430-1045',
+      // Position relevée dans OpenStreetMap, où un nœud porte exactement le nom de
+      // l'hôtel — « 東横イン 倉敷駅南口 », tourism=hotel —, du côté sud de la gare
+      // que ce nom même désigne (« 南口 »). L'adresse et le numéro viennent de la
+      // fiche officielle de la chaîne (établissement 00035) : deux sources d'accord
+      // sur l'identité, comme pour Shinano-Ōmachi.
+      coord: [133.7682, 34.5993],
+      checkIn: '15:00',
+      checkOut: '10:00',
+      nights: 1,
+      price: { jpy: 7980, certainty: 'confirmed', scope: 'total' },
+      photosId: 'toyoko-inn-kurashiki-eki-minami-guchi',
+      note: 'Réservé : 7 980 ¥ pour la nuit. Arrivée à partir de 15 h, départ avant 10 h. À la sortie sud de la gare de Kurashiki, à une dizaine de minutes à pied du quartier Bikan. La chaîne offre un petit-déjeuner buffet gratuit, servi de 6 h 30 à 9 h.',
+    },
     activities: [
       {
         id: 'kurashiki-bikan',
@@ -1834,7 +1877,34 @@ const ETAPES: Array<Omit<Destination, 'order'>> = [
     ],
     dates: sejour('11-23', '11-25'),
     nights: nuitsDeduites(2),
-    accommodation: { status: 'todo' },
+    // Cet hébergement n'apparaît sur aucune source consultable d'ici — ni Rakuten
+    // Travel ni Jalan ne le listent, et les moteurs de recherche sont tous bloqués
+    // depuis cette adresse. Il avait donc d'abord été rempli sans `coord` ni
+    // `photosId`. Le lien de la réservation, fourni depuis, débloque les deux : la
+    // fiche est revendue par L-Tike (ローチケ旅行) à partir de Booking.com.
+    // ▸ `coord` : la carte de cette fiche donne la position du logement lui-même
+    //   (34.3416/134.0554), à ~340 m à l'ouest de la station de tram Imabashi —
+    //   les « 310 m » qu'annonce la fiche. C'est la première coordonnée du carnet
+    //   qui ne vient pas d'OpenStreetMap : OSM n'a aucun bâtiment à 築地町11-21 et
+    //   n'y géocode que le centre du quartier.
+    // ▸ `photosId` : les photos de la fiche, servies par le CDN de Booking — voir
+    //   la fabrique `okaeri` des hébergements.
+    accommodation: {
+      status: 'confirmed',
+      name: 'OKAERI Tsukijichō',
+      nameJa: 'OKAERI築地町',
+      area: 'Tsukiji-chō — côté port de Takamatsu',
+      address: '11-21 Tsukijichō, Takamatsu, Kagawa, Japon',
+      addressJa: '〒760-0061 香川県高松市築地町11-21',
+      coord: [134.0554, 34.3416],
+      checkIn: '15:00',
+      checkOut: '11:00',
+      nights: 2,
+      price: { jpy: 12636, certainty: 'confirmed', scope: 'total' },
+      bookingUrl: 'https://tour.l-tike.com/hotels/domestic/hotel/44862711/',
+      photosId: 'okaeri-tsukijicho',
+      note: 'Réservé : 12 636 ¥ pour les deux nuits. Arrivée à partir de 15 h, départ avant 11 h — une heure de plus que les autres hôtels du carnet. Un appartement d’une chambre tenu par un hôte privé (pas un hôtel de chaîne), à Tsukiji-chō, quartier posé entre le port et le centre, à cinq minutes à pied de la station de tram Imabashi. Aucun numéro de téléphone n’est publié.',
+    },
     activities: [
       {
         id: 'takamatsu-ritsurin',
