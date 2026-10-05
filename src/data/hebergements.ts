@@ -476,6 +476,122 @@ const okaeri = (
   sujet: 'établissement',
 })
 
+// ─── Les fiches Trip.com : Nagasaki et Tokyo ───────────────────────────────
+//
+// Quatrième et dernière source qui n'est pas un site d'établissement. Les deux
+// hôtels ont bien un site, mais aucun des deux n'est accessible : `apahotel.com`
+// bloque (Akamai), et `hotel-sui.com` ne référence que l'établissement de Kyoto.
+// La fiche Trip.com est la seule qui montre ces deux hôtels.
+//
+// Ce que ça implique, et qui vaut pour les deux sections qui suivent :
+// ▸ Le redimensionneur de Trip.com (suffixes `_Z_`, `_D_`, `_R_`) ne recadre pas
+//   au-delà de l'original : la variante sans suffixe rend le fichier tel quel.
+//   Ce sont donc les originaux qui sont liés.
+// ▸ La fiche ne légende aucune photo — pas de catégorie, pas de titre, seulement
+//   un ordre d'affichage. Le sujet est donc « établissement » partout et la
+//   fabrique n'a pas de paramètre `sujet`.
+// ▸ Les dimensions sont mesurées sur chaque fichier tel que le serveur le rend
+//   (marqueur SOFn de l'en-tête JPEG).
+
+/** Noms des hôtels Trip.com par identifiant de propriété. */
+const TRIPCOM_HOTELS: Record<number, { name: string; sourcePage: string }> = {
+  43889858: {
+    name: 'APA Hotel Nagasaki Dejima',
+    sourcePage: 'https://www.trip.com/hotels/nagasaki-hotel-detail-43889858/apa-hotel-nagasaki-dejima-station/',
+  },
+  19814769: {
+    name: 'Hotel SUI akasaka by ABEST',
+    sourcePage: 'https://www.trip.com/hotels/detail/?hotelId=19814769',
+  },
+}
+
+const tripcom = (
+  hotelId: number,
+  file: string,
+  width: number,
+  height: number,
+): PhotoHebergement => ({
+  url: `https://ak-d.tripcdn.com/images/${file}.jpg`,
+  width,
+  height,
+  file: `${file}.jpg`,
+  author: TRIPCOM_HOTELS[hotelId].name,
+  license: 'photo de l'établissement',
+  sourcePage: TRIPCOM_HOTELS[hotelId].sourcePage,
+  sujet: 'établissement',
+})
+
+// ─── Hiroshima · Noborichou 204 Freat Location ─────────────────────────────
+//
+// Location d'appartement listée sur Booking.com. Le logement n'a pas de site à
+// lui ; la fiche Booking est la seule page qui le montre, et Booking bloque le
+// fetch (WAF/JavaScript) : une seule photo a pu être extraite, celle que le
+// voyageur a fournie directement. Le jeton `?k=` est une empreinte du contenu,
+// stable, pas une signature qui expire.
+
+const NOBORICHOU =
+  'https://www.booking.com/hotel/jp/noborichou-204-great-location.html'
+
+const noborichou = (
+  id: string,
+  k: string,
+  width: number,
+  height: number,
+): PhotoHebergement => ({
+  url: `https://cf.bstatic.com/xdata/images/hotel/max1024x768/${id}.jpg?k=${k}&o=`,
+  width,
+  height,
+  file: `${id}.jpg`,
+  author: 'Noborichou 204 Freat Location',
+  license: 'photo de l'établissement',
+  sourcePage: NOBORICHOU,
+  sujet: 'établissement',
+})
+
+// ─── Matsuyama · Hotel Sambancho ───────────────────────────────────────────
+//
+// Deux sources, fournies par le voyageur : une photo de la fiche Agoda
+// (propriété 36984958) et trois de la fiche Booking.com. L'hôtel n'a pas de
+// site à lui, et les deux fiches bloquent le fetch (JavaScript) — les URL ont
+// été copiées à la main depuis le navigateur.
+//
+// La fiche Agoda ne légende pas la photo ; les fiches Booking non plus. Le
+// sujet est donc « établissement » partout. Dimensions mesurées sur chaque
+// fichier.
+
+const SAMBANCHO_AGODA =
+  'https://www.agoda.com/hotel-sanbancho/hotel/matsuyama-jp.html'
+const SAMBANCHO_BOOKING =
+  'https://www.booking.com/hotel/jp/sanbancho.html'
+
+// ─── Fukuoka · Fukuoka Guesthouse Camp ─────────────────────────────────────
+//
+// Site officiel du guesthouse (`fgh-camp.com`), écrit à la main : les images sont
+// rangées par page et par section. Le chemin du fichier (`top/…`, `stay/…`) sert
+// d'identifiant. Les dimensions sont mesurées sur chaque fichier (marqueur SOFn).
+//
+// La page d'accueil organise les photos en trois blocs — le carrousel d'entrée
+// (les trois `main_XX`), le concept, les chambres, le café et l'accès. Les
+// catégories viennent des titres de section de la page (« STAY », « CAFE »).
+
+const FGH_CAMP = 'https://fgh-camp.com/en/'
+
+const fghCamp = (
+  file: string,
+  sujet: SujetHebergement,
+  width: number,
+  height: number,
+): PhotoHebergement => ({
+  url: `https://fgh-camp.com/img/${file}`,
+  width,
+  height,
+  file,
+  author: 'Fukuoka Guesthouse Camp',
+  license: 'photo de l'établissement',
+  sourcePage: FGH_CAMP,
+  sujet,
+})
+
 /**
  * Les photos d'un hébergement, par `Accommodation.photosId`.
  *
@@ -673,6 +789,120 @@ export const PHOTOS_HEBERGEMENT: Record<string, PhotoHebergement[]> = {
     okaeri('545141035', '5dd2632d8597ec115f5258a7ae8314ddfed26b53da547ce2948d8cfcf5dfa7f3', 1024, 768),
     okaeri('545136964', 'e5ed54a28d02de9779b8c666f410ea1056e5692d4eba3aec6015e1fc4b214fe4', 1024, 768),
     okaeri('545134026', '6d82c0389e45943714fd0a3bca39d82ab5cc15c3333936a0201fef8a430d8701', 1024, 768),
+  ],
+
+  // Une seule photo récupérable : Booking bloque le fetch et chaque image demande
+  // son propre jeton `k=`, impossible à deviner pour les photos voisines.
+  'noborichou-204': [
+    noborichou('571142107', 'ccfbdb8ceb663d8591b08923894b195d57f14e61cd1d5cc340aca92fe46b56d3', 911, 683),
+  ],
+
+  'hotel-sambancho': [
+    {
+      url: 'https://pix8.agoda.net/property/36984958/0/7808ceb5fad91f27b8b211d269f2476a.jpeg?ce=2&s=1024x',
+      width: 1024,
+      height: 767,
+      file: '7808ceb5fad91f27b8b211d269f2476a.jpeg',
+      author: 'Hotel Sambancho',
+      license: 'photo de l’établissement',
+      sourcePage: SAMBANCHO_AGODA,
+      sujet: 'établissement',
+    },
+    {
+      url: 'https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/180817256.jpg?k=7b1b5f74976120804f177eaa9272e66c89f84195c9ec7e83255c876d09446e4b&o=&s=1024x',
+      width: 458,
+      height: 768,
+      file: '180817256.jpg',
+      author: 'Hotel Sambancho',
+      license: 'photo de l’établissement',
+      sourcePage: SAMBANCHO_BOOKING,
+      sujet: 'établissement',
+    },
+    {
+      url: 'https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/180818025.jpg?k=bbf07a0de074b2ef07b92748d8c8637eda7bec05763c7ccefa831b73ad9972b6&o=&s=1024x',
+      width: 536,
+      height: 768,
+      file: '180818025.jpg',
+      author: 'Hotel Sambancho',
+      license: 'photo de l’établissement',
+      sourcePage: SAMBANCHO_BOOKING,
+      sujet: 'établissement',
+    },
+    {
+      url: 'https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/193211820.jpg?k=ed12fdc5dfa57f70e8640f8a1b459790419f76a7b9cf2820fc0e89318d28c419&o=&s=1024x',
+      width: 1024,
+      height: 720,
+      file: '193211820.jpg',
+      author: 'Hotel Sambancho',
+      license: 'photo de l’établissement',
+      sourcePage: SAMBANCHO_BOOKING,
+      sujet: 'établissement',
+    },
+  ],
+
+  // Ordre de la page : le carrousel d'entrée, le concept, les chambres, le café.
+  'fukuoka-guesthouse-camp': [
+    fghCamp('top/main_01.jpg', 'établissement', 2880, 2048),
+    fghCamp('top/main_02.jpg', 'établissement', 2880, 2048),
+    fghCamp('top/main_03.jpg', 'établissement', 2880, 2048),
+    fghCamp('top/img_concept.jpg', 'établissement', 1366, 836),
+    fghCamp('stay/img_mix01.jpg', 'chambre', 960, 640),
+    fghCamp('stay/img_mix02.jpg', 'chambre', 960, 640),
+    fghCamp('stay/img_mix03.jpg', 'chambre', 960, 640),
+    fghCamp('stay/img_mix04.jpg', 'chambre', 960, 640),
+    fghCamp('top/img_cafe.jpg', 'établissement', 2323, 1060),
+    fghCamp('top/img_access.jpg', 'établissement', 951, 634),
+  ],
+
+  // ─── Nagasaki · APA Hotel Nagasaki Dejima ────────────────────────────────────
+  //
+  // Fiche Trip.com (hôtel 43889858), seule source citable qui publie les photos
+  // de cet établissement de manière accessible : le site officiel de la chaîne APA
+  // (`apahotel.com`) bloque toute requête qui n'est pas un navigateur ordinaire
+  // (Akamai), exactement comme pour l'APA de Toyama plus haut. Les URL liées sont
+  // les originaux de la fiche Trip.com, sans redimensionnement.
+  //
+  // La fiche ne légende aucune photo : le sujet est donc « établissement » pour
+  // toutes, et la fabrique n'a pas de paramètre `sujet` — même règle que Yutoria,
+  // Kanazawa et les fiches Agoda ci-dessus.
+  //
+  // Dimensions mesurées sur chaque fichier (marqueur SOFn de l'en-tête JPEG) :
+  // elles vont de 562 × 360 à 2 005 × 1 337 px, aucun format commun à déduire.
+  // Dix photos retenues sur trente-et-une. Les vingt-et-une écartées ont été
+  // regardées une à une : doublons de cadrage, gros plans d'objets sans lieu
+  // autour, et photos trop petites pour le carrousel.
+  'apa-hotel-nagasaki-dejima': [
+    tripcom(43889858, '1mc3512000k76nh1k2D97', 2005, 1337),
+    tripcom(43889858, '1mc1412000b4szn6q2772', 1684, 1123),
+    tripcom(43889858, '1mc5g12000b4sxl4lBDD2', 1684, 1123),
+    tripcom(43889858, '1mc5t12000b4sxpby06B0', 1684, 1123),
+    tripcom(43889858, '1mc6d12000b4sxnsjF0D1', 1684, 1123),
+    tripcom(43889858, '1mc6q12000b4sxphmC4A5', 1684, 1123),
+    tripcom(43889858, '0226d120009yxx8xmC58A', 1179, 786),
+    tripcom(43889858, '2007170000011ye19F6C1', 1200, 675),
+    tripcom(43889858, '200o170000011gjpo2CE8', 1200, 675),
+    tripcom(43889858, '0224f12000ac8wpixD43A', 1000, 667),
+  ],
+
+  // ─── Tokyo · Hotel SUI akasaka by ABEST ──────────────────────────────────────
+  //
+  // Fiche Trip.com (hôtel 19814769). L'hôtel a un site officiel (`hotel-sui.com`)
+  // mais il ne référence que l'établissement de Kyoto, pas celui d'Akasaka. Même
+  // mécanique que pour l'APA de Nagasaki ci-dessus : les photos viennent de la
+  // fiche Trip.com, seule source accessible.
+  //
+  // La fiche ne légende aucune photo : sujet « établissement » partout, même
+  // règle. Dimensions mesurées une à une. Neuf photos retenues sur dix-sept.
+  'hotel-sui-akasaka': [
+    tripcom(19814769, '0581h12000dsq149h4534', 1280, 640),
+    tripcom(19814769, '0202u1200087rzi079A9B', 764, 505),
+    tripcom(19814769, '0226g12000a37mzdm9BF8', 614, 409),
+    tripcom(19814769, '0581p12000db735kk81C6', 614, 460),
+    tripcom(19814769, '0227212000bozrodh9377', 614, 460),
+    tripcom(19814769, '0227412000bp0gwe78114', 614, 460),
+    tripcom(19814769, '0224n12000lwdebe29DB9', 640, 360),
+    tripcom(19814769, '220111000000qogb56BB5', 600, 399),
+    tripcom(19814769, '220b11000000qdwyl13E7', 600, 399),
   ],
 }
 

@@ -1684,6 +1684,7 @@ const ETAPES: Array<Omit<Destination, "order">> = [
         certainty: "confirmed",
         scope: "total",
       },
+      photosId: 'noborichou-204',
     },
     activities: [
       {
@@ -2108,6 +2109,7 @@ const ETAPES: Array<Omit<Destination, "order">> = [
         certainty: "confirmed",
         scope: "total",
       },
+      photosId: 'hotel-sambancho',
     },
     activities: [
       {
@@ -2248,6 +2250,7 @@ const ETAPES: Array<Omit<Destination, "order">> = [
         certainty: "confirmed",
         scope: "total",
       },
+      photosId: 'fukuoka-guesthouse-camp',
     },
     activities: [
       {
@@ -2395,6 +2398,7 @@ const ETAPES: Array<Omit<Destination, "order">> = [
         certainty: "confirmed",
         scope: "total",
       },
+      photosId: 'apa-hotel-nagasaki-dejima',
     },
     activities: [
       {
@@ -2558,6 +2562,7 @@ const ETAPES: Array<Omit<Destination, "order">> = [
         scope: "total",
       },
       note: "Le vol de 8 h 40 impose de quitter la ville vers 6 h. Deux pistes : dormir près de Hamamatsuchō ou de Shinagawa, d’où partent le monorail et la ligne Keikyū pour Haneda ; ou passer la dernière nuit dans un hôtel de l’aéroport. La deuxième coûte une soirée à Tokyo, la première une heure de sommeil.",
+      photosId: ‘hotel-sui-akasaka’,
     },
     // Second séjour, là encore : Rikugi-en, Ueno, Yanaka, le Skytree et Marunouchi
     // ont été faits au voyage précédent, Toyosu a été écarté par le voyageur. Ce qui
