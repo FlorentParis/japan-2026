@@ -32,17 +32,17 @@
  */
 
 /** Empreinte du lot de fichiers de ce build. Change → l'ancien cache est purgé. */
-const VERSION = '48e12fb917ce'
+const VERSION = 'e2f3fd60dfd8'
 
 /** Le site complet, tel que le build vient de l'émettre. */
 const COQUILLE = [
   "./apple-touch-icon.png",
   "./assets/CarteView-B2k4QVOw.css",
-  "./assets/CarteView-OIAsxk7o.js",
-  "./assets/PhotosView-BDIqlaWd.js",
+  "./assets/CarteView-BbLVM8Zn.js",
+  "./assets/PhotosView-D_phpfcS.js",
   "./assets/galleries.generated-DsWbZiIW.js",
   "./assets/index-B4XfX74r.css",
-  "./assets/index-BcE02Shh.js",
+  "./assets/index-CSqUvl7A.js",
   "./assets/rolldown-runtime-hePW80VL.js",
   "./favicon.svg",
   "./icone-192.png",
