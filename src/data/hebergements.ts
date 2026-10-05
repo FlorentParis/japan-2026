@@ -516,7 +516,7 @@ const tripcom = (
   height,
   file: `${file}.jpg`,
   author: TRIPCOM_HOTELS[hotelId].name,
-  license: 'photo de l'établissement',
+  license: 'photo de l’établissement',
   sourcePage: TRIPCOM_HOTELS[hotelId].sourcePage,
   sujet: 'établissement',
 })
@@ -543,7 +543,7 @@ const noborichou = (
   height,
   file: `${id}.jpg`,
   author: 'Noborichou 204 Freat Location',
-  license: 'photo de l'établissement',
+  license: 'photo de l’établissement',
   sourcePage: NOBORICHOU,
   sujet: 'établissement',
 })
@@ -587,7 +587,7 @@ const fghCamp = (
   height,
   file,
   author: 'Fukuoka Guesthouse Camp',
-  license: 'photo de l'établissement',
+  license: 'photo de l’établissement',
   sourcePage: FGH_CAMP,
   sujet,
 })

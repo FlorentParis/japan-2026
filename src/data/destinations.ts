@@ -2562,7 +2562,7 @@ const ETAPES: Array<Omit<Destination, "order">> = [
         scope: "total",
       },
       note: "Le vol de 8 h 40 impose de quitter la ville vers 6 h. Deux pistes : dormir près de Hamamatsuchō ou de Shinagawa, d’où partent le monorail et la ligne Keikyū pour Haneda ; ou passer la dernière nuit dans un hôtel de l’aéroport. La deuxième coûte une soirée à Tokyo, la première une heure de sommeil.",
-      photosId: ‘hotel-sui-akasaka’,
+      photosId: 'hotel-sui-akasaka',
     },
     // Second séjour, là encore : Rikugi-en, Ueno, Yanaka, le Skytree et Marunouchi
     // ont été faits au voyage précédent, Toyosu a été écarté par le voyageur. Ce qui
